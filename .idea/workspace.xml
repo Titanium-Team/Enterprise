@@ -78,8 +78,8 @@
       <file leaf-file-name="Enterprise.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/de/titanium/enterprise/Enterprise.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6254125">
-              <caret line="118" column="13" selection-start-line="118" selection-start-column="13" selection-end-line="118" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.3729373">
+              <caret line="112" column="0" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3531#3532#0" expanded="true" />
@@ -776,12 +776,12 @@
       <workItem from="1457588808055" duration="418000" />
       <workItem from="1457623269128" duration="3230000" />
       <workItem from="1457716506904" duration="14783000" />
-      <workItem from="1457773547199" duration="7323000" />
+      <workItem from="1457773547199" duration="7630000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46355000" />
+    <option name="totallyTimeSpent" value="46662000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="62" width="1936" height="1066" extended-state="6" />
@@ -1281,8 +1281,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/de/titanium/enterprise/Enterprise.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6254125">
-          <caret line="118" column="13" selection-start-line="118" selection-start-column="13" selection-end-line="118" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.3729373">
+          <caret line="112" column="0" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3531#3532#0" expanded="true" />
