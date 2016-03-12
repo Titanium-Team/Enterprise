@@ -3,16 +3,15 @@ package de.titanium.enterprise.Entity.Entities;
 import de.titanium.enterprise.Entity.EntityType.EntityTypes;
 import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.KeyCombo.ComboResult;
-import de.titanium.enterprise.Turn;
 
 import java.util.UUID;
 
 /**
  * Created by Yonas on 09.03.2016.
  */
-public class Engineer extends LivingEntity {
+public class Rogue extends LivingEntity {
 
-    public Engineer(UUID identifier, String name, double health, double maxHealth, double skill, double attackValue) {
+    public Rogue(UUID identifier, String name, double health, double maxHealth, double skill, double attackValue) {
         super(identifier, EntityTypes.CLOSE, name, health, maxHealth, skill, attackValue);
     }
 
