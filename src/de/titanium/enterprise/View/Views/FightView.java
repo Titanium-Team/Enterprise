@@ -13,9 +13,9 @@ public class FightView extends View {
     public FightView(MenuView viewMenu) {
         super(viewMenu);
 
-        this.setMaximumSize(new Dimension(1080, 120));
-        this.setMinimumSize(new Dimension(1080, 120));
-        this.setPreferredSize(new Dimension(1080, 120));
+        this.setMaximumSize(new Dimension(1080, 600));
+        this.setMinimumSize(new Dimension(1080, 600));
+        this.setPreferredSize(new Dimension(1080, 600));
     }
 
     @Override
@@ -24,7 +24,15 @@ public class FightView extends View {
     }
 
     @Override
-    public void render() {
+    public void paintComponent(Graphics graphics) {
+
+        super.paintComponent(graphics);
+        graphics.setColor(Color.RED);
+        graphics.fillRect(0, 0, 1080, 600);
 
     }
+
+    @Override
+    public void render() {}
+
 }

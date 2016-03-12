@@ -9,6 +9,6 @@ public enum SkillTypes {
     HEALTH_VALUE,
     ATTACK_EFFICIENCY,
     DEFENSE_EFFICIENCY,
-    NEUTRAL;
+    NEUTRAL
 
 }

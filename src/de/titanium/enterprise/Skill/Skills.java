@@ -1,6 +1,5 @@
 package de.titanium.enterprise.Skill;
 
-import de.titanium.enterprise.Entity.Entity;
 import de.titanium.enterprise.Entity.LivingEntity;
 
 import java.util.ArrayList;

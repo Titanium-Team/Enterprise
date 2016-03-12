@@ -6,7 +6,6 @@ import de.titanium.enterprise.KeyCombo.ComboResult;
 import de.titanium.enterprise.Skill.Skill;
 import de.titanium.enterprise.Skill.SkillTypes;
 import de.titanium.enterprise.Skill.Skills;
-import de.titanium.enterprise.Turn;
 
 import java.util.UUID;
 
