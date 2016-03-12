@@ -39,7 +39,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
     @Override
     public void update(double deltaTime, int tick) {
-        this.x += (deltaTime / 20);
+        this.x += deltaTime;
     }
 
     @Override
