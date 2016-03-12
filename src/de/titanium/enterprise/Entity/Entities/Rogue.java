@@ -10,9 +10,9 @@ import java.util.UUID;
 /**
  * Created by Yonas on 09.03.2016.
  */
-public class Engineer extends LivingEntity {
+public class Rogue extends LivingEntity {
 
-    public Engineer(UUID identifier, String name, double health, double maxHealth, double skill, double attackValue) {
+    public Rogue(UUID identifier, String name, double health, double maxHealth, double skill, double attackValue) {
         super(identifier, EntityTypes.CLOSE, name, health, maxHealth, skill, attackValue);
     }
 
@@ -25,7 +25,7 @@ public class Engineer extends LivingEntity {
     }
     @Override
     public void update(double deltaTime, int tick) {
-        System.out.println("ENGINEER: " + tick);
+        
     }
 
     @Override
