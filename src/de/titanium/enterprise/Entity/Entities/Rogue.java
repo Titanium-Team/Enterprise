@@ -25,7 +25,7 @@ public class Rogue extends LivingEntity {
     }
     @Override
     public void update(double deltaTime, int tick) {
-        
+
     }
 
     @Override

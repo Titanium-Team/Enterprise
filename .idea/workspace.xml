@@ -90,8 +90,8 @@
       <file leaf-file-name="Rogue.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/de/titanium/enterprise/Entity/Entities/Rogue.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41694537">
-              <caret line="27" column="8" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.49275362">
+              <caret line="31" column="26" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -734,12 +734,12 @@
       <workItem from="1457716506904" duration="14783000" />
       <workItem from="1457773547199" duration="8952000" />
       <workItem from="1457796052046" duration="5526000" />
-      <workItem from="1457809193960" duration="1150000" />
+      <workItem from="1457809193960" duration="1961000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54660000" />
+    <option name="totallyTimeSpent" value="55471000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1205,8 +1205,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/de/titanium/enterprise/Entity/Entities/Rogue.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41694537">
-          <caret line="27" column="8" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
+        <state vertical-scroll-proportion="0.49275362">
+          <caret line="31" column="26" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
           <folding />
         </state>
       </provider>
