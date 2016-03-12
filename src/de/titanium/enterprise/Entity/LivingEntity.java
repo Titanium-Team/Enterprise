@@ -3,7 +3,6 @@ package de.titanium.enterprise.Entity;
 import de.titanium.enterprise.Entity.EntityType.EntityType;
 import de.titanium.enterprise.KeyCombo.ComboResult;
 import de.titanium.enterprise.Skill.Skill;
-import de.titanium.enterprise.Turn;
 
 import java.util.ArrayList;
 import java.util.List;

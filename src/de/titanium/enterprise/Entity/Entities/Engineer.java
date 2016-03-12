@@ -25,7 +25,7 @@ public class Engineer extends LivingEntity {
     }
     @Override
     public void update(double deltaTime, int tick) {
-        System.out.println("ENGINEER: " + tick);
+
     }
 
     @Override
