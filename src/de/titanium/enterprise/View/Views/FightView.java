@@ -28,7 +28,7 @@ public class FightView extends View {
 
         super.paintComponent(graphics);
         graphics.setColor(Color.RED);
-        graphics.fillRect(0, 0, 1080, 600);
+        graphics.fillRect(0,0,1080,600);
 
     }
 

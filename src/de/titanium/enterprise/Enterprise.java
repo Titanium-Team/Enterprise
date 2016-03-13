@@ -2,7 +2,7 @@ package de.titanium.enterprise;
 
 import de.titanium.enterprise.View.GameView;
 import de.titanium.enterprise.View.ViewManager;
-import de.titanium.enterprise.View.Views.FightMenu;
+import de.titanium.enterprise.View.DefenseGame.DefenseMenu;
 import de.titanium.enterprise.View.Views.FightView;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class Enterprise {
 
         Enterprise.game = this;
 
-        viewManager.register(new FightView(new FightMenu()));
+        viewManager.register(new FightView(new DefenseMenu()));
         viewManager.switchTo(FightView.class);
 
         this.start();
@@ -64,7 +64,7 @@ public class Enterprise {
     public void start() {
 
         double lastTime = System.currentTimeMillis();
-        int MAX_TICKS = 20;
+        int MAX_TICKS = 50;
         int CURRENT_TICK = 0;
 
         long a = System.currentTimeMillis();
@@ -74,27 +74,24 @@ public class Enterprise {
             double currentTime = System.currentTimeMillis();
             double deltaTime = currentTime - lastTime;
 
-            int loops = Math.round((int)(deltaTime == 0 ? 1 : deltaTime) / (1000 / MAX_TICKS));
+            Iterator<GameComponent> updateComponents = this.gameComponents.iterator();
+            while (updateComponents.hasNext()) {
 
-            for(int i = 0; i < loops; i++) {
-                Iterator<GameComponent> updateComponents = this.gameComponents.iterator();
-                while (updateComponents.hasNext()) {
+                GameComponent component = updateComponents.next();
 
-                    GameComponent component = updateComponents.next();
-
-                    if (component.isActive()) {
-                        component.update((deltaTime < 1 ? 1 : deltaTime), CURRENT_TICK);
-                    }
-
+                if (component.isActive()) {
+                    component.update((deltaTime < 1 ? 1 : deltaTime), CURRENT_TICK);
                 }
 
-                CURRENT_TICK++;
-                if(CURRENT_TICK > 20) {
-                    System.out.println("TIME PASSED: " + (System.currentTimeMillis() - a));
-                    a = System.currentTimeMillis();
-                    CURRENT_TICK = 0;
-                }
             }
+
+            CURRENT_TICK++;
+            if(CURRENT_TICK >= MAX_TICKS) {
+                System.out.println("TIME PASSED: " + (System.currentTimeMillis() - a));
+                a = System.currentTimeMillis();
+                CURRENT_TICK = 0;
+            }
+
 
             Iterator<GameComponent> renderComponents = this.gameComponents.iterator();
             while(renderComponents.hasNext()) {
@@ -106,7 +103,6 @@ public class Enterprise {
                 }
 
             }
-
 
             try {
                 long sleep = (long) (1000 / MAX_TICKS - (currentTime - System.currentTimeMillis()));
