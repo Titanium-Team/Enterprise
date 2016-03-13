@@ -17,18 +17,17 @@ import java.util.concurrent.SynchronousQueue;
  */
 public class DefenseMenu extends MenuView implements GameComponent {
 
-    private final Random random = new Random();
     private Queue<Rectangle[]> rectangles = new LinkedTransferQueue<>();
 
-    private int space = 50;
+    private int space = 40;
     private int tick = 0;
 
     public DefenseMenu() {
         Enterprise.getGame().addComponent(this);
         this.keyListener();
 
-        for(int i = 0; i < 6; i++) {
-            this.rectangles.add(DefenseModules.LINE.getRectangles(1080 + i * 200, this.space, 50));
+        for(int i = 0; i < 7; i++) {
+            this.rectangles.add(DefenseModules.LINE.getRectangles(1080 + i * 200, this.space, 20));
         }
     }
 
@@ -77,12 +76,12 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
             Rectangle[] rectangles = iterator.next();
 
-            if(rectangles[rectangles.length-1].x + + rectangles[rectangles.length-1].getWidth() < 0) {
+            if(rectangles[rectangles.length-1].x + rectangles[rectangles.length-1].getWidth() < 0) {
                 iterator.remove();
-                tmp.add(DefenseModules.LINE.getRectangles(1080, this.space, 50));
+                tmp.add(DefenseModules.STAIR.getRectangles(1080, this.space, (int) rectangles[rectangles.length - 2].getHeight()));
             } else {
                 for (Rectangle rectangle : rectangles) {
-                    rectangle.x -= deltaTime / 10;
+                    rectangle.x -= 5;
                 }
             }
 
