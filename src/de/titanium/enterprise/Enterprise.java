@@ -25,8 +25,8 @@ public class Enterprise {
 
         Enterprise.game = this;
 
-        viewManager.register(new FightView(new DefenseMenu()));
-        viewManager.switchTo(FightView.class);
+        this.viewManager.register(new FightView(new DefenseMenu()));
+        this.viewManager.switchTo(FightView.class);
 
         this.start();
 

@@ -17,7 +17,7 @@ import java.util.concurrent.SynchronousQueue;
  */
 public class DefenseMenu extends MenuView implements GameComponent {
 
-    private Queue<Rectangle[]> rectangles = new LinkedTransferQueue<>();
+    private List<Rectangle[]> rectangles = new ArrayList<>();
 
     private int space = 50;
     private int tick = 0;
@@ -27,7 +27,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
         this.keyListener();
 
         for(int i = 0; i < 5; i++) {
-            this.rectangles.add(DefenseModules.LINE.getRectangles(1080 + i * 270, this.space, 80));
+            this.rectangles.add(DefenseModules.LINE.getRectangles(1080 + i * 270, this.space, 70));
         }
     }
 
@@ -69,21 +69,24 @@ public class DefenseMenu extends MenuView implements GameComponent {
         }
 
         //Updaten aller Module
-        Iterator<Rectangle[]> iterator = this.rectangles.iterator();
+        Iterator<Rectangle[]> rectangles = this.rectangles.iterator();
         Queue<Rectangle[]> tmp = new LinkedTransferQueue<>();
 
-        while (iterator.hasNext()) {
+        while (rectangles.hasNext()) {
 
-            Rectangle[] rectangles = iterator.next();
+            Rectangle[] rec = rectangles.next();
 
-            if(rectangles[rectangles.length-1].x + rectangles[rectangles.length-1].getWidth() < 0) {
-                iterator.remove();
-                tmp.add(DefenseModules.STAIR.getRectangles(1070, this.space,(int) rectangles[rectangles.length - 2].getHeight()));
-                System.out.println("Unten: " + rectangles[rectangles.length -1].getHeight());
-                System.out.println("Oben: " +  rectangles[rectangles.length -2].getHeight());
+            //Falls das letzte Elemente sich nicht mehr im Screen befindet wird es entfernt und ein neues wird hinzugefügt.
+
+            int x = (int) Math.ceil((deltaTime / 5) * 2) + 1;
+             if(rec[rec.length-1].x + rec[rec.length-1].getWidth() < 0) {
+                rectangles.remove();
+
+                Rectangle[] last = this.rectangles.get(this.rectangles.size() - 1);
+                tmp.add(DefenseModules.STAIR.getRectangles(1080 - x, this.space, (int) last[last.length - 2].getHeight()));
             } else {
-                for (Rectangle rectangle : rectangles) {
-                    rectangle.x -= 5;
+                for (Rectangle rectangle : rec) {
+                    rectangle.x -= x;
                 }
             }
 
