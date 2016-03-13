@@ -26,8 +26,8 @@ public class DefenseMenu extends MenuView implements GameComponent {
         Enterprise.getGame().addComponent(this);
         this.keyListener();
 
-        for(int i = 0; i < 7; i++) {
-            this.rectangles.add(DefenseModules.LINE.getRectangles(1080 + i * 200, this.space, 20));
+        for(int i = 0; i < 4; i++) {
+            this.rectangles.add(DefenseModules.LINE.getRectangles(1080 + i * 270, this.space, 20));
         }
     }
 
@@ -76,10 +76,11 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
             Rectangle[] rectangles = iterator.next();
 
+            //Falls das letzte Elemente sich nicht mehr im Screen befindet wird es entfernt und ein neues wird hinzugefügt.
             if(rectangles[rectangles.length-1].x + rectangles[rectangles.length-1].getWidth() < 0) {
-                iterator.remove();
                 tmp.add(DefenseModules.STAIR.getRectangles(1080, this.space, (int) rectangles[rectangles.length - 2].getHeight()));
-            } else {
+                iterator.remove();
+            } else { //Es befindet sich noch im Screen, die Position wird geupdated.
                 for (Rectangle rectangle : rectangles) {
                     rectangle.x -= 5;
                 }

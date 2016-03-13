@@ -28,11 +28,11 @@ public enum DefenseModules implements DefenseModule {
 
             Random random = new Random();
             Rectangle[] rectangles = new Rectangle[24];
-            
+
             int deltaY = -height + random.nextInt(120 - (space + height) + height );
             deltaY = (deltaY < 10 && deltaY > -10 ? 10 : deltaY);
 
-            rectangles[0] = new Rectangle(x,0,50,height);
+            rectangles[0] = new Rectangle(x, 0, 50, height);
             rectangles[1] = new Rectangle(x, height + space, 50, 120 - (space + height));
             rectangles[22] = new Rectangle(x+150, 0, 50, height + deltaY);
             rectangles[23] = new Rectangle(x+150, (height + deltaY) + space, 50, (120 - (space + height)) + deltaY);
