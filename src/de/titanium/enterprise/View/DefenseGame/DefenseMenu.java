@@ -17,6 +17,7 @@ import java.util.concurrent.SynchronousQueue;
  */
 public class DefenseMenu extends MenuView implements GameComponent {
 
+    private final Random random = new Random();
     private List<Rectangle[]> rectangles = new ArrayList<>();
 
     private int space = 40;
@@ -44,9 +45,11 @@ public class DefenseMenu extends MenuView implements GameComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g.setColor(Color.BLACK);
-        for(Rectangle[] set : this.rectangles) {
-            for(Rectangle rectangle : set) {
+        g.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+
+        Iterator<Rectangle[]> iterator = this.rectangles.iterator();
+        while (iterator.hasNext()) {
+            for(Rectangle rectangle : iterator.next()) {
                 g.fillRect(
                         (int) rectangle.getX(),
                         (int) rectangle.getY(),
@@ -65,7 +68,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
         //Alle 5 Sekunden wird der Abstand zwischen den Beiden Modulen um 1 verringert.
         if(this.tick % 100 == 0) {
-            //this.space--;
+            this.space--;
         }
 
         //Updaten aller Module
@@ -78,15 +81,15 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
             //Falls das letzte Elemente sich nicht mehr im Screen befindet wird es entfernt und ein neues wird hinzugefügt.
 
-            int x = (int) Math.ceil((deltaTime / 5) * 2) + 1;
+            int x = 10;
              if(rec[rec.length-1].x + rec[rec.length-1].getWidth() < 0) {
                 rectangles.remove();
 
                 Rectangle[] last = this.rectangles.get(this.rectangles.size() - 1);
-                tmp.add(DefenseModules.STAIR.getRectangles(1080 - x, this.space, (int) last[last.length - 2].getHeight()));
+                tmp.add(DefenseModules.values()[this.random.nextInt(DefenseModules.values().length)].getRectangles(1080 - x, this.space, (int) last[last.length - 2].getHeight()));
             } else {
                 for (Rectangle rectangle : rec) {
-                    rectangle.x -= x;
+                    rectangle.x -= x / 2;
                 }
             }
 
