@@ -57,7 +57,7 @@ public class Enterprise {
     /**
      * Diese Methode startet den Game-Loop.
      *
-     * Der Loop ist aktuell auf 20 Ticks/Sekunde festgesetzt, es sollten also immer 20 Ticks ausgeführt werden.
+     * Der Loop ist aktuell auf 50 Ticks/Sekunde festgesetzt, es sollten also immer 20 Ticks ausgeführt werden.
      * Falls es zu einer Verzögerung im Code kommt, werden die verpassten Ticks nachgeholt, um den Rhytmus aufrechtzuerhalten.
      *
      */

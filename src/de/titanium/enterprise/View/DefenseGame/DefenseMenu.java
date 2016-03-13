@@ -26,8 +26,8 @@ public class DefenseMenu extends MenuView implements GameComponent {
         Enterprise.getGame().addComponent(this);
         this.keyListener();
 
-        for(int i = 0; i < 7; i++) {
-            this.rectangles.add(DefenseModules.LINE.getRectangles(1080 + i * 200, this.space, 20));
+        for(int i = 0; i < 5; i++) {
+            this.rectangles.add(DefenseModules.LINE.getRectangles(1080 + i * 270, this.space, 20));
         }
     }
 
@@ -78,7 +78,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
             if(rectangles[rectangles.length-1].x + rectangles[rectangles.length-1].getWidth() < 0) {
                 iterator.remove();
-                tmp.add(DefenseModules.STAIR.getRectangles(1080, this.space, (int) rectangles[rectangles.length - 2].getHeight()));
+                tmp.add(DefenseModules.STAIR.getRectangles(1070, this.space, (int) rectangles[rectangles.length - 2].getHeight()));
             } else {
                 for (Rectangle rectangle : rectangles) {
                     rectangle.x -= 5;

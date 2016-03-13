@@ -3,7 +3,6 @@ package de.titanium.enterprise.Entity.Entities;
 import de.titanium.enterprise.Entity.EntityType.EntityTypes;
 import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.KeyCombo.ComboResult;
-import de.titanium.enterprise.Turn;
 
 import java.util.UUID;
 
