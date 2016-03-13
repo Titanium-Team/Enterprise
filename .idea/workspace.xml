@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04c39808-48fc-43ad-a9cd-fd372d8a5a29" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/titanium/enterprise/Entity/Entities/Archer.java" afterPath="$PROJECT_DIR$/src/de/titanium/enterprise/Entity/Entities/Archer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/titanium/enterprise/View/DefenseGame/DefenseMenu.java" afterPath="$PROJECT_DIR$/src/de/titanium/enterprise/View/DefenseGame/DefenseMenu.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/titanium/enterprise/View/DefenseGame/DefenseModules.java" afterPath="$PROJECT_DIR$/src/de/titanium/enterprise/View/DefenseGame/DefenseModules.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/titanium/enterprise/Enterprise.java" afterPath="$PROJECT_DIR$/src/de/titanium/enterprise/Enterprise.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Enterprise.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -42,8 +39,8 @@
       <file leaf-file-name="DefenseMenu.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/de/titanium/enterprise/View/DefenseGame/DefenseMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.57984495">
-              <caret line="80" column="63" selection-start-line="80" selection-start-column="63" selection-end-line="80" selection-end-column="63" />
+            <state vertical-scroll-proportion="0.9751938">
+              <caret line="71" column="68" selection-start-line="69" selection-start-column="0" selection-end-line="71" selection-end-column="68" />
               <folding>
                 <element signature="e#974#1130#0" expanded="true" />
                 <element signature="e#1129#1130#0" expanded="true" />
@@ -56,7 +53,7 @@
         <entry file="file://$PROJECT_DIR$/src/de/titanium/enterprise/View/DefenseGame/DefenseModules.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="36" column="48" selection-start-line="36" selection-start-column="48" selection-end-line="36" selection-end-column="48" />
+              <caret line="37" column="114" selection-start-line="37" selection-start-column="114" selection-end-line="37" selection-end-column="114" />
               <folding />
             </state>
           </provider>
@@ -660,15 +657,15 @@
       <updated>1457827001907</updated>
       <workItem from="1457827001913" duration="3947000" />
       <workItem from="1457861917875" duration="19065000" />
-      <workItem from="1457894519692" duration="1506000" />
+      <workItem from="1457894519692" duration="3704000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24518000" />
+    <option name="totallyTimeSpent" value="26716000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -896,6 +893,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/titanium/enterprise/View/DefenseGame/DefenseModules.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="37" column="114" selection-start-line="37" selection-start-column="114" selection-end-line="37" selection-end-column="114" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/de/titanium/enterprise/View/DefenseGame/DefenseModule.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -904,18 +909,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/titanium/enterprise/View/DefenseGame/DefenseModules.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="48" selection-start-line="36" selection-start-column="48" selection-end-line="36" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/de/titanium/enterprise/View/DefenseGame/DefenseMenu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.57984495">
-          <caret line="80" column="63" selection-start-line="80" selection-start-column="63" selection-end-line="80" selection-end-column="63" />
+        <state vertical-scroll-proportion="0.9751938">
+          <caret line="71" column="68" selection-start-line="69" selection-start-column="0" selection-end-line="71" selection-end-column="68" />
           <folding>
             <element signature="e#974#1130#0" expanded="true" />
             <element signature="e#1129#1130#0" expanded="true" />

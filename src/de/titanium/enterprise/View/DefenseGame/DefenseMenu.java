@@ -19,7 +19,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
     private Queue<Rectangle[]> rectangles = new LinkedTransferQueue<>();
 
-    private int space = 40;
+    private int space = 50;
     private int tick = 0;
 
     public DefenseMenu() {
@@ -27,7 +27,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
         this.keyListener();
 
         for(int i = 0; i < 5; i++) {
-            this.rectangles.add(DefenseModules.LINE.getRectangles(1080 + i * 270, this.space, 20));
+            this.rectangles.add(DefenseModules.LINE.getRectangles(1080 + i * 270, this.space, 80));
         }
     }
 
@@ -65,7 +65,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
         //Alle 5 Sekunden wird der Abstand zwischen den Beiden Modulen um 1 verringert.
         if(this.tick % 100 == 0) {
-            this.space--;
+            //this.space--;
         }
 
         //Updaten aller Module
@@ -78,7 +78,9 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
             if(rectangles[rectangles.length-1].x + rectangles[rectangles.length-1].getWidth() < 0) {
                 iterator.remove();
-                tmp.add(DefenseModules.STAIR.getRectangles(1070, this.space, (int) rectangles[rectangles.length - 2].getHeight()));
+                tmp.add(DefenseModules.STAIR.getRectangles(1070, this.space,(int) rectangles[rectangles.length - 2].getHeight()));
+                System.out.println("Unten: " + rectangles[rectangles.length -1].getHeight());
+                System.out.println("Oben: " +  rectangles[rectangles.length -2].getHeight());
             } else {
                 for (Rectangle rectangle : rectangles) {
                     rectangle.x -= 5;
