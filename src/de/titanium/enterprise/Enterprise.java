@@ -3,6 +3,7 @@ package de.titanium.enterprise;
 import de.titanium.enterprise.View.GameView;
 import de.titanium.enterprise.View.ViewManager;
 import de.titanium.enterprise.View.DefenseGame.DefenseMenu;
+import de.titanium.enterprise.View.Views.FightMenu;
 import de.titanium.enterprise.View.Views.FightView;
 
 import java.util.ArrayList;

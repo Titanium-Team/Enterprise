@@ -19,8 +19,11 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
     private final Random random = new Random();
     private List<Rectangle[]> rectangles = new ArrayList<>();
+    private Rectangle player = null;
 
     private int space = 40;
+    private final int height = 20;
+    private final int width = 270;
     private int tick = 0;
 
     public DefenseMenu() {
@@ -28,15 +31,28 @@ public class DefenseMenu extends MenuView implements GameComponent {
         this.keyListener();
 
         for(int i = 0; i < 5; i++) {
-            this.rectangles.add(DefenseModules.LINE.getRectangles(1080 + i * 270, this.space, 20));
+            this.rectangles.add(DefenseModules.LINE.getRectangles(1080 + i * this.width, this.space, this.height));
         }
     }
 
     private void keyListener() {
         this.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyTyped(KeyEvent e) {
-                System.out.println("HELLO");
+            public void keyPressed(KeyEvent e) {
+
+                if(player == null) {
+                    return;
+                }
+
+                System.out.println(e.getKeyCode() + " - " + KeyEvent.VK_W);
+                if(e.getKeyCode() == KeyEvent.VK_W) {
+                    player.y -= 5;
+                }
+
+                if(e.getKeyCode() == KeyEvent.VK_S) {
+                    player.y += 5;
+                }
+
             }
         });
     }
@@ -47,6 +63,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
         g.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
 
+        //Alle Elemente einzeichnen
         Iterator<Rectangle[]> iterator = this.rectangles.iterator();
         while (iterator.hasNext()) {
             for(Rectangle rectangle : iterator.next()) {
@@ -59,17 +76,49 @@ public class DefenseMenu extends MenuView implements GameComponent {
             }
         }
 
+        //Den Spieler zeichnen
+        g.setColor(Color.BLACK);
+
+        if(!(player == null)) {
+            g.fillRect(
+                    (int) this.player.getX(),
+                    (int) this.player.getY(),
+                    (int) this.player.getWidth(),
+                    (int) this.player.getHeight()
+            );
+        }
+
     }
 
     @Override
     public void update(double deltaTime, int tick) {
 
+        this.requestFocus();
+
         this.tick++;
 
         //Alle 5 Sekunden wird der Abstand zwischen den Beiden Modulen um 1 verringert.
-        if(this.tick % 100 == 0) {
+        if(this.tick == 1000) {
             this.space--;
+            this.tick = 0;
         }
+
+        //Einen neuen Spieler erstellen, falls es ihn noch nicht gibt
+        if(this.player == null) {
+            this.player = new Rectangle(this.getWidth() / 2, this.height + this.space / height, 10, 10);
+        } else { //Collision detection
+
+            for(Rectangle[] rectangles : this.rectangles) {
+                for(Rectangle r : rectangles) {
+                    if(this.player.intersects(r)) {
+                        //TODO Collision detected
+                        break;
+                    }
+                }
+            }
+
+        }
+
 
         //Updaten aller Module
         Iterator<Rectangle[]> rectangles = this.rectangles.iterator();
