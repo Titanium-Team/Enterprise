@@ -5,12 +5,11 @@ import de.titanium.enterprise.GameComponent;
 import de.titanium.enterprise.View.Menu.MenuView;
 
 import java.awt.*;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.*;
 import java.util.List;
+import java.util.Queue;
 import java.util.concurrent.LinkedTransferQueue;
-import java.util.concurrent.SynchronousQueue;
 
 /**
  * Created by Yonas on 12.03.2016.
@@ -23,22 +22,23 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
     private int space = 40;
     private final int height = 20;
-    private final int width = 270;
+    private final int width = 320;
     private int tick = 0;
 
     public DefenseMenu() {
         Enterprise.getGame().addComponent(this);
 
         for(int i = 0; i < 5; i++) {
-            this.rectangles.add(DefenseModules.LINE.getRectangles(1080 + i * this.width, this.space, this.height));
+            this.rectangles.add(DefenseModules.LINE.getRectangles(1280 + i * this.width, this.space, this.height));
         }
     }
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
 
-        g.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+        super.paintComponent(g);
+        //g.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+        g.setColor(new Color(238, 100, 86));
 
         //Alle Elemente einzeichnen
         Iterator<Rectangle[]> iterator = this.rectangles.iterator();
@@ -118,7 +118,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
                 rectangles.remove();
 
                 Rectangle[] last = this.rectangles.get(this.rectangles.size() - 1);
-                tmp.add(DefenseModules.values()[this.random.nextInt(DefenseModules.values().length)].getRectangles(1080 - x, this.space, (int) last[last.length - 2].getHeight()));
+                tmp.add(DefenseModules.values()[this.random.nextInt(DefenseModules.values().length)].getRectangles(1280 - x, this.space, (int) last[last.length - 2].getHeight()));
             } else {
                 for (Rectangle rectangle : rec) {
                     rectangle.x -= x / 2;
