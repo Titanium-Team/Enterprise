@@ -7,6 +7,6 @@ import java.awt.*;
  */
 public interface DefenseModule {
 
-    Rectangle[] getRectangles(int x, int space, int height);
+    Rectangle[] getRectangles(int x, int space, int width, int height);
 
 }

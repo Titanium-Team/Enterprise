@@ -29,7 +29,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
         Enterprise.getGame().addComponent(this);
 
         for(int i = 0; i < 5; i++) {
-            this.rectangles.add(DefenseModules.LINE.getRectangles(1280 + i * this.width, this.space, this.height));
+            this.rectangles.add(DefenseModules.LINE.getRectangles(1280 + i * this.width, this.space, this.width, this.height));
         }
     }
 
@@ -80,10 +80,10 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
         //Es wird auf die Tastatureingabe reagiert
         if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_W)) {
-            this.player.y -= 2;
+            this.player.y -= 3;
         }
         if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_S)) {
-            this.player.y += 2;
+            this.player.y += 3;
         }
 
         //Einen neuen Spieler erstellen, falls es ihn noch nicht gibt
@@ -102,7 +102,6 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
         }
 
-
         //Updaten aller Module
         Iterator<Rectangle[]> rectangles = this.rectangles.iterator();
         Queue<Rectangle[]> tmp = new LinkedTransferQueue<>();
@@ -118,7 +117,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
                 rectangles.remove();
 
                 Rectangle[] last = this.rectangles.get(this.rectangles.size() - 1);
-                tmp.add(DefenseModules.values()[this.random.nextInt(DefenseModules.values().length)].getRectangles(1280 - x, this.space, (int) last[last.length - 2].getHeight()));
+                tmp.add(DefenseModules.values()[this.random.nextInt(DefenseModules.values().length)].getRectangles(1280 - x, this.space, this.width, (int) last[last.length - 2].getHeight()));
             } else {
                 for (Rectangle rectangle : rec) {
                     rectangle.x -= x / 2;
