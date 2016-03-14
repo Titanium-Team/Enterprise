@@ -30,39 +30,18 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
     public DefenseMenu() {
         Enterprise.getGame().addComponent(this);
-        this.keyListener();
 
         for(int i = 0; i < 5; i++) {
             this.rectangles.add(DefenseModules.LINE.getRectangles(1080 + i * this.width, this.space, this.height));
         }
     }
 
-    private void keyListener() {
-        this.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-
-                if(player == null) {
-                    return;
-                }
-
-                if(e.getKeyCode() == KeyEvent.VK_W) {
-                    player.y -= 1;
-                }
-
-                if(e.getKeyCode() == KeyEvent.VK_S) {
-                    player.y += 1;
-                }
-
-            }
-        });
-    }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+        g.setColor(Color.BLACK);
 
         //Alle Elemente einzeichnen
         Iterator<Rectangle[]> iterator = this.rectangles.iterator();
@@ -78,7 +57,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
         }
 
         //Den Spieler zeichnen
-        g.setColor(Color.BLACK);
+        g.setColor(Color.RED);
 
         if(!(player == null)) {
             g.fillRect(
@@ -94,8 +73,6 @@ public class DefenseMenu extends MenuView implements GameComponent {
     @Override
     public void update(double deltaTime, int tick) {
 
-        this.requestFocus();
-
         this.tick++;
 
         //Alle 5 Sekunden wird der Abstand zwischen den Beiden Modulen um 1 verringert.
@@ -104,9 +81,17 @@ public class DefenseMenu extends MenuView implements GameComponent {
             this.tick = 0;
         }
 
+        //Es wird auf die Tastatureingabe reagiert
+        if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_W)) {
+            this.player.y -= 2;
+        }
+        if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_S)) {
+            this.player.y += 2;
+        }
+
         //Einen neuen Spieler erstellen, falls es ihn noch nicht gibt
         if(this.player == null) {
-            this.player = new Rectangle(this.getWidth() / 2, this.height + this.space / height, 10, 10);
+            this.player = new Rectangle(this.getWidth() / 2, this.height + this.space / height, 5, 5);
         } else { //Collision detection
 
             for(Rectangle[] rectangles : this.rectangles) {
