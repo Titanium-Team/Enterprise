@@ -44,7 +44,6 @@ public class DefenseMenu extends MenuView implements GameComponent {
                     return;
                 }
 
-                System.out.println(e.getKeyCode() + " - " + KeyEvent.VK_W);
                 if(e.getKeyCode() == KeyEvent.VK_W) {
                     player.y -= 5;
                 }
