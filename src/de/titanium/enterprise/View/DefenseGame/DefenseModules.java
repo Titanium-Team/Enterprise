@@ -47,6 +47,7 @@ public enum DefenseModules implements DefenseModule {
             rectangles[42] = new Rectangle(x + (width - 100) - 10, 0, ((width - 100) / 2), height + deltaY);
             rectangles[43] = new Rectangle(x + (width - 100) - 10, (height + deltaY) + space, ((width - 100) / 2), (120 - (space + height)) - deltaY);
 
+
             deltaY /= 20;
 
             for(int i = 2; i < 42; i += 2) {

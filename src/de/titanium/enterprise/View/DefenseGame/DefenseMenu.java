@@ -20,18 +20,21 @@ public class DefenseMenu extends MenuView implements GameComponent {
     private List<Rectangle[]> rectangles = new ArrayList<>();
     private Rectangle player = null;
 
+
     private int space = 40;
     private final int height = 20;
     private final int width = 320;
     private int tick = 0;
+    private int speed = 10;
 
     public DefenseMenu() {
         Enterprise.getGame().addComponent(this);
 
-        for(int i = 0; i < 5; i++) {
-            this.rectangles.add(DefenseModules.LINE.getRectangles(1280 + i * this.width, this.space, this.width, this.height));
+        for(int i = 0; i < 6; i++) {
+            this.rectangles.add(DefenseModules.LINE.getRectangles(1600 + i * this.width, this.space, this.width, this.height));
         }
     }
+
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -42,8 +45,10 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
         //Alle Elemente einzeichnen
         Iterator<Rectangle[]> iterator = this.rectangles.iterator();
-        while (iterator.hasNext()) {
-            for(Rectangle rectangle : iterator.next()) {
+        for (int i = 0; i < this.rectangles.size(); i++) {
+            Iterator<Rectangle> rectangles = Arrays.asList(this.rectangles.get(i).clone()).iterator();
+            while (rectangles.hasNext()) {
+                Rectangle rectangle = rectangles.next();
                 g.fillRect(
                         (int) rectangle.getX(),
                         (int) rectangle.getY(),
@@ -72,8 +77,13 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
         this.tick++;
 
-        //Alle 20 Sekunden wird der Abstand zwischen den Beiden Modulen um 1 verringert.
-        if(this.tick == 1000) {
+        //Alle 10 Sekunden wird der Abstand zwischen den Beiden Modulen um 1 verringert.
+        if(this.tick % 500 == 0 && this.speed < 20){
+            this.speed += 2;
+        }
+
+        //Alle 10 Sekunden wird der Abstand zwischen den Beiden Modulen um 1 verringert.
+        if(this.tick % 500 == 0 && this.space > 20) {
             this.space--;
             this.tick = 0;
         }
@@ -112,17 +122,15 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
             //Falls das letzte Elemente sich nicht mehr im Screen befindet wird es entfernt und ein neues wird hinzugefügt.
 
-            int x = 10;
-            if(rec[rec.length-1].x + rec[rec.length-1].getWidth() < 0) {
+             if(rec[rec.length-1].x + rec[rec.length-1].getWidth() < 0) {
                 rectangles.remove();
 
                 Rectangle[] last = this.rectangles.get(this.rectangles.size() - 1);
-                tmp.add(DefenseModules.values()[this.random.nextInt(DefenseModules.values().length)].getRectangles(1280 - x, this.space, this.width, (int) last[last.length - 2].getHeight()));
+                tmp.add(DefenseModules.values()[this.random.nextInt(DefenseModules.values().length)].getRectangles((int) (last[last.length - 1].getMaxX() + ((1600 - this.speed) - last[last.length - 1].getMaxX())), this.space, this.width, (int) last[last.length - 2].getHeight()));
 
-                System.out.println("Distance: " + ((1280 - x) - (last[last.length - 2].getX())));
-            } else {
+             } else {
                 for (Rectangle rectangle : rec) {
-                    rectangle.x -= x / 2;
+                    rectangle.x -= this.speed/2;
                 }
             }
 
