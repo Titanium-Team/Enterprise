@@ -1,5 +1,6 @@
 package de.titanium.enterprise;
 
+import de.titanium.enterprise.KeyManager.KeyManager;
 import de.titanium.enterprise.View.GameView;
 import de.titanium.enterprise.View.ViewManager;
 import de.titanium.enterprise.View.DefenseGame.DefenseMenu;
@@ -19,6 +20,7 @@ public class Enterprise {
 
     private final GameView gameView = new GameView();
     private final ViewManager viewManager = new ViewManager(this);
+    private final KeyManager keyManager = new KeyManager();
 
     private static Enterprise game;
 
@@ -127,5 +129,9 @@ public class Enterprise {
 
     public GameView getGameView() {
         return this.gameView;
+    }
+
+    public KeyManager getKeyManager() {
+        return this.keyManager;
     }
 }
