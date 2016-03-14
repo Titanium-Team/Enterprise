@@ -72,7 +72,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
         this.tick++;
 
-        //Alle 5 Sekunden wird der Abstand zwischen den Beiden Modulen um 1 verringert.
+        //Alle 20 Sekunden wird der Abstand zwischen den Beiden Modulen um 1 verringert.
         if(this.tick == 1000) {
             this.space--;
             this.tick = 0;
@@ -113,11 +113,13 @@ public class DefenseMenu extends MenuView implements GameComponent {
             //Falls das letzte Elemente sich nicht mehr im Screen befindet wird es entfernt und ein neues wird hinzugefügt.
 
             int x = 10;
-             if(rec[rec.length-1].x + rec[rec.length-1].getWidth() < 0) {
+            if(rec[rec.length-1].x + rec[rec.length-1].getWidth() < 0) {
                 rectangles.remove();
 
                 Rectangle[] last = this.rectangles.get(this.rectangles.size() - 1);
                 tmp.add(DefenseModules.values()[this.random.nextInt(DefenseModules.values().length)].getRectangles(1280 - x, this.space, this.width, (int) last[last.length - 2].getHeight()));
+
+                System.out.println("Distance: " + ((1280 - x) - (last[last.length - 2].getX())));
             } else {
                 for (Rectangle rectangle : rec) {
                     rectangle.x -= x / 2;
