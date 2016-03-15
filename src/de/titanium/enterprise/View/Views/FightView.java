@@ -13,9 +13,9 @@ public class FightView extends View {
     public FightView(MenuView viewMenu) {
         super(viewMenu);
 
-        this.setMaximumSize(new Dimension(1080, 600));
-        this.setMinimumSize(new Dimension(1080, 600));
-        this.setPreferredSize(new Dimension(1080, 600));
+        this.setMaximumSize(new Dimension(1080, 500));
+        this.setMinimumSize(new Dimension(1080, 500));
+        this.setPreferredSize(new Dimension(1080, 500));
     }
 
     @Override

@@ -22,7 +22,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
 
     private int space = 40;
-    private final int height = 20;
+    private final int height = 60;
     private final int width = 320;
     private int tick = 0;
     private int speed = 10;
@@ -95,10 +95,10 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
         //Es wird auf die Tastatureingabe reagiert
         if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_W)) {
-            this.player.y -= (this.player.y > 5 ? this.movement : 0 );
+            this.player.y -= (this.player.y > 25 ? this.movement : 0 );
         }
         if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_S)) {
-            this.player.y += (this.player.y < 114 ? this.movement : 0);
+            this.player.y += (this.player.y < 155 ? this.movement : 0);
         }
 
         //Einen neuen Spieler erstellen, falls es ihn noch nicht gibt
