@@ -126,8 +126,8 @@ public class DefenseMenu extends MenuView implements GameComponent {
                 rectangles.remove();
 
                 Rectangle[] last = this.rectangles.get(this.rectangles.size() - 1);
-                tmp.add(DefenseModules.values()[this.random.nextInt(DefenseModules.values().length)].getRectangles((int) (last[last.length - 1].getMaxX() + ((1600 - this.speed) - last[last.length - 1].getMaxX())), this.space, this.width, (int) last[last.length - 2].getHeight()));
-
+                tmp.add(DefenseModules.values()[this.random.nextInt(DefenseModules.values().length)].getRectangles((int) (last[last.length - 2].getX() + last[last.length -2].getWidth() - this.speed), this.space, this.width, (int) last[last.length - 2].getHeight()));
+                //(last[last.length - 1].getMaxX() + ((1600 - this.speed) - last[last.length - 1].getMaxX()))
              } else {
                 for (Rectangle rectangle : rec) {
                     rectangle.x -= this.speed/2;
