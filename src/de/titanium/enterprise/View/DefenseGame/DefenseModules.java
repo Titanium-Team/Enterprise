@@ -61,6 +61,32 @@ public enum DefenseModules implements DefenseModule {
             return rectangles;
         }
 
+    },
+    //Dies muss am Ende des Enums sein, weil es nur am Start aufgerufen werden soll und nicht Random.
+    START {
+        @Override
+        public Rectangle[] getRectangles(int x, int space, int width, int height) {
+
+
+            Rectangle[] rectangles = new Rectangle[42];
+
+            int temp = 1;
+            int delta1 = height;
+            int delta2 = 120 - (height + space);
+
+            //Stufen
+            for(int i = 0; i < 42; i += 2) {
+
+                rectangles[i] = new Rectangle(x + temp * 10, 0, 10, delta1 / 20 * temp);
+                rectangles[i + 1] = new Rectangle(x + temp * 10, 120 - delta2 / 20 * temp, 10, delta2 / 20 * temp);
+                temp++;
+            }
+
+            rectangles[40] = new Rectangle(x + 200, 0, width - 200, height);
+            rectangles[41] = new Rectangle(x + 200, height + space, width - 200, 120 - (space + height));
+
+            return rectangles;
+        }
     }
 
 }

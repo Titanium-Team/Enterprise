@@ -26,11 +26,13 @@ public class DefenseMenu extends MenuView implements GameComponent {
     private final int width = 320;
     private int tick = 0;
     private int speed = 10;
+    private int movement = 3;
 
     public DefenseMenu() {
         Enterprise.getGame().addComponent(this);
 
-        for(int i = 0; i < 6; i++) {
+        this.rectangles.add(DefenseModules.START.getRectangles(1600, this.space, this.width, this.height));
+        for(int i = 1; i < 6; i++) {
             this.rectangles.add(DefenseModules.LINE.getRectangles(1600 + i * this.width, this.space, this.width, this.height));
         }
     }
@@ -80,6 +82,9 @@ public class DefenseMenu extends MenuView implements GameComponent {
         //Alle 10 Sekunden wird der Abstand zwischen den Beiden Modulen um 1 verringert.
         if(this.tick % 500 == 0 && this.speed < 20){
             this.speed += 2;
+            if(this.speed == 14 || this.speed == 18){
+                this.movement++;
+            }
         }
 
         //Alle 10 Sekunden wird der Abstand zwischen den Beiden Modulen um 1 verringert.
@@ -90,10 +95,10 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
         //Es wird auf die Tastatureingabe reagiert
         if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_W)) {
-            this.player.y -= 3;
+            this.player.y -= (this.player.y > 5 ? this.movement : 0 );
         }
         if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_S)) {
-            this.player.y += 3;
+            this.player.y += (this.player.y < 114 ? this.movement : 0);
         }
 
         //Einen neuen Spieler erstellen, falls es ihn noch nicht gibt
@@ -126,7 +131,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
                 rectangles.remove();
 
                 Rectangle[] last = this.rectangles.get(this.rectangles.size() - 1);
-                tmp.add(DefenseModules.values()[this.random.nextInt(DefenseModules.values().length)].getRectangles((int) (last[last.length - 2].getX() + last[last.length -2].getWidth() - this.speed), this.space, this.width, (int) last[last.length - 2].getHeight()));
+                tmp.add(DefenseModules.values()[this.random.nextInt(DefenseModules.values().length-1)].getRectangles((int) (last[last.length - 2].getX() + last[last.length -2].getWidth() - this.speed), this.space, this.width, (int) last[last.length - 2].getHeight()));
                 //(last[last.length - 1].getMaxX() + ((1600 - this.speed) - last[last.length - 1].getMaxX()))
              } else {
                 for (Rectangle rectangle : rec) {
