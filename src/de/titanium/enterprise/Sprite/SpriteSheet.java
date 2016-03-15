@@ -30,20 +30,20 @@ public class SpriteSheet {
      * @return
      */
     public BufferedImage get(Texture texture) {
-        return this.get(texture.getStartX(), texture.getStartY(), texture.getEndX(), texture.getEndY());
+        return this.get(texture.getX(), texture.getY(), texture.getWidth(), texture.getHeight());
     }
 
     /**
      * Gibt die angeforderte Texture als BufferedImage zurück.
-     * @param startX
-     * @param startY
-     * @param endX
-     * @param endY
+     * @param x
+     * @param y
+     * @param width
+     * @param height
      * @return
      */
-    public BufferedImage get(int startX, int startY, int endX, int endY) {
+    public BufferedImage get(int x, int y, int width, int height) {
 
-        return this.bufferedImage.getSubimage(startX, startY, endX - startX, endY - startY);
+        return this.bufferedImage.getSubimage(x, y, width, height);
 
     }
 

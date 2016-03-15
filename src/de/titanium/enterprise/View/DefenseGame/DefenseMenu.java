@@ -2,6 +2,7 @@ package de.titanium.enterprise.View.DefenseGame;
 
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.GameComponent;
+import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.Menu.MenuView;
 
 import java.awt.*;
@@ -22,7 +23,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
 
     private int space = 40;
-    private final int height = 20;
+    private final int height = 50;
     private final int width = 320;
     private int tick = 0;
     private int speed = 10;
@@ -42,6 +43,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
     protected void paintComponent(Graphics g) {
 
         super.paintComponent(g);
+
         //g.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
         g.setColor(new Color(238, 100, 86));
 
@@ -71,6 +73,9 @@ public class DefenseMenu extends MenuView implements GameComponent {
             );
         }
 
+        //Border
+        g.drawImage(Textures.BORDER_DOWN.getImage(), 0, 0, null, null);
+
     }
 
     @Override
@@ -94,10 +99,10 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
         //Es wird auf die Tastatureingabe reagiert
         if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_W)) {
-            this.player.y -= (this.player.y > 5 ? this.movement : 0 );
+            this.player.y -= (this.player.y > 4 ? this.movement : 0 );
         }
         if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_S)) {
-            this.player.y += (this.player.y < 114 ? this.movement : 0);
+            this.player.y += (this.player.y < 134 ? this.movement : 0);
         }
 
         //Einen neuen Spieler erstellen, falls es ihn noch nicht gibt

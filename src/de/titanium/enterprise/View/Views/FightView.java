@@ -26,8 +26,8 @@ public class FightView extends View {
 
         super.paintComponent(graphics);
         //graphics.setColor(Color.RED);
-        //graphics.fillRect(0,0,1080,600);
-        graphics.drawImage(Enterprise.getGame().getSpriteSheetManager().getHeroes().get(Textures.RAHMEN_OBEN), 0, 0, null, null);
+        //graphics.fillRect(0,0,1080,600)
+        graphics.drawImage(Textures.BORDER_UP.getImage(), 0, 0, null, null);
 
 
     }

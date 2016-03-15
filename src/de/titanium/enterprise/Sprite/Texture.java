@@ -11,25 +11,25 @@ public interface Texture {
      * Gibt die X-Position in dem Sprite-Sheet der oberen, linken Ecke des Bildes zurück.
      * @return
      */
-    int getStartX();
+    int getX();
 
     /**
      * Gibt die Y-Position in dem Sprite-Sheet der oberen, linken Ecke des Bildes zurück.
      * @return
      */
-    int getStartY();
+    int getY();
 
     /**
-     * Gibt die X-Position in dem Sprite-Sheet der unteren, rechten Ecke des Bildes zurück.
+     * Gibt die Höhe der Texture zurück.
      * @return
      */
-    int getEndX();
+    int getHeight();
 
     /**
-     * Gibt die Y-Position in dem Sprite-Sheet der unteren, rechten Ecke des Bildes zurück.
+     * Gibt die Breite der Texture zurück.
      * @return
      */
-    int getEndY();
+    int getWidth();
 
     /**
      * Gibt das Image zurück.

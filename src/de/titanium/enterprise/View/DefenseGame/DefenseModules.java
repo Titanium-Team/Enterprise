@@ -15,7 +15,7 @@ public enum DefenseModules implements DefenseModule {
 
             return new Rectangle[] {
                     new Rectangle(x, 0, width, height),
-                    new Rectangle(x, height + space, width, 120 - (height + space))
+                    new Rectangle(x, height + space, width, 140 - (height + space))
             };
 
         }
@@ -28,10 +28,8 @@ public enum DefenseModules implements DefenseModule {
 
             Random random = new Random();
             Rectangle[] rectangles = new Rectangle[44];
-
             //Die Steigung der Treppe
-
-            int deltaY = -height + random.nextInt(120 - (space + height) + height);
+            int deltaY = -(height) + random.nextInt(140 - (space + height) + (height));
 
             if(deltaY < 20 && deltaY > 0) {
                 deltaY = 20;
@@ -51,9 +49,9 @@ public enum DefenseModules implements DefenseModule {
             }
 
             rectangles[0] = new Rectangle(x, 0, ((width - 100) / 2), height);
-            rectangles[1] = new Rectangle(x, height + space, ((width - 100) / 2), 120 - (space + height));
+            rectangles[1] = new Rectangle(x, height + space, ((width - 100) / 2), 140 - (space + height));
             rectangles[42] = new Rectangle(x + (width - 100) - 10, 0, ((width - 100) / 2), height + deltaY);
-            rectangles[43] = new Rectangle(x + (width - 100) - 10, (height + deltaY) + space, ((width - 100) / 2), (120 - (space + height)) - deltaY);
+            rectangles[43] = new Rectangle(x + (width - 100) - 10, (height + deltaY) + space, ((width - 100) / 2), (140 - (space + height)) - deltaY);
 
 
             deltaY /= 20;
@@ -62,7 +60,7 @@ public enum DefenseModules implements DefenseModule {
 
                 height += deltaY;
                 rectangles[i] = new Rectangle(x+((width - 100) / 2)-5+(i/2)*5, 0, 5, height);
-                rectangles[i+1] = new Rectangle(x+((width - 100) / 2)-5+(i/2)*5, (height + space), 5, 120 - (space + height));
+                rectangles[i+1] = new Rectangle(x+((width - 100) / 2)-5+(i/2)*5, (height + space), 5, 140 - (space + height));
 
             }
 
@@ -70,28 +68,28 @@ public enum DefenseModules implements DefenseModule {
         }
 
     },
-    //Dies muss am Ende des Enums sein, weil es nur am Start aufgerufen werden soll und nicht Random.
+    //Dies muss am Ende des Enums sein, weil es nur am Start aufgerufen werden soll und nicht zufällif.
     START {
         @Override
         public Rectangle[] getRectangles(int x, int space, int width, int height) {
 
 
-            Rectangle[] rectangles = new Rectangle[42];
+            Rectangle[] rectangles = new Rectangle[22];
 
             int temp = 1;
             int delta1 = height;
-            int delta2 = 120 - (height + space);
+            int delta2 = 140 - (height + space);
 
             //Stufen
-            for(int i = 0; i < 42; i += 2) {
+            for(int i = 0; i < 22; i += 2) {
 
-                rectangles[i] = new Rectangle(x + temp * 10, 0, 10, delta1 / 20 * temp);
-                rectangles[i + 1] = new Rectangle(x + temp * 10, 120 - delta2 / 20 * temp, 10, delta2 / 20 * temp);
+                rectangles[i] = new Rectangle(x + temp * 20, 0, 10, delta1 / 10 * temp);
+                rectangles[i + 1] = new Rectangle(x + temp * 20, 140 - delta2 / 10 * temp, 10, delta2 / 10 * temp);
                 temp++;
             }
 
-            rectangles[40] = new Rectangle(x + 200, 0, width - 200, height);
-            rectangles[41] = new Rectangle(x + 200, height + space, width - 200, 120 - (space + height));
+            rectangles[20] = new Rectangle(x + 200, 0, width - 200, height);
+            rectangles[21] = new Rectangle(x + 200, height + space, width - 200, 140 - (space + height));
 
             return rectangles;
         }

@@ -9,33 +9,60 @@ import java.awt.*;
  */
 public enum Textures implements Texture {
 
-    RAHMEN_OBEN {
+    BORDER_UP {
 
         @Override
-        public int getStartX() {
+        public int getX() {
             return 0;
         }
 
         @Override
-        public int getStartY() {
+        public int getY() {
             return 0;
         }
 
         @Override
-        public int getEndX() {
+        public int getHeight() {
+            return 543;
+        }
+
+        @Override
+        public int getWidth() {
             return 1280;
         }
 
         @Override
-        public int getEndY() {
-            return 522;
+        public Image getImage() {
+            return Enterprise.getGame().getSpriteSheetManager().getHeroes().get(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        }
+
+    },
+    BORDER_DOWN {
+
+        @Override
+        public int getX() {
+            return 0;
+        }
+
+        @Override
+        public int getY() {
+            return 544;
+        }
+
+        @Override
+        public int getHeight() {
+            return 180;
+        }
+
+        @Override
+        public int getWidth() {
+            return 1280;
         }
 
         @Override
         public Image getImage() {
-            return Enterprise.getGame().getSpriteSheetManager().getHeroes().get(this.getStartX(), this.getStartY(), this.getEndX(), this.getEndY());
+            return Enterprise.getGame().getSpriteSheetManager().getHeroes().get(this.getX(), this.getY(), this.getWidth(), this.getHeight());
         }
-
     }
 
 }
