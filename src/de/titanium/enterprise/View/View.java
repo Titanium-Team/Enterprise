@@ -17,9 +17,9 @@ public abstract class View extends JPanel implements GameComponent {
     public View(MenuView viewMenu) {
         this.viewMenu = viewMenu;
 
-        this.setMaximumSize(new Dimension(1080, 600));
-        this.setMinimumSize(new Dimension(1080, 600));
-        this.setPreferredSize(new Dimension(1080, 600));
+        this.setMaximumSize(new Dimension(1280, 600));
+        this.setMinimumSize(new Dimension(1280, 600));
+        this.setPreferredSize(new Dimension(1280, 600));
         Enterprise.getGame().addComponent(this);
     }
 

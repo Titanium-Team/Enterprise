@@ -10,9 +10,9 @@ import java.awt.event.ActionListener;
 public abstract class MenuView extends JPanel {
 
     public MenuView() {
-        this.setMaximumSize(new Dimension(1080, 120));
-        this.setMinimumSize(new Dimension(1080, 120));
-        this.setPreferredSize(new Dimension(1080, 120));
+        this.setMaximumSize(new Dimension(1280, 120));
+        this.setMinimumSize(new Dimension(1280, 120));
+        this.setPreferredSize(new Dimension(1280, 120));
     }
 
     public void addButton(JButton menuButton, ActionListener actionListener) {
