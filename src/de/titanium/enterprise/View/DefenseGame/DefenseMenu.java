@@ -43,7 +43,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
         super.paintComponent(g);
         //g.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
-        g.setColor(new Color(238, 100, 86));
+        g.setColor(new Color(20, 100, 86));
 
         //Alle Elemente einzeichnen
         Iterator<Rectangle[]> iterator = this.rectangles.iterator();
@@ -110,6 +110,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
                 for(Rectangle r : rectangles) {
                     if(this.player.intersects(r)) {
                         //TODO Collision detected
+
                         break;
                     }
                 }
