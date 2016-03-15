@@ -1,5 +1,7 @@
 package de.titanium.enterprise.View.Views;
 
+import de.titanium.enterprise.Enterprise;
+import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.Menu.MenuView;
 import de.titanium.enterprise.View.View;
 
@@ -12,10 +14,6 @@ public class FightView extends View {
 
     public FightView(MenuView viewMenu) {
         super(viewMenu);
-
-        this.setMaximumSize(new Dimension(1280, 540));
-        this.setMinimumSize(new Dimension(1280, 540));
-        this.setPreferredSize(new Dimension(1280, 540));
     }
 
     @Override
@@ -28,7 +26,9 @@ public class FightView extends View {
 
         super.paintComponent(graphics);
         //graphics.setColor(Color.RED);
-        //graphics.fillRect(0,0,1080,600);
+        //graphics.fillRect(0,0,1080,600)
+        graphics.drawImage(Textures.BORDER_UP.getImage(), 0, 0, null, null);
+
 
     }
 

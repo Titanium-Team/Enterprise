@@ -30,10 +30,17 @@ public enum DefenseModules implements DefenseModule {
             Rectangle[] rectangles = new Rectangle[44];
             //Die Steigung der Treppe
             int deltaY = -(height) + random.nextInt(140 - (space + height) + (height));
+
             if(deltaY < 20 && deltaY > 0) {
                 deltaY = 20;
             } else if(deltaY > -20 && deltaY < 0) {
                 deltaY = -20;
+            }
+
+            if(deltaY > 60) {
+                deltaY = 60;
+            } else if(deltaY < -60) {
+                deltaY = -60;
             }
 
             //Der Wert wird auf einen Wert abgerundet, der durch 20 teilbar ist, damit es zu keinen Rundungsfehlen kommt, bei den weiteren Rechenschritten.

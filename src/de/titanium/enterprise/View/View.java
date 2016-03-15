@@ -20,6 +20,7 @@ public abstract class View extends JPanel implements GameComponent {
         this.setMaximumSize(new Dimension(1280, 540));
         this.setMinimumSize(new Dimension(1280, 540));
         this.setPreferredSize(new Dimension(1280, 540));
+
         Enterprise.getGame().addComponent(this);
     }
 
