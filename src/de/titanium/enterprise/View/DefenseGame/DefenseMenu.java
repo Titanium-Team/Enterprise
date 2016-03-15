@@ -22,7 +22,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
 
     private int space = 40;
-    private final int height = 60;
+    private final int height = 50;
     private final int width = 320;
     private int tick = 0;
     private int speed = 10;
