@@ -12,15 +12,10 @@ public class SpriteSheet {
 
     private final BufferedImage bufferedImage;
 
-    private final int width;
-    private final int height;
-
-    public SpriteSheet(String path, int width, int height) throws IOException {
+    public SpriteSheet(String path) throws IOException {
 
         this.bufferedImage = ImageIO.read(new File(path));
-        System.out.println("Hey: " + new File(path).exists());
-        this.width = width;
-        this.height = height;
+        System.out.println(this.bufferedImage.getHeight());
 
     }
 

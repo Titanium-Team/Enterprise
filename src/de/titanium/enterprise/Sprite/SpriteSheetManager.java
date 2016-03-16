@@ -8,6 +8,7 @@ import java.io.IOException;
 public class SpriteSheetManager {
 
     private SpriteSheet heroes;
+    private SpriteSheet background;
 
     public SpriteSheetManager() {
         try {
@@ -19,11 +20,16 @@ public class SpriteSheetManager {
 
     private void load() throws IOException {
 
-        this.heroes = new SpriteSheet("./assets/sprite.png", 64, 64);
+        this.heroes = new SpriteSheet("./assets/sprite.png");
+        this.background = new SpriteSheet("./assets/background.png");
 
     }
 
     public SpriteSheet getHeroes() {
         return this.heroes;
+    }
+
+    public SpriteSheet getBackground() {
+        return this.background;
     }
 }
