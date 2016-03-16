@@ -45,7 +45,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
         super.paintComponent(g);
 
         //g.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
-        g.setColor(new Color(20, 100, 86));
+        g.setColor(new Color(130,(this.tick/40 >= 170 ? 0 : 180 - this.tick/40), 30));
 
         //Alle Elemente einzeichnen
         Iterator<Rectangle[]> iterator = this.rectangles.iterator();
@@ -94,7 +94,6 @@ public class DefenseMenu extends MenuView implements GameComponent {
         //Alle 10 Sekunden wird der Abstand zwischen den Beiden Modulen um 1 verringert.
         if(this.tick % 500 == 0 && this.space > 20) {
             this.space--;
-            this.tick = 0;
         }
 
         //Es wird auf die Tastatureingabe reagiert

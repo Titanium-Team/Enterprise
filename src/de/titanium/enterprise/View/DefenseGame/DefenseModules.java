@@ -43,9 +43,10 @@ public enum DefenseModules implements DefenseModule {
                 deltaY = -60;
             }
 
-            //Der Wert wird auf einen Wert abgerundet, der durch 20 teilbar ist, damit es zu keinen Rundungsfehlen kommt, bei den weiteren Rechenschritten.
-            while(deltaY % 20 != 0) {
-                deltaY--;
+            if(deltaY > 20 && deltaY < 60 ){
+                deltaY = 40;
+            }else if(deltaY < -20 && deltaY > -60){
+                deltaY = -40;
             }
 
             rectangles[0] = new Rectangle(x, 0, ((width - 100) / 2), height);
