@@ -89,8 +89,4 @@ public class FightMenu extends MenuView implements GameComponent {
     @Override
     public void render() {}
 
-    @Override
-    public boolean isActive() {
-        return (Enterprise.getGame().getViewManager().getCurrent().getClass().equals(FightView.class));
-    }
 }

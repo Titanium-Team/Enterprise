@@ -9,6 +9,7 @@ import de.titanium.enterprise.View.Views.FightMenu;
 import de.titanium.enterprise.View.Views.FightView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class Enterprise {
     private List<GameComponent> gameComponents = new ArrayList<>();
 
     private final GameView gameView = new GameView();
-    private final ViewManager viewManager = new ViewManager(this);
+    private final ViewManager viewManager = new ViewManager();
     private final KeyManager keyManager = new KeyManager();
     private final SpriteSheetManager spriteSheetManager = new SpriteSheetManager();
 
@@ -79,7 +80,7 @@ public class Enterprise {
             double currentTime = System.currentTimeMillis();
             double deltaTime = currentTime - lastTime;
 
-            Iterator<GameComponent> updateComponents = this.gameComponents.iterator();
+            Iterator<GameComponent> updateComponents = Arrays.asList(this.gameComponents.toArray(new GameComponent[this.gameComponents.size()]).clone()).iterator();
             while (updateComponents.hasNext()) {
 
                 GameComponent component = updateComponents.next();
@@ -91,7 +92,7 @@ public class Enterprise {
             }
 
             CURRENT_TICK++;
-            if(CURRENT_TICK >= MAX_TICKS) {
+            if (CURRENT_TICK >= MAX_TICKS) {
                 System.out.println("TIME PASSED: " + (System.currentTimeMillis() - a));
                 a = System.currentTimeMillis();
                 CURRENT_TICK = 0;
@@ -99,6 +100,7 @@ public class Enterprise {
 
 
             Iterator<GameComponent> renderComponents = this.gameComponents.iterator();
+
             while(renderComponents.hasNext()) {
 
                 GameComponent component = renderComponents.next();

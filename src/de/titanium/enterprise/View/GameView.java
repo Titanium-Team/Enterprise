@@ -49,6 +49,18 @@ public class GameView {
 
     }
 
+    public synchronized void swapMenu(View view) {
+
+        this.frame.remove(this.menu);
+
+        this.menu = view.getMenuView();
+        this.frame.add(this.menu, BorderLayout.SOUTH);
+
+        this.frame.validate();
+        this.frame.repaint();
+
+    }
+
 
 
 }

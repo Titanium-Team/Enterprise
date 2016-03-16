@@ -1,5 +1,8 @@
 package de.titanium.enterprise.View.Menu;
 
+import de.titanium.enterprise.Enterprise;
+import de.titanium.enterprise.GameComponent;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -7,7 +10,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by Yonas on 08.03.2016.
  */
-public abstract class MenuView extends JPanel {
+public abstract class MenuView extends JPanel implements GameComponent {
 
     public MenuView() {
         this.setMaximumSize(new Dimension(1280, 180));
@@ -15,8 +18,9 @@ public abstract class MenuView extends JPanel {
         this.setPreferredSize(new Dimension(1280, 180));
     }
 
-    public void addButton(JButton menuButton, ActionListener actionListener) {
-        this.add(menuButton);
-        menuButton.addActionListener(actionListener);
+    @Override
+    public boolean isActive() {
+        return Enterprise.getGame().getViewManager().getCurrent().getMenuView() == this;
     }
+
 }

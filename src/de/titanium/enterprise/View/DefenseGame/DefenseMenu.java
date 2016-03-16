@@ -4,6 +4,8 @@ import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.GameComponent;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.Menu.MenuView;
+import de.titanium.enterprise.View.Views.FightMenu;
+import de.titanium.enterprise.View.Views.FightView;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -27,7 +29,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
     private final int width = 320;
     private int tick = 0;
     private int speed = 10;
-    private int movement = 3;
+    private int movement = 2;
 
     public DefenseMenu() {
         Enterprise.getGame().addComponent(this);
@@ -96,29 +98,29 @@ public class DefenseMenu extends MenuView implements GameComponent {
             this.space--;
         }
 
+
+        //Einen neuen Spieler erstellen, falls es ihn noch nicht gibt
+        if(this.player == null) {
+            this.player = new Rectangle(this.getWidth() / 2, this.height + this.space / 2, 5, 5);
+        } else { //Collision detection
+
+            for(Rectangle[] rectangles : this.rectangles) {
+                for(Rectangle r : rectangles) {
+                    if(this.player.intersects(r)) {
+                        Enterprise.getGame().getViewManager().changeMenu(FightView.class, new FightMenu());
+                        break;
+                    }
+                }
+            }
+
+        }
+
         //Es wird auf die Tastatureingabe reagiert
         if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_W)) {
             this.player.y -= (this.player.y > 4 ? this.movement : 0 );
         }
         if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_S)) {
             this.player.y += (this.player.y < 134 ? this.movement : 0);
-        }
-
-        //Einen neuen Spieler erstellen, falls es ihn noch nicht gibt
-        if(this.player == null) {
-            this.player = new Rectangle(this.getWidth() / 2, this.height + this.space / height, 5, 5);
-        } else { //Collision detection
-
-            for(Rectangle[] rectangles : this.rectangles) {
-                for(Rectangle r : rectangles) {
-                    if(this.player.intersects(r)) {
-                        //TODO Collision detected
-
-                        break;
-                    }
-                }
-            }
-
         }
 
         //Updaten aller Module
@@ -153,11 +155,6 @@ public class DefenseMenu extends MenuView implements GameComponent {
     public void render() {
         this.revalidate();
         this.repaint();
-    }
-
-    @Override
-    public boolean isActive() {
-        return true;
     }
 
 }
