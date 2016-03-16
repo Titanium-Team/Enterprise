@@ -2,6 +2,7 @@ package de.titanium.enterprise.View.DefenseGame;
 
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.GameComponent;
+import de.titanium.enterprise.Scores.Score;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.Menu.MenuView;
 import de.titanium.enterprise.View.Views.FightMenu;
@@ -23,12 +24,17 @@ public class DefenseMenu extends MenuView implements GameComponent {
     private List<Rectangle[]> rectangles = new ArrayList<>();
     private Rectangle player = null;
 
-
+    //Die Größe des Bewegungsbereiches
     private int space = 40;
+    //Die Starthöhe der Module
     private final int height = 50;
+    //Die Breite der Module
     private final int width = 320;
+    //Die Anzahl der Ticks
     private int tick = 0;
+    //Die Geschwindigkeit der Module
     private int speed = 10;
+    //Die Geschwindigkeit des Spielers
     private int movement = 2;
 
     public DefenseMenu() {
@@ -47,7 +53,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
         super.paintComponent(g);
 
         //g.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
-        g.setColor(new Color(238, 100, 86));
+        g.setColor(new Color(130,(this.tick/40 >= 170 ? 0 : 180 - this.tick/40), 30));
 
         //Alle Elemente einzeichnen
         Iterator<Rectangle[]> iterator = this.rectangles.iterator();
@@ -74,6 +80,8 @@ public class DefenseMenu extends MenuView implements GameComponent {
                     (int) this.player.getHeight()
             );
         }
+        //Die Punkteanzahl zeichnen
+        g.drawString("Punkte: " + this.tick, 50, 20);
 
         //Border
         g.drawImage(Textures.BORDER_DOWN.getImage(), 0, 0, null, null);
@@ -96,7 +104,6 @@ public class DefenseMenu extends MenuView implements GameComponent {
         //Alle 10 Sekunden wird der Abstand zwischen den Beiden Modulen um 1 verringert.
         if(this.tick % 500 == 0 && this.space > 20) {
             this.space--;
-            this.tick = 0;
         }
 
 
@@ -108,7 +115,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
             for(Rectangle[] rectangles : this.rectangles) {
                 for(Rectangle r : rectangles) {
                     if(this.player.intersects(r)) {
-                        Enterprise.getGame().getViewManager().changeMenu(FightView.class, new FightMenu());
+                        Enterprise.getGame().getViewManager().changeMenu(FightView.class, new DefenseMenu());
                         break;
                     }
                 }
