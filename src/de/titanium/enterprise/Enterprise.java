@@ -1,5 +1,6 @@
 package de.titanium.enterprise;
 
+import de.titanium.enterprise.Data.DataManager;
 import de.titanium.enterprise.KeyManager.KeyManager;
 import de.titanium.enterprise.Sprite.SpriteSheetManager;
 import de.titanium.enterprise.View.GameView;
@@ -24,6 +25,7 @@ public class Enterprise {
     private final ViewManager viewManager = new ViewManager();
     private final KeyManager keyManager = new KeyManager();
     private final SpriteSheetManager spriteSheetManager = new SpriteSheetManager();
+    private final DataManager dataManager = new DataManager();
 
     private static Enterprise game;
 
@@ -141,5 +143,9 @@ public class Enterprise {
 
     public KeyManager getKeyManager() {
         return this.keyManager;
+    }
+
+    public DataManager getDataManager() {
+        return this.dataManager;
     }
 }

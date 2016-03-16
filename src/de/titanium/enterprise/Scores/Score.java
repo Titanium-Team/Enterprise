@@ -1,10 +1,12 @@
 package de.titanium.enterprise.Scores;
 
 
+import de.titanium.enterprise.Data.DataEntry;
+
 /**
  * Created by 204g01 on 16.03.2016.
  */
-public class Score implements Comparable<Score>{
+public class Score implements Comparable<Score>, DataEntry{
 
     private final int score;
     private final String name;

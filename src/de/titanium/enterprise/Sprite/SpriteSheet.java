@@ -15,7 +15,6 @@ public class SpriteSheet {
     public SpriteSheet(String path) throws IOException {
 
         this.bufferedImage = ImageIO.read(new File(path));
-        System.out.println(this.bufferedImage.getHeight());
 
     }
 

@@ -1,18 +1,19 @@
 package de.titanium.enterprise.Scores;
 
-import java.util.Comparator;
+import de.titanium.enterprise.Data.DataEntry;
 
 /**
  * Created by 204g01 on 16.03.2016.
  */
-public class BinarySearchTree<T extends Comparable<T>> {
+public class BinarySearchTree<T extends Comparable<T>> implements DataEntry {
 
     private Node<T> node;
 
-    public BinarySearchTree(){
+    public BinarySearchTree(){}
 
+    public void insert(T content) {
+        this.insert(content, this);
     }
-
 
     public void insert(T content, BinarySearchTree<T> current){
 

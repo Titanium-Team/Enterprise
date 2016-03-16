@@ -1,5 +1,6 @@
 package de.titanium.enterprise.Entity;
 
+import de.titanium.enterprise.Data.DataEntry;
 import de.titanium.enterprise.Entity.EntityType.EntityType;
 import de.titanium.enterprise.GameComponent;
 
@@ -8,7 +9,7 @@ import java.util.UUID;
 /**
  * Created by Yonas on 08.03.2016.
  */
-public abstract class Entity implements GameComponent {
+public abstract class Entity implements GameComponent, DataEntry {
 
     private final UUID identifier;
     private final EntityType entityType;

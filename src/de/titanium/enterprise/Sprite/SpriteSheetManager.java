@@ -1,5 +1,8 @@
 package de.titanium.enterprise.Sprite;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -8,7 +11,6 @@ import java.io.IOException;
 public class SpriteSheetManager {
 
     private SpriteSheet heroes;
-    private SpriteSheet background;
 
     public SpriteSheetManager() {
         try {
@@ -18,10 +20,17 @@ public class SpriteSheetManager {
         }
     }
 
+    public Image load(String path) {
+        try {
+            return ImageIO.read(new File(path));
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
     private void load() throws IOException {
 
         this.heroes = new SpriteSheet("./assets/sprite.png");
-        this.background = new SpriteSheet("./assets/background.png");
 
     }
 
@@ -29,7 +38,4 @@ public class SpriteSheetManager {
         return this.heroes;
     }
 
-    public SpriteSheet getBackground() {
-        return this.background;
-    }
 }

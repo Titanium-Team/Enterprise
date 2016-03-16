@@ -32,7 +32,7 @@ public enum Textures implements Texture {
 
         @Override
         public Image getImage() {
-            return Enterprise.getGame().getSpriteSheetManager().getBackground().get(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+            return Enterprise.getGame().getSpriteSheetManager().load("./assets/background.png");
         }
     },
     BORDER_UP {
