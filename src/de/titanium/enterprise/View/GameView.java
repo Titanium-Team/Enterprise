@@ -49,7 +49,7 @@ public class GameView {
 
     }
 
-    public synchronized void swapMenu(View view) {
+    public void swapMenu(View view) {
 
         this.frame.remove(this.menu);
 
