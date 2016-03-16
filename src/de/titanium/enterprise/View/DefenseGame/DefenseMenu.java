@@ -2,6 +2,7 @@ package de.titanium.enterprise.View.DefenseGame;
 
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.GameComponent;
+import de.titanium.enterprise.Scores.Score;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.Menu.MenuView;
 import de.titanium.enterprise.View.Views.FightMenu;
@@ -79,6 +80,8 @@ public class DefenseMenu extends MenuView implements GameComponent {
                     (int) this.player.getHeight()
             );
         }
+        //Die Punkteanzahl zeichnen
+        g.drawString("Punkte: " + this.tick, 50, 20);
 
         //Border
         g.drawImage(Textures.BORDER_DOWN.getImage(), 0, 0, null, null);

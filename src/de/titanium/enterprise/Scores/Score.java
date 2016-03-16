@@ -7,9 +7,11 @@ package de.titanium.enterprise.Scores;
 public class Score implements Comparable<Score>{
 
     private final int score;
+    private final String name;
 
-    public Score(int score) {
+    public Score(int score, String name) {
         this.score = score;
+        this.name = name;
     }
 
     public int getScore() {
@@ -29,5 +31,9 @@ public class Score implements Comparable<Score>{
     @Override
     public boolean isEqual(Score o) {
         return (this.getScore() == o.getScore());
+    }
+
+    public String getName() {
+        return name;
     }
 }
