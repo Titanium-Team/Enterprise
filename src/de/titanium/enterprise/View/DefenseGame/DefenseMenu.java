@@ -81,7 +81,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
             );
         }
         //Die Punkteanzahl zeichnen
-        g.drawString("Punkte: " + this.tick, 50, 20);
+        g.drawString("Punkte: " + this.tick, 950, 20);
 
         //Border
         g.drawImage(Textures.BORDER_DOWN.getImage(), 0, 0, null, null);
