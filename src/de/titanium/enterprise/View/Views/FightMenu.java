@@ -56,7 +56,7 @@ public class FightMenu extends MenuView implements GameComponent {
     }
 
     @Override
-    public void update(double deltaTime, int tick) {
+    public void update(int tick) {
 
         this.requestFocus();
         if(tick == 20) {

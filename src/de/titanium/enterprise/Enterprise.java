@@ -82,13 +82,14 @@ public class Enterprise {
             double currentTime = System.currentTimeMillis();
             double deltaTime = currentTime - lastTime;
 
+
             Iterator<GameComponent> updateComponents = Arrays.asList(this.gameComponents.toArray(new GameComponent[this.gameComponents.size()]).clone()).iterator();
             while (updateComponents.hasNext()) {
 
                 GameComponent component = updateComponents.next();
 
                 if (component.isActive()) {
-                    component.update((deltaTime < 1 ? 1 : deltaTime), CURRENT_TICK);
+                    component.update(CURRENT_TICK);
                 }
 
             }

@@ -24,7 +24,7 @@ public class Archer extends LivingEntity {
     }
 
     @Override
-    public void update(double deltaTime, int tick) {
+    public void update(int tick) {
 
     }
 
