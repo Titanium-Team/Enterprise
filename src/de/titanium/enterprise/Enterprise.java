@@ -2,11 +2,13 @@ package de.titanium.enterprise;
 
 import de.titanium.enterprise.Data.DataManager;
 import de.titanium.enterprise.KeyManager.KeyManager;
-import de.titanium.enterprise.Sprite.SpriteSheetManager;
-import de.titanium.enterprise.View.GameView;
-import de.titanium.enterprise.View.ViewManager;
+import de.titanium.enterprise.Loading.LoadingManager;
+import de.titanium.enterprise.Sprite.Animation.Animations;
+import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.DefenseGame.DefenseMenu;
-import de.titanium.enterprise.View.Views.FightMenu;
+import de.titanium.enterprise.View.GameView;
+import de.titanium.enterprise.View.LoadingView.LoadingView;
+import de.titanium.enterprise.View.ViewManager;
 import de.titanium.enterprise.View.Views.FightView;
 
 import java.util.ArrayList;
@@ -24,8 +26,8 @@ public class Enterprise {
     private final GameView gameView = new GameView();
     private final ViewManager viewManager = new ViewManager();
     private final KeyManager keyManager = new KeyManager();
-    private final SpriteSheetManager spriteSheetManager = new SpriteSheetManager();
     private final DataManager dataManager = new DataManager();
+    private final LoadingManager loadingManager = new LoadingManager();
 
     private static Enterprise game;
 
@@ -33,11 +35,21 @@ public class Enterprise {
 
         Enterprise.game = this;
 
+        //Adding loading screen
+        this.viewManager.register(new LoadingView());
+        this.viewManager.switchTo(LoadingView.class);
+
+        //managing loading
+        this.loadingManager.add(Animations.values());
+        this.loadingManager.add(Textures.values());
+        this.loadingManager.load();
+
+        //default view
         this.viewManager.register(new FightView(new DefenseMenu()));
         this.viewManager.switchTo(FightView.class);
 
+        //start game
         this.start();
-
     }
 
     /**
@@ -130,10 +142,6 @@ public class Enterprise {
 
     }
 
-    public SpriteSheetManager getSpriteSheetManager() {
-        return this.spriteSheetManager;
-    }
-
     public ViewManager getViewManager() {
         return this.viewManager;
     }
@@ -149,4 +157,9 @@ public class Enterprise {
     public DataManager getDataManager() {
         return this.dataManager;
     }
+
+    public LoadingManager getLoadingManager() {
+        return this.loadingManager;
+    }
+
 }
