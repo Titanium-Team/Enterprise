@@ -40,7 +40,7 @@ public class Warrior extends LivingEntity {
     }
 
     @Override
-    public void update(double deltaTime, int tick) {}
+    public void update(int tick) {}
 
     @Override
     public void render() {}

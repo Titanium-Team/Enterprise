@@ -2,6 +2,7 @@ package de.titanium.enterprise.Sprite;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -20,7 +21,7 @@ public class SpriteSheetManager {
         }
     }
 
-    public Image load(String path) {
+    public BufferedImage load(String path) {
         try {
             return ImageIO.read(new File(path));
         } catch (IOException e) {

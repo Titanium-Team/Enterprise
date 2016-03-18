@@ -7,4 +7,8 @@ public interface Animation {
 
     Animator getAnimator();
 
+    int getHeight();
+
+    double getWidthScale();
+
 }

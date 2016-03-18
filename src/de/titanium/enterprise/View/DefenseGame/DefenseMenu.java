@@ -90,7 +90,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
     }
 
     @Override
-    public void update(double deltaTime, int tick) {
+    public void update(int tick) {
 
         this.tick++;
 

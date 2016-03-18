@@ -8,7 +8,7 @@ public interface GameComponent {
     /**
      * Wird bei jedem Tick aufgerufen.
      */
-    void update(double deltaTime, int tick);
+    void update(int tick);
 
     void render();
 
