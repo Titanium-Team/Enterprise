@@ -2,7 +2,11 @@ package de.titanium.enterprise.Sprite;
 
 import de.titanium.enterprise.Enterprise;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by Yonas on 12.03.2016.
@@ -10,85 +14,60 @@ import java.awt.*;
 public enum Textures implements Texture {
 
     BACKGROUND {
+
+        private BufferedImage image;
+
         @Override
-        public int getX() {
-            return 0;
+        public void load() {
+            this.image = Textures.loadImage("./assets/background.png");
         }
 
         @Override
-        public int getY() {
-            return 0;
+        public BufferedImage getImage() {
+            return this.image;
         }
 
-        @Override
-        public int getHeight() {
-            return 540;
-        }
-
-        @Override
-        public int getWidth() {
-            return 1280;
-        }
-
-        @Override
-        public Image getImage() {
-            return Enterprise.getGame().getSpriteSheetManager().load("./assets/background.png");
-        }
     },
     BORDER_UP {
 
-        @Override
-        public int getX() {
-            return 0;
-        }
+        private BufferedImage image;
 
         @Override
-        public int getY() {
-            return 0;
+        public void load() {
+            this.image = Textures.loadImage("./assets/border.png").getSubimage(1, 1, 1280, 543);
         }
 
-        @Override
-        public int getHeight() {
-            return 543;
-        }
 
         @Override
-        public int getWidth() {
-            return 1280;
-        }
-
-        @Override
-        public Image getImage() {
-            return Enterprise.getGame().getSpriteSheetManager().getHeroes().get(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        public BufferedImage getImage() {
+            return this.image;
         }
 
     },
     BORDER_DOWN {
 
-        @Override
-        public int getX() {
-            return 0;
-        }
+        private BufferedImage image;
 
         @Override
-        public int getY() {
-            return 544;
+        public void load() {
+            this.image = Textures.loadImage("./assets/border.png").getSubimage(1, 546, 1280, 181);
         }
 
-        @Override
-        public int getHeight() {
-            return 180;
-        }
 
         @Override
-        public int getWidth() {
-            return 1280;
+        public BufferedImage getImage() {
+            return this.image;
         }
 
-        @Override
-        public Image getImage() {
-            return Enterprise.getGame().getSpriteSheetManager().getHeroes().get(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+    };
+
+    private static BufferedImage loadImage(String path) {
+        try {
+            return ImageIO.read(new File(path));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return null;
     }
 
 }

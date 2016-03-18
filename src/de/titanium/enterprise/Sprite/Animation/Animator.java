@@ -8,14 +8,19 @@ import java.awt.image.BufferedImage;
 public class Animator {
 
     private Animation type;
-    private final BufferedImage[] textures;
-    private int currentFrame = 0;
-    private final int delay;
 
-    public Animator(Animation type, BufferedImage[] textures, int delay) {
+    private final BufferedImage[] textures;
+
+    private final int skipFrames;
+    private int skippedFrames = 0;
+
+    private int currentFrame = 0;
+
+
+    public Animator(Animation type, BufferedImage[] textures, int skipFrames) {
         this.type = type;
         this.textures = textures;
-        this.delay = delay;
+        this.skipFrames = skipFrames;
     }
 
     public Animation getType() {
@@ -23,10 +28,15 @@ public class Animator {
     }
 
     public void next() {
-        if(this.currentFrame < this.textures.length - 1) {
-            this.currentFrame++;
+        if(this.skippedFrames < this.skipFrames) {
+            this.skippedFrames++;
         } else {
-            this.currentFrame = 0;
+            this.skippedFrames = 0;
+            if (this.currentFrame < this.textures.length - 1) {
+                this.currentFrame++;
+            } else {
+                this.currentFrame = 0;
+            }
         }
     }
 
