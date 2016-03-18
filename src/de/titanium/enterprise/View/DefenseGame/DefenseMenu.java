@@ -82,7 +82,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
             );
         }
         //Die Punkteanzahl zeichnen
-        g.drawString("Punkte: " + this.tick, 50, 20);
+        g.drawString("Punkte: " + this.tick, 950, 20);
 
         //Border
         g.drawImage(Textures.BORDER_DOWN.getImage(), 0, 0, null, null);
@@ -116,11 +116,11 @@ public class DefenseMenu extends MenuView implements GameComponent {
             for(Rectangle[] rectangles : this.rectangles) {
                 for(Rectangle r : rectangles) {
                     if(this.player.intersects(r)) {
-                        if(Enterprise.getGame().getDataManager().contains(BinarySearchTree.class)) {
-                            Enterprise.getGame().getDataManager().getOne(BinarySearchTree.class).insert(new Score(this.tick, "Hi"));
-                        } else {
+                        Score score = new Score(this.tick,"Score:");
+                        if(!Enterprise.getGame().getDataManager().contains(BinarySearchTree.class)) {
                             Enterprise.getGame().getDataManager().add(new BinarySearchTree<Score>());
                         }
+                        Enterprise.getGame().getDataManager().getOne(BinarySearchTree.class).insert(score, Enterprise.getGame().getDataManager().getOne(BinarySearchTree.class));
 
                         Enterprise.getGame().getViewManager().changeMenu(FightView.class, new DefenseMenu());
                         break;
