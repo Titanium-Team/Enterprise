@@ -1,7 +1,5 @@
 package de.titanium.enterprise.Sprite.Animation;
 
-import de.titanium.enterprise.Enterprise;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -18,6 +16,11 @@ public enum Animations implements Animation {
         private final BufferedImage[] frames = new BufferedImage[52];
         private BufferedImage image;
 
+
+        @Override
+        public String getName() {
+            return "Ranger Attack Animation";
+        }
 
         @Override
         public void load() {
@@ -70,6 +73,11 @@ public enum Animations implements Animation {
 
         private final BufferedImage[] frames = new BufferedImage[60];
         private BufferedImage image = null;
+
+        @Override
+        public String getName() {
+            return "Ranger Idle Animation";
+        }
 
         @Override
         public void load() {
@@ -143,6 +151,11 @@ public enum Animations implements Animation {
         private BufferedImage image = null;
 
         @Override
+        public String getName() {
+            return "Ranger Die Animation";
+        }
+
+        @Override
         public void load() {
             this.image = Animations.loadImage("./assets/animations/ranger_die_animation.png");
             int x = 0;
@@ -186,6 +199,11 @@ public enum Animations implements Animation {
         private BufferedImage image = null;
 
         @Override
+        public String getName() {
+            return "Ranger Block Animation";
+        }
+
+        @Override
         public void load() {
             this.image = Animations.loadImage("./assets/animations/ranger_block_animation.png");
             int x = 0;
@@ -221,6 +239,11 @@ public enum Animations implements Animation {
 
         private final BufferedImage[] frames = new BufferedImage[60];
         private BufferedImage image = null;
+
+        @Override
+        public String getName() {
+            return "Archer Idle Animation";
+        }
 
         @Override
         public void load() {

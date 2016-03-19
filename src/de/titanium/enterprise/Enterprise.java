@@ -11,9 +11,8 @@ import de.titanium.enterprise.View.LoadingView.LoadingView;
 import de.titanium.enterprise.View.ViewManager;
 import de.titanium.enterprise.View.Views.FightView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
+import java.awt.*;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -28,6 +27,14 @@ public class Enterprise {
     private final KeyManager keyManager = new KeyManager();
     private final DataManager dataManager = new DataManager();
     private final LoadingManager loadingManager = new LoadingManager();
+    private final Map<RenderingHints.Key, Object> renderingHints = new HashMap<>();
+
+    {
+
+        this.renderingHints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        this.renderingHints.put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+
+    }
 
     private static Enterprise game;
 
@@ -40,8 +47,8 @@ public class Enterprise {
         this.viewManager.switchTo(LoadingView.class);
 
         //managing loading
-        this.loadingManager.add(Animations.values());
         this.loadingManager.add(Textures.values());
+        this.loadingManager.add(Animations.values());
         this.loadingManager.load();
 
         //default view
@@ -58,6 +65,14 @@ public class Enterprise {
      */
     public static Enterprise getGame() {
         return Enterprise.game;
+    }
+
+    /**
+     * Diese Methode gibt alle RenderingHints zurück, die global beim Rendern genutzt werden sollen.
+     * @return
+     */
+    public Map<RenderingHints.Key, Object> getRenderingHints() {
+        return this.renderingHints;
     }
 
     public static void main(String[] args) {

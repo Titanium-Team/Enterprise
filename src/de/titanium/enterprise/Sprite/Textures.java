@@ -1,9 +1,6 @@
 package de.titanium.enterprise.Sprite;
 
-import de.titanium.enterprise.Enterprise;
-
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +13,11 @@ public enum Textures implements Texture {
     BACKGROUND {
 
         private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Background Texture";
+        }
 
         @Override
         public void load() {
@@ -33,6 +35,11 @@ public enum Textures implements Texture {
         private BufferedImage image;
 
         @Override
+        public String getName() {
+            return "Border-UP Texture";
+        }
+
+        @Override
         public void load() {
             this.image = Textures.loadImage("./assets/border.png").getSubimage(1, 1, 1280, 543);
         }
@@ -47,6 +54,11 @@ public enum Textures implements Texture {
     BORDER_DOWN {
 
         private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Border-DOWN Texture";
+        }
 
         @Override
         public void load() {

@@ -10,6 +10,7 @@ import java.util.List;
 public class LoadingManager {
 
     private List<Loadable> loadables = new ArrayList<>();
+    private Loadable current = null;
 
     public LoadingManager() {}
 
@@ -23,8 +24,14 @@ public class LoadingManager {
 
     public void load() {
         for(Loadable loadable : this.loadables) {
+            this.current = loadable;
             loadable.load();
         }
+        this.loadables.clear();
+        this.current = null;
     }
 
+    public Loadable getCurrent() {
+        return this.current;
+    }
 }

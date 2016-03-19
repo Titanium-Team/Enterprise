@@ -23,7 +23,7 @@ public class GameView {
         this.frame.setLayout(new BorderLayout());
         this.frame.add(this.content, BorderLayout.NORTH);
         this.frame.add(this.menu, BorderLayout.SOUTH);
-
+        
         this.frame.pack();
         this.frame.setLocationRelativeTo(null);
         this.frame.setVisible(true);

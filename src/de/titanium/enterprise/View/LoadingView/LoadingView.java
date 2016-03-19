@@ -1,5 +1,7 @@
 package de.titanium.enterprise.View.LoadingView;
 
+import de.titanium.enterprise.Enterprise;
+import de.titanium.enterprise.Loading.Loadable;
 import de.titanium.enterprise.View.View;
 
 import java.awt.*;
@@ -24,17 +26,34 @@ public class LoadingView extends View {
                 } else {
                     value += ".";
                 }
+
                 repaint();
             }
-        }, 800, 800);
+        }, 0, 400);
     }
 
     @Override
-    public void paintComponent(Graphics g) {
+    public void paintComponent(Graphics graphic) {
 
+        Graphics2D g = (Graphics2D) graphic;
         super.paintComponent(g);
+
+        g.setRenderingHints(Enterprise.getGame().getRenderingHints());
+
+        //Draw Loading Text
         g.setFont(new Font("Arial", Font.BOLD, 50));
-        g.drawString("Loading" + this.value, (this.getWidth() / 2) - 100, this.getHeight() / 2);
+        String text = "Loading" + this.value;
+        FontMetrics fontMetrics = g.getFontMetrics();
+        g.drawString(text, (this.getWidth() - fontMetrics.stringWidth("Loading...")) / 2,  ((this.getHeight() - fontMetrics.getHeight()) / 2) - fontMetrics.getAscent());
+
+        //Draw Loadable Text
+        Loadable current = Enterprise.getGame().getLoadingManager().getCurrent();
+        g.setFont(new Font("Arial", Font.BOLD, 25));
+        fontMetrics = g.getFontMetrics();
+
+        if(!(current == null)) {
+            g.drawString(current.getName(), (this.getWidth() - fontMetrics.stringWidth(current.getName())) / 2,  ((this.getHeight() - fontMetrics.getHeight()) / 2) - fontMetrics.getAscent());
+        }
 
     }
 

@@ -47,28 +47,31 @@ public class FightView extends View {
     }
 
     @Override
-    public void paintComponent(Graphics graphics) {
+    public void paintComponent(Graphics graphic) {
 
-        super.paintComponent(graphics);
+        Graphics2D g = (Graphics2D) graphic;
+        super.paintComponent(g);
+
+        g.setRenderingHints(Enterprise.getGame().getRenderingHints());
 
         //draw background and frame
-        graphics.drawImage(Textures.BACKGROUND.getImage(), 0, 0, null, null);
-        graphics.drawImage(Textures.BORDER_UP.getImage(), 0, 0, null, null);
+        g.drawImage(Textures.BACKGROUND.getImage(), 0, 0, null, null);
+        g.drawImage(Textures.BORDER_UP.getImage(), 0, 0, null, null);
 
         Animator rangerAnimator = this.ranger.element();
-        graphics.drawImage(rangerAnimator.getFrame(), 50, 270, (int) (rangerAnimator.getFrame().getWidth() * rangerAnimator.getType().getWidthScale()), rangerAnimator.getType().getHeight(), null);
+        g.drawImage(rangerAnimator.getFrame(), 50, 270, (int) (rangerAnimator.getFrame().getWidth() * rangerAnimator.getType().getWidthScale()), rangerAnimator.getType().getHeight(), null);
 
         Animator rangerAnimator1 = this.ranger1.element();
-        graphics.drawImage(rangerAnimator1.getFrame(), 430, 268, (int) (rangerAnimator1.getFrame().getWidth() * rangerAnimator1.getType().getWidthScale()), rangerAnimator1.getType().getHeight(), null);
+        g.drawImage(rangerAnimator1.getFrame(), 430, 268, (int) (rangerAnimator1.getFrame().getWidth() * rangerAnimator1.getType().getWidthScale()), rangerAnimator1.getType().getHeight(), null);
 
         Animator rangerAnimator2 = this.ranger2.element();
-        graphics.drawImage(rangerAnimator2.getFrame(), 740, 270, (int) (rangerAnimator2.getFrame().getWidth() * rangerAnimator2.getType().getWidthScale()), rangerAnimator2.getType().getHeight(), null);
+        g.drawImage(rangerAnimator2.getFrame(), 740, 270, (int) (rangerAnimator2.getFrame().getWidth() * rangerAnimator2.getType().getWidthScale()), rangerAnimator2.getType().getHeight(), null);
 
 
         if (scores != null) {
             int y = 0;
             for (Score score : scores) {
-                graphics.drawString(score.getName() + " | " + score.getScore(), 1000, 100 + y);
+                g.drawString(score.getName() + " | " + score.getScore(), 1000, 100 + y);
                 y += 10;
             }
         }

@@ -6,7 +6,6 @@ import de.titanium.enterprise.Scores.BinarySearchTree;
 import de.titanium.enterprise.Scores.Score;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.Menu.MenuView;
-import de.titanium.enterprise.View.Views.FightMenu;
 import de.titanium.enterprise.View.Views.FightView;
 
 import java.awt.*;
@@ -49,9 +48,12 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
 
     @Override
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics graphic) {
 
+        Graphics2D g = (Graphics2D) graphic;
         super.paintComponent(g);
+
+        g.setRenderingHints(Enterprise.getGame().getRenderingHints());
 
         //g.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
         g.setColor(new Color(130,(this.tick/40 >= 170 ? 0 : 180 - this.tick/40), 30));

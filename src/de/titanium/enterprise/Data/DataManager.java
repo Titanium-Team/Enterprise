@@ -53,4 +53,7 @@ public class DataManager {
 
     }
 
+    public HashMap<Class<? extends DataEntry>, List<DataEntry>> getDataEntries() {
+        return dataEntries;
+    }
 }
