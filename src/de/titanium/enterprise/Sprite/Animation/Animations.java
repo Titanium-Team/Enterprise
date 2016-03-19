@@ -27,28 +27,17 @@ public enum Animations implements Animation {
             this.image = Animations.loadImage("./assets/animations/ranger_attack_animation.png");
 
             int x = 0;
-            for (int i = 0; i < 13; i++) {
-                this.frames[i] = this.image.getSubimage(x * 1080, 0, 1078, 1040);
+            for (int i = 0; i < 26; i++) {
+                this.frames[i] = this.image.getSubimage(x * 481, 1, 479, 462);
                 x++;
             }
 
             x = 0;
-            for (int i = 13; i < 26; i++) {
-                this.frames[i] = this.image.getSubimage(x * 1080, 1043, 1078, 1040);
+            for (int i = 26; i < 52; i++) {
+                this.frames[i] = this.image.getSubimage(x * 481, 465, 479, 462);
                 x++;
             }
 
-            x = 0;
-            for (int i = 26; i < 39; i++) {
-                this.frames[i] = this.image.getSubimage(x * 1080, 2085, 1078, 1040);
-                x++;
-            }
-
-            x = 0;
-            for (int i = 39; i < 52; i++) {
-                this.frames[i] = this.image.getSubimage(x * 1080, 3127, 1078, 1040);
-                x++;
-            }
         }
 
         @Override
@@ -64,8 +53,8 @@ public enum Animations implements Animation {
         }
 
         @Override
-        public double getWidthScale() {
-            return 0.1555;
+        public int getWidth() {
+            return 162;
         }
 
     },
@@ -81,51 +70,23 @@ public enum Animations implements Animation {
 
         @Override
         public void load() {
+
             this.image = Animations.loadImage("./assets/animations/ranger_idle_animation.png");
+
             int x = 0;
-            for (int i = 0; i < 9; i++) {
-                this.frames[i] = this.image.getSubimage(x * 872, 1, 870, 1052);
+            for (int i = 0; i < 30; i++) {
+                this.frames[i] = this.image.getSubimage(x * 365, 1, 363, 438);
                 x++;
             }
 
             x = 0;
-            for (int i = 9; i < 18; i++) {
-                this.frames[i] = this.image.getSubimage(x * 872, 1055, 870, 1052);
+            for (int i = 30; i < 60; i++) {
+                this.frames[i] = this.image.getSubimage(x * 365, 441, 363, 438);
                 x++;
             }
 
-            x = 0;
-            for (int i = 18; i < 27; i++) {
-                this.frames[i] = this.image.getSubimage(x * 872, 2109, 870, 1052);
-                x++;
-            }
-
-            x = 0;
-            for (int i = 27; i < 36; i++) {
-                this.frames[i] = this.image.getSubimage(x * 872, 3163, 870, 1052);
-                x++;
-            }
-
-            x = 0;
-            for (int i = 36; i < 45; i++) {
-                this.frames[i] = this.image.getSubimage(x * 872, 4217, 870, 1052);
-                x++;
-            }
-
-            x = 0;
-            for (int i = 45; i < 54; i++) {
-                this.frames[i] = this.image.getSubimage(x * 872, 5271, 870, 1052);
-                x++;
-            }
-
-            x = 0;
-            for (int i = 54; i < 60; i++) {
-                this.frames[i] = this.image.getSubimage(x * 872, 6325, 870, 1052);
-                x++;
-            }
 
         }
-
 
         @Override
         public Animator getAnimator() {
@@ -136,12 +97,12 @@ public enum Animations implements Animation {
 
         @Override
         public int getHeight() {
-            return 168; //168
+            return 168;
         }
 
         @Override
-        public double getWidthScale() {
-            return 0.15209125475; //197.2
+        public int getWidth() {
+            return 180;
         }
 
     },
@@ -158,23 +119,11 @@ public enum Animations implements Animation {
         @Override
         public void load() {
             this.image = Animations.loadImage("./assets/animations/ranger_die_animation.png");
-            int x = 0;
-            for (int i = 0; i < 8; i++) {
-                this.frames[i] = this.image.getSubimage(x * 1562, 0, 1560, 1362);
-                x++;
+
+            for (int i = 0; i < 22; i++) {
+                this.frames[i] = this.image.getSubimage(i * 652, 1, 650, 568);
             }
 
-            x = 0;
-            for (int i = 8; i < 16; i++) {
-                this.frames[i] = this.image.getSubimage(x * 1562, 1365, 1560, 1362);
-                x++;
-            }
-
-            x = 0;
-            for (int i = 16; i < 22; i++) {
-                this.frames[i] = this.image.getSubimage(x * 1562, 2729, 1560, 1362);
-                x++;
-            }
         }
 
         @Override
@@ -188,8 +137,8 @@ public enum Animations implements Animation {
         }
 
         @Override
-        public double getWidthScale() {
-            return 0.1076923076;
+        public int getWidth() {
+            return 146;
         }
 
     },
@@ -206,16 +155,9 @@ public enum Animations implements Animation {
         @Override
         public void load() {
             this.image = Animations.loadImage("./assets/animations/ranger_block_animation.png");
-            int x = 0;
-            for (int i = 0; i < 13; i++) {
-                this.frames[i] = this.image.getSubimage(x * 1074, 1, 1072, 1095);
-                x++;
-            }
 
-            x = 0;
-            for (int i = 13; i < 25; i++) {
-                this.frames[i] = this.image.getSubimage(x * 1074, 1098, 1072, 1095);
-                x++;
+            for (int i = 0; i < 25; i++) {
+                this.frames[i] = this.image.getSubimage(i * 449, 1, 447, 456);
             }
 
         }
@@ -231,8 +173,8 @@ public enum Animations implements Animation {
         }
 
         @Override
-        public double getWidthScale() {
-            return 0.1567164179104478;
+        public int getWidth() {
+            return 171;
         }
     },
     ARCHER_IDLE {
@@ -248,23 +190,20 @@ public enum Animations implements Animation {
         @Override
         public void load() {
             this.image = Animations.loadImage("./assets/animations/archer_idle_animation.png");
+
             int x = 0;
-            for (int i = 0; i < 20; i++) {
-                this.frames[i] = this.image.getSubimage(x * 816, 1, 814, 1028);
+            for (int i = 0; i < 30; i++) {
+                this.frames[i] = this.image.getSubimage(x * 341, 1, 339, 428);
                 x++;
             }
 
             x = 0;
-            for (int i = 20; i < 40; i++) {
-                this.frames[i] = this.image.getSubimage(x * 816, 1031, 814, 1028);
+            for (int i = 30; i < 60; i++) {
+                this.frames[i] = this.image.getSubimage(x * 341, 431, 339, 428);
                 x++;
             }
 
-            x = 0;
-            for (int i = 40; i < 60; i++) {
-                this.frames[i] = this.image.getSubimage(x * 816, 2061, 814, 1028);
-                x++;
-            }
+
         }
 
         @Override
@@ -278,8 +217,8 @@ public enum Animations implements Animation {
         }
 
         @Override
-        public double getWidthScale() {
-            return 0.206;
+        public int getWidth() {
+            return 212;
         }
 
     };

@@ -27,8 +27,8 @@ public class FightView extends View {
     }
 
     private AnimationQueue ranger = new AnimationQueue(Animations.RANGER_IDLE);
-    private AnimationQueue ranger1 = new AnimationQueue(Animations.RANGER_IDLE);
-    private AnimationQueue ranger2 = new AnimationQueue(Animations.RANGER_IDLE);
+    private AnimationQueue ranger1 = new AnimationQueue(Animations.RANGER_ATTACK);
+    private AnimationQueue ranger2 = new AnimationQueue(Animations.RANGER_BLOCK);
 
 
     @Override
@@ -59,13 +59,13 @@ public class FightView extends View {
         g.drawImage(Textures.BORDER_UP.getImage(), 0, 0, null, null);
 
         Animator rangerAnimator = this.ranger.element();
-        g.drawImage(rangerAnimator.getFrame(), 50, 270, (int) (rangerAnimator.getFrame().getWidth() * rangerAnimator.getType().getWidthScale()), rangerAnimator.getType().getHeight(), null);
+        g.drawImage(rangerAnimator.getFrame(), 50, 270, rangerAnimator.getType().getWidth(), rangerAnimator.getType().getHeight(), null);
 
         Animator rangerAnimator1 = this.ranger1.element();
-        g.drawImage(rangerAnimator1.getFrame(), 430, 268, (int) (rangerAnimator1.getFrame().getWidth() * rangerAnimator1.getType().getWidthScale()), rangerAnimator1.getType().getHeight(), null);
+        g.drawImage(rangerAnimator1.getFrame(), 430, 268, rangerAnimator1.getType().getWidth(), rangerAnimator1.getType().getHeight(), null);
 
         Animator rangerAnimator2 = this.ranger2.element();
-        g.drawImage(rangerAnimator2.getFrame(), 740, 270, (int) (rangerAnimator2.getFrame().getWidth() * rangerAnimator2.getType().getWidthScale()), rangerAnimator2.getType().getHeight(), null);
+        g.drawImage(rangerAnimator2.getFrame(), 740, 270,  rangerAnimator2.getType().getWidth(), rangerAnimator2.getType().getHeight(), null);
 
 
         if (scores != null) {
@@ -75,6 +75,7 @@ public class FightView extends View {
                 y += 10;
             }
         }
+
     }
 
 

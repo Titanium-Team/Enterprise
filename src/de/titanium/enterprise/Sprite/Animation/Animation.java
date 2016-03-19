@@ -11,6 +11,6 @@ public interface Animation extends Loadable {
 
     int getHeight();
 
-    double getWidthScale();
+    int getWidth();
 
 }
