@@ -83,7 +83,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1, 1, 231, 270);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1, 1, 58, 68);
         }
 
         @Override
@@ -103,7 +103,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(234, 1, 165, 266);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(61, 1, 41, 67);
         }
 
         @Override
@@ -123,7 +123,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(401, 1, 233, 275);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(104, 1, 58, 69);
         }
 
         @Override
@@ -143,7 +143,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(636, 1, 233, 275);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(164, 1, 58, 69);
         }
 
         @Override
@@ -163,7 +163,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(871, 1, 235, 275);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(224, 1, 59, 68);
         }
 
         @Override
@@ -183,7 +183,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1108, 1, 225, 274);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(285, 1, 56, 69);
         }
 
         @Override
@@ -203,7 +203,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1335, 1, 233, 273);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(343, 1, 58, 68);
         }
 
         @Override
@@ -223,7 +223,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1570, 1, 211, 277);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(403, 1, 53, 69);
         }
 
         @Override
@@ -243,7 +243,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1783, 1, 230, 276);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(458, 1, 58, 69);
         }
 
         @Override
@@ -263,7 +263,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(2015, 1, 219, 270);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(518, 1, 55, 67);
         }
 
         @Override
@@ -283,7 +283,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(2236, 1, 238, 265);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(575, 1, 60, 66);
         }
 
         @Override
@@ -303,7 +303,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(2476, 1, 209, 265);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(637, 1, 52, 66);
         }
 
         @Override
@@ -323,7 +323,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1, 280, 220, 263);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(691, 1, 55, 66);
         }
 
         @Override
@@ -343,7 +343,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(223, 280, 227, 261);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(748, 1, 57, 65);
         }
 
         @Override
@@ -363,7 +363,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(452, 280, 196, 268);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(807, 1, 49, 67);
         }
 
         @Override
@@ -383,7 +383,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(650, 280, 181, 267);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(858, 1, 45, 67);
         }
 
         @Override
@@ -403,7 +403,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(833, 280, 290, 269);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(905, 1, 72, 67);
         }
 
         @Override
@@ -423,7 +423,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1125, 280, 225, 259);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(979, 1, 56, 65);
         }
 
         @Override
@@ -443,7 +443,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1352, 280, 129, 265);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1037, 1, 32, 66);
         }
 
         @Override
@@ -463,7 +463,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1483, 280, 192, 265);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1071, 1, 48, 66);
         }
 
         @Override
@@ -483,7 +483,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1677, 280, 220, 267);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1121, 1, 55, 67);
         }
 
         @Override
@@ -503,7 +503,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1899, 280, 206, 270);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1178, 1, 51, 67);
         }
 
         @Override
@@ -523,7 +523,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(2107, 280, 206, 270);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1231, 1, 76, 68);
         }
 
         @Override
@@ -543,7 +543,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(2414, 280, 229, 262);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1309, 1, 57, 66);
         }
 
         @Override
@@ -563,7 +563,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(2645, 280, 234, 265);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1368, 1, 58, 66);
         }
 
         @Override
@@ -583,7 +583,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1, 555, 234, 268);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1428, 1, 51, 67);
         }
 
         @Override
@@ -603,7 +603,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(209, 555, 275, 269);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1428, 1, 51, 67);
         }
 
         @Override
@@ -623,7 +623,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(486, 555, 275, 269);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1552, 1, 61, 67);
         }
 
         @Override
@@ -643,7 +643,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(732, 555, 212, 268);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1615, 1, 53, 67);
         }
 
         @Override
@@ -663,7 +663,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(946, 555, 234, 268);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1670, 1, 59, 67);
         }
 
         @Override
@@ -683,7 +683,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1182, 555, 241, 263);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1731, 1, 60, 66);
         }
 
         @Override
@@ -703,7 +703,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1425, 555, 243, 263);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1793, 1, 61, 66);
         }
 
         @Override
@@ -723,7 +723,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1670, 555, 309, 263);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1856, 1, 77, 66);
         }
 
         @Override
@@ -743,7 +743,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1981, 555, 246, 271);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1935, 1, 62, 68);
         }
 
         @Override
@@ -763,7 +763,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(2229, 555, 255, 259);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1999, 1, 64, 65);
         }
 
         @Override
@@ -783,7 +783,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(2486, 555, 241, 267);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(2065, 1, 60, 67);
         }
 
         @Override

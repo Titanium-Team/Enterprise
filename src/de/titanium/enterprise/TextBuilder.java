@@ -21,7 +21,7 @@ public class TextBuilder {
      */
     public Image toImage(String value, int font) {
 
-        double size = (font / 100D);
+        double size = (font / 30D);
         int width = 0;
         int height = 0;
 
