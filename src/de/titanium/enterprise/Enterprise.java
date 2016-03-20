@@ -118,7 +118,7 @@ public class Enterprise {
             }
 
             CURRENT_TICK++;
-            if (CURRENT_TICK >= MAX_TICKS) {
+            if (CURRENT_TICK > MAX_TICKS) {
                 CURRENT_TICK = 0;
             }
 
