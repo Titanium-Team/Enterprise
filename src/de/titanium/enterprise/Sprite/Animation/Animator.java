@@ -28,6 +28,7 @@ public class Animator {
     }
 
     public void next() {
+
         if(this.skippedFrames < this.skipFrames) {
             this.skippedFrames++;
         } else {

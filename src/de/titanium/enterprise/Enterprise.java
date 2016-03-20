@@ -1,6 +1,10 @@
 package de.titanium.enterprise;
 
 import de.titanium.enterprise.Data.DataManager;
+import de.titanium.enterprise.Entity.Entities.Archer;
+import de.titanium.enterprise.Entity.Entities.Rogue;
+import de.titanium.enterprise.Entity.Entities.Warrior;
+import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.KeyManager.KeyManager;
 import de.titanium.enterprise.Loading.LoadingManager;
 import de.titanium.enterprise.Sprite.Animation.Animations;
@@ -51,6 +55,18 @@ public class Enterprise {
         this.loadingManager.add(Textures.values());
         this.loadingManager.add(Animations.values());
         this.loadingManager.load();
+
+        //set default heroes
+        this.getDataManager().add("game.heroes", new LivingEntity[] {
+
+                new Archer(UUID.randomUUID(), "Archer", 100, 100, 4, 7),
+                new Warrior(UUID.randomUUID(), "Warrior", 100, 100, 0, 4),
+                new Rogue(UUID.randomUUID(), "Rogue", 100, 100, 7, 6)
+
+        });
+
+        //set default enemy
+        this.getDataManager().add("game.enemy", new Archer(UUID.randomUUID(), "Enemy", 100, 100, 5, 5));
 
         //default view
         this.viewManager.register(new FightView(new FightMenu()));

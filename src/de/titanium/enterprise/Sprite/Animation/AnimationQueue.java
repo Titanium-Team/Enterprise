@@ -18,11 +18,14 @@ public class AnimationQueue {
     }
 
     public void add(Animation animation) {
+
         Animator animator = animation.getAnimator();
         if(this.current == null) {
             this.current = animator;
         }
-        this.animators.add(animator);
+
+        this.animators.offer(animator);
+
     }
 
     public Animator element() {
@@ -30,12 +33,12 @@ public class AnimationQueue {
         if(this.current == null) {
             this.current = this.defaultAnimation.getAnimator();
         } else if(this.current.getIndex()+1 == this.current.getAmount()) {
-            this.animators.poll();
             if(this.animators.isEmpty()) {
                 this.current = this.defaultAnimation.getAnimator();
             } else {
                 this.current = this.animators.element();
             }
+            this.animators.poll();
         }
 
         return this.current;

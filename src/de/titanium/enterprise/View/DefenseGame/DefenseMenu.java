@@ -2,8 +2,8 @@ package de.titanium.enterprise.View.DefenseGame;
 
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.GameComponent;
-import de.titanium.enterprise.Scores.BinarySearchTree;
-import de.titanium.enterprise.Scores.Score;
+import de.titanium.enterprise.Data.Scores.BinarySearchTree;
+import de.titanium.enterprise.Data.Scores.Score;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.FightView.FightMenu;
 import de.titanium.enterprise.View.MenuView;
@@ -119,12 +119,12 @@ public class DefenseMenu extends MenuView implements GameComponent {
                     if(this.player.intersects(r)) {
                         Enterprise.getGame().getViewManager().changeMenu(FightView.class, new FightMenu());
                         Score score = new Score(this.tick,"Score:");
-                        if(!Enterprise.getGame().getDataManager().contains(BinarySearchTree.class)) {
-                            Enterprise.getGame().getDataManager().add(new BinarySearchTree<Score>());
+                        if(!Enterprise.getGame().getDataManager().contains("game.defense.scores")) {
+                            Enterprise.getGame().getDataManager().add("game.defense.scores", new BinarySearchTree<Score>());
                         }
-                        Enterprise.getGame().getDataManager().getOne(BinarySearchTree.class).insert(score, Enterprise.getGame().getDataManager().getOne(BinarySearchTree.class));
+                        Enterprise.getGame().getDataManager().getOne("game.defense.scores", BinarySearchTree.class).insert(score, Enterprise.getGame().getDataManager().getOne("game.defense.scores", BinarySearchTree.class));
 
-                        //Enterprise.getGame().getViewManager().changeMenu(FightView.class, new DefenseMenu());
+                                //Enterprise.getGame().getViewManager().changeMenu(FightView.class, new DefenseMenu());
                         break;
                     }
                 }

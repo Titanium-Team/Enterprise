@@ -92,6 +92,26 @@ public enum Textures implements Texture {
         }
 
     },
+    CHECKED_BUTTON {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Checked-Button Texture";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/checked-button.png").getSubimage(1, 1, 148, 162);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
     ALPHABET_0 {
 
         private BufferedImage image;

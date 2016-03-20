@@ -1,7 +1,10 @@
 package de.titanium.enterprise.View.FightView;
 
+import de.titanium.enterprise.Data.DataManager;
 import de.titanium.enterprise.Enterprise;
+import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.GameComponent;
+import de.titanium.enterprise.Sprite.Animation.Animations;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.DefenseGame.DefenseMenu;
 import de.titanium.enterprise.View.MenuView;
@@ -20,14 +23,15 @@ public class FightMenu extends MenuView implements GameComponent {
 
     //Time
     private long currentTime = System.currentTimeMillis();
-    private int time = 2000;
-    private int timeDistance = 1250;
+    private int time = 1000;
+    private int timeDistance = 500;
 
     //Hero One
     private Character heroOne = null;
     private boolean pressedOne = true;
     private boolean tmpOne = false;
     private boolean drawOne = true;
+    private int comboOne = 0;
 
     private final static ArrayList<ArrayList<Integer>> areaOne = new ArrayList<>();
     private int stageOne = 0;
@@ -37,6 +41,7 @@ public class FightMenu extends MenuView implements GameComponent {
     private boolean pressedTwo = true;
     private boolean tmpTwo = false;
     private boolean drawTwo = true;
+    private int comboTwo = 0;
 
     private final static ArrayList<ArrayList<Integer>> areaTwo = new ArrayList<>();
     private int stageTwo = 0;
@@ -46,6 +51,7 @@ public class FightMenu extends MenuView implements GameComponent {
     private boolean pressedThree = true;
     private boolean tmpThree = false;
     private boolean drawThree = true;
+    private int comboThree = 0;
 
     private final static ArrayList<ArrayList<Integer>> areaThree = new ArrayList<>();
     private int stageThree = 0;
@@ -80,7 +86,6 @@ public class FightMenu extends MenuView implements GameComponent {
             this.add(KeyEvent.VK_H);
 
         }});
-
         areaTwo.add(new ArrayList<Integer>() {{
 
             this.add(KeyEvent.VK_R);
@@ -124,20 +129,37 @@ public class FightMenu extends MenuView implements GameComponent {
         if(!(this.heroOne == null) && this.pressedOne && this.drawOne) {
             g.drawImage(Enterprise.getGame().getTextBuilder().toImage(this.heroOne.toString(), 20), 190, 60, null);
         } else if (!(this.pressedOne)) {
-            g.drawImage(Textures.FAILED_BUTTON.getImage(), 190, 60, null);
+            Image image = Textures.FAILED_BUTTON.getImage();
+            g.drawImage(image, 190, 60, (int) (image.getWidth(null) * 0.3), (int) (image.getHeight(null) * 0.3), null);
+        } else if(this.pressedOne && !(this.drawOne)) {
+            Image image = Textures.CHECKED_BUTTON.getImage();
+            g.drawImage(image, 190, 60, (int) (image.getWidth(null) * 0.3), (int) (image.getHeight(null) * 0.3), null);
         }
 
         if(!(this.heroTwo == null) && this.pressedTwo && this.drawTwo) {
             g.drawImage(Enterprise.getGame().getTextBuilder().toImage(this.heroTwo.toString(), 20), 490, 60, null);
         } else if (!(this.pressedTwo)) {
-            g.drawImage(Textures.FAILED_BUTTON.getImage(), 490, 60, null);
+            Image image = Textures.FAILED_BUTTON.getImage();
+            g.drawImage(image, 490, 60, (int) (image.getWidth(null) * 0.3), (int) (image.getHeight(null) * 0.3), null);
+        } else if(this.pressedTwo && !(this.drawTwo)) {
+            Image image = Textures.CHECKED_BUTTON.getImage();
+            g.drawImage(image, 490, 60, (int) (image.getWidth(null) * 0.3), (int) (image.getHeight(null) * 0.3), null);
         }
 
         if(!(this.heroThree == null) && this.pressedThree && this.drawThree) {
             g.drawImage(Enterprise.getGame().getTextBuilder().toImage(this.heroThree.toString(), 20), 790, 60, null);
         } else if (!(this.pressedThree)) {
-            g.drawImage(Textures.FAILED_BUTTON.getImage(), 790, 60, null);
+            Image image = Textures.FAILED_BUTTON.getImage();
+            g.drawImage(image, 790, 60, (int) (image.getWidth(null) * 0.3), (int) (image.getHeight(null) * 0.3), null);
+        } else if(this.pressedThree && !(this.drawThree)) {
+            Image image = Textures.CHECKED_BUTTON.getImage();
+            g.drawImage(image, 790, 60, (int) (image.getWidth(null) * 0.3), (int) (image.getHeight(null) * 0.3), null);
         }
+
+        //Combo Rendering
+        g.drawImage(Enterprise.getGame().getTextBuilder().toImage(String.valueOf(this.comboOne), 8), 195, 40, null);
+        g.drawImage(Enterprise.getGame().getTextBuilder().toImage(String.valueOf(this.comboTwo), 8), 495, 40, null);
+        g.drawImage(Enterprise.getGame().getTextBuilder().toImage(String.valueOf(this.comboThree), 8), 795, 40, null);
 
         //Border
         g.drawImage(Textures.BORDER_DOWN.getImage(), 0, 0, null, null);
@@ -178,8 +200,10 @@ public class FightMenu extends MenuView implements GameComponent {
                 this.tmpOne = false;
                 this.heroOne = null;
 
-                if(this.pressedOne == false) {
+                if(!(this.pressedOne)) {
                     this.chance--;
+                } else {
+                    this.comboOne++;
                 }
             }
 
@@ -189,8 +213,10 @@ public class FightMenu extends MenuView implements GameComponent {
                 this.tmpTwo = false;
                 this.heroTwo = null;
 
-                if(this.pressedTwo == false) {
+                if(!(this.pressedTwo)) {
                     this.chance--;
+                } else {
+                    this.comboTwo++;
                 }
             }
 
@@ -200,8 +226,10 @@ public class FightMenu extends MenuView implements GameComponent {
                 this.tmpThree = false;
                 this.heroThree = null;
 
-                if(this.pressedThree == false) {
+                if(!(this.pressedThree)) {
                     this.chance--;
+                } else {
+                    this.comboThree++;
                 }
             }
 
@@ -249,6 +277,25 @@ public class FightMenu extends MenuView implements GameComponent {
             this.currentTime = System.currentTimeMillis();
 
             if(!(this.pressedOne) && !(this.pressedTwo) && !(this.pressedThree)) {
+                DataManager dataManager = Enterprise.getGame().getDataManager();
+
+                //Get Heroes
+                LivingEntity[] heroes = dataManager.getOne("game.heroes", LivingEntity[].class);
+
+                heroes[0].getAnimationQueue().add(Animations.RANGER_ATTACK);
+                heroes[1].getAnimationQueue().add(Animations.RANGER_ATTACK);
+                heroes[2].getAnimationQueue().add(Animations.RANGER_ATTACK);
+
+                LivingEntity enemy = dataManager.getOne("game.enemy", LivingEntity.class);
+                enemy.getAnimationQueue().add(Animations.RANGER_IDLE);
+                enemy.getAnimationQueue().add(Animations.RANGER_BLOCK);
+
+                //Calculate Damage
+                double damageOne = heroes[0].calculateDamage(enemy, this.comboOne);
+                double damageTwo = heroes[1].calculateDamage(enemy, this.comboTwo);
+                double damageThree = heroes[2].calculateDamage(enemy, this.comboThree);
+
+                //Switch to Defense Game
                 Enterprise.getGame().getViewManager().changeMenu(FightView.class, new DefenseMenu());
             }
         }
@@ -266,15 +313,15 @@ public class FightMenu extends MenuView implements GameComponent {
                 value++;
             }
 
-            if(this.time - (2 + value) > 750) {
+            if(this.time - (2 + value) > 500) {
                 this.time -= (2 + value);
             }
 
-            if(this.timeDistance - (1 + value) > 400) {
+            if(this.timeDistance - (1 + value) > 100) {
                 this.timeDistance -= (1 + value);
             }
 
-            if(this.time < 1500 && this.stageOne < 1) {
+            if(this.time < 750 && this.stageOne < 1) {
                 this.stageOne++;
                 this.stageTwo++;
                 this.stageThree++;
@@ -283,6 +330,12 @@ public class FightMenu extends MenuView implements GameComponent {
 
     }
 
+    /**
+     * Diese Funktion gibt einen zufälligen Button aus allen verfügbaren Stages zurück.
+     * @param lists
+     * @param stage
+     * @return
+     */
     private Character getRandomButton(ArrayList<ArrayList<Integer>> lists, int stage) {
 
         ArrayList<Integer> keys = new ArrayList<>();

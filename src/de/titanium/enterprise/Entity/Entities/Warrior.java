@@ -1,11 +1,11 @@
 package de.titanium.enterprise.Entity.Entities;
 
-import de.titanium.enterprise.Entity.EntityType.EntityTypes;
 import de.titanium.enterprise.Entity.LivingEntity;
-import de.titanium.enterprise.KeyCombo.ComboResult;
 import de.titanium.enterprise.Skill.Skill;
 import de.titanium.enterprise.Skill.SkillTypes;
 import de.titanium.enterprise.Skill.Skills;
+import de.titanium.enterprise.Sprite.Animation.AnimationQueue;
+import de.titanium.enterprise.Sprite.Animation.Animations;
 
 import java.util.UUID;
 
@@ -15,13 +15,13 @@ import java.util.UUID;
 public class Warrior extends LivingEntity {
 
     public Warrior(UUID identifier, String name, double health, double maxHealth, double skill, double attackValue) {
-        super(identifier, EntityTypes.CLOSE, name, health, maxHealth, skill, attackValue);
+        super(identifier, new AnimationQueue(Animations.RANGER_IDLE), name, health, maxHealth, skill, attackValue);
     }
 
     @Override
-    public double calculateDamage(LivingEntity enemy, ComboResult comboResult) {
+    public double calculateDamage(LivingEntity enemy, int comboResult) {
 
-        double value = (comboResult.getKeys() / 10) * this.getAttackValue();
+        double value = (comboResult / 10D) * this.getAttackValue();
 
         //Attack Efficiency
         double attackEfficiency = 1;

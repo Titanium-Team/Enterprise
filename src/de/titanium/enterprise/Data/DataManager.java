@@ -9,16 +9,16 @@ import java.util.List;
  */
 public class DataManager {
 
-    private HashMap<Class<? extends DataEntry>, List<DataEntry>> dataEntries = new HashMap<>();
+    private HashMap<String, List> dataEntries = new HashMap<>();
 
     public DataManager() {}
 
-    public void add(final DataEntry dataEntry) {
+    public <T> void add(String name, final T dataEntry) {
 
-        if(this.dataEntries.containsKey(dataEntry.getClass())) {
-            this.dataEntries.get(dataEntry.getClass()).add(dataEntry);
+        if(this.dataEntries.containsKey(name)) {
+            this.dataEntries.get(name).add(dataEntry);
         } else {
-            this.dataEntries.put(dataEntry.getClass(), new ArrayList<DataEntry>() {{
+            this.dataEntries.put(name, new ArrayList<T>() {{
 
                 this.add(dataEntry);
 
@@ -27,33 +27,30 @@ public class DataManager {
 
     }
 
-    public <T extends DataEntry> T getOne(Class<T> clazz) {
+    public <T> T getOne(String name, Class<T> type) {
 
-        if(this.dataEntries.containsKey(clazz) && this.dataEntries.get(clazz).size() > 0) {
-            return (T) this.dataEntries.get(clazz).get(0);
+        if(this.dataEntries.containsKey(name) && this.dataEntries.get(name).size() > 0) {
+            return (T) this.dataEntries.get(name).get(0);
         }
 
         return null;
 
     }
 
-    public <T extends DataEntry> List<T> get(Class<T> clazz) {
+    public <T> List<T> get(String name) {
 
-        if(this.dataEntries.containsKey(clazz)) {
-            return (List<T>) this.dataEntries.get(clazz);
+        if(this.dataEntries.containsKey(name)) {
+            return (List<T>) this.dataEntries.get(name);
         }
 
         return null;
 
     }
 
-    public <T extends DataEntry> boolean contains(Class<T> clazz) {
+    public <T> boolean contains(String name) {
 
-        return (this.dataEntries.containsKey(clazz) && !(this.dataEntries.get(clazz).isEmpty()));
+        return (this.dataEntries.containsKey(name) && !(this.dataEntries.get(name).isEmpty()));
 
     }
 
-    public HashMap<Class<? extends DataEntry>, List<DataEntry>> getDataEntries() {
-        return dataEntries;
-    }
 }

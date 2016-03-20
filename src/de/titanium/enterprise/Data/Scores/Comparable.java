@@ -1,4 +1,4 @@
-package de.titanium.enterprise.Scores;
+package de.titanium.enterprise.Data.Scores;
 
 /**
  * Created by 204g01 on 16.03.2016.

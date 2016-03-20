@@ -1,17 +1,20 @@
 package de.titanium.enterprise.View.FightView;
 
 
+import de.titanium.enterprise.Data.DataManager;
+import de.titanium.enterprise.Data.Scores.BinarySearchTree;
+import de.titanium.enterprise.Data.Scores.Score;
 import de.titanium.enterprise.Enterprise;
-import de.titanium.enterprise.Scores.BinarySearchTree;
-import de.titanium.enterprise.Scores.Score;
-import de.titanium.enterprise.Sprite.Animation.AnimationQueue;
-import de.titanium.enterprise.Sprite.Animation.Animations;
+import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.Sprite.Animation.Animator;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.MenuView;
 import de.titanium.enterprise.View.View;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,26 +25,31 @@ public class FightView extends View {
 
     private List<Score> scores = new ArrayList<>();
 
+    private final int[] xPos = new int[] { 50, 430, 740, 1050 };
+    private final int[] yPos = new int[] { 270, 268, 270, 250 };
+
     public FightView(MenuView viewMenu) {
         super(viewMenu);
     }
 
-    private AnimationQueue ranger = new AnimationQueue(Animations.RANGER_IDLE);
-    private AnimationQueue ranger1 = new AnimationQueue(Animations.RANGER_ATTACK);
-    private AnimationQueue ranger2 = new AnimationQueue(Animations.RANGER_BLOCK);
-
 
     @Override
     public void update(int tick) {
-        this.ranger.element().next();
-        this.ranger1.element().next();
-        this.ranger2.element().next();
 
+        //Updates Animation of all Heroes and the Enemy
+        DataManager dataManager = Enterprise.getGame().getDataManager();
+
+        dataManager.getOne("game.enemy", LivingEntity.class).getAnimationQueue().element().next();
+
+        LivingEntity[] heroes = dataManager.getOne("game.heroes", LivingEntity[].class);
+        for(int i = 0; i < heroes.length; i++) {
+            heroes[i].getAnimationQueue().element().next();
+        }
 
         //Score
-        if(Enterprise.getGame().getDataManager().contains(BinarySearchTree.class)) {
+        if(Enterprise.getGame().getDataManager().contains("game.defense.scores")) {
             scores = new ArrayList<>();
-            this.inorder(Enterprise.getGame().getDataManager().getOne(BinarySearchTree.class), scores);
+            this.inorder(Enterprise.getGame().getDataManager().getOne("game.defense.scores", BinarySearchTree.class), scores);
         }
 
     }
@@ -59,16 +67,34 @@ public class FightView extends View {
         g.drawImage(Textures.BACKGROUND.getImage(), 0, 0, null, null);
         g.drawImage(Textures.BORDER_UP.getImage(), 0, 0, null, null);
 
-        Animator rangerAnimator = this.ranger.element();
-        g.drawImage(rangerAnimator.getFrame(), 50, 270, rangerAnimator.getType().getWidth(), rangerAnimator.getType().getHeight(), null);
+        //Draw Heroes
+        DataManager dataManager = Enterprise.getGame().getDataManager();
 
-        Animator rangerAnimator1 = this.ranger1.element();
-        g.drawImage(rangerAnimator1.getFrame(), 430, 268, rangerAnimator1.getType().getWidth(), rangerAnimator1.getType().getHeight(), null);
+        LivingEntity[] heroes = dataManager.getOne("game.heroes", LivingEntity[].class);
 
-        Animator rangerAnimator2 = this.ranger2.element();
-        g.drawImage(rangerAnimator2.getFrame(), 740, 270,  rangerAnimator2.getType().getWidth(), rangerAnimator2.getType().getHeight(), null);
+        for(int i = 0; i < heroes.length; i++) {
+            LivingEntity hero = heroes[i];
+            Animator animation = hero.getAnimationQueue().element();
+            g.drawImage(animation.getFrame(), this.xPos[i], this.yPos[i], animation.getType().getWidth(), animation.getType().getHeight(), null);
+            g.drawImage(Enterprise.getGame().getTextBuilder().toImage(hero.getName(), 10), this.xPos[i], this.yPos[i] - 25, null);
+        }
 
-        g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Hey Yonas", 10), this.getWidth() / 2, this.getHeight() / 2, null);
+        //Get Enemy
+        LivingEntity enemy = dataManager.getOne("game.enemy", LivingEntity.class);
+        Animator animation = enemy.getAnimationQueue().element();
+
+        //flip animation
+        BufferedImage bufferedImage = animation.getFrame();
+        AffineTransform affineTransform = AffineTransform.getScaleInstance(-1, 1);
+        affineTransform.translate(-bufferedImage.getWidth(), 0);
+
+        AffineTransformOp affineTransformOp = new AffineTransformOp(affineTransform, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+        bufferedImage = affineTransformOp.filter(bufferedImage, null);
+
+        //Draw Enemy
+        g.drawImage(bufferedImage, this.xPos[3], this.yPos[3], animation.getType().getWidth(), animation.getType().getHeight(), null);
+        g.drawImage(Enterprise.getGame().getTextBuilder().toImage(enemy.getName(), 10), this.xPos[3], this.yPos[3] - 25, null);
+
 
         if (scores != null) {
             int y = 0;

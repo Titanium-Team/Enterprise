@@ -1,8 +1,7 @@
 package de.titanium.enterprise.Entity;
 
-import de.titanium.enterprise.Entity.EntityType.EntityType;
-import de.titanium.enterprise.KeyCombo.ComboResult;
 import de.titanium.enterprise.Skill.Skill;
+import de.titanium.enterprise.Sprite.Animation.AnimationQueue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,20 +21,22 @@ public abstract class LivingEntity extends Entity {
     private double attackValue;
 
     private final List<Skill> skills = new ArrayList<>();
+    private final AnimationQueue animationQueue;
 
     /**
      *
      * @param identifier Die eindeutige ID des Entitys.
-     * @param entityType Der EntityType.
+     * @param animationQueue Die AnimationQueue des Entitys.
      * @param name Der "Display-Name" des Entitys.
      * @param health Die aktuelle Anzahl an Leben des Entitys.
      * @param maxHealth Die maximale Anzahl an Leben des Entitys.
      * @param skill Der Geschicklichkeitswert des Entitys.
      * @param attackValue Der Basis Wert des Schadens.
      */
-    public LivingEntity(UUID identifier, EntityType entityType, String name, double health, double maxHealth, double skill, double attackValue) {
-        super(identifier, entityType);
+    public LivingEntity(UUID identifier, AnimationQueue animationQueue, String name, double health, double maxHealth, double skill, double attackValue) {
+        super(identifier);
 
+        this.animationQueue = animationQueue;
         this.name = name;
         this.health = health;
         this.maxHealth = maxHealth;
@@ -113,7 +114,7 @@ public abstract class LivingEntity extends Entity {
      * @param comboResult Das Resultat der Combo für dieses Entity.
      * @return
      */
-    public abstract double calculateDamage(LivingEntity enemy, ComboResult comboResult);
+    public abstract double calculateDamage(LivingEntity enemy, int comboResult);
 
     public void setMaxHealth(double maxHealth) {
         this.maxHealth = maxHealth;
@@ -126,4 +127,9 @@ public abstract class LivingEntity extends Entity {
     public void setHealth(double health) {
         this.health = health;
     }
+
+    public AnimationQueue getAnimationQueue() {
+        return animationQueue;
+    }
+
 }

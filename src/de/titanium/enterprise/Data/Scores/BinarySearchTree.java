@@ -1,11 +1,9 @@
-package de.titanium.enterprise.Scores;
-
-import de.titanium.enterprise.Data.DataEntry;
+package de.titanium.enterprise.Data.Scores;
 
 /**
  * Created by 204g01 on 16.03.2016.
  */
-public class BinarySearchTree<T extends Comparable<T>> implements DataEntry {
+public class BinarySearchTree<T extends Comparable<T>> {
 
     private Node<T> node;
 
