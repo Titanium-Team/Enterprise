@@ -54,7 +54,7 @@ public enum Animations implements Animation {
 
         @Override
         public int getWidth() {
-            return 162;
+            return 126;
         }
 
     },
@@ -102,7 +102,7 @@ public enum Animations implements Animation {
 
         @Override
         public int getWidth() {
-            return 180;
+            return 126;
         }
 
     },
@@ -138,7 +138,7 @@ public enum Animations implements Animation {
 
         @Override
         public int getWidth() {
-            return 146;
+            return 155;
         }
 
     },
@@ -174,7 +174,7 @@ public enum Animations implements Animation {
 
         @Override
         public int getWidth() {
-            return 171;
+            return 126;
         }
     },
     ARCHER_IDLE {
@@ -218,7 +218,7 @@ public enum Animations implements Animation {
 
         @Override
         public int getWidth() {
-            return 212;
+            return 126;
         }
 
     };

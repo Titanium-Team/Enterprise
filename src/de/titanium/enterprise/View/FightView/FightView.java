@@ -1,4 +1,4 @@
-package de.titanium.enterprise.View.Views;
+package de.titanium.enterprise.View.FightView;
 
 
 import de.titanium.enterprise.Enterprise;
@@ -8,7 +8,7 @@ import de.titanium.enterprise.Sprite.Animation.AnimationQueue;
 import de.titanium.enterprise.Sprite.Animation.Animations;
 import de.titanium.enterprise.Sprite.Animation.Animator;
 import de.titanium.enterprise.Sprite.Textures;
-import de.titanium.enterprise.View.Menu.MenuView;
+import de.titanium.enterprise.View.MenuView;
 import de.titanium.enterprise.View.View;
 
 import java.awt.*;
@@ -53,6 +53,7 @@ public class FightView extends View {
         super.paintComponent(g);
 
         g.setRenderingHints(Enterprise.getGame().getRenderingHints());
+
 
         //draw background and frame
         g.drawImage(Textures.BACKGROUND.getImage(), 0, 0, null, null);

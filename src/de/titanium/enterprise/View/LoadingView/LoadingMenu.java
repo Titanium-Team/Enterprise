@@ -1,6 +1,6 @@
 package de.titanium.enterprise.View.LoadingView;
 
-import de.titanium.enterprise.View.Menu.MenuView;
+import de.titanium.enterprise.View.MenuView;
 
 /**
  * Created by Yonas on 17.03.2016.

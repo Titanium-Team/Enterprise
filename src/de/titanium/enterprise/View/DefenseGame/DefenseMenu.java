@@ -5,8 +5,9 @@ import de.titanium.enterprise.GameComponent;
 import de.titanium.enterprise.Scores.BinarySearchTree;
 import de.titanium.enterprise.Scores.Score;
 import de.titanium.enterprise.Sprite.Textures;
-import de.titanium.enterprise.View.Menu.MenuView;
-import de.titanium.enterprise.View.Views.FightView;
+import de.titanium.enterprise.View.FightView.FightMenu;
+import de.titanium.enterprise.View.MenuView;
+import de.titanium.enterprise.View.FightView.FightView;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -38,8 +39,6 @@ public class DefenseMenu extends MenuView implements GameComponent {
     private int movement = 2;
 
     public DefenseMenu() {
-        Enterprise.getGame().addComponent(this);
-
         this.rectangles.add(DefenseModules.START.getRectangles(1600, this.space, this.width, this.height));
         for(int i = 1; i < 6; i++) {
             this.rectangles.add(DefenseModules.LINE.getRectangles(1600 + i * this.width, this.space, this.width, this.height));
@@ -118,13 +117,14 @@ public class DefenseMenu extends MenuView implements GameComponent {
             for(Rectangle[] rectangles : this.rectangles) {
                 for(Rectangle r : rectangles) {
                     if(this.player.intersects(r)) {
+                        Enterprise.getGame().getViewManager().changeMenu(FightView.class, new FightMenu());
                         Score score = new Score(this.tick,"Score:");
                         if(!Enterprise.getGame().getDataManager().contains(BinarySearchTree.class)) {
                             Enterprise.getGame().getDataManager().add(new BinarySearchTree<Score>());
                         }
                         Enterprise.getGame().getDataManager().getOne(BinarySearchTree.class).insert(score, Enterprise.getGame().getDataManager().getOne(BinarySearchTree.class));
 
-                        Enterprise.getGame().getViewManager().changeMenu(FightView.class, new DefenseMenu());
+                        //Enterprise.getGame().getViewManager().changeMenu(FightView.class, new DefenseMenu());
                         break;
                     }
                 }

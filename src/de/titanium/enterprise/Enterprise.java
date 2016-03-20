@@ -5,11 +5,11 @@ import de.titanium.enterprise.KeyManager.KeyManager;
 import de.titanium.enterprise.Loading.LoadingManager;
 import de.titanium.enterprise.Sprite.Animation.Animations;
 import de.titanium.enterprise.Sprite.Textures;
-import de.titanium.enterprise.View.DefenseGame.DefenseMenu;
+import de.titanium.enterprise.View.FightView.FightMenu;
+import de.titanium.enterprise.View.FightView.FightView;
 import de.titanium.enterprise.View.GameView;
 import de.titanium.enterprise.View.LoadingView.LoadingView;
 import de.titanium.enterprise.View.ViewManager;
-import de.titanium.enterprise.View.Views.FightView;
 
 import java.awt.*;
 import java.util.*;
@@ -52,7 +52,7 @@ public class Enterprise {
         this.loadingManager.load();
 
         //default view
-        this.viewManager.register(new FightView(new DefenseMenu()));
+        this.viewManager.register(new FightView(new FightMenu()));
         this.viewManager.switchTo(FightView.class);
 
         //start game
@@ -107,8 +107,6 @@ public class Enterprise {
         while (true) {
 
             double currentTime = System.currentTimeMillis();
-            double deltaTime = currentTime - lastTime;
-
 
             Iterator<GameComponent> updateComponents = Arrays.asList(this.gameComponents.toArray(new GameComponent[this.gameComponents.size()]).clone()).iterator();
             while (updateComponents.hasNext()) {

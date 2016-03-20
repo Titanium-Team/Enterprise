@@ -2,7 +2,6 @@ package de.titanium.enterprise.View;
 
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.GameComponent;
-import de.titanium.enterprise.View.Menu.MenuView;
 
 import javax.swing.*;
 import java.awt.*;
