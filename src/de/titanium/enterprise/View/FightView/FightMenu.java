@@ -26,13 +26,13 @@ public class FightMenu extends MenuView implements GameComponent {
     private boolean pressedOne = true;
     private boolean tmpOne = false;
 
-    private char heroTwo = KeyEvent.VK_B;;
+    private char heroTwo = KeyEvent.VK_B;
     private boolean pressedTwo = true;
     private boolean tmpTwo = false;
 
     private char heroThree = KeyEvent.VK_C;
     private boolean pressedThree = true;
-    private boolean tmpThree;
+    private boolean tmpThree = false;
 
     public FightMenu() {}
 
@@ -46,15 +46,15 @@ public class FightMenu extends MenuView implements GameComponent {
 
 
         if(this.pressedOne) {
-            g.drawString(KeyEvent.getKeyText(this.heroOne), 190, 90);
+            g.drawImage(Enterprise.getGame().getTextBuilder().toImage(KeyEvent.getKeyText(this.heroOne), 10), 190, 60, null);
         }
 
         if(this.pressedTwo) {
-            g.drawString(KeyEvent.getKeyText(this.heroTwo), 490, 90);
+            g.drawImage(Enterprise.getGame().getTextBuilder().toImage(KeyEvent.getKeyText(this.heroTwo), 15), 490, 60, null);
         }
 
         if(this.pressedThree) {
-            g.drawString(KeyEvent.getKeyText(this.heroThree), 790, 90);
+            g.drawImage(Enterprise.getGame().getTextBuilder().toImage(KeyEvent.getKeyText(this.heroThree), 20), 790, 60, null);
         }
 
 
@@ -89,11 +89,12 @@ public class FightMenu extends MenuView implements GameComponent {
             this.tmpThree = false;
 
             this.currentTime = System.currentTimeMillis();
-        }
 
-        //Falls er es nicht geschafft hat einen Button zudrücken wird das DefenseGame aufgerufen
-        if (!(this.pressedTwo) && !(this.pressedTwo) && !(this.pressedThree)) {
-            Enterprise.getGame().getViewManager().changeMenu(FightView.class, new DefenseMenu());
+            //Falls er es nicht geschafft hat einen Button zudrücken wird das DefenseGame aufgerufen
+            if (!(this.pressedTwo) && !(this.pressedTwo) && !(this.pressedThree)) {
+                Enterprise.getGame().getViewManager().changeMenu(FightView.class, new DefenseMenu());
+            }
+
         }
 
     }

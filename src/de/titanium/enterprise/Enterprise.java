@@ -21,12 +21,6 @@ import java.util.List;
 public class Enterprise {
 
     private List<GameComponent> gameComponents = new ArrayList<>();
-
-    private final GameView gameView = new GameView();
-    private final ViewManager viewManager = new ViewManager();
-    private final KeyManager keyManager = new KeyManager();
-    private final DataManager dataManager = new DataManager();
-    private final LoadingManager loadingManager = new LoadingManager();
     private final Map<RenderingHints.Key, Object> renderingHints = new HashMap<>();
 
     {
@@ -35,6 +29,13 @@ public class Enterprise {
         this.renderingHints.put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
     }
+
+    private final GameView gameView = new GameView();
+    private final ViewManager viewManager = new ViewManager();
+    private final KeyManager keyManager = new KeyManager();
+    private final DataManager dataManager = new DataManager();
+    private final LoadingManager loadingManager = new LoadingManager();
+    private final TextBuilder textBuilder = new TextBuilder();
 
     private static Enterprise game;
 
@@ -98,11 +99,8 @@ public class Enterprise {
      */
     public void start() {
 
-        double lastTime = System.currentTimeMillis();
         int MAX_TICKS = 50;
         int CURRENT_TICK = 0;
-
-        long a = System.currentTimeMillis();
 
         while (true) {
 
@@ -121,8 +119,6 @@ public class Enterprise {
 
             CURRENT_TICK++;
             if (CURRENT_TICK >= MAX_TICKS) {
-                System.out.println("TIME PASSED: " + (System.currentTimeMillis() - a));
-                a = System.currentTimeMillis();
                 CURRENT_TICK = 0;
             }
 
@@ -149,8 +145,6 @@ public class Enterprise {
                 e.printStackTrace();
             }
 
-            lastTime = currentTime;
-
         }
 
     }
@@ -175,4 +169,7 @@ public class Enterprise {
         return this.loadingManager;
     }
 
+    public TextBuilder getTextBuilder() {
+        return this.textBuilder;
+    }
 }

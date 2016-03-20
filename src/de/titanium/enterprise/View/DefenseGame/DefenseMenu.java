@@ -149,7 +149,6 @@ public class DefenseMenu extends MenuView implements GameComponent {
             Rectangle[] rec = rectangles.next();
 
             //Falls das letzte Elemente sich nicht mehr im Screen befindet wird es entfernt und ein neues wird hinzugefügt.
-
              if(rec[rec.length-1].x + rec[rec.length-1].getWidth() < 0) {
                 rectangles.remove();
 

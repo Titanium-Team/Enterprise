@@ -15,21 +15,26 @@ public class LoadingView extends View {
 
     private String value = ".";
     private final Timer timer = new Timer();
+    private int count = 0;
 
     public LoadingView() {
         super(new LoadingMenu());
         this.timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if(value.length() > 2) {
-                    value = ".";
-                } else {
-                    value += ".";
+                count++;
+                if(count == 10) {
+                    if (value.length() > 2) {
+                        value = ".";
+                    } else {
+                        value += ".";
+                    }
+                    count = 0;
                 }
 
                 repaint();
             }
-        }, 0, 400);
+        }, 0, 50);
     }
 
     @Override

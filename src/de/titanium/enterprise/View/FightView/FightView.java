@@ -12,7 +12,7 @@ import de.titanium.enterprise.View.MenuView;
 import de.titanium.enterprise.View.View;
 
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -68,6 +68,7 @@ public class FightView extends View {
         Animator rangerAnimator2 = this.ranger2.element();
         g.drawImage(rangerAnimator2.getFrame(), 740, 270,  rangerAnimator2.getType().getWidth(), rangerAnimator2.getType().getHeight(), null);
 
+        g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Hey Yonas", 10), this.getWidth() / 2, this.getHeight() / 2, null);
 
         if (scores != null) {
             int y = 0;
