@@ -78,8 +78,6 @@ public class FightView extends View {
             g.drawImage(animation.getFrame(), this.xPos[i], this.yPos[i], animation.getType().getWidth(), animation.getType().getHeight(), null);
 
             Image text = Enterprise.getGame().getTextBuilder().toImage(hero.getName(), 10);
-            System.out.println("Text: " + text.getWidth(null));
-            System.out.println("Ani: " + animation.getType().getWidth());
             g.drawImage(text, this.xPos[i] - ((text.getWidth(null) - animation.getType().getWidth()) / 2), this.yPos[i] - 25, null);
         }
 
