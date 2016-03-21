@@ -76,7 +76,11 @@ public class FightView extends View {
             LivingEntity hero = heroes[i];
             Animator animation = hero.getAnimationQueue().element();
             g.drawImage(animation.getFrame(), this.xPos[i], this.yPos[i], animation.getType().getWidth(), animation.getType().getHeight(), null);
-            g.drawImage(Enterprise.getGame().getTextBuilder().toImage(hero.getName(), 10), this.xPos[i], this.yPos[i] - 25, null);
+
+            Image text = Enterprise.getGame().getTextBuilder().toImage(hero.getName(), 10);
+            System.out.println("Text: " + text.getWidth(null));
+            System.out.println("Ani: " + animation.getType().getWidth());
+            g.drawImage(text, this.xPos[i] - ((text.getWidth(null) - animation.getType().getWidth()) / 2), this.yPos[i] - 25, null);
         }
 
         //Get Enemy
@@ -93,7 +97,8 @@ public class FightView extends View {
 
         //Draw Enemy
         g.drawImage(bufferedImage, this.xPos[3], this.yPos[3], animation.getType().getWidth(), animation.getType().getHeight(), null);
-        g.drawImage(Enterprise.getGame().getTextBuilder().toImage(enemy.getName(), 10), this.xPos[3], this.yPos[3] - 25, null);
+        Image text = Enterprise.getGame().getTextBuilder().toImage(enemy.getName(), 10);
+        g.drawImage(text, this.xPos[3] - ((text.getWidth(null) - animation.getType().getWidth()) / 2), this.yPos[3] - 25, null);
 
 
         if (scores != null) {
