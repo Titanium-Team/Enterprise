@@ -1,6 +1,7 @@
 package de.titanium.enterprise.Entity;
 
 import de.titanium.enterprise.Skill.Skill;
+import de.titanium.enterprise.Sprite.Animation.Animation;
 import de.titanium.enterprise.Sprite.Animation.AnimationQueue;
 
 import java.util.ArrayList;
@@ -26,17 +27,17 @@ public abstract class LivingEntity extends Entity {
     /**
      *
      * @param identifier Die eindeutige ID des Entitys.
-     * @param animationQueue Die AnimationQueue des Entitys.
+     * @param defaultAnimation Die standart Animation die abgespielt werden soll.
      * @param name Der "Display-Name" des Entitys.
      * @param health Die aktuelle Anzahl an Leben des Entitys.
      * @param maxHealth Die maximale Anzahl an Leben des Entitys.
      * @param skill Der Geschicklichkeitswert des Entitys.
      * @param attackValue Der Basis Wert des Schadens.
      */
-    public LivingEntity(UUID identifier, AnimationQueue animationQueue, String name, double health, double maxHealth, double skill, double attackValue) {
+    public LivingEntity(UUID identifier, Animation defaultAnimation, String name, double health, double maxHealth, double skill, double attackValue) {
         super(identifier);
 
-        this.animationQueue = animationQueue;
+        this.animationQueue = new AnimationQueue(defaultAnimation);
         this.name = name;
         this.health = health;
         this.maxHealth = maxHealth;

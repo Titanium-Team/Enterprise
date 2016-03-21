@@ -38,8 +38,8 @@ public class TextBuilder {
 
         }
 
-        width *= size;
-        height *= size;
+        width = (int) (width * size + 1);
+        height = (int) (height * size + 1);
 
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = image.createGraphics();
@@ -47,11 +47,11 @@ public class TextBuilder {
         g.setRenderingHints(Enterprise.getGame().getRenderingHints());
 
         int x = 0;
-        for(char c : value.toCharArray()) {
+        for (char c : value.toCharArray()) {
 
             Texture texture = this.byChar(c);
 
-            if(texture == null) {
+            if (texture == null) {
                 x += 10; //Leerzeichen
             } else {
                 Image i = texture.getImage();
@@ -61,10 +61,9 @@ public class TextBuilder {
 
         }
 
-        //free memory
         g.dispose();
-
         return image;
+
 
     }
 

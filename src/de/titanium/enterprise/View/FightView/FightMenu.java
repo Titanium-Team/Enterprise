@@ -6,7 +6,7 @@ import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.GameComponent;
 import de.titanium.enterprise.Sprite.Animation.Animations;
 import de.titanium.enterprise.Sprite.Textures;
-import de.titanium.enterprise.View.DefenseGame.DefenseMenu;
+import de.titanium.enterprise.View.FightView.DefenseGame.DefenseMenu;
 import de.titanium.enterprise.View.MenuView;
 
 import java.awt.*;

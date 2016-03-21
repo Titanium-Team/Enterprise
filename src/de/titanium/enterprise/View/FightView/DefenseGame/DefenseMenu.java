@@ -1,4 +1,4 @@
-package de.titanium.enterprise.View.DefenseGame;
+package de.titanium.enterprise.View.FightView.DefenseGame;
 
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.GameComponent;

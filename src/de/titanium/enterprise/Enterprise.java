@@ -11,6 +11,8 @@ import de.titanium.enterprise.Sprite.Animation.Animations;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.FightView.FightMenu;
 import de.titanium.enterprise.View.FightView.FightView;
+import de.titanium.enterprise.View.GameMenu.GameMenu;
+import de.titanium.enterprise.View.GameMenu.GameMenuView;
 import de.titanium.enterprise.View.GameView;
 import de.titanium.enterprise.View.LoadingView.LoadingView;
 import de.titanium.enterprise.View.ViewManager;
@@ -69,8 +71,10 @@ public class Enterprise {
         this.getDataManager().add("game.enemy", new Archer(UUID.randomUUID(), "Enemy", 100, 100, 5, 5));
 
         //default view
+        this.viewManager.register(new GameMenuView(new GameMenu()));
         this.viewManager.register(new FightView(new FightMenu()));
-        this.viewManager.switchTo(FightView.class);
+
+        this.viewManager.switchTo(GameMenuView.class);
 
         //start game
         this.start();

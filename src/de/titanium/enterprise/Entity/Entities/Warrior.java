@@ -4,7 +4,6 @@ import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.Skill.Skill;
 import de.titanium.enterprise.Skill.SkillTypes;
 import de.titanium.enterprise.Skill.Skills;
-import de.titanium.enterprise.Sprite.Animation.AnimationQueue;
 import de.titanium.enterprise.Sprite.Animation.Animations;
 
 import java.util.UUID;
@@ -15,7 +14,7 @@ import java.util.UUID;
 public class Warrior extends LivingEntity {
 
     public Warrior(UUID identifier, String name, double health, double maxHealth, double skill, double attackValue) {
-        super(identifier, new AnimationQueue(Animations.RANGER_IDLE), name, health, maxHealth, skill, attackValue);
+        super(identifier, Animations.RANGER_IDLE, name, health, maxHealth, skill, attackValue);
     }
 
     @Override
