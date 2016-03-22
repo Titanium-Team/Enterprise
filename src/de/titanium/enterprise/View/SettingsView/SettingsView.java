@@ -72,6 +72,9 @@ public class SettingsView extends View {
             x++;
         }
 
+        //Draw description headline
+        g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Beschreibung", 10), 1010, 50, null);
+
         //ESC zum Speichern
         g.drawImage(Enterprise.getGame().getTextBuilder().toImage("ESC druecken um zu speichern", 10), 233, 280, null);
 

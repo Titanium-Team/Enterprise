@@ -443,7 +443,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(905, 1, 72, 67);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(905, 1, 65, 67);
         }
 
         @Override
@@ -824,6 +824,126 @@ public enum Textures implements Texture {
         @Override
         public void load() {
             this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(2065, 1, 60, 67);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ALPHABET_EXCLAMATION_MARK {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Alphabet-Exclamation-Mark Texture";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(2127, 1, 27, 67);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ALPHABET_PLUS {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Alphabet-Plus Texture";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(2156, 1, 42, 44);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ALPHABET_COMMA {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Alphabet-Comma Texture";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(2200, 1, 25, 33);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ALPHABET_MINUS {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Alphabet-Minus Texture";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(2227, 1, 43, 20);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ALPHABET_DOT {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Alphabet-Dot Texture";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(2272, 1, 24, 24);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ALPHABET_QUESTION_MARK {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Alphabet-Question-Mark Texture";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(2298, 1, 56, 68);
         }
 
         @Override

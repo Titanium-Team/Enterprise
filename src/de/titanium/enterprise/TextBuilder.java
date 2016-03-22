@@ -38,7 +38,7 @@ public class TextBuilder {
 
         }
 
-        width = (int) (width * size + 1);
+        width = (int) (width * size + 5);
         height = (int) (height * size + 1);
 
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -55,7 +55,10 @@ public class TextBuilder {
                 x += 10; //Leerzeichen
             } else {
                 Image i = texture.getImage();
-                g.drawImage(i, x, 0, (int) (i.getWidth(null) * size), (int) (i.getHeight(null) * size), null);
+
+                int letterHeight = (int) (i.getHeight(null) * size);
+
+                g.drawImage(i, x, (height - letterHeight), letterHeight, letterHeight, null);
                 x += i.getWidth(null) * size;
             }
 
@@ -107,6 +110,12 @@ public class TextBuilder {
             case 'X': return Textures.ALPHABET_X;
             case 'Y': return Textures.ALPHABET_Y;
             case 'Z': return Textures.ALPHABET_Z;
+            case '!': return Textures.ALPHABET_EXCLAMATION_MARK;
+            case '+': return Textures.ALPHABET_PLUS;
+            case ',': return Textures.ALPHABET_COMMA;
+            case '-': return Textures.ALPHABET_MINUS;
+            case '.': return Textures.ALPHABET_DOT;
+            case '?': return Textures.ALPHABET_QUESTION_MARK;
 
         }
 
