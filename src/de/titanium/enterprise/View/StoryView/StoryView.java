@@ -69,13 +69,15 @@ public class StoryView extends View {
 
         if(tick % 4 == 0) {
 
+            String[] chapters = this.story.keySet().toArray(new String[this.story.size()]);
+
             if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ESCAPE)) { //zurück ins hauptmenü
                 Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_DOWN)) { //nach unten scrollen
                 this.currentLine++;
 
                 //Nächstes Kapitel
-                String chapter = this.story.keySet().toArray(new String[this.story.size()])[this.currentChapter];
+                String chapter = chapters[this.currentChapter];
                 if(((this.currentLine + this.maxLines) > this.story.get(chapter).size()) && (this.story.size()-1) > this.currentChapter) { //nächstes kapitel
                     this.currentLine = 0;
                     this.currentChapter++;
@@ -84,8 +86,6 @@ public class StoryView extends View {
                 }
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_UP)) { //nach oben scrollen
                 this.currentLine--;
-
-                String[] chapters = this.story.keySet().toArray(new String[this.story.size()]);
 
                 if(this.currentLine < 0 && this.currentChapter > 0) { //vorheriges Kapitel
                     this.currentChapter--;
@@ -96,8 +96,10 @@ public class StoryView extends View {
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_RIGHT) && (this.story.size()-1) > this.currentChapter) { //nächstes kapitel
                 this.currentChapter++;
+                this.currentLine = 0;
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_LEFT) && this.currentChapter > 0) { //vorheriges kapitel
                 this.currentChapter--;
+                this.currentLine = Math.max(this.story.get(chapters[this.currentChapter]).size() - this.maxLines, 0);
             }
 
         }
