@@ -38,7 +38,8 @@ public class StoryView extends View {
         g.drawImage(Textures.BORDER_UP.getImage(), 0, 0, null, null);
 
         //draw headline
-        String chapter = this.story.keySet().toArray(new String[this.story.size()])[this.currentChapter];
+        String[] chapters = this.story.keySet().toArray(new String[this.story.size()]);
+        String chapter = chapters[this.currentChapter];
         Image chapterImage = Enterprise.getGame().getTextBuilder().toImage(chapter, 15);
 
         g.drawImage(chapterImage, 480 - (chapterImage.getWidth(null) / 2), 50, null);
@@ -51,6 +52,13 @@ public class StoryView extends View {
         for(int i = this.currentLine; i < amountOfLines; i++) { //TODO
             g.drawImage(Enterprise.getGame().getTextBuilder().toImage(lines.get(i), 8), 45, 95 + x * 25, null);
             x++;
+        }
+
+        //rendering chapter overview
+        int i = 0;
+        for(String headline : chapters) {
+            g.drawImage(Enterprise.getGame().getTextBuilder().toImage((i + 1) + " " + headline, (i == this.currentChapter ? 9 : 8)), 1000, 95 + i * 25, null);
+            i++;
         }
 
     }
@@ -66,16 +74,13 @@ public class StoryView extends View {
 
                 //Nächstes Kapitel
                 String chapter = this.story.keySet().toArray(new String[this.story.size()])[this.currentChapter];
-                if(((this.currentLine + this.maxLines) > this.story.get(chapter).size()) && (this.story.size()-1) > this.currentChapter) {
+                if(((this.currentLine + this.maxLines) > this.story.get(chapter).size()) && (this.story.size()-1) > this.currentChapter) { //nächstes kapitel
                     this.currentLine = 0;
                     this.currentChapter++;
                 } else if((this.currentLine + this.maxLines) > this.story.get(chapter).size()) { //kein nächstes kapitel
                     this.currentLine--;
                 }
-            }
-
-            //nach oben scrollen
-            if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_UP)) {
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_UP)) { //nach oben scrollen
                 this.currentLine--;
 
                 String[] chapters = this.story.keySet().toArray(new String[this.story.size()]);
@@ -87,6 +92,10 @@ public class StoryView extends View {
                     this.currentLine = 0;
                 }
 
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_RIGHT) && (this.story.size()-1) > this.currentChapter) { //nächstes kapitel
+                this.currentChapter++;
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_LEFT) && this.currentChapter > 0) { //vorheriges kapitel
+                this.currentChapter--;
             }
 
         }

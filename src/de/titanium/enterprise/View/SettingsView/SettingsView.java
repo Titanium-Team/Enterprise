@@ -138,10 +138,7 @@ public class SettingsView extends View {
                     );
                 }
                 Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
-            }
-
-            //Im Menu nach oben oder unten bewegen
-            if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_DOWN)) {
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_DOWN)) { ////Im Menu nach oben oder unten bewegen
                 this.selectedOption++;
 
                 if(this.selectedOption >= this.options.size()) {
