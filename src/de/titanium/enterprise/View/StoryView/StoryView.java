@@ -18,7 +18,7 @@ import java.util.List;
 public class StoryView extends View {
 
     private final Map<String, List<String>> story = new LinkedHashMap<>();
-    private final int maxLines = 16;
+    private final int maxLines = 20;
     private int currentLine = 0;
     private int currentChapter = 0;
 
@@ -51,7 +51,7 @@ public class StoryView extends View {
         int amountOfLines = Math.min((this.currentLine + this.maxLines), lines.size());
         int x = 0;
         for(int i = this.currentLine; i < amountOfLines; i++) { //TODO
-            g.drawImage(Enterprise.getGame().getTextBuilder().toImage(lines.get(i), 8), 45, 95 + x * 25, null);
+            g.drawImage(Enterprise.getGame().getTextBuilder().toImage(lines.get(i), 7), 45, 95 + x * 20, null);
             x++;
         }
 
@@ -113,7 +113,7 @@ public class StoryView extends View {
 
         this.story.put("Einleitung", new ArrayList<String>() {{
 
-            this.add("BlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBla");
+            this.add("BlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBla");
             this.add("Bla1");
             this.add("Bla2");
             this.add("Bla3");
