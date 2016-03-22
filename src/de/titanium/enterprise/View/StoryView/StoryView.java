@@ -2,6 +2,7 @@ package de.titanium.enterprise.View.StoryView;
 
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Sprite.Textures;
+import de.titanium.enterprise.View.GameMenu.GameMenuView;
 import de.titanium.enterprise.View.MenuView;
 import de.titanium.enterprise.View.View;
 
@@ -68,8 +69,9 @@ public class StoryView extends View {
 
         if(tick % 4 == 0) {
 
-            //nach unten scrollen
-            if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_DOWN)) {
+            if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ESCAPE)) { //zurück ins hauptmenü
+                Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_DOWN)) { //nach unten scrollen
                 this.currentLine++;
 
                 //Nächstes Kapitel
