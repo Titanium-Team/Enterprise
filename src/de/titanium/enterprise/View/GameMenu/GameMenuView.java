@@ -5,6 +5,7 @@ import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.FightView.FightView;
 import de.titanium.enterprise.View.MenuView;
 import de.titanium.enterprise.View.SettingsView.SettingsView;
+import de.titanium.enterprise.View.StoryView.StoryView;
 import de.titanium.enterprise.View.View;
 
 import java.awt.*;
@@ -57,6 +58,17 @@ public class GameMenuView extends View {
 
         }});
 
+        this.options.put("Story", StoryView.class);
+        this.descriptions.add(new ArrayList<String>() {{
+
+            this.add("Erfahre was wirklich");
+            this.add("hinter diesem Spiel");
+            this.add("steht und erlebe eine");
+            this.add("spannende und lustige");
+            this.add("Geschichte");
+
+        }});
+
         this.options.put("Settings", SettingsView.class);
         this.descriptions.add(new ArrayList<String>() {{
 
@@ -91,7 +103,7 @@ public class GameMenuView extends View {
 
             if(x == this.selectedOption) {
                 Image image = Enterprise.getGame().getTextBuilder().toImage(entry.getKey(), 15);
-                g.drawImage(Enterprise.getGame().getTextBuilder().toImage(entry.getKey(), 15), (this.getWidth() / 2 - 150) - image.getWidth(null) / 2, 50 + x * 35, null);
+                g.drawImage(image, 480 - image.getWidth(null) / 2, 150 + x * 35, null);
 
                 int i = 0;
                 for(String value : this.descriptions.get(this.selectedOption)) {
@@ -100,7 +112,7 @@ public class GameMenuView extends View {
                 }
             } else {
                 Image image = Enterprise.getGame().getTextBuilder().toImage(entry.getKey(), 10);
-                g.drawImage(image, (this.getWidth() / 2 - 150) - image.getWidth(null) / 2, 50 + x * 35, null);
+                g.drawImage(image, 480 - image.getWidth(null) / 2, 150 + x * 35, null);
             }
 
             x++;

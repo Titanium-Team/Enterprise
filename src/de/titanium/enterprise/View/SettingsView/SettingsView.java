@@ -71,6 +71,10 @@ public class SettingsView extends View {
 
             x++;
         }
+
+        //ESC zum Speichern
+        g.drawImage(Enterprise.getGame().getTextBuilder().toImage("ESC druecken um zu speichern", 10), 233, 280, null);
+
     }
 
     /**

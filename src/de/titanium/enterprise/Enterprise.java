@@ -16,6 +16,7 @@ import de.titanium.enterprise.View.GameMenu.GameMenuView;
 import de.titanium.enterprise.View.GameView;
 import de.titanium.enterprise.View.LoadingView.LoadingView;
 import de.titanium.enterprise.View.SettingsView.SettingsView;
+import de.titanium.enterprise.View.StoryView.StoryView;
 import de.titanium.enterprise.View.ViewManager;
 
 import java.awt.*;
@@ -79,6 +80,7 @@ public class Enterprise {
         this.viewManager.register(new GameMenuView(new DefaultMenu()));
         this.viewManager.register(new SettingsView(new DefaultMenu()));
         this.viewManager.register(new FightView(new FightMenu()));
+        this.viewManager.register(new StoryView(new DefaultMenu()));
 
         this.viewManager.switchTo(GameMenuView.class);
 
