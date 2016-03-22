@@ -4,14 +4,13 @@ import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.FightView.FightView;
 import de.titanium.enterprise.View.MenuView;
+import de.titanium.enterprise.View.SettingsView.SettingsView;
 import de.titanium.enterprise.View.View;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Yonas on 21.03.2016.
@@ -19,7 +18,7 @@ import java.util.Map;
 public class GameMenuView extends View {
 
     private int selectedOption = 0;
-    private final Map<String, Class<? extends View>> options = new HashMap<>();
+    private final Map<String, Class<? extends View>> options = new LinkedHashMap<>();
     private final List<List<String>> descriptions = new ArrayList<>();
 
     {
@@ -31,60 +30,40 @@ public class GameMenuView extends View {
             this.add("Abenteuer mit deinen");
             this.add("lieblings Helden.");
             this.add("");
-            this.add("Dabei wirst du");
-            this.add("dich schweren");
-            this.add("Gegnern stellen");
-            this.add("muessen. Die keine");
-            this.add("Ruecksicht nehmen");
-            this.add("werden.");
+            this.add("Dabei wirst du dich");
+            this.add("schweren Gegnern");
+            this.add("stellen muessen.");
+            this.add("Die keine Ruecksicht");
+            this.add("nehmen werden.");
 
         }});
 
-        this.options.put("Fight!", FightView.class);
+        this.options.put("Skills", null);
         this.descriptions.add(new ArrayList<String>() {{
 
-            this.add("Erlebe gefaehrliche");
-            this.add("Abenteuer mit deinen");
-            this.add("lieblings Helden.");
-            this.add("");
-            this.add("Dabei wirst du");
-            this.add("dich schweren");
-            this.add("Gegnern stellen");
-            this.add("muessen. Die keine");
-            this.add("Ruecksicht nehmen");
-            this.add("werden3.");
+            this.add("Verwnde deine Punkte");
+            this.add("um einen Vorteil");
+            this.add("fuer deine Helden");
+            this.add("im Kampf zu erzielen");
 
         }});
 
-        this.options.put("Fight!!", FightView.class);
+        this.options.put("Heroes", null);
         this.descriptions.add(new ArrayList<String>() {{
 
-            this.add("Erlebe gefaehrliche");
-            this.add("Abenteuer mit deinen");
-            this.add("lieblings Helden.");
-            this.add("");
-            this.add("Dabei wirst du");
-            this.add("dich schweren");
-            this.add("Gegnern stellen");
-            this.add("muessen. Die keine");
-            this.add("Ruecksicht nehmen");
-            this.add("werden2.");
+            this.add("Erhalte eine Uebersicht");
+            this.add("ueber alle Helden die");
+            this.add("das Spiel zu bieten hat");
 
         }});
 
-        this.options.put("Fight!!!", FightView.class);
+        this.options.put("Settings", SettingsView.class);
         this.descriptions.add(new ArrayList<String>() {{
 
-            this.add("Erlebe gefaehrliche");
-            this.add("Abenteuer mit deinen");
-            this.add("lieblings Helden.");
-            this.add("");
-            this.add("Dabei wirst du");
-            this.add("dich schweren");
-            this.add("Gegnern stellen");
-            this.add("muessen. Die keine");
-            this.add("Ruecksicht nehmen");
-            this.add("werden1.");
+            this.add("Veraendere einige");
+            this.add("Einstellungen, um noch");
+            this.add("mehr Spaﬂ am Spielen");
+            this.add("zu haben");
 
         }});
 
@@ -111,7 +90,8 @@ public class GameMenuView extends View {
         for(Map.Entry<String, Class<? extends View>> entry : this.options.entrySet()) {
 
             if(x == this.selectedOption) {
-                g.drawImage(Enterprise.getGame().getTextBuilder().toImage(entry.getKey(), 15), this.getWidth() / 2, 50 + x * 35, null);
+                Image image = Enterprise.getGame().getTextBuilder().toImage(entry.getKey(), 15);
+                g.drawImage(Enterprise.getGame().getTextBuilder().toImage(entry.getKey(), 15), (this.getWidth() / 2 - 150) - image.getWidth(null) / 2, 50 + x * 35, null);
 
                 int i = 0;
                 for(String value : this.descriptions.get(this.selectedOption)) {
@@ -119,7 +99,8 @@ public class GameMenuView extends View {
                     i++;
                 }
             } else {
-                g.drawImage(Enterprise.getGame().getTextBuilder().toImage(entry.getKey(), 10), this.getWidth() / 2, 50 + x * 35, null);
+                Image image = Enterprise.getGame().getTextBuilder().toImage(entry.getKey(), 10);
+                g.drawImage(image, (this.getWidth() / 2 - 150) - image.getWidth(null) / 2, 50 + x * 35, null);
             }
 
             x++;

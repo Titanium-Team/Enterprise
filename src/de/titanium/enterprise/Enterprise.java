@@ -9,12 +9,13 @@ import de.titanium.enterprise.KeyManager.KeyManager;
 import de.titanium.enterprise.Loading.LoadingManager;
 import de.titanium.enterprise.Sprite.Animation.Animations;
 import de.titanium.enterprise.Sprite.Textures;
+import de.titanium.enterprise.View.DefaultMenu;
 import de.titanium.enterprise.View.FightView.FightMenu;
 import de.titanium.enterprise.View.FightView.FightView;
-import de.titanium.enterprise.View.GameMenu.GameMenu;
 import de.titanium.enterprise.View.GameMenu.GameMenuView;
 import de.titanium.enterprise.View.GameView;
 import de.titanium.enterprise.View.LoadingView.LoadingView;
+import de.titanium.enterprise.View.SettingsView.SettingsView;
 import de.titanium.enterprise.View.ViewManager;
 
 import java.awt.*;
@@ -33,6 +34,10 @@ public class Enterprise {
 
         this.renderingHints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         this.renderingHints.put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        this.renderingHints.put(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
+        this.renderingHints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        this.renderingHints.put(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+        this.renderingHints.put(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
 
     }
 
@@ -71,7 +76,8 @@ public class Enterprise {
         this.getDataManager().add("game.enemy", new Archer(UUID.randomUUID(), "Enemy", 100, 100, 5, 5));
 
         //default view
-        this.viewManager.register(new GameMenuView(new GameMenu()));
+        this.viewManager.register(new GameMenuView(new DefaultMenu()));
+        this.viewManager.register(new SettingsView(new DefaultMenu()));
         this.viewManager.register(new FightView(new FightMenu()));
 
         this.viewManager.switchTo(GameMenuView.class);

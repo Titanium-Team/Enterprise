@@ -643,7 +643,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1428, 1, 51, 67);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1481, 1, 51, 67);
         }
 
         @Override
