@@ -61,9 +61,9 @@ public class GameMenuView extends View {
         this.descriptions.add(new ArrayList<String>() {{
 
             this.add("Veraendere einige");
-            this.add("Einstellungen, um noch");
-            this.add("mehr Spaﬂ am Spielen");
-            this.add("zu haben");
+            this.add("Einstellungen, um");
+            this.add("nochmehr Spass am");
+            this.add("Spielen zu haben");
 
         }});
 

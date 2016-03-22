@@ -8,7 +8,9 @@ import de.titanium.enterprise.View.View;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,70 +21,10 @@ public class SettingsView extends View {
     private int selectedOption = 0;
     private final Map<String, Map<String, Object>> options = new LinkedHashMap<>();
     private final Map<String, Integer> selectedValue = new LinkedHashMap<>();
+    private final Map<String, List<List<String>>> description = new LinkedHashMap<>();
 
     public SettingsView(MenuView viewMenu) {
         super(viewMenu);
-    }
-
-    {
-
-        this.options.put("Antialiasing", new LinkedHashMap<String, Object>() {{
-
-            this.put("On", RenderingHints.VALUE_ANTIALIAS_ON);
-            this.put("Default", RenderingHints.VALUE_ANTIALIAS_DEFAULT);
-            this.put("Off", RenderingHints.VALUE_ANTIALIAS_OFF);
-
-        }});
-        this.selectedValue.put("Antialiasing", this.selectedByKey("Antialiasing"));
-
-        this.options.put("Text-Antialiasing", new LinkedHashMap<String, Object>() {{
-
-            this.put("On", RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            this.put("Default", RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT);
-            this.put("Gasp", RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
-            this.put("LCD HBGR", RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HBGR);
-            this.put("LCD HRGB", RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
-            this.put("LCD VBGR", RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_VBGR);
-            this.put("LCD VRGB", RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_VRGB);
-
-        }});
-        this.selectedValue.put("Text-Antialiasing", this.selectedByKey("Text-Antialiasing"));
-
-        this.options.put("Dithering", new LinkedHashMap<String, Object>() {{
-
-           this.put("Enable", RenderingHints.VALUE_DITHER_ENABLE);
-           this.put("Default", RenderingHints.VALUE_DITHER_DEFAULT);
-           this.put("Disable", RenderingHints.VALUE_DITHER_DISABLE);
-
-        }});
-        this.selectedValue.put("Dithering", this.selectedByKey("Dithering"));
-
-        this.options.put("Rendering", new LinkedHashMap<String, Object>() {{
-
-            this.put("Quality", RenderingHints.VALUE_RENDER_QUALITY);
-            this.put("Default", RenderingHints.VALUE_RENDER_DEFAULT);
-            this.put("Speed", RenderingHints.VALUE_RENDER_SPEED);
-
-        }});
-        this.selectedValue.put("Rendering", this.selectedByKey("Rendering"));
-
-        this.options.put("Fractional Metrics", new LinkedHashMap<String, Object>() {{
-
-            this.put("On", RenderingHints.VALUE_FRACTIONALMETRICS_ON);
-            this.put("Default", RenderingHints.VALUE_FRACTIONALMETRICS_DEFAULT);
-            this.put("Off", RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
-
-        }});
-        this.selectedValue.put("Fractional Metrics", this.selectedByKey("Fractional Metrics"));
-
-        this.options.put("Stroke Control", new LinkedHashMap<String, Object>() {{
-
-            this.put("Normalize", RenderingHints.VALUE_STROKE_NORMALIZE);
-            this.put("Default", RenderingHints.VALUE_STROKE_DEFAULT);
-            this.put("Pure", RenderingHints.VALUE_STROKE_PURE);
-
-        }});
-        this.selectedValue.put("Stroke Control", this.selectedByKey("Stroke Control"));
     }
 
     @Override
@@ -109,9 +51,15 @@ public class SettingsView extends View {
                 g.drawImage(image, (this.getWidth() / 2 - 300) - image.getWidth(null) / 2, 50 + x * 35, null);
 
                 //draw selected value
-                Image valueImage = Enterprise.getGame().getTextBuilder().toImage(valueKeys[this.selectedValue.get(entry.getKey())], 10);
+                Image valueImage = Enterprise.getGame().getTextBuilder().toImage(valueKeys[this.selectedValue.get(entry.getKey())], 15);
                 g.drawImage(valueImage, 600, 50 + x * 35, null);
 
+                //draw description
+                int i = 0;
+                for(String value : this.description.get(entry.getKey()).get(this.selectedValue.get(entry.getKey()))) {
+                    g.drawImage(Enterprise.getGame().getTextBuilder().toImage(value, 7), 990, 80 + i * 20, null);
+                    i++;
+                }
             } else {
                 Image image = Enterprise.getGame().getTextBuilder().toImage(entry.getKey(), 10);
                 g.drawImage(image, (this.getWidth() / 2 - 300) - image.getWidth(null) / 2, 50 + x * 35, null);
@@ -226,6 +174,240 @@ public class SettingsView extends View {
     @Override
     public void render() {
         this.repaint();
+    }
+
+    {
+
+        //Antialiasing
+        this.options.put("Antialiasing", new LinkedHashMap<String, Object>() {{
+
+            this.put("On", RenderingHints.VALUE_ANTIALIAS_ON);
+            this.put("Default", RenderingHints.VALUE_ANTIALIAS_DEFAULT);
+            this.put("Off", RenderingHints.VALUE_ANTIALIAS_OFF);
+
+        }});
+        this.selectedValue.put("Antialiasing", this.selectedByKey("Antialiasing"));
+        this.description.put("Antialiasing", new ArrayList<List<String>>() {{
+
+            this.add(new ArrayList<String>() {{
+
+                this.add("Rendering is done");
+                this.add("with antialiasing");
+
+            }});
+            this.add(new ArrayList<String>() {{
+
+                this.add("rendering is done");
+                this.add("with a default");
+                this.add("antialiasing mode");
+                this.add("chosen by the");
+                this.add("implementation.");
+
+            }});
+            this.add(new ArrayList<String>() {{
+
+                this.add("Rendering is done");
+                this.add("without antialiasing");
+
+            }});
+
+        }});
+
+        //Text-Antialiasing
+        this.options.put("Text-Antialiasing", new LinkedHashMap<String, Object>() {{
+
+            this.put("On", RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            this.put("Default", RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT);
+            this.put("Gasp", RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
+
+        }});
+        this.selectedValue.put("Text-Antialiasing", this.selectedByKey("Text-Antialiasing"));
+        this.description.put("Text-Antialiasing", new ArrayList<List<String>>() {{
+
+            this.add(new ArrayList<String>() {{
+
+                this.add("text rendering is");
+                this.add("done with some");
+                this.add("form of antialiasing");
+
+            }});
+            this.add(new ArrayList<String>() {{
+
+                this.add("text rendering is");
+                this.add("done with a default");
+                this.add("antialiasing mode");
+                this.add("chosen by the");
+                this.add("implementation.");
+
+            }});
+            this.add(new ArrayList<String>() {{
+
+                this.add("text rendering is");
+                this.add("is requested to use");
+                this.add("information in the");
+                this.add("font resource which");
+                this.add("specifies for each");
+                this.add("point size");
+
+            }});
+
+        }});
+
+
+        //Dithering
+        this.options.put("Dithering", new LinkedHashMap<String, Object>() {{
+
+            this.put("Enable", RenderingHints.VALUE_DITHER_ENABLE);
+            this.put("Default", RenderingHints.VALUE_DITHER_DEFAULT);
+            this.put("Disable", RenderingHints.VALUE_DITHER_DISABLE);
+
+        }});
+        this.selectedValue.put("Dithering", this.selectedByKey("Dithering"));
+        this.description.put("Dithering", new ArrayList<List<String>>() {{
+
+            this.add(new ArrayList<String>() {{
+
+                this.add("dither when rendering");
+                this.add("geometry, if needed.");
+
+            }});
+            this.add(new ArrayList<String>() {{
+
+                this.add("use a default for");
+                this.add("dithering chosen by");
+                this.add("the implementation");
+
+            }});
+            this.add(new ArrayList<String>() {{
+
+                this.add("do not dither when");
+                this.add("rendering geometry.");
+
+            }});
+
+        }});
+
+        //Rendering
+        this.options.put("Rendering", new LinkedHashMap<String, Object>() {{
+
+            this.put("Quality", RenderingHints.VALUE_RENDER_QUALITY);
+            this.put("Default", RenderingHints.VALUE_RENDER_DEFAULT);
+            this.put("Speed", RenderingHints.VALUE_RENDER_SPEED);
+
+        }});
+        this.selectedValue.put("Rendering", this.selectedByKey("Rendering"));
+        this.description.put("Rendering", new ArrayList<List<String>>() {{
+
+            this.add(new ArrayList<String>() {{
+
+                this.add("rendering algorithms");
+                this.add("are chosen with a");
+                this.add("preference for");
+                this.add("output quality");
+
+            }});
+            this.add(new ArrayList<String>() {{
+
+                this.add("rendering algorithms");
+                this.add("are chosen by the");
+                this.add("implementation for");
+                this.add("for a good tradeoff");
+                this.add("of performance vs.");
+                this.add("quality");
+
+            }});
+            this.add(new ArrayList<String>() {{
+
+                this.add("rendering algorithms");
+                this.add("are chosen with a");
+                this.add("preference for");
+                this.add("output speed");
+
+            }});
+
+        }});
+
+        //Fractional Metrics
+        this.options.put("Fractional Metrics", new LinkedHashMap<String, Object>() {{
+
+            this.put("On", RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+            this.put("Default", RenderingHints.VALUE_FRACTIONALMETRICS_DEFAULT);
+            this.put("Off", RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
+
+        }});
+        this.selectedValue.put("Fractional Metrics", this.selectedByKey("Fractional Metrics"));
+        this.description.put("Fractional Metrics", new ArrayList<List<String>>() {{
+
+            this.add(new ArrayList<String>() {{
+
+                this.add("character glyphs are");
+                this.add("positioned with");
+                this.add("sub-pixel accuracy");
+
+            }});
+            this.add(new ArrayList<String>() {{
+
+                this.add("character glyphs are");
+                this.add("positioned with");
+                this.add("accuracy chosen by");
+                this.add("the implementation");
+
+            }});
+            this.add(new ArrayList<String>() {{
+
+                this.add("character glyphs are");
+                this.add("positioned with");
+                this.add("advance widths");
+                this.add("rounded to pixel");
+                this.add("boundaries.");
+
+            }});
+
+        }});
+
+
+        //Stroke Control
+        this.options.put("Stroke Control", new LinkedHashMap<String, Object>() {{
+
+            this.put("Normalize", RenderingHints.VALUE_STROKE_NORMALIZE);
+            this.put("Default", RenderingHints.VALUE_STROKE_DEFAULT);
+            this.put("Pure", RenderingHints.VALUE_STROKE_PURE);
+
+        }});
+        this.selectedValue.put("Stroke Control", this.selectedByKey("Stroke Control"));
+        this.description.put("Stroke Control", new ArrayList<List<String>>() {{
+
+            this.add(new ArrayList<String>() {{
+
+                this.add("geometry should be");
+                this.add("normalized to");
+                this.add("improve uniformity");
+                this.add("or spacing of lines");
+                this.add("and overall");
+                this.add("aesthetics.");
+
+            }});
+            this.add(new ArrayList<String>() {{
+
+                this.add("geometry may be");
+                this.add("modified or left");
+                this.add("pure depending on");
+                this.add("the tradeoffs in");
+                this.add("a given");
+                this.add("implementation.");
+
+            }});
+            this.add(new ArrayList<String>() {{
+
+                this.add("geometry should be");
+                this.add("left unmodified and");
+                this.add("rendered with");
+                this.add("sub-pixel accuracy.");
+
+            }});
+
+        }});
+
     }
 
 }
