@@ -123,33 +123,27 @@ public class Enterprise {
      * Diese Methode startet den Game-Loop.
      *
      * Der Loop ist aktuell auf 50 Ticks/Sekunde festgesetzt, es sollten also immer 50 Ticks ausgeführt werden.
-     * Falls es zu einer Verzögerung im Code kommt, werden die verpassten Ticks nachgeholt, um den Rhytmus aufrechtzuerhalten.
      *
      */
     public void start() {
 
-        double lastTime = System.currentTimeMillis();
         int CURRENT_TICK = 0;
 
         while (true) {
 
             double currentTime = System.currentTimeMillis();
-            double deltaTime = currentTime - lastTime;
 
-            int loops = Math.round((int)(deltaTime == 0 ? 1 : deltaTime) / (1000 / MAX_TICKS));
 
             Iterator<GameComponent> updateComponents = Arrays.asList(this.gameComponents.toArray(new GameComponent[this.gameComponents.size()]).clone()).iterator();
 
-            for(int i = 0; i < loops; i++) {
-                while (updateComponents.hasNext()) {
+            while (updateComponents.hasNext()) {
 
-                    GameComponent component = updateComponents.next();
+                GameComponent component = updateComponents.next();
 
-                    if (component.isActive()) {
-                        component.update(CURRENT_TICK);
-                    }
-
+                if (component.isActive()) {
+                    component.update(CURRENT_TICK);
                 }
+
             }
 
             CURRENT_TICK++;
@@ -179,8 +173,6 @@ public class Enterprise {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
-            lastTime = currentTime;
 
         }
 
