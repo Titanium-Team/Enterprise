@@ -57,8 +57,9 @@ public class TextBuilder {
                 Image i = texture.getImage();
 
                 int letterHeight = (int) (i.getHeight(null) * size);
+                int y = (height - letterHeight);
 
-                g.drawImage(i, x, (height - letterHeight), letterHeight, letterHeight, null);
+                g.drawImage(i, x, y, letterHeight, letterHeight, null);
                 x += i.getWidth(null) * size;
             }
 

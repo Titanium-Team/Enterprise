@@ -3,15 +3,19 @@ package de.titanium.enterprise.View.GameMenu;
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.FightView.FightView;
+import de.titanium.enterprise.View.HeroesView.HeroesView;
 import de.titanium.enterprise.View.MenuView;
 import de.titanium.enterprise.View.SettingsView.SettingsView;
+import de.titanium.enterprise.View.SkillView.SkillView;
 import de.titanium.enterprise.View.StoryView.StoryView;
 import de.titanium.enterprise.View.View;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Yonas on 21.03.2016.
@@ -39,7 +43,7 @@ public class GameMenuView extends View {
 
         }});
 
-        this.options.put("Skills", null);
+        this.options.put("Skills", SkillView.class);
         this.descriptions.add(new ArrayList<String>() {{
 
             this.add("Verwnde deine Punkte");
@@ -49,7 +53,7 @@ public class GameMenuView extends View {
 
         }});
 
-        this.options.put("Heroes", null);
+        this.options.put("Heroes", HeroesView.class);
         this.descriptions.add(new ArrayList<String>() {{
 
             this.add("Erhalte eine Uebersicht");

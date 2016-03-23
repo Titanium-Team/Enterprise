@@ -1,7 +1,8 @@
 package de.titanium.enterprise.Skill;
 
-import de.titanium.enterprise.Entity.Entity;
 import de.titanium.enterprise.Entity.LivingEntity;
+
+import java.util.List;
 
 /**
  * Created by Yonas on 11.03.2016.
@@ -18,7 +19,7 @@ public interface Skill {
      * Gibt die Beschreibung des Skills an.
      * @return
      */
-    String getDescription();
+    List<String> getDescription();
 
     /**
      * Gibt die Art des Skills zurück.
@@ -27,8 +28,21 @@ public interface Skill {
     SkillTypes getSkillType();
 
     /**
+     * Gibt die Anzahl an Skill-Punkten zurück, die der Spieler ausgeben muss, um diesen Skill freizuschalten.
+     * @return
+     */
+    int getPrice();
+
+    /**
+     * Der zurückgegebene Wert determiniert die Position im Skill-Tree;
+     * @return
+     */
+    int getPosition();
+
+    /**
      * Gibt den Wert zurück den dieser Skill Einfluss nehmen soll.
-     * @param entity
+     * @param a
+     * @param b
      * @return
      */
     double getValue(LivingEntity a, LivingEntity b);

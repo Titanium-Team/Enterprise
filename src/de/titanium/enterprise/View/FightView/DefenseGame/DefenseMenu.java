@@ -1,13 +1,13 @@
 package de.titanium.enterprise.View.FightView.DefenseGame;
 
+import de.titanium.enterprise.Data.BinarySearchTree;
+import de.titanium.enterprise.Data.Datas.Score;
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.GameComponent;
-import de.titanium.enterprise.Data.Scores.BinarySearchTree;
-import de.titanium.enterprise.Data.Scores.Score;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.FightView.FightMenu;
-import de.titanium.enterprise.View.MenuView;
 import de.titanium.enterprise.View.FightView.FightView;
+import de.titanium.enterprise.View.MenuView;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -117,14 +117,14 @@ public class DefenseMenu extends MenuView implements GameComponent {
             for(Rectangle[] rectangles : this.rectangles) {
                 for(Rectangle r : rectangles) {
                     if(this.player.intersects(r)) {
-                        Enterprise.getGame().getViewManager().changeMenu(FightView.class, new FightMenu());
+
                         Score score = new Score(this.tick,"Score:");
                         if(!Enterprise.getGame().getDataManager().contains("game.defense.scores")) {
                             Enterprise.getGame().getDataManager().add("game.defense.scores", new BinarySearchTree<Score>());
                         }
-                        Enterprise.getGame().getDataManager().getOne("game.defense.scores", BinarySearchTree.class).insert(score, Enterprise.getGame().getDataManager().getOne("game.defense.scores", BinarySearchTree.class));
 
-                                //Enterprise.getGame().getViewManager().changeMenu(FightView.class, new DefenseMenu());
+                        Enterprise.getGame().getDataManager().getOne("game.defense.scores", BinarySearchTree.class).insert(score);
+                        Enterprise.getGame().getViewManager().changeMenu(FightView.class, new FightMenu());
                         break;
                     }
                 }
@@ -154,7 +154,6 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
                 Rectangle[] last = this.rectangles.get(this.rectangles.size() - 1);
                 tmp.add(DefenseModules.values()[this.random.nextInt(DefenseModules.values().length-1)].getRectangles((int) (last[last.length - 2].getX() + last[last.length -2].getWidth() - this.speed), this.space, this.width, (int) last[last.length - 2].getHeight()));
-                //(last[last.length - 1].getMaxX() + ((1600 - this.speed) - last[last.length - 1].getMaxX()))
              } else {
                 for (Rectangle rectangle : rec) {
                     rectangle.x -= this.speed/2;

@@ -14,8 +14,10 @@ import de.titanium.enterprise.View.FightView.FightMenu;
 import de.titanium.enterprise.View.FightView.FightView;
 import de.titanium.enterprise.View.GameMenu.GameMenuView;
 import de.titanium.enterprise.View.GameView;
+import de.titanium.enterprise.View.HeroesView.HeroesView;
 import de.titanium.enterprise.View.LoadingView.LoadingView;
 import de.titanium.enterprise.View.SettingsView.SettingsView;
+import de.titanium.enterprise.View.SkillView.SkillView;
 import de.titanium.enterprise.View.StoryView.StoryView;
 import de.titanium.enterprise.View.ViewManager;
 
@@ -75,13 +77,18 @@ public class Enterprise {
         });
 
         //set default enemy
-        this.getDataManager().add("game.enemy", new Archer(UUID.randomUUID(), "Enemy", 100, 100, 5, 5));
+        this.getDataManager().add("game.enemy", new Archer(UUID.randomUUID(), "Enemy", 10, 100, 5, 5));
+
+        //default menu
+        DefaultMenu defaultMenu = new DefaultMenu();
 
         //default view
-        this.viewManager.register(new GameMenuView(new DefaultMenu()));
-        this.viewManager.register(new SettingsView(new DefaultMenu()));
+        this.viewManager.register(new GameMenuView(defaultMenu));
+        this.viewManager.register(new SettingsView(defaultMenu));
+        this.viewManager.register(new StoryView(defaultMenu));
+        this.viewManager.register(new SkillView(defaultMenu));
+        this.viewManager.register(new HeroesView(defaultMenu));
         this.viewManager.register(new FightView(new FightMenu()));
-        this.viewManager.register(new StoryView(new DefaultMenu()));
 
         this.viewManager.switchTo(GameMenuView.class);
 
@@ -127,7 +134,7 @@ public class Enterprise {
      */
     public void start() {
 
-        int CURRENT_TICK = 0;
+        int CURRENT_TICK = 1;
 
         while (true) {
 
@@ -148,7 +155,7 @@ public class Enterprise {
 
             CURRENT_TICK++;
             if (CURRENT_TICK > MAX_TICKS) {
-                CURRENT_TICK = 0;
+                CURRENT_TICK = 1;
             }
 
 

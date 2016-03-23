@@ -13,7 +13,7 @@ import java.awt.*;
 public class DefaultMenu extends MenuView {
 
     private Animator animator = Animations.RANGER_WALK.getAnimator();
-    private int x = -30;
+    private int x = -120;
 
     public DefaultMenu() {}
 
@@ -37,7 +37,7 @@ public class DefaultMenu extends MenuView {
     public void update(int tick) {
         this.x++;
 
-        if(this.x > 1500) {
+        if(this.x > 1400) {
             this.x = 0;
         }
         this.animator.next();

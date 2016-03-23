@@ -2,8 +2,8 @@ package de.titanium.enterprise.View.FightView;
 
 
 import de.titanium.enterprise.Data.DataManager;
-import de.titanium.enterprise.Data.Scores.BinarySearchTree;
-import de.titanium.enterprise.Data.Scores.Score;
+import de.titanium.enterprise.Data.BinarySearchTree;
+import de.titanium.enterprise.Data.Datas.Score;
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.Sprite.Animation.Animator;
