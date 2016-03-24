@@ -18,11 +18,13 @@ public abstract class LivingEntity extends Entity {
     private double health;
     private double maxHealth;
 
-    private final double skill;
+    private final double dexterity;
     private double attackValue;
 
     private final List<Skill> skills = new ArrayList<>();
     private final AnimationQueue animationQueue;
+
+    private int skillPoints;
 
     /**
      *
@@ -31,18 +33,20 @@ public abstract class LivingEntity extends Entity {
      * @param name Der "Display-Name" des Entitys.
      * @param health Die aktuelle Anzahl an Leben des Entitys.
      * @param maxHealth Die maximale Anzahl an Leben des Entitys.
-     * @param skill Der Geschicklichkeitswert des Entitys.
+     * @param dexterity Der Geschicklichkeitswert des Entitys.
      * @param attackValue Der Basis Wert des Schadens.
+     * @param skillPoints Die Punkte die der Held zum Skillen hat.
      */
-    public LivingEntity(UUID identifier, Animation defaultAnimation, String name, double health, double maxHealth, double skill, double attackValue) {
+    public LivingEntity(UUID identifier, Animation defaultAnimation, String name, double health, double maxHealth, double dexterity, double attackValue, int skillPoints) {
         super(identifier);
 
         this.animationQueue = new AnimationQueue(defaultAnimation);
         this.name = name;
         this.health = health;
         this.maxHealth = maxHealth;
-        this.skill = skill;
+        this.dexterity = dexterity;
         this.attackValue = attackValue;
+        this.skillPoints = skillPoints;
     }
 
     /**
@@ -66,15 +70,15 @@ public abstract class LivingEntity extends Entity {
      * @return
      */
     public double getMaxHealth() {
-        return maxHealth;
+        return  this.maxHealth;
     }
 
     /**
      * Gibt den aktuellen Geschicklichkeitswert zurück.
      * @return
      */
-    public double getSkill() {
-        return skill;
+    public double getDexterity() {
+        return this.dexterity;
     }
 
     /**
@@ -99,6 +103,14 @@ public abstract class LivingEntity extends Entity {
      */
     public List<Skill> getSkills() {
         return this.skills;
+    }
+
+    /**
+     * Die Punkte die der Held hat, um seinen Helden zu skillen.
+     * @return
+     */
+    public int getSkillPoints() {
+        return this.skillPoints;
     }
 
     /**

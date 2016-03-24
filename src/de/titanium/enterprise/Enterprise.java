@@ -7,6 +7,7 @@ import de.titanium.enterprise.Entity.Entities.Warrior;
 import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.KeyManager.KeyManager;
 import de.titanium.enterprise.Loading.LoadingManager;
+import de.titanium.enterprise.Skill.Skills;
 import de.titanium.enterprise.Sprite.Animation.Animations;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.DefaultMenu;
@@ -70,14 +71,16 @@ public class Enterprise {
         //set default heroes
         this.getDataManager().add("game.heroes", new LivingEntity[] {
 
-                new Archer(UUID.randomUUID(), "Archer", 100, 100, 4, 7),
-                new Warrior(UUID.randomUUID(), "Warrior", 100, 100, 0, 4),
-                new Rogue(UUID.randomUUID(), "Rogue", 100, 100, 7, 6)
+                new Archer(UUID.randomUUID(), "Archer", 100, 100, 4, 7, 5),
+                new Warrior(UUID.randomUUID(), "Warrior", 100, 100, 0, 4, 10),
+                new Rogue(UUID.randomUUID(), "Rogue", 100, 100, 7, 6, 8)
 
         });
 
+        Skills.DEF_10_ZEUS.apply(this.getDataManager().getOne("game.heroes", LivingEntity[].class)[2]);
+
         //set default enemy
-        this.getDataManager().add("game.enemy", new Archer(UUID.randomUUID(), "Enemy", 10, 100, 5, 5));
+        this.getDataManager().add("game.enemy", new Archer(UUID.randomUUID(), "Enemy", 10, 100, 5, 5, 12));
 
         //default menu
         DefaultMenu defaultMenu = new DefaultMenu();

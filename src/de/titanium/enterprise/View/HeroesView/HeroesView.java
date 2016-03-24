@@ -14,7 +14,7 @@ import java.util.UUID;
  */
 public class HeroesView extends View {
 
-    private Archer archer = new Archer(UUID.randomUUID(), "Yonas", 100, 100, 5, 5);
+    private Archer archer = new Archer(UUID.randomUUID(), "Yonas", 100, 100, 5, 5, 5);
 
     public HeroesView(MenuView viewMenu) {
         super(viewMenu);

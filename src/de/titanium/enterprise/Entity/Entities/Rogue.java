@@ -10,14 +10,14 @@ import java.util.UUID;
  */
 public class Rogue extends LivingEntity {
 
-    public Rogue(UUID identifier, String name, double health, double maxHealth, double skill, double attackValue) {
-        super(identifier, Animations.RANGER_IDLE, name, health, maxHealth, skill, attackValue);
+    public Rogue(UUID identifier, String name, double health, double maxHealth, double dexterity, double attackValue, int skillPoints) {
+        super(identifier, Animations.RANGER_IDLE, name, health, maxHealth, dexterity, attackValue, skillPoints);
     }
 
     @Override
     public double calculateDamage(LivingEntity enemy, int comboResult) {
 
-        double value = -1 * Math.pow(comboResult - this.getSkill(), 2) * this.getAttackValue() * 1.2 + this.getAttackValue() * 1.8;
+        double value = -1 * Math.pow(comboResult - this.getDexterity(), 2) * this.getAttackValue() * 1.2 + this.getAttackValue() * 1.8;
 
         return value;
     }

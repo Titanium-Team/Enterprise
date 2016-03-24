@@ -4,9 +4,12 @@ import de.titanium.enterprise.Data.BinarySearchTree;
 import de.titanium.enterprise.Data.BinaryTreeMath;
 import de.titanium.enterprise.Data.Datas.SkillEntry;
 import de.titanium.enterprise.Enterprise;
+import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.Skill.Skill;
 import de.titanium.enterprise.Skill.Skills;
+import de.titanium.enterprise.Sprite.Animation.Animator;
 import de.titanium.enterprise.Sprite.Textures;
+import de.titanium.enterprise.View.GameMenu.GameMenuView;
 import de.titanium.enterprise.View.MenuView;
 import de.titanium.enterprise.View.View;
 
@@ -21,7 +24,8 @@ import java.awt.geom.Point2D;
 public class SkillView extends View {
 
     private BinarySearchTree<SkillEntry> skillBinarySearchTree = Skills.defaultTree();
-    private Skill selected = Skills.NEU_00_OLYMPUS;
+    private int selectedEntity = 0;
+    private Skill selectedSkill = Skills.NEU_00_OLYMPUS;
 
     public SkillView(MenuView viewMenu) {
         super(viewMenu);
@@ -39,11 +43,37 @@ public class SkillView extends View {
         g.drawImage(Textures.BACKGROUND.getImage(), 0, 0, null, null);
         g.drawImage(Textures.BORDER_UP.getImage(), 0, 0, null, null);
 
-        //draw selected description
-        List<String> description = this.selected.getDescription();
+        //draw selected skill description
+        List<String> description = this.selectedSkill.getDescription();
         for(int i = 0; i < description.size(); i++) {
             g.drawImage(Enterprise.getGame().getTextBuilder().toImage(description.get(i), 7), 990, 50 + i * 20, null);
         }
+
+        //draw if he unlocked it, yet
+        LivingEntity entity = Enterprise.getGame().getDataManager().getOne("game.heroes", LivingEntity[].class)[this.selectedEntity];
+
+        if(this.selectedSkill.hasSkill(entity)) {
+            g.drawImage(Textures.CHECKED_BUTTON.getImage().getScaledInstance(50, 50, 0), 990, 400, null);
+            g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Freigeschaltet", 8), 1050, 415, null);
+        } else {
+            if(this.selectedSkill.isUnlockable(entity)) {
+                g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Freischaltbar", 8), 1050, 415, null);
+            } else {
+                g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Locked", 8), 1050, 415, null);
+            }
+            g.drawImage(Textures.FAILED_BUTTON.getImage().getScaledInstance(50, 50, 0), 990, 400, null);
+        }
+
+        //draw selected entity
+        Animator animator = entity.getAnimationQueue().element();
+        g.drawImage(animator.getFrame(), 50, 270, animator.getType().getWidth(), animator.getType().getHeight(), null);
+
+        Image text = Enterprise.getGame().getTextBuilder().toImage(entity.getName(), 10);
+        g.drawImage(text, 50 - ((text.getWidth(null) - animator.getType().getWidth()) / 2), 245, null);
+
+        //draw skill points
+        Image points = Enterprise.getGame().getTextBuilder().toImage(String.format("Points: %d", entity.getSkillPoints()), 8);
+        g.drawImage(points, 40, 40, null);
 
         //draw tree
         this.drawTree(g, this.skillBinarySearchTree, BinaryTreeMath.maxDepth(this.skillBinarySearchTree), 0, 1);
@@ -55,15 +85,30 @@ public class SkillView extends View {
 
         if(tick % 4 == 0) {
 
-            BinarySearchTree<SkillEntry> current = this.skillBinarySearchTree.search(new SkillEntry(this.selected));
-            BinarySearchTree<SkillEntry> parent = BinaryTreeMath.findParent(new SkillEntry(this.selected), this.skillBinarySearchTree);
+            BinarySearchTree<SkillEntry> current = this.skillBinarySearchTree.search(new SkillEntry(this.selectedSkill));
+            BinarySearchTree<SkillEntry> parent = BinaryTreeMath.findParent(new SkillEntry(this.selectedSkill), this.skillBinarySearchTree);
+            LivingEntity[] entities = Enterprise.getGame().getDataManager().getOne("game.heroes", LivingEntity[].class);
 
-            if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_LEFT) && !(current.getLeftTree().isEmpty())) { //nach links gehen
-                this.selected = current.getLeftTree().getContent().getSkill();
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_RIGHT) && !(current.getRightTree().isEmpty())) { //nach rechts gehen
-                this.selected = current.getRightTree().getContent().getSkill();
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_UP) && !(parent == null)) { //nach oben gehen
-                this.selected = parent.getContent().getSkill();
+            if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ESCAPE)) { //zurück zum hauptmenü
+                Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_A) && !(current.getLeftTree().isEmpty())) { //nach links gehen
+                this.selectedSkill = current.getLeftTree().getContent().getSkill();
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_D) && !(current.getRightTree().isEmpty())) { //nach rechts gehen
+                this.selectedSkill = current.getRightTree().getContent().getSkill();
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_W) && !(parent == null)) { //nach oben gehen
+                this.selectedSkill = parent.getContent().getSkill();
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_LEFT)) { //helden wechsel
+                this.selectedEntity--;
+
+                if(selectedEntity < 0) {
+                    this.selectedEntity = entities.length - 1;
+                }
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_RIGHT)) { //helden wechsel
+                this.selectedEntity++;
+
+                if(selectedEntity >= entities.length) {
+                    selectedEntity = 0;
+                }
             }
 
         }
@@ -80,7 +125,7 @@ public class SkillView extends View {
         //draw box w/ value
         int yOffset = 50;
         String text = binaryTree.getContent().getSkill().getName() + " (" + binaryTree.getContent().getSkill().getPrice() + ")";
-        Image image = Enterprise.getGame().getTextBuilder().toImage(text, (this.selected == binaryTree.getContent().getSkill() ? 10 : 8));
+        Image image = Enterprise.getGame().getTextBuilder().toImage(text, (this.selectedSkill == binaryTree.getContent().getSkill() ? 10 : 8));
 
         Point2D position = BinaryTreeMath.calculate(960, this.getHeight() / 2, index, treeDepth, currentDepth);
 

@@ -57,7 +57,7 @@ public enum Skills implements Skill {
 
         @Override
         public boolean hasSkill(LivingEntity entity) {
-            return true;
+            return  true;
         }
 
         @Override

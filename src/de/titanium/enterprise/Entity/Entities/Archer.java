@@ -10,14 +10,14 @@ import java.util.UUID;
  */
 public class Archer extends LivingEntity {
 
-    public Archer(UUID identifier, String name, double health, double maxHealth, double skill, double attackValue) {
-        super(identifier, Animations.RANGER_IDLE, name, health, maxHealth, skill, attackValue);
+    public Archer(UUID identifier, String name, double health, double maxHealth, double dexterity, double attackValue, int skillPoints) {
+        super(identifier, Animations.RANGER_IDLE, name, health, maxHealth, dexterity, attackValue, skillPoints);
     }
 
     @Override
     public double calculateDamage(LivingEntity enemy, int comboResult) {
 
-        double value = Math.log(comboResult - this.getSkill()) + this.getAttackValue();
+        double value = Math.log(comboResult - this.getDexterity()) + this.getAttackValue();
 
         return value;
     }
