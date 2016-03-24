@@ -39,9 +39,9 @@ public class FightView extends View {
         //Updates Animation of all Heroes and the Enemy
         DataManager dataManager = Enterprise.getGame().getDataManager();
 
-        dataManager.getOne("game.enemy", LivingEntity.class).getAnimationQueue().element().next();
+        dataManager.<LivingEntity>getOne("game.enemy").getAnimationQueue().element().next();
 
-        LivingEntity[] heroes = dataManager.getOne("game.heroes", LivingEntity[].class);
+        LivingEntity[] heroes = dataManager.getOne("game.heroes");
         for(int i = 0; i < heroes.length; i++) {
             heroes[i].getAnimationQueue().element().next();
         }
@@ -49,7 +49,7 @@ public class FightView extends View {
         //Score
         if(Enterprise.getGame().getDataManager().contains("game.defense.scores")) {
             scores = new ArrayList<>();
-            this.inorder(Enterprise.getGame().getDataManager().getOne("game.defense.scores", BinarySearchTree.class), scores);
+            this.inorder(Enterprise.getGame().getDataManager().<BinarySearchTree>getOne("game.defense.scores"), scores);
         }
 
     }
@@ -70,7 +70,7 @@ public class FightView extends View {
         //Draw Heroes
         DataManager dataManager = Enterprise.getGame().getDataManager();
 
-        LivingEntity[] heroes = dataManager.getOne("game.heroes", LivingEntity[].class);
+        LivingEntity[] heroes = dataManager.getOne("game.heroes");
 
         for(int i = 0; i < heroes.length; i++) {
             LivingEntity hero = heroes[i];
@@ -82,7 +82,7 @@ public class FightView extends View {
         }
 
         //Get Enemy
-        LivingEntity enemy = dataManager.getOne("game.enemy", LivingEntity.class);
+        LivingEntity enemy = dataManager.getOne("game.enemy");
         Animator animation = enemy.getAnimationQueue().element();
 
         //flip animation

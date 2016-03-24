@@ -23,7 +23,11 @@ public abstract class View extends JPanel implements GameComponent {
         Enterprise.getGame().addComponent(this);
     }
 
-    public synchronized MenuView getMenuView() {
+    /**
+     * Gibt die zughörige MenuView zurück
+     * @return
+     */
+    public MenuView getMenuView() {
         return this.viewMenu;
     }
 
@@ -32,7 +36,11 @@ public abstract class View extends JPanel implements GameComponent {
         return (Enterprise.getGame().getViewManager().getCurrent() == this);
     }
 
-    public synchronized void changeMenu(MenuView menuView) {
+    /**
+     * Verändert das aktuelle Menü der View.
+     * @param menuView
+     */
+    public void changeMenu(MenuView menuView) {
         this.viewMenu = menuView;
     }
 }

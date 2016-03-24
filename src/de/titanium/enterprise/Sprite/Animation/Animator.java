@@ -16,17 +16,25 @@ public class Animator {
 
     private int currentFrame = 0;
 
-
     public Animator(Animation type, BufferedImage[] textures, int skipFrames) {
         this.type = type;
         this.textures = textures;
         this.skipFrames = skipFrames;
     }
 
+    /**
+     * Gibt den Animations-Typen zurück.
+     * @return
+     */
     public Animation getType() {
         return this.type;
     }
 
+    /**
+     * Diese Methode geht zum nächsten Frame.
+     *
+     * Falls man beim letzten Frame angekommen ist, startet die Animation erneut.
+     */
     public void next() {
 
         if(this.skippedFrames < this.skipFrames) {
@@ -41,14 +49,26 @@ public class Animator {
         }
     }
 
+    /**
+     * Gibt die Anzahl an Frames zurück, die diese Animation hat.
+     * @return
+     */
     public int getAmount() {
         return this.textures.length;
     }
 
+    /**
+     * Gibt den Index des aktullen Frames zurück.
+     * @return
+     */
     public int getIndex() {
         return this.currentFrame;
     }
 
+    /**
+     * Gibt den aktuellen Frame zurück, der gerendert werden soll.
+     * @return
+     */
     public BufferedImage getFrame() {
         return this.textures[this.currentFrame];
     }

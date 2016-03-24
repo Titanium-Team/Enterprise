@@ -17,9 +17,13 @@ public class AnimationQueue {
         this.defaultAnimation = defaultAnimation;
     }
 
+    /**
+     * Diese Methode fügt der Animation-Queue die übergebene Animation zurück.
+     * @param animation
+     */
     public void add(Animation animation) {
 
-        Animator animator = animation.getAnimator();
+        Animator animator = animation.createAnimator();
         if(this.current == null) {
             this.current = animator;
         }
@@ -28,13 +32,21 @@ public class AnimationQueue {
 
     }
 
+    /**
+     * Diese Methode gitb die aktulle Animaton zurück, die aktuell gezeichnet werden soll.
+     *
+     * Sollte die aktuelle Animation am Ende sein, wird die nächste Animation aus der Queue genommen, sollte die Queue
+     * leer sein, wird auf die defaultAnimation zurückgegriffen.
+     * Diese wurde dem Konstrukt übergeben.
+     * @return
+     */
     public Animator element() {
 
         if(this.current == null) {
-            this.current = this.defaultAnimation.getAnimator();
+            this.current = this.defaultAnimation.createAnimator();
         } else if(this.current.getIndex()+1 == this.current.getAmount()) {
             if(this.animators.isEmpty()) {
-                this.current = this.defaultAnimation.getAnimator();
+                this.current = this.defaultAnimation.createAnimator();
             } else {
                 this.current = this.animators.element();
             }

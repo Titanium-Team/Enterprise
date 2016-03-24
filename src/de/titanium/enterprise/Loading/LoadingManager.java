@@ -14,14 +14,25 @@ public class LoadingManager {
 
     public LoadingManager() {}
 
+    /**
+     * Diese Methode fügt ein Loadable der Liste hinzu.
+     * @param loadable
+     */
     public void add(Loadable loadable) {
         this.loadables.add(loadable);
     }
 
+    /**
+     * Diese Methode fügt ein Array an Loadables der Liste hinzu.
+     * @param loadables
+     */
     public void add(Loadable[] loadables) {
         this.loadables.addAll(Arrays.asList(loadables));
     }
 
+    /**
+     * Diese Methode ruft alle Loadable#load Funktionen auf, die sich aktuell in der Liste befinden.
+     */
     public void load() {
         for(Loadable loadable : this.loadables) {
             this.current = loadable;
@@ -31,6 +42,10 @@ public class LoadingManager {
         this.current = null;
     }
 
+    /**
+     * Gibt das aktuelle Objekt zurück, dass geladen wird. Falls keins aktuell geladen wird, wird null zurückgegeben.
+     * @return
+     */
     public Loadable getCurrent() {
         return this.current;
     }

@@ -107,7 +107,6 @@ public enum Skills implements Skill {
 
         @Override
         public void apply(LivingEntity entity) {
-            entity.addSkill(this);
             entity.setMaxHealth(
                     entity.getMaxHealth() + this.getValue(entity, entity)
             );
@@ -166,7 +165,6 @@ public enum Skills implements Skill {
 
         @Override
         public void apply(LivingEntity entity) {
-            entity.addSkill(this);
             entity.setAttackValue(
                     entity.getAttackValue() + this.getValue(entity, entity)
             );
@@ -174,7 +172,7 @@ public enum Skills implements Skill {
 
         @Override
         public boolean hasSkill(LivingEntity entity) {
-            return entity.getSkills().contains(entity);
+            return entity.getSkills().contains(this);
         }
 
         @Override

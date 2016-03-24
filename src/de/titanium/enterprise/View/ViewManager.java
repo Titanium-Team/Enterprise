@@ -14,11 +14,20 @@ public class ViewManager {
 
     public ViewManager() {}
 
+    /**
+     * Diese Methode registriert eine neue View im ViewManager.
+     * @param view
+     * @return
+     */
     public boolean register(View view) {
         this.views.put(view.getClass(), view);
         return true;
     }
 
+    /**
+     * Gibt die aktuell zu zeichnende View zurück.
+     * @return
+     */
     public View getCurrent() {
         return this.current;
     }
@@ -42,7 +51,13 @@ public class ViewManager {
 
     }
 
-    public synchronized boolean changeMenu(Class<? extends View> view, MenuView menuView) {
+    /**
+     * Diese Methode ändert von einer View das Menu.
+     * @param view
+     * @param menuView
+     * @return
+     */
+    public boolean changeMenu(Class<? extends View> view, MenuView menuView) {
 
         if(this.views.containsKey(view)) {
             this.views.get(view).changeMenu(menuView);

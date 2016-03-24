@@ -123,7 +123,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
                             Enterprise.getGame().getDataManager().add("game.defense.scores", new BinarySearchTree<Score>());
                         }
 
-                        Enterprise.getGame().getDataManager().getOne("game.defense.scores", BinarySearchTree.class).insert(score);
+                        Enterprise.getGame().getDataManager().<BinarySearchTree>getOne("game.defense.scores").insert(score);
                         Enterprise.getGame().getViewManager().changeMenu(FightView.class, new FightMenu());
                         break;
                     }

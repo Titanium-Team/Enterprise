@@ -41,7 +41,7 @@ public enum Animations implements Animation {
         }
 
         @Override
-        public Animator getAnimator() {
+        public Animator createAnimator() {
 
             return new Animator(this, this.frames, 1);
 
@@ -88,7 +88,7 @@ public enum Animations implements Animation {
         }
 
         @Override
-        public Animator getAnimator() {
+        public Animator createAnimator() {
 
             return new Animator(this, this.frames, 1);
 
@@ -126,7 +126,7 @@ public enum Animations implements Animation {
         }
 
         @Override
-        public Animator getAnimator() {
+        public Animator createAnimator() {
             return new Animator(this, this.frames, 1);
         }
 
@@ -162,7 +162,7 @@ public enum Animations implements Animation {
         }
 
         @Override
-        public Animator getAnimator() {
+        public Animator createAnimator() {
             return new Animator(this, this.frames, 2);
         }
 
@@ -205,7 +205,7 @@ public enum Animations implements Animation {
         }
 
         @Override
-        public Animator getAnimator() {
+        public Animator createAnimator() {
             return new Animator(this, this.frames, 1);
         }
 
@@ -250,7 +250,7 @@ public enum Animations implements Animation {
         }
 
         @Override
-        public Animator getAnimator() {
+        public Animator createAnimator() {
             return new Animator(this, this.frames, 1);
         }
 

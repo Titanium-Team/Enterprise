@@ -7,10 +7,22 @@ import de.titanium.enterprise.Loading.Loadable;
  */
 public interface Animation extends Loadable {
 
-    Animator getAnimator();
+    /**
+     * Erstellt einen neuen Animator, mit diesem Animations-Typen.
+     * @return
+     */
+    Animator createAnimator();
 
+    /**
+     * Gibt die Größe des zu zeichnenden Bildes zurück.
+     * @return
+     */
     int getHeight();
 
+    /**
+     * Gibt die Breite des zu zeichnenden Bildes zurück.
+     * @return
+     */
     int getWidth();
 
 }

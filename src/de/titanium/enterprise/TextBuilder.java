@@ -71,6 +71,13 @@ public class TextBuilder {
 
     }
 
+    /**
+     * Diese Methode gibt die passende Textur abhängig vom Character zurück, sollte der Character unbekannt sein
+     * gibt die Methode null zurück.
+     *
+     * @param c
+     * @return
+     */
     public Texture byChar(char c) {
         c = Character.toUpperCase(c);
         switch (c) {

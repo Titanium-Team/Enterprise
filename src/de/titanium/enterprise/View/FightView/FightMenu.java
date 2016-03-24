@@ -127,7 +127,7 @@ public class FightMenu extends MenuView implements GameComponent {
         g.setRenderingHints(Enterprise.getGame().getRenderingHints());
 
         //Button rendering
-        LivingEntity[] heroes = Enterprise.getGame().getDataManager().getOne("game.heroes", LivingEntity[].class);
+        LivingEntity[] heroes = Enterprise.getGame().getDataManager().getOne("game.heroes");
         Image failedImage = Textures.FAILED_BUTTON.getImage();
         Image checkedImage = Textures.CHECKED_BUTTON.getImage();
 
@@ -174,7 +174,7 @@ public class FightMenu extends MenuView implements GameComponent {
     @Override
     public void update(int tick) {
 
-        LivingEntity[] heroes = Enterprise.getGame().getDataManager().getOne("game.heroes", LivingEntity[].class);
+        LivingEntity[] heroes = Enterprise.getGame().getDataManager().getOne("game.heroes");
 
         //Es wird geprüft ob der Button gedrückt wurde, falls er noch nicht gedrückt wurde
         if(!(this.tmpOne) && !(this.heroOne == null) && heroes[0].isAlive()) {
@@ -297,7 +297,7 @@ public class FightMenu extends MenuView implements GameComponent {
                     heroes[2].getAnimationQueue().add(Animations.RANGER_ATTACK);
                 }
 
-                LivingEntity enemy = dataManager.getOne("game.enemy", LivingEntity.class);
+                LivingEntity enemy = dataManager.getOne("game.enemy");
                 enemy.getAnimationQueue().add(Animations.RANGER_IDLE);
                 enemy.getAnimationQueue().add(Animations.RANGER_BLOCK);
 

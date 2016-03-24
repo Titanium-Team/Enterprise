@@ -13,6 +13,13 @@ public class DataManager {
 
     public DataManager() {}
 
+    /**
+     * Diese Methode fügt dem DataManager einen neuen Eintrag hinzu, dabei funktioniert der Name als eine Art "Pfad" bzw.
+     * Key, um später das Objekt abzurufen.
+     * @param name
+     * @param dataEntry
+     * @param <T>
+     */
     public <T> void add(String name, final T dataEntry) {
 
         if(this.dataEntries.containsKey(name)) {
@@ -27,7 +34,13 @@ public class DataManager {
 
     }
 
-    public <T> T getOne(String name, Class<T> type) {
+    /**
+     * Diese Methode gibt nur den ersten aller Einträge zurück.
+     * @param name
+     * @param <T>
+     * @return
+     */
+    public <T> T getOne(String name) {
 
         if(this.dataEntries.containsKey(name) && this.dataEntries.get(name).size() > 0) {
             return (T) this.dataEntries.get(name).get(0);
@@ -37,6 +50,12 @@ public class DataManager {
 
     }
 
+    /**
+     * Diese Methode gibt eine Liste aller Einträge zurück.
+     * @param name
+     * @param <T>
+     * @return
+     */
     public <T> List<T> get(String name) {
 
         if(this.dataEntries.containsKey(name)) {
@@ -47,7 +66,12 @@ public class DataManager {
 
     }
 
-    public <T> boolean contains(String name) {
+    /**
+     * Diese Methode prüft, ob ein bestimmer Pfad vorhanden ist.
+     * @param name
+     * @return
+     */
+    public boolean contains(String name) {
 
         return (this.dataEntries.containsKey(name) && !(this.dataEntries.get(name).isEmpty()));
 

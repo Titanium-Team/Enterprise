@@ -50,7 +50,7 @@ public class SkillView extends View {
         }
 
         //draw if he unlocked it, yet
-        LivingEntity entity = Enterprise.getGame().getDataManager().getOne("game.heroes", LivingEntity[].class)[this.selectedEntity];
+        LivingEntity entity = Enterprise.getGame().getDataManager().<LivingEntity[]>getOne("game.heroes")[this.selectedEntity];
 
         if(this.selectedSkill.hasSkill(entity)) {
             g.drawImage(Textures.CHECKED_BUTTON.getImage().getScaledInstance(50, 50, 0), 990, 400, null);
@@ -83,11 +83,15 @@ public class SkillView extends View {
     @Override
     public void update(int tick) {
 
+        //update animation
+        Enterprise.getGame().getDataManager().<LivingEntity[]>getOne("game.heroes")[this.selectedEntity].getAnimationQueue().element().next();
+
+
         if(tick % 4 == 0) {
 
             BinarySearchTree<SkillEntry> current = this.skillBinarySearchTree.search(new SkillEntry(this.selectedSkill));
             BinarySearchTree<SkillEntry> parent = BinaryTreeMath.findParent(new SkillEntry(this.selectedSkill), this.skillBinarySearchTree);
-            LivingEntity[] entities = Enterprise.getGame().getDataManager().getOne("game.heroes", LivingEntity[].class);
+            LivingEntity[] entities = Enterprise.getGame().getDataManager().getOne("game.heroes");
 
             if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ESCAPE)) { //zurück zum hauptmenü
                 Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
@@ -109,6 +113,16 @@ public class SkillView extends View {
                 if(selectedEntity >= entities.length) {
                     selectedEntity = 0;
                 }
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ENTER)) { //freischalten
+
+                LivingEntity entity = entities[this.selectedEntity];
+
+                if(this.selectedSkill.isUnlockable(entity) && entity.getSkillPoints() >= this.selectedSkill.getPrice() && !(this.selectedSkill.hasSkill(entity))) {
+                    entity.setSkillPoints(entity.getSkillPoints() - this.selectedSkill.getPrice());
+                    entity.addSkill(this.selectedSkill);
+                    this.selectedSkill.apply(entity);
+                }
+
             }
 
         }

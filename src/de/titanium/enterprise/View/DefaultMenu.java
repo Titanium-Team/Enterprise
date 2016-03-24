@@ -12,7 +12,7 @@ import java.awt.*;
  */
 public class DefaultMenu extends MenuView {
 
-    private Animator animator = Animations.RANGER_WALK.getAnimator();
+    private Animator animator = Animations.RANGER_WALK.createAnimator();
     private int x = -120;
 
     public DefaultMenu() {}
@@ -38,7 +38,7 @@ public class DefaultMenu extends MenuView {
         this.x++;
 
         if(this.x > 1400) {
-            this.x = 0;
+            this.x = -120;
         }
         this.animator.next();
     }

@@ -58,11 +58,19 @@ public abstract class LivingEntity extends Entity {
     }
 
     /**
+     * Gibt die AnimationQueue des Entitys zurück.
+     * @return
+     */
+    public AnimationQueue getAnimationQueue() {
+        return this.animationQueue;
+    }
+
+    /**
      * Gibt die aktuelle Anzahl an Leben zurück.
      * @return
      */
     public double getHealth() {
-        return health;
+        return this.health;
     }
 
     /**
@@ -86,7 +94,7 @@ public abstract class LivingEntity extends Entity {
      * @return
      */
     public double getAttackValue() {
-        return attackValue;
+        return this.attackValue;
     }
 
     /**
@@ -129,10 +137,18 @@ public abstract class LivingEntity extends Entity {
      */
     public abstract double calculateDamage(LivingEntity enemy, int comboResult);
 
+    /**
+     * Setzt das maximale Leben des Entitys.
+     * @param maxHealth
+     */
     public void setMaxHealth(double maxHealth) {
         this.maxHealth = maxHealth;
     }
 
+    /**
+     * Setzt den Angriffswert.
+     * @param attackValue
+     */
     public void setAttackValue(double attackValue) {
         this.attackValue = attackValue;
     }
@@ -141,8 +157,11 @@ public abstract class LivingEntity extends Entity {
         this.health = health;
     }
 
-    public AnimationQueue getAnimationQueue() {
-        return animationQueue;
+    /**
+     * Setzt die Sillpunkte.
+     * @param skillPoints
+     */
+    public void setSkillPoints(int skillPoints) {
+        this.skillPoints = skillPoints;
     }
-
 }
