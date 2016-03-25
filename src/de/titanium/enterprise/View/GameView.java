@@ -30,6 +30,10 @@ public class GameView {
 
     }
 
+    public JFrame getFrame() {
+        return this.frame;
+    }
+
     /**
      * Ersetzt die aktuelle View. Der alte Container wird geleert und mit neuem Inhalt gefüllt.
      * @param currentView

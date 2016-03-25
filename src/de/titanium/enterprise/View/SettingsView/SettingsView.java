@@ -6,11 +6,10 @@ import de.titanium.enterprise.View.GameMenu.GameMenuView;
 import de.titanium.enterprise.View.MenuView;
 import de.titanium.enterprise.View.View;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,9 +18,8 @@ import java.util.Map;
 public class SettingsView extends View {
 
     private int selectedOption = 0;
-    private final Map<String, Map<String, Object>> options = new LinkedHashMap<>();
+    private final Map<String, Setting> options = new LinkedHashMap<>();
     private final Map<String, Integer> selectedValue = new LinkedHashMap<>();
-    private final Map<String, List<List<String>>> description = new LinkedHashMap<>();
 
     public SettingsView(MenuView viewMenu) {
         super(viewMenu);
@@ -41,9 +39,7 @@ public class SettingsView extends View {
 
         //draw settings
         int x = 0;
-        for(Map.Entry<String, Map<String, Object>> entry : this.options.entrySet()) {
-
-            String[] valueKeys = entry.getValue().keySet().toArray(new String[entry.getValue().keySet().size()]);
+        for(Map.Entry<String, Setting> entry : this.options.entrySet()) {
 
             //draw option
             if(x == this.selectedOption) {
@@ -51,12 +47,12 @@ public class SettingsView extends View {
                 g.drawImage(image, (this.getWidth() / 2 - 300) - image.getWidth(null) / 2, 50 + x * 35, null);
 
                 //draw selected value
-                Image valueImage = Enterprise.getGame().getTextBuilder().toImage(valueKeys[this.selectedValue.get(entry.getKey())], 15);
+                Image valueImage = Enterprise.getGame().getTextBuilder().toImage(entry.getValue().getOptions()[this.selectedValue.get(entry.getKey()).intValue()], 15);
                 g.drawImage(valueImage, 600, 50 + x * 35, null);
 
                 //draw description
                 int i = 0;
-                for(String value : this.description.get(entry.getKey()).get(this.selectedValue.get(entry.getKey()))) {
+                for(String value : entry.getValue().getDescription()[this.selectedValue.get(entry.getKey())]) {
                     g.drawImage(Enterprise.getGame().getTextBuilder().toImage(value, 7), 990, 80 + i * 20, null);
                     i++;
                 }
@@ -64,7 +60,7 @@ public class SettingsView extends View {
                 Image image = Enterprise.getGame().getTextBuilder().toImage(entry.getKey(), 10);
                 g.drawImage(image, (this.getWidth() / 2 - 300) - image.getWidth(null) / 2, 50 + x * 35, null);
 
-                Image valueImage = Enterprise.getGame().getTextBuilder().toImage(valueKeys[this.selectedValue.get(entry.getKey())], 10);
+                Image valueImage = Enterprise.getGame().getTextBuilder().toImage(entry.getValue().getOptions()[this.selectedValue.get(entry.getKey()).intValue()], 10);
                 g.drawImage(valueImage, 600, 50 + x * 35, null);
 
             }
@@ -76,56 +72,10 @@ public class SettingsView extends View {
         g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Beschreibung", 10), 1010, 50, null);
 
         //ESC zum Speichern
-        g.drawImage(Enterprise.getGame().getTextBuilder().toImage("ESC druecken um zu speichern", 10), 233, 280, null);
+        g.drawImage(Enterprise.getGame().getTextBuilder().toImage("ESC druecken um zu speichern", 10), 233, 380, null);
 
     }
 
-    /**
-     * Gibt den RenderingHints.Key zurück, abhängig von dem übergebenen Namen.
-     * @param name
-     * @return
-     */
-    private RenderingHints.Key keyByName(String name) {
-
-        RenderingHints.Key key = null;
-        if(name.equalsIgnoreCase("Antialiasing")) {
-            key = RenderingHints.KEY_ANTIALIASING;
-        } else if(name.equalsIgnoreCase("Text-Antialiasing")) {
-            key = RenderingHints.KEY_TEXT_ANTIALIASING;
-        } else if(name.equals("Dithering")) {
-            key = RenderingHints.KEY_DITHERING;
-        } else if(name.equals("Rendering")) {
-            key = RenderingHints.KEY_RENDERING;
-        } else if(name.equals("Fractional Metrics")) {
-            key = RenderingHints.KEY_FRACTIONALMETRICS;
-        } else if(name.equals("Stroke Control")) {
-            key = RenderingHints.KEY_STROKE_CONTROL;
-        }
-
-        return key;
-
-    }
-
-    /**
-     * Diese Methode gibt den aktuellen Wert zurück, der aktuell auch im Programm verwendet wird.
-     * @param name
-     * @return
-     */
-    private int selectedByKey(String name) {
-
-        RenderingHints.Key key = this.keyByName(name);
-        int selected = 0;
-        Object search = Enterprise.getGame().getRenderingHints().get(key);
-        Object[] values = this.options.get(name).values().toArray(new Object[this.options.get(name).values().size()]);
-        for(int i = 0; i < values.length; i++) {
-            if(search == values[i]) {
-                selected = i;
-            }
-        }
-
-        return selected;
-
-    }
 
     @Override
     public void update(int tick) {
@@ -134,10 +84,9 @@ public class SettingsView extends View {
 
             //Speichern
             if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ESCAPE)) {
-                for(Map.Entry<String, Map<String, Object>> entry : this.options.entrySet()) {
-                    Enterprise.getGame().getRenderingHints().put(
-                        this.keyByName(entry.getKey()),
-                        entry.getValue().values().toArray(new Object[entry.getValue().values().size()])[this.selectedValue.get(entry.getKey())]
+                for(Map.Entry<String, Setting> entry : this.options.entrySet()) {
+                    entry.getValue().change(
+                            entry.getValue().getOptions()[this.selectedValue.get(entry.getKey()).intValue()]
                     );
                 }
                 Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
@@ -161,14 +110,14 @@ public class SettingsView extends View {
             if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_RIGHT)) {
                 this.selectedValue.put(keys[this.selectedOption], current+1);
 
-                if((current + 1) >= this.options.get(keys[this.selectedOption]).keySet().size()) {
+                if((current + 1) >= this.options.get(keys[this.selectedOption]).getOptions().length) {
                     this.selectedValue.put(keys[this.selectedOption], 0);
                 }
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_LEFT)) {
                 this.selectedValue.put(keys[this.selectedOption], current-1);
 
                 if((current - 1) < 0) {
-                    this.selectedValue.put(keys[this.selectedOption], this.options.get(keys[this.selectedOption]).keySet().size()-1);
+                    this.selectedValue.put(keys[this.selectedOption], this.options.get(keys[this.selectedOption]).getOptions().length-1);
                 }
             }
         }
@@ -180,237 +129,446 @@ public class SettingsView extends View {
         this.repaint();
     }
 
+    //Alle Optionen
     {
 
-        //Antialiasing
-        this.options.put("Antialiasing", new LinkedHashMap<String, Object>() {{
+        {
+            //Antialiasing
+            Setting<String> setting = new Setting<String>("Antialiasing", new String[]{"On", "Default", "Off"}) {
 
-            this.put("On", RenderingHints.VALUE_ANTIALIAS_ON);
-            this.put("Default", RenderingHints.VALUE_ANTIALIAS_DEFAULT);
-            this.put("Off", RenderingHints.VALUE_ANTIALIAS_OFF);
+                @Override
+                public String[][] getDescription() {
+                    String[][] description = new String[][]{
+                            {"Rendering is done", "with antialiasing"},
+                            {"Rendering is done", "with a default", "antialiasing mode", "chosen by the", "implementation"},
+                            {"Rendering is done", "without antialiasing"}
+                    };
 
-        }});
-        this.selectedValue.put("Antialiasing", this.selectedByKey("Antialiasing"));
-        this.description.put("Antialiasing", new ArrayList<List<String>>() {{
+                    return description;
+                }
 
-            this.add(new ArrayList<String>() {{
+                @Override
+                public int getDefaultSelected() {
+
+                    Object value = Enterprise.getGame().getRenderingHints().get(RenderingHints.KEY_ANTIALIASING);
+                    if (value == RenderingHints.VALUE_ANTIALIAS_ON) {
+                        return 0;
+                    }
+                    if (value == RenderingHints.VALUE_ANTIALIAS_DEFAULT) {
+                        return 1;
+                    }
+
+                    return 2;
+                }
 
-                this.add("Rendering is done");
-                this.add("with antialiasing");
+                @Override
+                public void change(String input) {
+
+                    switch (input) {
+
+                        case "On":
+                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                            break;
+
+                        case "Default":
+                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_DEFAULT);
+                            break;
+
+                        case "Off":
+                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+                            break;
+
+                    }
+
+                }
+
+            };
+            this.options.put(setting.getName(), setting);
+            this.selectedValue.put(setting.getName(), setting.getDefaultSelected());
+        }
+
+        {
+            //Text-Antialiasing
+            Setting<String> setting = new Setting<String>("Text-Antialiasing", new String[]{"On", "Default", "Gasp"}) {
 
-            }});
-            this.add(new ArrayList<String>() {{
+                @Override
+                public String[][] getDescription() {
+                    String[][] description = new String[][]{
+                            {"text rendering is", "done with some", "form of antialiasing"},
+                            {"text rendering is", "done with a default", "antialiasing mode", "chosen by the", "implementation"},
+                            {"text rendering is", "is requested to use", "information in the", "font resource which", "specifies for each", "point size"}
+                    };
 
-                this.add("rendering is done");
-                this.add("with a default");
-                this.add("antialiasing mode");
-                this.add("chosen by the");
-                this.add("implementation.");
+                    return description;
+                }
 
-            }});
-            this.add(new ArrayList<String>() {{
+                @Override
+                public int getDefaultSelected() {
 
-                this.add("Rendering is done");
-                this.add("without antialiasing");
+                    Object value = Enterprise.getGame().getRenderingHints().get(RenderingHints.KEY_TEXT_ANTIALIASING);
+                    if (value == RenderingHints.VALUE_TEXT_ANTIALIAS_ON) {
+                        return 0;
+                    }
+                    if (value == RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT) {
+                        return 1;
+                    }
 
-            }});
+                    return 2;
+                }
 
-        }});
+                @Override
+                public void change(String input) {
+
+                    switch (input) {
+
+                        case "On":
+                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+                            break;
+
+                        case "Default":
+                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT);
+                            break;
+
+                        case "Gasp":
+                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
+                            break;
 
-        //Text-Antialiasing
-        this.options.put("Text-Antialiasing", new LinkedHashMap<String, Object>() {{
+                    }
 
-            this.put("On", RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            this.put("Default", RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT);
-            this.put("Gasp", RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
+                }
 
-        }});
-        this.selectedValue.put("Text-Antialiasing", this.selectedByKey("Text-Antialiasing"));
-        this.description.put("Text-Antialiasing", new ArrayList<List<String>>() {{
+            };
+            this.options.put(setting.getName(), setting);
+            this.selectedValue.put(setting.getName(), setting.getDefaultSelected());
+        }
 
-            this.add(new ArrayList<String>() {{
+        {
+            //Dithering
+            Setting<String> setting = new Setting<String>("Dithering", new String[]{"Enable", "Default", "Disable"}) {
 
-                this.add("text rendering is");
-                this.add("done with some");
-                this.add("form of antialiasing");
+                @Override
+                public String[][] getDescription() {
+                    String[][] description = new String[][]{
+                            {"dither when rendering", "geometry, if needed."},
+                            {"use a default for", "dithering chosen by", "the implementation."},
+                            {"do not dither when", "rendering geometry."}
+                    };
 
-            }});
-            this.add(new ArrayList<String>() {{
+                    return description;
+                }
 
-                this.add("text rendering is");
-                this.add("done with a default");
-                this.add("antialiasing mode");
-                this.add("chosen by the");
-                this.add("implementation.");
+                @Override
+                public int getDefaultSelected() {
 
-            }});
-            this.add(new ArrayList<String>() {{
+                    Object value = Enterprise.getGame().getRenderingHints().get(RenderingHints.KEY_DITHERING);
+                    if (value == RenderingHints.VALUE_DITHER_ENABLE) {
+                        return 0;
+                    }
+                    if (value == RenderingHints.VALUE_DITHER_DEFAULT) {
+                        return 1;
+                    }
 
-                this.add("text rendering is");
-                this.add("is requested to use");
-                this.add("information in the");
-                this.add("font resource which");
-                this.add("specifies for each");
-                this.add("point size");
+                    return 2;
+                }
 
-            }});
+                @Override
+                public void change(String input) {
 
-        }});
+                    switch (input) {
 
+                        case "Enable":
+                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
+                            break;
 
-        //Dithering
-        this.options.put("Dithering", new LinkedHashMap<String, Object>() {{
+                        case "Default":
+                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DEFAULT);
+                            break;
 
-            this.put("Enable", RenderingHints.VALUE_DITHER_ENABLE);
-            this.put("Default", RenderingHints.VALUE_DITHER_DEFAULT);
-            this.put("Disable", RenderingHints.VALUE_DITHER_DISABLE);
+                        case "Disable":
+                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
+                            break;
 
-        }});
-        this.selectedValue.put("Dithering", this.selectedByKey("Dithering"));
-        this.description.put("Dithering", new ArrayList<List<String>>() {{
+                    }
 
-            this.add(new ArrayList<String>() {{
+                }
 
-                this.add("dither when rendering");
-                this.add("geometry, if needed.");
+            };
+            this.options.put(setting.getName(), setting);
+            this.selectedValue.put(setting.getName(), setting.getDefaultSelected());
+        }
 
-            }});
-            this.add(new ArrayList<String>() {{
+        {
+            //Rendering
+            Setting<String> setting = new Setting<String>("Rendering", new String[]{"Quality", "Default", "Speed"}) {
 
-                this.add("use a default for");
-                this.add("dithering chosen by");
-                this.add("the implementation");
+                @Override
+                public String[][] getDescription() {
+                    String[][] description = new String[][]{
+                            {"rendering algorithms", "are chosen with a", "preference for", "output quality."},
+                            {"rendering algorithms", "are chosen by the", "implementation for", "for a good tradeoff", "of performance vs.", "quality."},
+                            {"rendering algorithms", "are chosen with a", "preference for", "output speed."}
+                    };
 
-            }});
-            this.add(new ArrayList<String>() {{
+                    return description;
+                }
 
-                this.add("do not dither when");
-                this.add("rendering geometry.");
+                @Override
+                public int getDefaultSelected() {
 
-            }});
+                    Object value = Enterprise.getGame().getRenderingHints().get(RenderingHints.KEY_RENDERING);
+                    if (value == RenderingHints.VALUE_RENDER_QUALITY) {
+                        return 0;
+                    }
+                    if (value == RenderingHints.VALUE_RENDER_DEFAULT) {
+                        return 1;
+                    }
 
-        }});
+                    return 2;
+                }
 
-        //Rendering
-        this.options.put("Rendering", new LinkedHashMap<String, Object>() {{
+                @Override
+                public void change(String input) {
 
-            this.put("Quality", RenderingHints.VALUE_RENDER_QUALITY);
-            this.put("Default", RenderingHints.VALUE_RENDER_DEFAULT);
-            this.put("Speed", RenderingHints.VALUE_RENDER_SPEED);
+                    switch (input) {
 
-        }});
-        this.selectedValue.put("Rendering", this.selectedByKey("Rendering"));
-        this.description.put("Rendering", new ArrayList<List<String>>() {{
+                        case "Quality":
+                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+                            break;
 
-            this.add(new ArrayList<String>() {{
+                        case "Default":
+                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_DEFAULT);
+                            break;
 
-                this.add("rendering algorithms");
-                this.add("are chosen with a");
-                this.add("preference for");
-                this.add("output quality");
+                        case "Speed":
+                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+                            break;
 
-            }});
-            this.add(new ArrayList<String>() {{
+                    }
 
-                this.add("rendering algorithms");
-                this.add("are chosen by the");
-                this.add("implementation for");
-                this.add("for a good tradeoff");
-                this.add("of performance vs.");
-                this.add("quality");
+                }
 
-            }});
-            this.add(new ArrayList<String>() {{
+            };
+            this.options.put(setting.getName(), setting);
+            this.selectedValue.put(setting.getName(), setting.getDefaultSelected());
+        }
 
-                this.add("rendering algorithms");
-                this.add("are chosen with a");
-                this.add("preference for");
-                this.add("output speed");
+        {
+            //Fractional Metrics
+            Setting<String> setting = new Setting<String>("Fractional Metrics", new String[]{"On", "Default", "Off"}) {
 
-            }});
+                @Override
+                public String[][] getDescription() {
+                    String[][] description = new String[][]{
+                            {"character glyphs are", "positioned with", "sub-pixel accuracy."},
+                            {"character glyphs are", "positioned with", "accuracy chosen by", "the implementation."},
+                            {"character glyphs are", "positioned with", "advance widths", "rounded to pixel", "boundaries."}
+                    };
 
-        }});
+                    return description;
+                }
 
-        //Fractional Metrics
-        this.options.put("Fractional Metrics", new LinkedHashMap<String, Object>() {{
+                @Override
+                public int getDefaultSelected() {
 
-            this.put("On", RenderingHints.VALUE_FRACTIONALMETRICS_ON);
-            this.put("Default", RenderingHints.VALUE_FRACTIONALMETRICS_DEFAULT);
-            this.put("Off", RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
+                    Object value = Enterprise.getGame().getRenderingHints().get(RenderingHints.KEY_FRACTIONALMETRICS);
+                    if (value == RenderingHints.VALUE_FRACTIONALMETRICS_ON) {
+                        return 0;
+                    }
+                    if (value == RenderingHints.VALUE_FRACTIONALMETRICS_DEFAULT) {
+                        return 1;
+                    }
 
-        }});
-        this.selectedValue.put("Fractional Metrics", this.selectedByKey("Fractional Metrics"));
-        this.description.put("Fractional Metrics", new ArrayList<List<String>>() {{
+                    return 2;
+                }
 
-            this.add(new ArrayList<String>() {{
+                @Override
+                public void change(String input) {
 
-                this.add("character glyphs are");
-                this.add("positioned with");
-                this.add("sub-pixel accuracy");
+                    switch (input) {
 
-            }});
-            this.add(new ArrayList<String>() {{
+                        case "On":
+                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+                            break;
 
-                this.add("character glyphs are");
-                this.add("positioned with");
-                this.add("accuracy chosen by");
-                this.add("the implementation");
+                        case "Default":
+                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_DEFAULT);
+                            break;
 
-            }});
-            this.add(new ArrayList<String>() {{
+                        case "Off":
+                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
+                            break;
 
-                this.add("character glyphs are");
-                this.add("positioned with");
-                this.add("advance widths");
-                this.add("rounded to pixel");
-                this.add("boundaries.");
+                    }
 
-            }});
+                }
 
-        }});
+            };
+            this.options.put(setting.getName(), setting);
+            this.selectedValue.put(setting.getName(), setting.getDefaultSelected());
+        }
 
+        {
+            //Stroke Control
+            Setting<String> setting = new Setting<String>("Stroke Control", new String[]{"Normalize", "Default", "Pure"}) {
 
-        //Stroke Control
-        this.options.put("Stroke Control", new LinkedHashMap<String, Object>() {{
+                @Override
+                public String[][] getDescription() {
+                    String[][] description = new String[][]{
+                            {"geometry should be", "normalized to", "improve uniformity", "or spacing of lines", "and overall", "aesthetics."},
+                            {"geometry may be", "modified or left", "pure depending on", "the tradeoffs in", "a given", "implementation."},
+                            {"geometry should be", "left unmodified and", "rendered with", "sub-pixel accuracy."}
+                    };
 
-            this.put("Normalize", RenderingHints.VALUE_STROKE_NORMALIZE);
-            this.put("Default", RenderingHints.VALUE_STROKE_DEFAULT);
-            this.put("Pure", RenderingHints.VALUE_STROKE_PURE);
+                    return description;
+                }
 
-        }});
-        this.selectedValue.put("Stroke Control", this.selectedByKey("Stroke Control"));
-        this.description.put("Stroke Control", new ArrayList<List<String>>() {{
+                @Override
+                public int getDefaultSelected() {
 
-            this.add(new ArrayList<String>() {{
+                    Object value = Enterprise.getGame().getRenderingHints().get(RenderingHints.KEY_STROKE_CONTROL);
+                    if (value == RenderingHints.VALUE_STROKE_NORMALIZE) {
+                        return 0;
+                    }
+                    if (value == RenderingHints.VALUE_STROKE_DEFAULT) {
+                        return 1;
+                    }
 
-                this.add("geometry should be");
-                this.add("normalized to");
-                this.add("improve uniformity");
-                this.add("or spacing of lines");
-                this.add("and overall");
-                this.add("aesthetics.");
+                    return 2;
+                }
 
-            }});
-            this.add(new ArrayList<String>() {{
+                @Override
+                public void change(String input) {
 
-                this.add("geometry may be");
-                this.add("modified or left");
-                this.add("pure depending on");
-                this.add("the tradeoffs in");
-                this.add("a given");
-                this.add("implementation.");
+                    switch (input) {
 
-            }});
-            this.add(new ArrayList<String>() {{
+                        case "Normalize":
+                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
+                            break;
 
-                this.add("geometry should be");
-                this.add("left unmodified and");
-                this.add("rendered with");
-                this.add("sub-pixel accuracy.");
+                        case "Default":
+                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_DEFAULT);
+                            break;
 
-            }});
+                        case "Pure":
+                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+                            break;
 
-        }});
+                    }
+
+                }
+
+            };
+            this.options.put(setting.getName(), setting);
+            this.selectedValue.put(setting.getName(), setting.getDefaultSelected());
+        }
+
+        {
+            //Stroke Control
+            Setting<String> setting = new Setting<String>("Interpolation", new String[]{"Bicubic", "Bilinear", "Neighbor"}) {
+
+                @Override
+                public String[][] getDescription() {
+                    String[][] description = new String[][]{
+                            {"the color sample of", "9 nearby integer", "coordinate sample ins", "the image are", "interpolated using a", "a cubic function in", "both X and Y to", "produce a color", "sample."},
+                            {"the color sample of", "the 4 nearest", "neighboring integer", "coordinate sample in", "the image are", "interpolated linearly", "to produce a color", "sample."},
+                            {"the color sample of", "the nearest", "neighboring", "integer coordinate", "sample in the", "image is used."},
+                    };
+
+                    return description;
+                }
+
+                @Override
+                public int getDefaultSelected() {
+
+                    Object value = Enterprise.getGame().getRenderingHints().get(RenderingHints.KEY_INTERPOLATION);
+                    if (value == RenderingHints.VALUE_INTERPOLATION_BICUBIC) {
+                        return 0;
+                    }
+                    if (value == RenderingHints.VALUE_INTERPOLATION_BILINEAR) {
+                        return 1;
+                    }
+
+                    return 2;
+                }
+
+                @Override
+                public void change(String input) {
+
+                    switch (input) {
+
+                        case "Bicubic":
+                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+                            break;
+
+                        case "Bilinear":
+                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+                            break;
+
+                        case "Neighbor":
+                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+                            break;
+
+                    }
+
+                }
+
+            };
+            this.options.put(setting.getName(), setting);
+            this.selectedValue.put(setting.getName(), setting.getDefaultSelected());
+        }
+
+        {
+            //Monitor
+            final GraphicsDevice[] graphicsDevices = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
+            String[] monitors = new String[graphicsDevices.length];
+            for(int i = 0; i < graphicsDevices.length; i++) {
+                monitors[i] = graphicsDevices[i].getIDstring();
+            }
+
+            Setting<String> setting = new Setting<String>("Monitor", monitors) {
+
+                @Override
+                public String[][] getDescription() {
+
+                    String[][] description = new String[graphicsDevices.length][1];
+                    for(int i = 0; i < graphicsDevices.length; i++) {
+                        description[i] = new String[] { graphicsDevices[i].getIDstring() };
+                    }
+
+                    return description;
+                }
+
+                @Override
+                public int getDefaultSelected() {
+
+                    for(int i = 0; i < graphicsDevices.length; i++) {
+                        if(Enterprise.getGame().getGameView().getFrame().getGraphicsConfiguration().getDevice() == graphicsDevices[i]) {
+                            return i;
+                        }
+                    }
+
+                    return 0;
+                }
+
+                @Override
+                public void change(String input) {
+
+                    String[][] descriptions = this.getDescription();
+
+                    for(int i = 0; i < descriptions.length; i++) {
+                        if(descriptions[i][0].equals(input)) {
+                            Rectangle bounds = graphicsDevices[i].getDefaultConfiguration().getBounds();
+                            JFrame frame = Enterprise.getGame().getGameView().getFrame();
+                            Enterprise.getGame().getGameView().getFrame().setLocation((int) (bounds.getX() - ((frame.getWidth() - bounds.getWidth()) / 2)), (int) (bounds.getY() - ((frame.getHeight() - bounds.getHeight()) / 2)));
+                        }
+                    }
+
+                }
+
+            };
+            this.options.put(setting.getName(), setting);
+            this.selectedValue.put(setting.getName(), setting.getDefaultSelected());
+        }
 
     }
 
