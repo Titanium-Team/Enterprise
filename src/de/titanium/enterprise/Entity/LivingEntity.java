@@ -1,5 +1,6 @@
 package de.titanium.enterprise.Entity;
 
+import de.titanium.enterprise.Entity.Statistic.GameStatistic;
 import de.titanium.enterprise.Skill.Skill;
 import de.titanium.enterprise.Sprite.Animation.Animation;
 import de.titanium.enterprise.Sprite.Animation.AnimationQueue;
@@ -25,6 +26,8 @@ public abstract class LivingEntity extends Entity {
     private final AnimationQueue animationQueue;
 
     private int skillPoints;
+
+    private final GameStatistic gameStatistic = new GameStatistic();
 
     /**
      *
@@ -63,6 +66,14 @@ public abstract class LivingEntity extends Entity {
      */
     public AnimationQueue getAnimationQueue() {
         return this.animationQueue;
+    }
+
+    /**
+     * Gibt die aktullen GameStatistics zurück.
+     * @return
+     */
+    public GameStatistic getGameStatistic() {
+        return this.gameStatistic;
     }
 
     /**

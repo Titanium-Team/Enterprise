@@ -3,6 +3,7 @@ package de.titanium.enterprise.View.FightView;
 import de.titanium.enterprise.Data.DataManager;
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Entity.LivingEntity;
+import de.titanium.enterprise.Entity.Statistic.Statistics;
 import de.titanium.enterprise.GameComponent;
 import de.titanium.enterprise.Sprite.Animation.Animations;
 import de.titanium.enterprise.Sprite.Textures;
@@ -317,6 +318,16 @@ public class FightMenu extends MenuView implements GameComponent {
                 if(Double.isNaN(damageThree)) {
                     damageThree = 0;
                 }
+
+                //update statistics, damage dealt
+                heroes[0].getGameStatistic().update(Statistics.DAMAGE_DEALT, damageOne);
+                heroes[1].getGameStatistic().update(Statistics.DAMAGE_DEALT, damageOne);
+                heroes[2].getGameStatistic().update(Statistics.DAMAGE_DEALT, damageOne);
+
+                //update statistics, longest key streak
+                heroes[0].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboOne);
+                heroes[1].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboTwo);
+                heroes[2].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboThree);
 
                 //TODO verteidigung
                 enemy.setHealth(
