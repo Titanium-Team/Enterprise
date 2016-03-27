@@ -199,7 +199,8 @@ public class FightMenu extends MenuView implements GameComponent {
             }
         }
 
-        //Es wird nach der Zeit (ohne Abstand) geprüft ob er innerhalb der Zeit gedrückt wurde.
+        // Es wird nach der Zeit (ohne Abstand) geprüft ob er innerhalb der Zeit gedrückt wurde.
+        // Falls die Button nicht innerhalb der Zeit gedrückt wurden ist dieses Entity für diese Runde raus.
         if((this.currentTime + this.time) < System.currentTimeMillis()) {
 
             if(!(this.heroOne == null) && heroes[0].isAlive()) {

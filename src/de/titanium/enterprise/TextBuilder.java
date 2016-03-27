@@ -3,13 +3,19 @@ package de.titanium.enterprise;
 import de.titanium.enterprise.Sprite.Texture;
 import de.titanium.enterprise.Sprite.Textures;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Yonas on 20.03.2016.
  */
 public class TextBuilder {
+
+    private final Map<String, Image> cache = new HashMap<>();
+    private final Map<String, Long> expires = new HashMap<>();
 
     public TextBuilder() {}
 
@@ -20,6 +26,27 @@ public class TextBuilder {
      * @return
      */
     public Image toImage(String value, int font) {
+
+
+        // Dies ist der einhaltliche Cache-Key der aus dem Value an sich (also dem Text) und der Font-Größe besteht.
+        String cacheKey = String.format("%s->%d", value, font);
+
+        // In diesem Code Teil wird nun geprüft, ob es aktuell Werte gibt, die sich im Cache befinden, deren Zeit
+        // "abgelaufen" ist und deshalb, falls sie nochmal abgefragt werden sollten, neu gerendert werden müssen.
+        // Dies sollte immer wieder ein wenig RAM freischaufeln.
+        for(Map.Entry<String, Long> entry : this.expires.entrySet()) {
+            if(entry.getValue() <= System.currentTimeMillis()) {
+                this.cache.remove(entry.getKey());
+            }
+        }
+
+        // Falls sich der Value aktuell im Cache befindet, dann können wird einfach diesen Wert aus dem Cache zurück geben
+        // und sparen uns das komplette erzeugen.
+        // Hier muss nicht mehr geprüft werden, ob das Image bereits abgelaufen ist, da das ja bereits weiter oben
+        // gemacht wird.
+        if(this.cache.containsKey(cacheKey)) {
+            return this.cache.get(cacheKey);
+        }
 
         // @Improve: Man muss auf Rundungsfehlerprüfen, da es sonst dazu kommt das einige Buchstaben manchmal
         // abgeschnitten sind, wird etwas weiter unten zwar versucht mit Konstanten auszugleichen funktioniert aber
@@ -73,8 +100,12 @@ public class TextBuilder {
         }
 
         g.dispose();
-        return image;
 
+        // Sobald alles fertig gerendert wurde, wird das Image plus passenden Key in den Cache gepackt und fertig.
+        this.cache.put(cacheKey, image);
+        this.expires.put(cacheKey, System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(120));
+
+        return image;
 
     }
 

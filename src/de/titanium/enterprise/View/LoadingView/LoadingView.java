@@ -1,7 +1,6 @@
 package de.titanium.enterprise.View.LoadingView;
 
 import de.titanium.enterprise.Enterprise;
-import de.titanium.enterprise.GameState;
 import de.titanium.enterprise.Loading.Loadable;
 import de.titanium.enterprise.View.View;
 
@@ -17,6 +16,8 @@ public class LoadingView extends View {
     private String value = ".";
     private final Timer timer = new Timer();
     private int count = 0;
+
+    private boolean firstOne = true;
 
     public LoadingView() {
         super(new LoadingMenu());
@@ -37,13 +38,19 @@ public class LoadingView extends View {
                 repaint();
 
                 // Der TimeTask wird beendet, sobald dieser nicht mehr benötigt wird.
-                if(!(Enterprise.getGame().getDataManager().<GameState>getOne("game.state") == GameState.LOADING)) {
+                if(Enterprise.getGame().getLoadingManager().getCurrent() == null && !(firstOne)) {
                     if(!(this.cancel())) {
                         // @Watch: Das sollte eigentlich nie passieren, falls doch muss man schauen wie
                         // man das löst.
                         throw new RuntimeException("Loading Task didn't stop running.");
                     }
                 }
+
+                // @Cleanup: Das sollte eigentlich nicht nötig sein, allerdings ist getCurrent() schon beim ersten Aufruf
+                // null und muss deshalb einmal "ignoriert" werden, allerdings ist aus einem mir unbekannt Grund auch
+                // der GameState nicht auf LOADING steht. Ich denke es liegt daran das dies ein neuer Thread ist und der
+                // alte Thread einfach schon weiter geht, im Code, und der GameState sich dann bereits im GameLoop befinde.
+                firstOne = false;
             }
         }, 0, 50);
     }
