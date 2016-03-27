@@ -87,6 +87,9 @@ public class SkillView extends View {
         Enterprise.getGame().getDataManager().<LivingEntity[]>getOne("game.heroes")[this.selectedEntity].getAnimationQueue().element().next();
 
 
+        // @Improve: Es wird nur alle paar Ticks geprüft, da es sonst vorkommt das der Button als "doppelt" Gedrückt erkannt wird
+        // dies erschwert die Navigation, ist überall im Code aktuell ein Problem. Dies muss man entwender im KeyManager lösen
+        // oder man findet einen besseren Wert als "4", da es sonst auch vorkommen kann das der Druck der Taste nicht erkannt wird.
         if(tick % 4 == 0) {
 
             BinarySearchTree<SkillEntry> current = this.skillBinarySearchTree.search(new SkillEntry(this.selectedSkill));

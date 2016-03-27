@@ -19,6 +19,10 @@ public class LoadingView extends View {
 
     public LoadingView() {
         super(new LoadingMenu());
+
+        // @Cleanup: Der TimeTask sollte beendet werden, sobald dieser nicht mehr benötigt wird, eventuell löst
+        // man das einfach mit einer "globalen Variabel" im DataManager der den aktuellen Status des Spiels
+        // anhand eines Enums zurückgibt (?).
         this.timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {

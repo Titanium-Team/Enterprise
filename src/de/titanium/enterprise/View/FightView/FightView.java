@@ -98,7 +98,8 @@ public class FightView extends View {
         Image text = Enterprise.getGame().getTextBuilder().toImage(enemy.getName(), 10);
         g.drawImage(text, this.xPos[3] - ((text.getWidth(null) - animation.getType().getWidth()) / 2), this.yPos[3] - 25, null);
 
-
+        // @Cleanup: Sollte hier nur zu Testzwecken sein und in den nächsten Tagen entfernt werden, sobald es eine bessere
+        // Alternative zur Darstellung gibt.
         if (scores != null) {
             int y = 0;
             for (Score score : scores) {

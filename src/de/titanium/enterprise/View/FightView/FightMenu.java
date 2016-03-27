@@ -307,6 +307,10 @@ public class FightMenu extends MenuView implements GameComponent {
                 double damageTwo = Math.max(heroes[1].calculateDamage(enemy, this.comboTwo), 0);
                 double damageThree = Math.max(heroes[2].calculateDamage(enemy, this.comboThree), 0);
 
+
+                // Es wird sichergestellt das alle Funktionen einen gültigen Wert liefern.
+                // Es sollte niemals NaN verwendet werden, oder eine Zahl die kleiner als 0 ist (?).
+                // @Cleanup: Eventuell sollten die Funktionen von sich aus das prüfen?
                 if(Double.isNaN(damageOne)) {
                     damageOne = 0;
                 }
@@ -329,13 +333,16 @@ public class FightMenu extends MenuView implements GameComponent {
                 heroes[1].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboTwo);
                 heroes[2].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboThree);
 
-                //TODO verteidigung
+                // TODO @Improve:  Es muss noch ein Verteidigungswert berechnet werden, dieser wird dann von dem Schaden
+                // abgezogen. Die Formel dafür wurde noch nicht aufgestellt.
                 enemy.setHealth(
                         enemy.getHealth() - (damageOne + damageTwo + damageThree)
                 );
 
                 if(!(enemy.isAlive())) { //swich to main menu
-                    //TODO Game End screen
+                    // TODO Game End screen
+                    // Wenn das Spiel bzw. die aktuelle Runde vorbei ist, sollte der Spieler eine Übersicht über seine
+                    // Helden bekommen. Mit einigen Statistiken zum Kampf.
                     enemy.getAnimationQueue().add(Animations.RANGER_DIE);
                     System.out.println("You killed the enemy");
                     Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
@@ -345,7 +352,13 @@ public class FightMenu extends MenuView implements GameComponent {
             }
         }
 
-        //Time und Time-Distance verringern sich
+        // Time und Time-Distance verringern sich
+        // Jede Sekunde, also alle 50 Ticks, wird die Zeit zwischen den Tasten verringert, um 1ms, sollten mehrere Tasten
+        // nicht gedrückt worden sein, werden es maximal 2-5ms/Sekunde weniger. Ist begrenz auf eine minstend Zeit von 500ms.
+        // Sobald die Zeit zuwischen den Tasten unter 750ms rutscht, wird die Anzahl an Tasten die gedrückt werden müssen
+        // erhöht.
+        // @TODO: Falls eine Taste wegfällt, soll dieser Bereich auf eine Taste umgelagert werden. Dies kann ggf. auch in die
+        // FightMenu#getRandomButton Methode ausgelagert werden?
         if(tick == 50) {
             int value = 0;
             if(!(this.pressedOne)) {

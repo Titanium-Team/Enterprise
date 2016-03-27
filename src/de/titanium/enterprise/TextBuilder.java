@@ -21,6 +21,9 @@ public class TextBuilder {
      */
     public Image toImage(String value, int font) {
 
+        // @Improve: Man muss auf Rundungsfehlerprüfen, da es sonst dazu kommt das einige Buchstaben manchmal
+        // abgeschnitten sind, wird etwas weiter unten zwar versucht mit Konstanten auszugleichen funktioniert aber
+        // noch nicht wirklich 100%ig, könnte besser sein.
         double size = (font / 30D);
         int width = 0;
         int height = 0;
@@ -52,6 +55,10 @@ public class TextBuilder {
             Texture texture = this.byChar(c);
 
             if (texture == null) {
+                // @Imrpove: Die Breite des Leerzeichen sollte auch von der allgemeinen gewählten Schriftgröße abhängig
+                // gemacht werden, wirkt sonst eventuell etwas klein manchmal. Sollte aber erst gemacht werden, wenn man
+                // auch einen maximalen Wert angeben kann für die Breite des Bildes, da es sonst dazu führen kann das
+                // nochmal alle Texte angepasst werden müssen. :( Falls der Wert höher ist als 10px.
                 x += 10; //Leerzeichen
             } else {
                 Image i = texture.getImage();

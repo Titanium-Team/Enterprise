@@ -109,6 +109,9 @@ public class GameMenuView extends View {
                 Image image = Enterprise.getGame().getTextBuilder().toImage(entry.getKey(), 15);
                 g.drawImage(image, 480 - image.getWidth(null) / 2, 150 + x * 35, null);
 
+                // @Cleanup: Es wäre besser, wenn der Code selbststendig die Zeilenumbrüche einbaut. Dies sollte entweder hier
+                // oder allgemein in der TextBuilder#toImage Methode gelöst werden. Dazu kann man dann z.B. eine maximale
+                // Breite angeben.
                 int i = 0;
                 for(String value : this.descriptions.get(this.selectedOption)) {
                     g.drawImage(Enterprise.getGame().getTextBuilder().toImage(value, 7), 990, 80 + i * 20, null);
