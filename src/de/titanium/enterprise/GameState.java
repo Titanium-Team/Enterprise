@@ -9,6 +9,6 @@ public enum GameState {
     UPDATE,
     POSTING,
     LOADING,
-    WAITING;
+    WAITING
 
 }

@@ -126,7 +126,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
                         // @TODO: An dieser Stelle ist das Defense-Game vorbei. Hier muss der Schaden berechnet werden,
                         // den der Gegner macht, abhängig davon wie hoch der Score ist, der erzielt wurde.
                         // Der Schaden muss der Spieler einstecken, der auch den meisten Schaden davor ausgeteilt hat.
-                        
+
                         Enterprise.getGame().getDataManager().<BinarySearchTree>getOne("game.defense.scores").insert(score);
                         Enterprise.getGame().getViewManager().changeMenu(FightView.class, new FightMenu());
                         break;

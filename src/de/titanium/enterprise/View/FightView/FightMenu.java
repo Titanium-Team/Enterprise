@@ -253,7 +253,7 @@ public class FightMenu extends MenuView implements GameComponent {
                 boolean chance = (this.random.nextInt(this.chance) == 0);
 
                 if(chance) {
-                    this.heroOne = this.getRandomButton(this.areaOne, this.stageOne);
+                    this.heroOne = this.getRandomButton(areaOne, this.stageOne);
                     this.drawOne = true;
                 }
 
@@ -265,7 +265,7 @@ public class FightMenu extends MenuView implements GameComponent {
                 boolean chance = (this.random.nextInt(this.chance) == 0);
 
                 if(chance) {
-                    this.heroTwo = this.getRandomButton(this.areaTwo, this.stageTwo);
+                    this.heroTwo = this.getRandomButton(areaTwo, this.stageTwo);
                     this.drawTwo = true;
                 }
 
@@ -277,7 +277,7 @@ public class FightMenu extends MenuView implements GameComponent {
                 boolean chance = (this.random.nextInt(this.chance) == 0);
 
                 if(chance) {
-                    this.heroThree = this.getRandomButton(this.areaThree, this.stageThree);
+                    this.heroThree = this.getRandomButton(areaThree, this.stageThree);
                     this.drawThree = true;
                 }
 
