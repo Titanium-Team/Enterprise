@@ -59,14 +59,19 @@ public class Enterprise {
 
         Enterprise.game = this;
 
+        //Game State
+        this.dataManager.add("game.state", GameState.POSTING);
+
         //Adding loading screen
         this.viewManager.register(new LoadingView());
         this.viewManager.switchTo(LoadingView.class);
 
         //managing loading
+        this.dataManager.add("game.state", GameState.LOADING);
         this.loadingManager.add(Textures.values());
         this.loadingManager.add(Animations.values());
         this.loadingManager.load();
+
 
         //set default heroes
         this.getDataManager().add("game.heroes", new LivingEntity[] {
@@ -137,16 +142,17 @@ public class Enterprise {
     public void start() {
 
         int CURRENT_TICK = 1;
+        this.dataManager.add("game.state", GameState.WAITING);
 
         while (true) {
 
             double currentTime = System.currentTimeMillis();
 
-
             Iterator<GameComponent> updateComponents = Arrays.asList(this.gameComponents.toArray(new GameComponent[this.gameComponents.size()]).clone()).iterator();
 
             while (updateComponents.hasNext()) {
 
+                this.dataManager.add("game.state", GameState.UPDATE);
                 GameComponent component = updateComponents.next();
 
                 if (component.isActive()) {
@@ -165,6 +171,7 @@ public class Enterprise {
 
             while(renderComponents.hasNext()) {
 
+                this.dataManager.add("game.state", GameState.RENDER);
                 GameComponent component = renderComponents.next();
 
                 if(component.isActive()) {
@@ -173,6 +180,7 @@ public class Enterprise {
 
             }
 
+            this.dataManager.add("game.state", GameState.WAITING);
             try {
                 long sleep = (long) (1000 / MAX_TICKS - (currentTime - System.currentTimeMillis()));
 

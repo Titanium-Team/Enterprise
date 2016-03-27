@@ -19,6 +19,10 @@ public class Archer extends LivingEntity {
 
         double value = Math.log(comboResult - this.getDexterity()) + this.getAttackValue();
 
+        // @TODO: Die freigeschalteten Damage-Skills müssen noch in die Berechnung einfliesen.
+        // @Improve: Eventuell sollte hier bereits auf ungültige Ergebnisse (NaN oder x < 0) geprüft werden,
+        // denn das sollte nicht immer im Code passieren. Stichwort: Code-Duplication.
+
         return value;
     }
 

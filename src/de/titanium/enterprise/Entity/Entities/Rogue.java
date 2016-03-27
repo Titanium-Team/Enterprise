@@ -19,6 +19,10 @@ public class Rogue extends LivingEntity {
 
         double value = -1 * Math.pow(comboResult - this.getDexterity(), 2) * this.getAttackValue() * 1.2 + this.getAttackValue() * 1.8;
 
+        // @TODO: Die freigeschalteten Damage-Skills müssen noch in die Berechnung einfliesen.
+        // @Improve: Eventuell sollte hier bereits auf ungültige Ergebnisse (NaN oder x < 0) geprüft werden,
+        // denn das sollte nicht immer im Code passieren. Stichwort: Code-Duplication.
+
         return value;
     }
     @Override

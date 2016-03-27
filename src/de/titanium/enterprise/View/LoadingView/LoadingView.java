@@ -1,6 +1,7 @@
 package de.titanium.enterprise.View.LoadingView;
 
 import de.titanium.enterprise.Enterprise;
+import de.titanium.enterprise.GameState;
 import de.titanium.enterprise.Loading.Loadable;
 import de.titanium.enterprise.View.View;
 
@@ -20,9 +21,6 @@ public class LoadingView extends View {
     public LoadingView() {
         super(new LoadingMenu());
 
-        // @Cleanup: Der TimeTask sollte beendet werden, sobald dieser nicht mehr benötigt wird, eventuell löst
-        // man das einfach mit einer "globalen Variabel" im DataManager der den aktuellen Status des Spiels
-        // anhand eines Enums zurückgibt (?).
         this.timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -37,6 +35,15 @@ public class LoadingView extends View {
                 }
 
                 repaint();
+
+                // Der TimeTask wird beendet, sobald dieser nicht mehr benötigt wird.
+                if(!(Enterprise.getGame().getDataManager().<GameState>getOne("game.state") == GameState.LOADING)) {
+                    if(!(this.cancel())) {
+                        // @Watch: Das sollte eigentlich nie passieren, falls doch muss man schauen wie
+                        // man das löst.
+                        throw new RuntimeException("Loading Task didn't stop running.");
+                    }
+                }
             }
         }, 0, 50);
     }

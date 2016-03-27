@@ -22,6 +22,8 @@ public class DataManager {
      */
     public <T> void add(String name, final T dataEntry) {
 
+        // @Improve: Anstelle eines Strings sollte man eher Enums benutzen die einen Pfad angeben. Sollte unnötige
+        // Fehler vermeiden.
         if(this.dataEntries.containsKey(name)) {
             this.dataEntries.get(name).add(dataEntry);
         } else {
