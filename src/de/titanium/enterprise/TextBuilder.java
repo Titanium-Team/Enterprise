@@ -91,9 +91,10 @@ public class TextBuilder {
                 Image i = texture.getImage();
 
                 int letterHeight = (int) (i.getHeight(null) * size);
+                int letterWidth = (int) (i.getWidth(null) * size);
                 int y = (height - letterHeight);
 
-                g.drawImage(i, x, y, letterHeight, letterHeight, null);
+                g.drawImage(i, x, y, letterWidth, letterHeight, null);
                 x += i.getWidth(null) * size;
             }
 
