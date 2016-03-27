@@ -326,8 +326,8 @@ public class FightMenu extends MenuView implements GameComponent {
 
                 //update statistics, damage dealt
                 heroes[0].getGameStatistic().update(Statistics.DAMAGE_DEALT, damageOne);
-                heroes[1].getGameStatistic().update(Statistics.DAMAGE_DEALT, damageOne);
-                heroes[2].getGameStatistic().update(Statistics.DAMAGE_DEALT, damageOne);
+                heroes[1].getGameStatistic().update(Statistics.DAMAGE_DEALT, damageTwo);
+                heroes[2].getGameStatistic().update(Statistics.DAMAGE_DEALT, damageThree);
 
                 //update statistics, longest key streak
                 heroes[0].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboOne);
@@ -342,7 +342,7 @@ public class FightMenu extends MenuView implements GameComponent {
 
                 if(!(enemy.isAlive())) { //swich to main menu
                     // TODO Game End screen
-                    // Wenn das Spiel bzw. die aktuelle Runde vorbei ist, sollte der Spieler eine Übersicht über seine
+                    // @Idea: Wenn das Spiel bzw. die aktuelle Runde vorbei ist, sollte der Spieler eine Übersicht über seine
                     // Helden bekommen. Mit einigen Statistiken zum Kampf.
                     enemy.getAnimationQueue().add(Animations.RANGER_DIE);
                     System.out.println("You killed the enemy");

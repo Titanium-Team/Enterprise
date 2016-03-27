@@ -104,6 +104,13 @@ public class HeroesView extends View {
 
     }
 
+    /**
+     * Diese Methode sortiert die angegebenen LivingEntities abhängig vom übergebenen Comparator.
+     * @param livingEntities
+     * @param start
+     * @param end
+     * @param comparator
+     */
     private void sort(LivingEntity[] livingEntities, int start, int end, Comparator<LivingEntity> comparator) {
 
         if(start < end) {
@@ -114,7 +121,6 @@ public class HeroesView extends View {
 
             while(i <= j) {
 
-                System.out.println(comparator.compare(livingEntities[i], livingEntities[pivot]));
                 while(comparator.compare(livingEntities[i], livingEntities[pivot]) == -1) {
                     i++;
                 }

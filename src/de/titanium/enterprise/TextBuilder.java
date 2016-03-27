@@ -55,6 +55,12 @@ public class TextBuilder {
         int width = 0;
         int height = 0;
 
+        // @Imrpove: Die Breite des Leerzeichen sollte auch von der allgemeinen gewählten Schriftgröße abhängig
+        // gemacht werden, wirkt sonst eventuell etwas klein manchmal. Sollte aber erst gemacht werden, wenn man
+        // auch einen maximalen Wert angeben kann für die Breite des Bildes, da es sonst dazu führen kann das
+        // nochmal alle Texte angepasst werden müssen. :( Falls der Wert höher ist als 10px.
+        int space = 10;
+
         for(char c : value.toCharArray()) {
 
             Texture t = this.byChar(c);
@@ -71,22 +77,22 @@ public class TextBuilder {
         width = (int) (width * size + 5);
         height = (int) (height * size + 1);
 
+        // Nun wird das neue Bild erstellt.
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = image.createGraphics();
 
+        // Die RenderingHints werden gesetzt, die aktuell vom Programm genutzt werden..
         g.setRenderingHints(Enterprise.getGame().getRenderingHints());
 
+        // Ab hier beginnt das eigentliche rendern der
         int x = 0;
+
         for (char c : value.toCharArray()) {
 
             Texture texture = this.byChar(c);
 
             if (texture == null) {
-                // @Imrpove: Die Breite des Leerzeichen sollte auch von der allgemeinen gewählten Schriftgröße abhängig
-                // gemacht werden, wirkt sonst eventuell etwas klein manchmal. Sollte aber erst gemacht werden, wenn man
-                // auch einen maximalen Wert angeben kann für die Breite des Bildes, da es sonst dazu führen kann das
-                // nochmal alle Texte angepasst werden müssen. :( Falls der Wert höher ist als 10px.
-                x += 10; //Leerzeichen
+                x += space; //Leerzeichen
             } else {
                 Image i = texture.getImage();
 
@@ -95,7 +101,8 @@ public class TextBuilder {
                 int y = (height - letterHeight);
 
                 g.drawImage(i, x, y, letterWidth, letterHeight, null);
-                x += i.getWidth(null) * size;
+                x += letterWidth;
+
             }
 
         }
