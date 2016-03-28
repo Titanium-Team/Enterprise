@@ -1,6 +1,9 @@
 package de.titanium.enterprise.Entity.Entities;
 
 import de.titanium.enterprise.Entity.LivingEntity;
+import de.titanium.enterprise.Skill.Skill;
+import de.titanium.enterprise.Skill.SkillTypes;
+import de.titanium.enterprise.Skill.Skills;
 import de.titanium.enterprise.Sprite.Animation.Animations;
 
 import java.util.UUID;
@@ -19,9 +22,25 @@ public class Archer extends LivingEntity {
 
         double value = Math.log(comboResult - this.getDexterity()) + this.getAttackValue();
 
-        // @TODO: Die freigeschalteten Damage-Skills müssen noch in die Berechnung einfliesen.
-        // @Improve: Eventuell sollte hier bereits auf ungültige Ergebnisse (NaN oder x < 0) geprüft werden,
-        // denn das sollte nicht immer im Code passieren. Stichwort: Code-Duplication.
+        //Attack Efficiency
+        double attackEfficiency = 1;
+        for(Skill skill : Skills.all(SkillTypes.ATTACK_EFFICIENCY, this)) {
+            attackEfficiency += skill.getValue(this, enemy);
+        }
+
+        //Enemy Defense Efficiency
+        for(Skill skill : Skills.all(SkillTypes.DEFENSE_EFFICIENCY, enemy)) {
+            attackEfficiency -= skill.getValue(enemy, this);
+        }
+
+        value *= attackEfficiency;
+
+        // Hier wird sichergestellt das es keinen ungültigen Wert gibt!
+        if(Double.isNaN(value)) {
+            value = 0;
+        }
+
+        value = Math.max(value, 0);
 
         return value;
     }

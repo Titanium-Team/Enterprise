@@ -304,25 +304,9 @@ public class FightMenu extends MenuView implements GameComponent {
                 enemy.getAnimationQueue().add(Animations.RANGER_BLOCK);
 
                 //Calculate Damage
-                double damageOne = Math.max(heroes[0].calculateDamage(enemy, this.comboOne), 0);
-                double damageTwo = Math.max(heroes[1].calculateDamage(enemy, this.comboTwo), 0);
-                double damageThree = Math.max(heroes[2].calculateDamage(enemy, this.comboThree), 0);
-
-
-                // Es wird sichergestellt das alle Funktionen einen gültigen Wert liefern.
-                // Es sollte niemals NaN verwendet werden, oder eine Zahl die kleiner als 0 ist (?).
-                // @Cleanup: Eventuell sollten die Funktionen von sich aus das prüfen?
-                if(Double.isNaN(damageOne)) {
-                    damageOne = 0;
-                }
-
-                if(Double.isNaN(damageTwo)) {
-                    damageTwo = 0;
-                }
-
-                if(Double.isNaN(damageThree)) {
-                    damageThree = 0;
-                }
+                double damageOne = heroes[0].calculateDamage(enemy, this.comboOne);
+                double damageTwo = heroes[1].calculateDamage(enemy, this.comboTwo);
+                double damageThree = heroes[2].calculateDamage(enemy, this.comboThree);
 
                 //update statistics, damage dealt
                 heroes[0].getGameStatistic().update(Statistics.DAMAGE_DEALT, damageOne);

@@ -35,6 +35,13 @@ public class Warrior extends LivingEntity {
 
         value *= attackEfficiency;
 
+        // Hier wird sichergestellt das es keinen ungültigen Wert gibt!
+        if(Double.isNaN(value)) {
+            value = 0;
+        }
+
+        value = Math.max(value, 0);
+
         return value;
     }
 
