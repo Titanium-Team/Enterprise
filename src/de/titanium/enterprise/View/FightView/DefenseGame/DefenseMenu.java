@@ -3,6 +3,7 @@ package de.titanium.enterprise.View.FightView.DefenseGame;
 import de.titanium.enterprise.Data.BinarySearchTree;
 import de.titanium.enterprise.Data.Datas.Score;
 import de.titanium.enterprise.Enterprise;
+import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.GameComponent;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.FightView.FightMenu;
@@ -118,14 +119,32 @@ public class DefenseMenu extends MenuView implements GameComponent {
                 for(Rectangle r : rectangles) {
                     if(this.player.intersects(r)) {
 
-                        Score score = new Score(this.tick,"Score:");
+                        // Hier wird der Score dem BinaryTree hinzugefügt.
+                        // @Cleanup: Eventuell muss Score diesen "Score:" String garnicht besitzen, da man eventuell von
+                        // sich aus entscheiden sollte, bei der Ausgabe, was dargestellt werden soll?
+                        Score score = new Score(this.tick, "Score:");
                         if(!Enterprise.getGame().getDataManager().contains("game.defense.scores")) {
                             Enterprise.getGame().getDataManager().add("game.defense.scores", new BinarySearchTree<Score>());
                         }
 
-                        // @TODO: An dieser Stelle ist das Defense-Game vorbei. Hier muss der Schaden berechnet werden,
-                        // den der Gegner macht, abhängig davon wie hoch der Score ist, der erzielt wurde.
-                        // Der Schaden muss der Spieler einstecken, der auch den meisten Schaden davor ausgeteilt hat.
+                        // @Improve: Das hier ist erstmal eine erste Idee wie das ganze Aussehen könnte.
+                        // Damit wird wenigstens schonmal etwas hier haben.
+                        LivingEntity enemy = Enterprise.getGame().getDataManager().getOne("game.enemy");
+                        LivingEntity hero = Enterprise.getGame().getDataManager().getOne("game.fight.maxDamage");
+
+                        double damage = enemy.calculateDamage(hero, this.random.nextInt(5) + 10);
+                        if(Double.isNaN(damage)) {
+                            damage = 0;
+                        }
+
+                        double defense = hero.calculateDefense(enemy, this.tick);
+                        defense = Math.max(defense, 0);
+
+                        Enterprise.getGame().getLogger().info(String.format("Enemy deal damage: %.2f-%.2f gegen %s.", hero.getHealth(), (damage - defense), hero.getName()));
+
+                        hero.setHealth(
+                                hero.getHealth() - (damage - defense)
+                        );
 
                         Enterprise.getGame().getDataManager().<BinarySearchTree>getOne("game.defense.scores").insert(score);
                         Enterprise.getGame().getViewManager().changeMenu(FightView.class, new FightMenu());

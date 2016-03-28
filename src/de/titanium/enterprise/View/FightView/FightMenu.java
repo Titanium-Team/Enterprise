@@ -358,7 +358,39 @@ public class FightMenu extends MenuView implements GameComponent {
                     enemy.getAnimationQueue().add(Animations.RANGER_DIE);
                     Enterprise.getGame().getLogger().info("You killed the enemy.");
                     Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
-                } else { //Switch to Defense Game
+                } else {
+
+                    // Falls es ins DefenseGame geht gibt es, falls nicht auch der letzte Held stirbt,
+                    // eine weitere Runde, weshalb hier die Werte zurückgesetzt werden müssen, damit in
+                    // der nächsten Runde diese nicht einfach weiter hoch gezählt werden.
+                    this.comboOne = 0;
+                    this.comboTwo = 0;
+                    this.comboThree = 0;
+
+                    //Den Spieler setzten der den meisten Schaden gemacht hat.
+                    LivingEntity max = heroes[0];
+
+                    if(damageOne > damageTwo && damageOne > damageThree) {
+                        // Falls der erste Held am meisten Schaden gemacht hat.
+                        max = heroes[0];
+                    } else if(damageTwo > damageOne && damageTwo > damageThree) {
+                        // Falls der zweite Held am meisten Schaden gemacht hat.
+                        max = heroes[1];
+                    } else if(damageThree > damageOne && damageThree > damageTwo) {
+                        // Falls der dritte Held am meisten Schaden gemacht hat.
+                        max = heroes[2];
+                    } else {
+                        // Sollten alle die gleichen Werte erricht haben, wird einfach ein zufälliger ausgewählt.
+                        // @Idea: Eventuell ist der "Zufall" nicht balanced genug und man könnte überlegen, ob man eventuell
+                        // den nimmt der am meisten oder am wenigsten Leben noch hat.
+
+                        max = heroes[this.random.nextInt(heroes.length)];
+                    }
+
+                    // Nun den max-Damage-Hero noch global in den DataManager packe.
+                    Enterprise.getGame().getDataManager().add("game.fight.maxDamage", max);
+
+                    // Switch to Defense Game
                     Enterprise.getGame().getViewManager().changeMenu(FightView.class, new DefenseMenu());
                 }
             }
