@@ -7,6 +7,7 @@ import de.titanium.enterprise.Entity.Entities.Warrior;
 import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.TextBuilder;
+import de.titanium.enterprise.View.GameMenu.GameMenuView;
 import de.titanium.enterprise.View.MenuView;
 import de.titanium.enterprise.View.SkillView.SkillView;
 import de.titanium.enterprise.View.View;
@@ -121,7 +122,7 @@ public class HeroesView extends View {
             if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ESCAPE)) { //zurück zum hauptmenü
 
                 // Wenn "ESC" gedrückt wird, dann wird man wieder ins Hauptmenü gebracht.
-                Enterprise.getGame().getViewManager().switchTo(HeroesView.class);
+                Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_1)) {
 
@@ -366,9 +367,13 @@ public class HeroesView extends View {
                 }
 
                 if(i <= j) {
-                    LivingEntity tmp = livingEntities[i];
-                    livingEntities[i] = livingEntities[j];
-                    livingEntities[j] = tmp;
+                    if(!(comparator.compare(livingEntities[i], livingEntities[j]) == 0)) {
+
+                        LivingEntity tmp = livingEntities[i];
+                        livingEntities[i] = livingEntities[j];
+                        livingEntities[j] = tmp;
+
+                    }
 
                     i++;
                     j--;
