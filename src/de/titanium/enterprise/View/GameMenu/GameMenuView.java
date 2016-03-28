@@ -56,9 +56,10 @@ public class GameMenuView extends View {
         this.options.put("Heroes", HeroesView.class);
         this.descriptions.add(new ArrayList<String>() {{
 
-            this.add("Erhalte eine Uebersicht");
-            this.add("ueber alle Helden die");
-            this.add("das Spiel zu bieten hat");
+            this.add("Erhalte eine");
+            this.add("Uebersicht ueber");
+            this.add("alle Helden die das");
+            this.add("Spiel zu bieten hat.");
 
         }});
 
@@ -86,10 +87,10 @@ public class GameMenuView extends View {
         this.options.put("Exit", null);
         this.descriptions.add(new ArrayList<String>() {{
 
-            this.add("Oh... ok... schade.");
-            this.add("Es hat echt viel");
-            this.add("Spass gemacht mit");
-            this.add("dir zu spielen.");
+            this.add("Oh... ok... schade. Es");
+            this.add("hat echt viel Spass");
+            this.add("gemacht mit dir zu");
+            this.add("spielen.");
             this.add("");
             this.add("Bis bald.");
 
