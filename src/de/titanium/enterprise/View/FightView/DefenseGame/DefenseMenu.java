@@ -133,12 +133,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
                         LivingEntity hero = Enterprise.getGame().getDataManager().getOne("game.fight.maxDamage");
 
                         double damage = enemy.calculateDamage(hero, this.random.nextInt(5) + 10);
-                        if(Double.isNaN(damage)) {
-                            damage = 0;
-                        }
-
                         double defense = hero.calculateDefense(enemy, this.tick);
-                        defense = Math.max(defense, 0);
 
                         Enterprise.getGame().getLogger().info(String.format("Enemy deal damage: %.2f-%.2f gegen %s.", hero.getHealth(), (damage - defense), hero.getName()));
 

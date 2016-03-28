@@ -28,11 +28,6 @@ public class Rogue extends LivingEntity {
             attackEfficiency += skill.getValue(this, enemy);
         }
 
-        //Enemy Defense Efficiency
-        for(Skill skill : Skills.all(SkillTypes.DEFENSE_EFFICIENCY, enemy)) {
-            attackEfficiency -= skill.getValue(enemy, this);
-        }
-
         value *= attackEfficiency;
 
         // Hier wird sichergestellt das es keinen ungültigen Wert gibt!
@@ -47,7 +42,24 @@ public class Rogue extends LivingEntity {
 
     @Override
     public double calculateDefense(LivingEntity enemy, int defenseScore) {
-        return (defenseScore / 100);
+
+        double value = (defenseScore / 1000);
+
+        int efficiency = 1;
+        for(Skill skill : Skills.all(SkillTypes.DEFENSE_EFFICIENCY, this)) {
+            efficiency += skill.getValue(this, enemy);
+        }
+
+        value *= efficiency;
+
+        if(Double.isNaN(value)) {
+            value = 0;
+        }
+
+        value = Math.max(value, 0);
+
+        return value;
+
     }
 
     @Override

@@ -135,13 +135,12 @@ public class FightMenu extends MenuView implements GameComponent {
             this.add(KeyEvent.VK_M);
 
 
-            // @Imrpove: Das hier sollte eigentlich funktionieren, allerdings wird aus irgendeinem Grund anstelle von Comma (,)
+            // @Improve: Das hier sollte eigentlich funktionieren, allerdings wird aus irgendeinem Grund anstelle von Comma (,)
             // und Period (.) C und P als Character ausgewählt, obwohl das eigentlich nicht passieren sollte.
             // Die Grafiken scheinen richtig "gegrabed" zu werden, es liegt also eventuell an den Werten die VK_COMMA und
             // VK_PERIOD zurückgeben, ist aber auch nur eine Theroie.
             //this.add(KeyEvent.VK_COMMA);
             //this.add(KeyEvent.VK_PERIOD);
-
 
         }});
     }
@@ -347,10 +346,8 @@ public class FightMenu extends MenuView implements GameComponent {
                 heroes[1].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboTwo);
                 heroes[2].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboThree);
 
-                // TODO @Improve:  Es muss noch ein Verteidigungswert berechnet werden, dieser wird dann von dem Schaden
-                // abgezogen. Die Formel dafür wurde noch nicht aufgestellt.
-
                 double totalDamage = (damageOne + damageTwo + damageThree) - enemy.calculateDefense(heroes[0], this.random.nextInt(500) + 100);
+
                 // Es muss sichergestellt werden das der Wert immer x >= 0 ist,
                 // da sonst der gegener, bei einem negativen Wert, Leben hinzubekommen würde.
                 totalDamage = Math.max(totalDamage, 0);
@@ -381,7 +378,7 @@ public class FightMenu extends MenuView implements GameComponent {
                     this.comboThree = 0;
 
                     //Den Spieler setzten der den meisten Schaden gemacht hat.
-                    LivingEntity max = heroes[0];
+                    LivingEntity max;
 
                     if(damageOne > damageTwo && damageOne > damageThree) {
                         // Falls der erste Held am meisten Schaden gemacht hat.
@@ -410,7 +407,7 @@ public class FightMenu extends MenuView implements GameComponent {
         }
 
         // Time und Time-Distance verringern sich
-        // Jede Sekunde, also alle 50 Ticks, wird die Zeit zwischen den Tasten verringert, um 1ms, sollten mehrere Tasten
+        // Jede Sekunde, also alle 50 Ticks, wird die Zeit zwischen den Tasten verringert, um 2ms, sollten mehrere Tasten
         // nicht gedrückt worden sein, werden es maximal 2-5ms/Sekunde weniger. Ist begrenz auf eine minstend Zeit von 500ms.
         // Sobald die Zeit zuwischen den Tasten unter 750ms rutscht, wird die Anzahl an Tasten die gedrückt werden müssen
         // erhöht.
