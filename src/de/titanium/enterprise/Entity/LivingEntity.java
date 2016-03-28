@@ -148,6 +148,8 @@ public abstract class LivingEntity extends Entity {
      */
     public abstract double calculateDamage(LivingEntity enemy, int comboResult);
 
+    public abstract double calculateDefense(LivingEntity enemy, int defenseScore);
+
     /**
      * Setzt das maximale Leben des Entitys.
      * @param maxHealth

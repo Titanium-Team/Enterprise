@@ -13,10 +13,10 @@ import de.titanium.enterprise.View.GameMenu.GameMenuView;
 import de.titanium.enterprise.View.MenuView;
 import de.titanium.enterprise.View.View;
 
-import java.util.List;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
+import java.util.List;
 
 /**
  * Created by Yonas on 23.03.2016.

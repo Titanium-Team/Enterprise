@@ -48,8 +48,8 @@ public class LoadingView extends View {
 
                 // @Cleanup: Das sollte eigentlich nicht nötig sein, allerdings ist getCurrent() schon beim ersten Aufruf
                 // null und muss deshalb einmal "ignoriert" werden, allerdings ist aus einem mir unbekannt Grund auch
-                // der GameState nicht auf LOADING steht. Ich denke es liegt daran das dies ein neuer Thread ist und der
-                // alte Thread einfach schon weiter geht, im Code, und der GameState sich dann bereits im GameLoop befinde.
+                // der GameState nicht auf LOADING steht. - Ich denke es liegt daran das dies ein neuer Thread ist und der
+                // alte Thread einfach schon weiter geht, im Code, und der GameState sich dann bereits im GameLoop befindet.
                 firstOne = false;
             }
         }, 0, 50);

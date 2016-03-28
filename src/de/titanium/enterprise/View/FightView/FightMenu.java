@@ -336,8 +336,19 @@ public class FightMenu extends MenuView implements GameComponent {
 
                 // TODO @Improve:  Es muss noch ein Verteidigungswert berechnet werden, dieser wird dann von dem Schaden
                 // abgezogen. Die Formel dafür wurde noch nicht aufgestellt.
+
+                double totalDamage = (damageOne + damageTwo + damageThree) - enemy.calculateDefense(heroes[0], this.random.nextInt(500) + 100);
+                // Es muss sichergestellt werden das der Wert immer x >= 0 ist,
+                // da sonst der gegener, bei einem negativen Wert, Leben hinzubekommen würde.
+                totalDamage = Math.max(totalDamage, 0);
+
+                Enterprise.getGame().getLogger().info("Total Damage: " + totalDamage);
+                Enterprise.getGame().getLogger().info("0 Damage: " + damageOne);
+                Enterprise.getGame().getLogger().info("1 Damage: " + damageTwo);
+                Enterprise.getGame().getLogger().info("1 Damage: " + damageThree);
+
                 enemy.setHealth(
-                        enemy.getHealth() - (damageOne + damageTwo + damageThree)
+                        enemy.getHealth() - totalDamage
                 );
 
                 if(!(enemy.isAlive())) { //swich to main menu
@@ -345,7 +356,7 @@ public class FightMenu extends MenuView implements GameComponent {
                     // @Idea: Wenn das Spiel bzw. die aktuelle Runde vorbei ist, sollte der Spieler eine Übersicht über seine
                     // Helden bekommen. Mit einigen Statistiken zum Kampf.
                     enemy.getAnimationQueue().add(Animations.RANGER_DIE);
-                    System.out.println("You killed the enemy");
+                    Enterprise.getGame().getLogger().info("You killed the enemy.");
                     Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
                 } else { //Switch to Defense Game
                     Enterprise.getGame().getViewManager().changeMenu(FightView.class, new DefenseMenu());

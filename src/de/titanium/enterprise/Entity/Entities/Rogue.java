@@ -25,6 +25,12 @@ public class Rogue extends LivingEntity {
 
         return value;
     }
+
+    @Override
+    public double calculateDefense(LivingEntity enemy, int defenseScore) {
+        return (defenseScore / 100);
+    }
+
     @Override
     public void update(int tick) {
 

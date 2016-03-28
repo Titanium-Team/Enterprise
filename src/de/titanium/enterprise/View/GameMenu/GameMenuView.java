@@ -83,6 +83,18 @@ public class GameMenuView extends View {
 
         }});
 
+        this.options.put("Exit", null);
+        this.descriptions.add(new ArrayList<String>() {{
+
+            this.add("Oh... ok... schade.");
+            this.add("Es hat echt viel");
+            this.add("Spass gemacht mit");
+            this.add("dir zu spielen.");
+            this.add("");
+            this.add("Bis bald.");
+
+        }});
+
     }
 
     public GameMenuView(MenuView viewMenu) {
@@ -146,9 +158,16 @@ public class GameMenuView extends View {
                 }
             }
             if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ENTER)) {
-                Enterprise.getGame().getViewManager().switchTo(
-                        this.options.values().toArray(new Class[this.options.size()])[this.selectedOption]
-                );
+
+                Class goTo = this.options.values().toArray(new Class[this.options.size()])[this.selectedOption];
+
+                //Wenn die Class nicht null ist hält es sich um eine normale View und es kann gewechselt werden.
+                if(!(goTo == null)) {
+                    Enterprise.getGame().getViewManager().switchTo(goTo);
+                } else {
+                    //Falls goTo null ist handelt es sich um den "Exit"-Button
+                    System.exit(0);
+                }
             }
         }
 

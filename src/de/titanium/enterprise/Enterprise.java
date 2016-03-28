@@ -24,11 +24,14 @@ import de.titanium.enterprise.View.ViewManager;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by 204g01 on 07.03.2016.
  */
 public class Enterprise {
+
+    private final Logger logger = Logger.getLogger("Enterprise");
 
     private List<GameComponent> gameComponents = new ArrayList<>();
     private final Map<RenderingHints.Key, Object> renderingHints = new HashMap<>();
@@ -109,6 +112,10 @@ public class Enterprise {
      */
     public static Enterprise getGame() {
         return Enterprise.game;
+    }
+
+    public Logger getLogger() {
+        return this.logger;
     }
 
     /**

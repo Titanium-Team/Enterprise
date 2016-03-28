@@ -3,10 +3,10 @@ package de.titanium.enterprise;
 import de.titanium.enterprise.Sprite.Texture;
 import de.titanium.enterprise.Sprite.Textures;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**

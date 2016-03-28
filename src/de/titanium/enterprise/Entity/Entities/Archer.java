@@ -27,6 +27,11 @@ public class Archer extends LivingEntity {
     }
 
     @Override
+    public double calculateDefense(LivingEntity enemy, int defenseScore) {
+        return (defenseScore / 100);
+    }
+
+    @Override
     public void update(int tick) {
 
     }
