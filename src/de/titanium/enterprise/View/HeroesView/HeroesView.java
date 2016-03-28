@@ -59,18 +59,18 @@ public class HeroesView extends View {
         g.drawLine(243, 0, 243, 600);
 
         g.drawImage(textBuilder.toImage("Name", (this.sortNameValue  ? 14 : 12)), 248, 40, null);
-        g.drawLine(527, 0, 527, 600);
+        g.drawLine(567, 0, 567, 600);
 
-        g.drawImage(textBuilder.toImage("HP", (this.sortHealthValue  ? 14 : 12)), 532, 40, null);
-        g.drawLine(593, 0, 593, 600);
+        g.drawImage(textBuilder.toImage("HP", (this.sortHealthValue  ? 14 : 12)), 572, 40, null);
+        g.drawLine(633, 0, 633, 600);
 
-        g.drawImage(textBuilder.toImage("DY", (this.sortDexterity  ? 14 : 12)), 598, 40, null);
-        g.drawLine(659, 0, 659, 600);
+        g.drawImage(textBuilder.toImage("DY", (this.sortDexterity  ? 14 : 12)), 638, 40, null);
+        g.drawLine(699, 0, 699, 600);
 
-        g.drawImage(textBuilder.toImage("AT", (this.sortAttackValue  ? 14 : 12)), 664, 40, null);
-        g.drawLine(725, 0, 725, 600);
+        g.drawImage(textBuilder.toImage("AT", (this.sortAttackValue  ? 14 : 12)), 704, 40, null);
+        g.drawLine(765, 0, 765, 600);
 
-        g.drawImage(textBuilder.toImage("SP", (this.sortSkillPoints  ? 14 : 12)), 730, 40, null);
+        g.drawImage(textBuilder.toImage("SP", (this.sortSkillPoints  ? 14 : 12)), 770, 40, null);
         g.drawLine(915, 0, 915, 600);
 
 
@@ -87,12 +87,12 @@ public class HeroesView extends View {
             // Hier werden alle Werte Zeile für Zeile dargestellt.
             LivingEntity entity = this.types[i];
 
-            g.drawImage(textBuilder.toImage(entity.getClass().getSimpleName(), (this.selectedHero == i ? 10 : 9)), 50, y, null);
-            g.drawImage(textBuilder.toImage(entity.getName(), (this.selectedHero == i ? 10 : 9)), 248, y, null);
-            g.drawImage(textBuilder.toImage(String.format("%.0f", entity.getHealth()), (this.selectedHero == i ? 10 : 9)), 532, y, null);
-            g.drawImage(textBuilder.toImage(String.format("%.0f", entity.getDexterity()), (this.selectedHero == i ? 10 : 9)), 598, y, null);
-            g.drawImage(textBuilder.toImage(String.format("%.0f", entity.getAttackValue()), (this.selectedHero == i ? 10 : 9)), 664, y, null);
-            g.drawImage(textBuilder.toImage(String.format("%d", entity.getSkillPoints()), (this.selectedHero == i ? 10 : 9)), 730, y, null);
+            g.drawImage(textBuilder.toImage(entity.getClass().getSimpleName(), (this.selectedHero == i ? 11 : 9)), 50, y, null);
+            g.drawImage(textBuilder.toImage(entity.getName(), (this.selectedHero == i ? 11 : 9)), 248, y, null);
+            g.drawImage(textBuilder.toImage(String.format("%.0f", entity.getHealth()), (this.selectedHero == i ? 11 : 9)), 572, y, null);
+            g.drawImage(textBuilder.toImage(String.format("%.0f", entity.getDexterity()), (this.selectedHero == i ? 11 : 9)), 638, y, null);
+            g.drawImage(textBuilder.toImage(String.format("%.0f", entity.getAttackValue()), (this.selectedHero == i ? 11 : 9)), 704, y, null);
+            g.drawImage(textBuilder.toImage(String.format("%d", entity.getSkillPoints()), (this.selectedHero == i ? 11 : 9)), 770, y, null);
 
             // Hier wird geprüft, ob das aktuelle Entity was geprüft wird eines ist das auch im "Fight" verwendet wird,
             // falls ja dann wird ganz am Ende der Zeile ein "grünes X" gezeichnet, um das zu kennzeichnen.
