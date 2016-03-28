@@ -13,8 +13,9 @@ import de.titanium.enterprise.View.MenuView;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Random;
+import java.util.List;
 
 /**
  * Created by Yonas on 11.03.2016.
@@ -35,7 +36,7 @@ public class FightMenu extends MenuView implements GameComponent {
     private boolean drawOne = true;
     private int comboOne = 0;
 
-    private final static ArrayList<ArrayList<Integer>> areaOne = new ArrayList<>();
+    private final static List<List<Integer>> areaOne = new LinkedList<>();
     private int stageOne = 0;
 
     //Hero Two
@@ -45,7 +46,7 @@ public class FightMenu extends MenuView implements GameComponent {
     private boolean drawTwo = true;
     private int comboTwo = 0;
 
-    private final static ArrayList<ArrayList<Integer>> areaTwo = new ArrayList<>();
+    private final static List<List<Integer>> areaTwo = new LinkedList<>();
     private int stageTwo = 0;
 
     //Hero Three
@@ -55,14 +56,15 @@ public class FightMenu extends MenuView implements GameComponent {
     private boolean drawThree = true;
     private int comboThree = 0;
 
-    private final static ArrayList<ArrayList<Integer>> areaThree = new ArrayList<>();
+    private final static List<List<Integer>> areaThree = new LinkedList<>();
     private int stageThree = 0;
 
     //Die Wahrscheinlichkeit das ein Button angezeigt wird
     private int chance = 3;
 
     static {
-        areaOne.add(new ArrayList<Integer>() {{
+        //Area One
+        areaOne.add(new LinkedList<Integer>() {{
 
             this.add(KeyEvent.VK_W);
             this.add(KeyEvent.VK_A);
@@ -70,7 +72,7 @@ public class FightMenu extends MenuView implements GameComponent {
             this.add(KeyEvent.VK_D);
 
         }});
-        areaOne.add(new ArrayList<Integer>() {{
+        areaOne.add(new LinkedList<Integer>() {{
 
             this.add(KeyEvent.VK_Q);
             this.add(KeyEvent.VK_E);
@@ -80,7 +82,7 @@ public class FightMenu extends MenuView implements GameComponent {
 
         }});
 
-        areaTwo.add(new ArrayList<Integer>() {{
+        areaOne.add(new LinkedList<Integer>() {{
 
             this.add(KeyEvent.VK_T);
             this.add(KeyEvent.VK_F);
@@ -88,7 +90,7 @@ public class FightMenu extends MenuView implements GameComponent {
             this.add(KeyEvent.VK_H);
 
         }});
-        areaTwo.add(new ArrayList<Integer>() {{
+        areaOne.add(new LinkedList<Integer>() {{
 
             this.add(KeyEvent.VK_R);
             this.add(KeyEvent.VK_Z);
@@ -98,8 +100,27 @@ public class FightMenu extends MenuView implements GameComponent {
 
         }});
 
+        //Area Two
+        areaTwo.add(new LinkedList<Integer>() {{
 
-        areaThree.add(new ArrayList<Integer>() {{
+            this.add(KeyEvent.VK_T);
+            this.add(KeyEvent.VK_F);
+            this.add(KeyEvent.VK_G);
+            this.add(KeyEvent.VK_H);
+
+        }});
+        areaTwo.add(new LinkedList<Integer>() {{
+
+            this.add(KeyEvent.VK_R);
+            this.add(KeyEvent.VK_Z);
+            this.add(KeyEvent.VK_V);
+            this.add(KeyEvent.VK_B);
+            this.add(KeyEvent.VK_N);
+
+        }});
+
+        //Area Three
+        areaThree.add(new LinkedList<Integer>() {{
 
             this.add(KeyEvent.VK_I);
             this.add(KeyEvent.VK_J);
@@ -107,12 +128,13 @@ public class FightMenu extends MenuView implements GameComponent {
             this.add(KeyEvent.VK_L);
 
         }});
-        areaThree.add(new ArrayList<Integer>() {{
+        areaThree.add(new LinkedList<Integer>() {{
 
             this.add(KeyEvent.VK_U);
             this.add(KeyEvent.VK_O);
             this.add(KeyEvent.VK_M);
-            //Punkt und Komma noch
+            this.add(KeyEvent.VK_COMMA);
+            this.add(KeyEvent.VK_PERIOD);
 
         }});
     }
@@ -253,7 +275,7 @@ public class FightMenu extends MenuView implements GameComponent {
                 boolean chance = (this.random.nextInt(this.chance) == 0);
 
                 if(chance) {
-                    this.heroOne = this.getRandomButton(areaOne, this.stageOne);
+                    this.heroOne = this.getRandomButton(this.areaOne, this.stageOne);
                     this.drawOne = true;
                 }
 
@@ -265,7 +287,7 @@ public class FightMenu extends MenuView implements GameComponent {
                 boolean chance = (this.random.nextInt(this.chance) == 0);
 
                 if(chance) {
-                    this.heroTwo = this.getRandomButton(areaTwo, this.stageTwo);
+                    this.heroTwo = this.getRandomButton(this.areaTwo, this.stageTwo);
                     this.drawTwo = true;
                 }
 
@@ -277,7 +299,7 @@ public class FightMenu extends MenuView implements GameComponent {
                 boolean chance = (this.random.nextInt(this.chance) == 0);
 
                 if(chance) {
-                    this.heroThree = this.getRandomButton(areaThree, this.stageThree);
+                    this.heroThree = this.getRandomButton(this.areaThree, this.stageThree);
                     this.drawThree = true;
                 }
 
@@ -422,9 +444,9 @@ public class FightMenu extends MenuView implements GameComponent {
      * @param stage
      * @return
      */
-    private Character getRandomButton(ArrayList<ArrayList<Integer>> lists, int stage) {
+    private Character getRandomButton(List<List<Integer>> lists, int stage) {
 
-        ArrayList<Integer> keys = new ArrayList<>();
+        List<Integer> keys = new LinkedList<>();
 
         for(int i = 0; i < stage+1; i++) {
             keys.addAll(lists.get(i));
