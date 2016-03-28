@@ -133,8 +133,15 @@ public class FightMenu extends MenuView implements GameComponent {
             this.add(KeyEvent.VK_U);
             this.add(KeyEvent.VK_O);
             this.add(KeyEvent.VK_M);
-            this.add(KeyEvent.VK_COMMA);
-            this.add(KeyEvent.VK_PERIOD);
+
+
+            // @Imrpove: Das hier sollte eigentlich funktionieren, allerdings wird aus irgendeinem Grund anstelle von Comma (,)
+            // und Period (.) C und P als Character ausgewählt, obwohl das eigentlich nicht passieren sollte.
+            // Die Grafiken scheinen richtig "gegrabed" zu werden, es liegt also eventuell an den Werten die VK_COMMA und
+            // VK_PERIOD zurückgeben, ist aber auch nur eine Theroie.
+            //this.add(KeyEvent.VK_COMMA);
+            //this.add(KeyEvent.VK_PERIOD);
+
 
         }});
     }
