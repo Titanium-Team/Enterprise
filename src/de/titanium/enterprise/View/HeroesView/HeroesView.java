@@ -68,7 +68,7 @@ public class HeroesView extends View {
 
 
         //die Linie die die Werte von den Überschriften trennt 27|32
-        g.drawLine(0, 77, 960, 72);
+        g.drawLine(0, 77, 960, 77);
 
         //Ab hier werden alle Zeilen gezeichnet
         int y = 82;
@@ -118,11 +118,11 @@ public class HeroesView extends View {
                     public int compare(LivingEntity o1, LivingEntity o2) {
 
                         if(o1.getName().toCharArray()[0] > o2.getName().toCharArray()[0]) {
-                            return -1;
+                            return 1;
                         }
 
                         if(o1.getName().toCharArray()[0] < o2.getName().toCharArray()[0]) {
-                            return 1;
+                            return -1;
                         }
 
                         return 0;
