@@ -9,7 +9,7 @@ import de.titanium.enterprise.Skill.Skill;
 import de.titanium.enterprise.Skill.Skills;
 import de.titanium.enterprise.Sprite.Animation.Animator;
 import de.titanium.enterprise.Sprite.Textures;
-import de.titanium.enterprise.View.GameMenu.GameMenuView;
+import de.titanium.enterprise.View.HeroesView.HeroesView;
 import de.titanium.enterprise.View.MenuView;
 import de.titanium.enterprise.View.View;
 
@@ -24,7 +24,6 @@ import java.util.List;
 public class SkillView extends View {
 
     private BinarySearchTree<SkillEntry> skillBinarySearchTree = Skills.defaultTree();
-    private int selectedEntity = 0;
     private Skill selectedSkill = Skills.NEU_00_OLYMPUS;
 
     public SkillView(MenuView viewMenu) {
@@ -43,40 +42,58 @@ public class SkillView extends View {
         g.drawImage(Textures.BACKGROUND.getImage(), 0, 0, null, null);
         g.drawImage(Textures.BORDER_UP.getImage(), 0, 0, null, null);
 
-        //draw selected skill description
+        // Hier wird die passende Beschreibung zu dem ausgewählten Skill gezeichnet.
         List<String> description = this.selectedSkill.getDescription();
         for(int i = 0; i < description.size(); i++) {
             g.drawImage(Enterprise.getGame().getTextBuilder().toImage(description.get(i), 7), 990, 50 + i * 20, null);
         }
 
-        //draw if he unlocked it, yet
-        LivingEntity entity = Enterprise.getGame().getDataManager().<LivingEntity[]>getOne("game.heroes")[this.selectedEntity];
+        LivingEntity entity = Enterprise.getGame().getDataManager().getOne("game.heroes.skilling");
 
         if(this.selectedSkill.hasSkill(entity)) {
+
+            // Falls das Entity diesen Skill bereits hat, dann kann dieser Skill als "Freigeschaltet" dargestellt
+            // werden.
+
             g.drawImage(Textures.CHECKED_BUTTON.getImage().getScaledInstance(50, 50, 0), 990, 400, null);
             g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Freigeschaltet", 8), 1050, 415, null);
+
         } else {
             if(this.selectedSkill.isUnlockable(entity)) {
+
+                // Falls der Skill noch nicht "Freigeschaltet" ist, es aber theoretisch möglich wäre (unabhängig von der
+                // aktullen Anzahl an Skill-Punkten) wird der Skill als "Freischaltbar" eingestuft und dargestellt.
+
                 g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Freischaltbar", 8), 1050, 415, null);
+
             } else {
+
+                // Falls der Skill noch nicht "Freigeschaltet" ist und auch aktuell noch nicht freischaltbar ist,
+                // wird dieser als "Locked" dargestellt.
                 g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Locked", 8), 1050, 415, null);
+
             }
+
+            // Beide Zustände werden aktuell mit dem selben Symbol gekennzeichnet.
             g.drawImage(Textures.FAILED_BUTTON.getImage().getScaledInstance(50, 50, 0), 990, 400, null);
+
         }
 
-        //draw selected entity
+        // Das ausgewählte Entity wird dargestellt.
         Animator animator = entity.getAnimationQueue().element();
         g.drawImage(animator.getFrame(), 50, 270, animator.getType().getWidth(), animator.getType().getHeight(), null);
 
+        // Der Name des Entitys wird dargestellt.
         Image text = Enterprise.getGame().getTextBuilder().toImage(entity.getName(), 10);
         g.drawImage(text, 50 - ((text.getWidth(null) - animator.getType().getWidth()) / 2), 245, null);
 
-        //draw skill points
-        Image points = Enterprise.getGame().getTextBuilder().toImage(String.format("Points: %d", entity.getSkillPoints()), 8);
-        g.drawImage(points, 40, 40, null);
+        // Die verfügbaren Skill-Punkte des Entitys werden oben, rechts dargestellt.
+        Image points = Enterprise.getGame().getTextBuilder().toImage(String.format("SP: %d", entity.getSkillPoints()), 8);
+        g.drawImage(points, 50, 40, null);
 
-        //draw tree
+        // Hier wird die Methode aufgerufen die den Skill-Tree zeichnet.
         this.drawTree(g, this.skillBinarySearchTree, BinaryTreeMath.maxDepth(this.skillBinarySearchTree), 0, 1);
+
     }
 
 
@@ -84,7 +101,8 @@ public class SkillView extends View {
     public void update(int tick) {
 
         //update animation
-        Enterprise.getGame().getDataManager().<LivingEntity[]>getOne("game.heroes")[this.selectedEntity].getAnimationQueue().element().next();
+        LivingEntity hero = Enterprise.getGame().getDataManager().getOne("game.heroes.skilling");
+        hero.getAnimationQueue().element().next();
 
 
         // @Improve: Es wird nur alle paar Ticks geprüft, da es sonst vorkommt das der Button als "doppelt" Gedrückt erkannt wird
@@ -94,36 +112,44 @@ public class SkillView extends View {
 
             BinarySearchTree<SkillEntry> current = this.skillBinarySearchTree.search(new SkillEntry(this.selectedSkill));
             BinarySearchTree<SkillEntry> parent = BinaryTreeMath.findParent(new SkillEntry(this.selectedSkill), this.skillBinarySearchTree);
-            LivingEntity[] entities = Enterprise.getGame().getDataManager().getOne("game.heroes");
 
-            if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ESCAPE)) { //zurück zum hauptmenü
-                Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_A) && !(current.getLeftTree().isEmpty())) { //nach links gehen
+            if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ESCAPE)) {
+
+                // Wenn "ESC" gedrückt wird, dann soll man wieder in der HeroesView landen, um dann ggf. andere Helden
+                // zu skillen o.ä.
+
+                Enterprise.getGame().getViewManager().switchTo(HeroesView.class);
+
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_LEFT) && !(current.getLeftTree().isEmpty())) {
+
+                // Wenn "Pfeiltaste-Links" gedrückt wird und es noch weiter nach links im Bau geht, dann soll man
+                // sich im Baum in die linke Node bewegen.
+
                 this.selectedSkill = current.getLeftTree().getContent().getSkill();
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_D) && !(current.getRightTree().isEmpty())) { //nach rechts gehen
+
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_RIGHT) && !(current.getRightTree().isEmpty())) {
+
+                // Wenn "Pfeiltaste-Rechts" gedrückt wird und es noch weiter nach rechts im Bau geht, dann soll man
+                // sich im Baum in die rechte Node bewegen.
+
                 this.selectedSkill = current.getRightTree().getContent().getSkill();
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_W) && !(parent == null)) { //nach oben gehen
+
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_UP) && !(parent == null)) {
+
+                // Wenn "Pfeiltaste-Oben" gedrückt wird und es noch weiter nach oben im Bau geht, dann soll man
+                // sich im Baum in die obere also in die Parent Node des aktuellen bewegen.
+
                 this.selectedSkill = parent.getContent().getSkill();
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_LEFT)) { //helden wechsel
-                this.selectedEntity--;
 
-                if(selectedEntity < 0) {
-                    this.selectedEntity = entities.length - 1;
-                }
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_RIGHT)) { //helden wechsel
-                this.selectedEntity++;
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ENTER)) {
 
-                if(selectedEntity >= entities.length) {
-                    selectedEntity = 0;
-                }
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ENTER)) { //freischalten
+                // Wenn "Enter" gedrückt wird, der Held diesen Skill theoretisch freischalten kann und er auch
+                // genügend Skill-Punkte besitzt, dann wird der Skill freigeschaltet.
 
-                LivingEntity entity = entities[this.selectedEntity];
-
-                if(this.selectedSkill.isUnlockable(entity) && entity.getSkillPoints() >= this.selectedSkill.getPrice() && !(this.selectedSkill.hasSkill(entity))) {
-                    entity.setSkillPoints(entity.getSkillPoints() - this.selectedSkill.getPrice());
-                    entity.addSkill(this.selectedSkill);
-                    this.selectedSkill.apply(entity);
+                if(this.selectedSkill.isUnlockable(hero) && hero.getSkillPoints() >= this.selectedSkill.getPrice() && !(this.selectedSkill.hasSkill(hero))) {
+                    hero.setSkillPoints(hero.getSkillPoints() - this.selectedSkill.getPrice());
+                    hero.addSkill(this.selectedSkill);
+                    this.selectedSkill.apply(hero);
                 }
 
             }

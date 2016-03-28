@@ -75,17 +75,6 @@ public class Enterprise {
         this.loadingManager.add(Animations.values());
         this.loadingManager.load();
 
-
-        //set default heroes
-        this.getDataManager().add("game.heroes", new LivingEntity[] {
-
-                new Archer(UUID.randomUUID(), "Archer", 100, 100, 3, 7, 20),
-                new Warrior(UUID.randomUUID(), "Warrior", 100, 100, 4, 6, 22),
-                new Rogue(UUID.randomUUID(), "Rogue", 100, 100, 7, 5, 18)
-
-        });
-
-
         //set default hero types
         this.getDataManager().add("game.heroes.types", new LivingEntity[] {
 
@@ -106,6 +95,15 @@ public class Enterprise {
                 new Rogue(UUID.randomUUID(), "The Knife", 10, 10, 8, 20, 0),
                 new Rogue(UUID.randomUUID(), "Robert Rice", 30, 30, 5, 8, 0),
                 new Rogue(UUID.randomUUID(), "Sam Dodge", 15, 15, 10, 22, 0),
+
+        });
+
+        //set default heroes
+        this.getDataManager().add("game.heroes", new LivingEntity[] {
+
+                this.getDataManager().<LivingEntity[]>getOne("game.heroes.types")[0],
+                this.getDataManager().<LivingEntity[]>getOne("game.heroes.types")[5],
+                this.getDataManager().<LivingEntity[]>getOne("game.heroes.types")[10]
 
         });
 

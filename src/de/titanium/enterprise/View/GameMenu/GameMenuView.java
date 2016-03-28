@@ -6,7 +6,6 @@ import de.titanium.enterprise.View.FightView.FightView;
 import de.titanium.enterprise.View.HeroesView.HeroesView;
 import de.titanium.enterprise.View.MenuView;
 import de.titanium.enterprise.View.SettingsView.SettingsView;
-import de.titanium.enterprise.View.SkillView.SkillView;
 import de.titanium.enterprise.View.StoryView.StoryView;
 import de.titanium.enterprise.View.View;
 
@@ -40,16 +39,6 @@ public class GameMenuView extends View {
             this.add("stellen muessen.");
             this.add("Die keine Ruecksicht");
             this.add("nehmen werden.");
-
-        }});
-
-        this.options.put("Skills", SkillView.class);
-        this.descriptions.add(new ArrayList<String>() {{
-
-            this.add("Verwnde deine Punkte");
-            this.add("um einen Vorteil");
-            this.add("fuer deine Helden");
-            this.add("im Kampf zu erzielen");
 
         }});
 
