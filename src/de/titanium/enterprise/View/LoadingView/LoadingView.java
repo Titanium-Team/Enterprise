@@ -14,10 +14,11 @@ import java.util.TimerTask;
 public class LoadingView extends View {
 
     private String value = ".";
-    private final Timer timer = new Timer();
     private int count = 0;
 
     private boolean firstOne = true;
+
+    private final Timer timer = new Timer();
 
     public LoadingView() {
         super(new LoadingMenu());
@@ -63,13 +64,13 @@ public class LoadingView extends View {
 
         g.setRenderingHints(Enterprise.getGame().getRenderingHints());
 
-        //Draw Loading Text
+        // Draw Loading Text
         g.setFont(new Font("Arial", Font.BOLD, 50));
         String text = "Loading" + this.value;
         FontMetrics fontMetrics = g.getFontMetrics();
         g.drawString(text, (this.getWidth() - fontMetrics.stringWidth("Loading...")) / 2,  ((this.getHeight() - fontMetrics.getHeight()) / 2) - fontMetrics.getAscent());
 
-        //Draw Loadable Text
+        // Draw Loadable Text
         Loadable current = Enterprise.getGame().getLoadingManager().getCurrent();
         g.setFont(new Font("Arial", Font.BOLD, 25));
         fontMetrics = g.getFontMetrics();

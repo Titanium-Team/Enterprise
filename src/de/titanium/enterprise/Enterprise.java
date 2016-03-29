@@ -1,5 +1,7 @@
 package de.titanium.enterprise;
 
+import de.titanium.enterprise.Achievment.AchievementManager;
+import de.titanium.enterprise.Achievment.Achievements;
 import de.titanium.enterprise.Data.DataManager;
 import de.titanium.enterprise.Entity.Entities.Archer;
 import de.titanium.enterprise.Entity.Entities.Rogue;
@@ -55,6 +57,7 @@ public class Enterprise {
     private final DataManager dataManager = new DataManager();
     private final LoadingManager loadingManager = new LoadingManager();
     private final TextBuilder textBuilder = new TextBuilder();
+    private final AchievementManager achievementManager = new AchievementManager();
 
     private static Enterprise game;
 
@@ -122,6 +125,8 @@ public class Enterprise {
         this.viewManager.register(new FightView(new FightMenu()));
 
         this.viewManager.switchTo(GameMenuView.class);
+
+        this.achievementManager.add(Achievements.TEST);
 
         //start game
         this.start();
@@ -245,5 +250,9 @@ public class Enterprise {
 
     public TextBuilder getTextBuilder() {
         return this.textBuilder;
+    }
+
+    public AchievementManager getAchievementManager() {
+        return this.achievementManager;
     }
 }

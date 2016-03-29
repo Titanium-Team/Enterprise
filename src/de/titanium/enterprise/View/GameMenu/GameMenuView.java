@@ -126,6 +126,10 @@ public class GameMenuView extends View {
 
             x++;
         }
+
+        //draw ac
+        Enterprise.getGame().getAchievementManager().handle(g);
+
     }
 
 
