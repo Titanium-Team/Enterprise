@@ -28,6 +28,8 @@ public class HeroesView extends View {
 
     private int selectedHero = 0;
 
+    private boolean ascending = false;
+
     private boolean sortNameValue = false;
     private boolean sortHealthValue = false;
     private boolean sortAttackValue = false;
@@ -123,7 +125,10 @@ public class HeroesView extends View {
         g.drawImage(textBuilder.toImage("3    DY", 8), 990, 220, null);
         g.drawImage(textBuilder.toImage("4    AT", 8), 990, 240, null);
         g.drawImage(textBuilder.toImage("5    SP", 8), 990, 260, null);
-        g.drawImage(textBuilder.toImage("0    Default", 8), 990, 260, null);
+        g.drawImage(textBuilder.toImage("0    Default", 8), 990, 280, null);
+
+        // Ausgabe was der aktuelle Sortiermodus ist
+        g.drawImage(textBuilder.toImage("M    " + (this.ascending ? "Absteigend" : "Aufsteigend"), 8), 990, 320, null);
 
         //border
         g.drawImage(Textures.BORDER_UP.getImage(), 0, 0, null, null);
@@ -142,7 +147,7 @@ public class HeroesView extends View {
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_1)) {
 
-                // Wenn "4" gedrückt wird, dann wird die Tabelle nach dem Namen
+                // Wenn "1" gedrückt wird, dann wird die Tabelle nach dem Namen
                 // aufsteigend sortiert.
 
                 this.resetSortValues();
@@ -155,11 +160,11 @@ public class HeroesView extends View {
                     public int compare(LivingEntity o1, LivingEntity o2) {
 
                         if(o1.getName().toCharArray()[0] > o2.getName().toCharArray()[0]) {
-                            return 1;
+                            return (ascending ? -1 : 1);
                         }
 
                         if(o1.getName().toCharArray()[0] < o2.getName().toCharArray()[0]) {
-                            return -1;
+                            return (ascending ? 1 : -1);
                         }
 
                         return 0;
@@ -170,7 +175,7 @@ public class HeroesView extends View {
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_2)) {
 
-                // Wenn "4" gedrückt wird, dann wird die Tabelle nach dem Lebens-Value
+                // Wenn "2" gedrückt wird, dann wird die Tabelle nach dem Lebens-Value
                 // absteigend sortiert.
 
                 this.resetSortValues();
@@ -183,11 +188,11 @@ public class HeroesView extends View {
                     public int compare(LivingEntity o1, LivingEntity o2) {
 
                         if(o1.getMaxHealth() > o2.getMaxHealth()) {
-                            return -1;
+                            return (ascending ? -1 : 1);
                         }
 
                         if(o1.getMaxHealth() < o2.getMaxHealth()) {
-                            return 1;
+                            return (ascending ? 1 : -1);
                         }
 
                         return 0;
@@ -197,7 +202,7 @@ public class HeroesView extends View {
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_3)) {
 
-                // Wenn "4" gedrückt wird, dann wird die Tabelle nach dem Dexterity-Value
+                // Wenn "3" gedrückt wird, dann wird die Tabelle nach dem Dexterity-Value
                 // absteigend sortiert.
 
                 this.resetSortValues();
@@ -210,11 +215,11 @@ public class HeroesView extends View {
                     public int compare(LivingEntity o1, LivingEntity o2) {
 
                         if (o1.getDexterity() > o2.getDexterity()) {
-                            return -1;
+                            return (ascending ? -1 : 1);
                         }
 
                         if (o1.getDexterity() < o2.getDexterity()) {
-                            return 1;
+                            return (ascending ? 1 : -1);
                         }
 
                         return 0;
@@ -222,7 +227,7 @@ public class HeroesView extends View {
 
                 });
 
-            }else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_4)) {
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_4)) {
 
                 // Wenn "4" gedrückt wird, dann wird die Tabelle nach dem Attack-Value
                 // absteigend sortiert.
@@ -237,11 +242,11 @@ public class HeroesView extends View {
                     public int compare(LivingEntity o1, LivingEntity o2) {
 
                         if(o1.getAttackValue() > o2.getAttackValue()) {
-                            return -1;
+                            return (ascending ? -1 : 1);
                         }
 
                         if(o1.getAttackValue() < o2.getAttackValue()) {
-                            return 1;
+                            return (ascending ? 1 : -1);
                         }
 
                         return 0;
@@ -264,11 +269,11 @@ public class HeroesView extends View {
                     public int compare(LivingEntity o1, LivingEntity o2) {
 
                         if(o1.getSkillPoints() > o2.getSkillPoints()) {
-                            return -1;
+                            return (ascending ? -1 : 1);
                         }
 
                         if(o1.getSkillPoints() < o2.getSkillPoints()) {
-                            return 1;
+                            return (ascending ? 1 : -1);
                         }
 
                         return 0;
@@ -360,6 +365,12 @@ public class HeroesView extends View {
 
                 Enterprise.getGame().getDataManager().set("game.heroes.skilling", this.types[this.selectedHero]);
                 Enterprise.getGame().getViewManager().switchTo(SkillView.class);
+
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_M)) {
+
+                // Wenn "M" gedrückt wird, dann wird zwischen "Aufsteigend" und "Absteigend" sortieren gewechselt.
+
+                this.ascending = !this.ascending;
 
             }
 

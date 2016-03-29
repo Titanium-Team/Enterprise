@@ -120,23 +120,23 @@ public class SkillView extends View {
 
                 Enterprise.getGame().getViewManager().switchTo(HeroesView.class);
 
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_LEFT) && !(current.getLeftTree().isEmpty())) {
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_A) && !(current.getLeftTree().isEmpty())) {
 
-                // Wenn "Pfeiltaste-Links" gedrückt wird und es noch weiter nach links im Bau geht, dann soll man
+                // Wenn "A" gedrückt wird und es noch weiter nach links im Bau geht, dann soll man
                 // sich im Baum in die linke Node bewegen.
 
                 this.selectedSkill = current.getLeftTree().getContent().getSkill();
 
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_RIGHT) && !(current.getRightTree().isEmpty())) {
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_D) && !(current.getRightTree().isEmpty())) {
 
-                // Wenn "Pfeiltaste-Rechts" gedrückt wird und es noch weiter nach rechts im Bau geht, dann soll man
+                // Wenn "D" gedrückt wird und es noch weiter nach rechts im Bau geht, dann soll man
                 // sich im Baum in die rechte Node bewegen.
 
                 this.selectedSkill = current.getRightTree().getContent().getSkill();
 
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_UP) && !(parent == null)) {
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_W) && !(parent == null)) {
 
-                // Wenn "Pfeiltaste-Oben" gedrückt wird und es noch weiter nach oben im Bau geht, dann soll man
+                // Wenn "W" gedrückt wird und es noch weiter nach oben im Bau geht, dann soll man
                 // sich im Baum in die obere also in die Parent Node des aktuellen bewegen.
 
                 this.selectedSkill = parent.getContent().getSkill();
