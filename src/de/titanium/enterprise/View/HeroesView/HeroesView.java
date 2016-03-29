@@ -109,6 +109,22 @@ public class HeroesView extends View {
 
         }
 
+        // Die Überschrift für die Hilfe-Sektion
+        g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Steuerung", 10), 1030, 50, null);
+
+        // Hier wird die Steuerungshilfe in gerendert
+        g.drawImage(textBuilder.toImage("E    Equip", 8), 990, 80, null);
+        g.drawImage(textBuilder.toImage("S    Skill", 8), 990, 100, null);
+
+        g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Sortieren", 10), 1030, 140, null);
+
+        g.drawImage(textBuilder.toImage("1    Namen", 8), 990, 180, null);
+        g.drawImage(textBuilder.toImage("2    HP", 8), 990, 200, null);
+        g.drawImage(textBuilder.toImage("3    DY", 8), 990, 220, null);
+        g.drawImage(textBuilder.toImage("4    AT", 8), 990, 240, null);
+        g.drawImage(textBuilder.toImage("5    SP", 8), 990, 260, null);
+        g.drawImage(textBuilder.toImage("0    Default", 8), 990, 260, null);
+
         //border
         g.drawImage(Textures.BORDER_UP.getImage(), 0, 0, null, null);
 
@@ -262,19 +278,39 @@ public class HeroesView extends View {
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_0)) {
 
-                // Wenn "0" gedrückt wird, dann wird die normale Tabelle ohne eine Art von
-                // Sortierung dargestellt.
+                // Wenn "0" gedrückt wird, dann wird nach Type sortiert, dies wird allerdings nicht besonders markiert.
 
                 this.resetSortValues();
                 this.types = Enterprise.getGame().getDataManager().get("game.heroes.types");
+                this.sort(this.types, 0, this.types.length - 1, new Comparator<LivingEntity>() {
+
+                    @Override
+                    public int compare(LivingEntity o1, LivingEntity o2) {
+
+                        if(o1.getClass().getSimpleName().toCharArray()[0] > o2.getClass().getSimpleName().toCharArray()[0]) {
+                            return 1;
+                        }
+
+                        if(o1.getClass().getSimpleName().toCharArray()[0] < o2.getClass().getSimpleName().toCharArray()[0]) {
+                            return -1;
+                        }
+
+                        return 0;
+
+                    }
+
+                });
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_UP)) {
 
                 // Wenn man die Pfeiltaste nach oben drückt, dann soll in der Tabelle
                 // nach oben gescrolled werden.
 
-                this.currentRow--;
                 this.selectedHero--;
+
+                if(this.selectedHero < this.currentRow) {
+                    this.currentRow--;
+                }
 
                 if(this.currentRow < 0) {
                     this.currentRow = 0;
@@ -289,8 +325,10 @@ public class HeroesView extends View {
                 // Wenn man die Pfeiltaste nach unten drückt, dann soll in der Tabelle
                 // nach unten gescrolled werden.
 
-                this.currentRow++;
                 this.selectedHero++;
+                if(this.selectedHero >= this.maxRows) {
+                    this.currentRow++;
+                }
 
                 if((this.currentRow + this.maxRows) > this.types.length) {
                     this.currentRow--;

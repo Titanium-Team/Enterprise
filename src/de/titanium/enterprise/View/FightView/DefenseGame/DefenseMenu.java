@@ -5,9 +5,11 @@ import de.titanium.enterprise.Data.Datas.Score;
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.GameComponent;
+import de.titanium.enterprise.Sprite.Animation.Animations;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.FightView.FightMenu;
 import de.titanium.enterprise.View.FightView.FightView;
+import de.titanium.enterprise.View.GameMenu.GameMenuView;
 import de.titanium.enterprise.View.MenuView;
 
 import java.awt.*;
@@ -141,12 +143,34 @@ public class DefenseMenu extends MenuView implements GameComponent {
                                 hero.getHealth() - (damage - defense)
                         );
 
+                        // Falls der Held gestorben ist.
                         if(!(hero.isAlive())) {
-                            Enterprise.getGame().getLogger().info("THE HERO DIED");
+                            hero.getAnimationQueue().add(Animations.RANGER_DIE);
+                        }
+
+                        // @Idea: Nun wird geprüft ob alle gestorben sind, falls ja, dann wird der End-Screen angezeigt.
+                        for(LivingEntity entity : Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes")) {
+
+                            if(entity.isAlive()) {
+
+                                // Falls noch mindestens ein Hero lebt, dann geht es weiter im Spiel und es wird im
+                                // FightMenu der Angriff fortgesetzt.
+
+                                Enterprise.getGame().getViewManager().changeMenu(FightView.class, new FightMenu());
+
+                                break;
+
+                            } else {
+
+                                // @Idea: Falls das nicht der Fall ist, dann wird der Game-End-Screen angezeigt.
+                                // Aktuell wird man einfach noch ins Hauptmenü zurückgebracht.
+                                Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
+
+                            }
+
                         }
 
                         Enterprise.getGame().getDataManager().<BinarySearchTree>get("game.defense.scores").insert(score);
-                        Enterprise.getGame().getViewManager().changeMenu(FightView.class, new FightMenu());
                         break;
                     }
                 }
