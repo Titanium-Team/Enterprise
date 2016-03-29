@@ -14,8 +14,8 @@ import de.titanium.enterprise.View.MenuView;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
-import java.util.Random;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Yonas on 11.03.2016.
@@ -139,8 +139,8 @@ public class FightMenu extends MenuView implements GameComponent {
             // und Period (.) C und P als Character ausgewählt, obwohl das eigentlich nicht passieren sollte.
             // Die Grafiken scheinen richtig "gegrabed" zu werden, es liegt also eventuell an den Werten die VK_COMMA und
             // VK_PERIOD zurückgeben, ist aber auch nur eine Theroie.
-            //this.add(KeyEvent.VK_COMMA);
-            //this.add(KeyEvent.VK_PERIOD);
+            //this.set(KeyEvent.VK_COMMA);
+            //this.set(KeyEvent.VK_PERIOD);
 
         }});
     }
@@ -156,7 +156,7 @@ public class FightMenu extends MenuView implements GameComponent {
         g.setRenderingHints(Enterprise.getGame().getRenderingHints());
 
         //Button rendering
-        LivingEntity[] heroes = Enterprise.getGame().getDataManager().getOne("game.heroes");
+        LivingEntity[] heroes = Enterprise.getGame().getDataManager().get("game.heroes");
         Image failedImage = Textures.FAILED_BUTTON.getImage();
         Image checkedImage = Textures.CHECKED_BUTTON.getImage();
 
@@ -203,7 +203,7 @@ public class FightMenu extends MenuView implements GameComponent {
     @Override
     public void update(int tick) {
 
-        LivingEntity[] heroes = Enterprise.getGame().getDataManager().getOne("game.heroes");
+        LivingEntity[] heroes = Enterprise.getGame().getDataManager().get("game.heroes");
 
         //Es wird geprüft ob der Button gedrückt wurde, falls er noch nicht gedrückt wurde
         if(!(this.tmpOne) && !(this.heroOne == null) && heroes[0].isAlive()) {
@@ -327,7 +327,7 @@ public class FightMenu extends MenuView implements GameComponent {
                     heroes[2].getAnimationQueue().add(Animations.RANGER_ATTACK);
                 }
 
-                LivingEntity enemy = dataManager.getOne("game.enemy");
+                LivingEntity enemy = dataManager.get("game.enemy");
                 enemy.getAnimationQueue().add(Animations.RANGER_IDLE);
                 enemy.getAnimationQueue().add(Animations.RANGER_BLOCK);
 
@@ -377,28 +377,30 @@ public class FightMenu extends MenuView implements GameComponent {
                     this.comboTwo = 0;
                     this.comboThree = 0;
 
-                    //Den Spieler setzten der den meisten Schaden gemacht hat.
+                    // Den Hero setzten der den meisten Schaden gemacht hat.
                     LivingEntity max;
 
-                    if(damageOne > damageTwo && damageOne > damageThree) {
+                    if(damageOne > damageTwo && damageOne > damageThree && heroes[0].isAlive()) {
                         // Falls der erste Held am meisten Schaden gemacht hat.
                         max = heroes[0];
-                    } else if(damageTwo > damageOne && damageTwo > damageThree) {
+                    } else if(damageTwo > damageOne && damageTwo > damageThree && heroes[1].isAlive()) {
                         // Falls der zweite Held am meisten Schaden gemacht hat.
                         max = heroes[1];
-                    } else if(damageThree > damageOne && damageThree > damageTwo) {
+                    } else if(damageThree > damageOne && damageThree > damageTwo && heroes[2].isAlive()) {
                         // Falls der dritte Held am meisten Schaden gemacht hat.
                         max = heroes[2];
                     } else {
+
                         // Sollten alle die gleichen Werte erricht haben, wird einfach ein zufälliger ausgewählt.
                         // @Idea: Eventuell ist der "Zufall" nicht balanced genug und man könnte überlegen, ob man eventuell
                         // den nimmt der am meisten oder am wenigsten Leben noch hat.
 
-                        max = heroes[this.random.nextInt(heroes.length)];
+                        while(!(max = heroes[this.random.nextInt(heroes.length)]).isAlive()) {}
+
                     }
 
                     // Nun den max-Damage-Hero noch global in den DataManager packe.
-                    Enterprise.getGame().getDataManager().add("game.fight.maxDamage", max);
+                    Enterprise.getGame().getDataManager().set("game.fight.maxDamage", max);
 
                     // Switch to Defense Game
                     Enterprise.getGame().getViewManager().changeMenu(FightView.class, new DefenseMenu());

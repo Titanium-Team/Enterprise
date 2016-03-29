@@ -48,7 +48,7 @@ public class SkillView extends View {
             g.drawImage(Enterprise.getGame().getTextBuilder().toImage(description.get(i), 7), 990, 50 + i * 20, null);
         }
 
-        LivingEntity entity = Enterprise.getGame().getDataManager().getOne("game.heroes.skilling");
+        LivingEntity entity = Enterprise.getGame().getDataManager().get("game.heroes.skilling");
 
         if(this.selectedSkill.hasSkill(entity)) {
 
@@ -101,7 +101,7 @@ public class SkillView extends View {
     public void update(int tick) {
 
         //update animation
-        LivingEntity hero = Enterprise.getGame().getDataManager().getOne("game.heroes.skilling");
+        LivingEntity hero = Enterprise.getGame().getDataManager().get("game.heroes.skilling");
         hero.getAnimationQueue().element().next();
 
 

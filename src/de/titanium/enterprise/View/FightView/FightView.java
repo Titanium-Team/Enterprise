@@ -39,9 +39,9 @@ public class FightView extends View {
         //Updates Animation of all Heroes and the Enemy
         DataManager dataManager = Enterprise.getGame().getDataManager();
 
-        dataManager.<LivingEntity>getOne("game.enemy").getAnimationQueue().element().next();
+        dataManager.<LivingEntity>get("game.enemy").getAnimationQueue().element().next();
 
-        LivingEntity[] heroes = dataManager.getOne("game.heroes");
+        LivingEntity[] heroes = dataManager.get("game.heroes");
         for(int i = 0; i < heroes.length; i++) {
             heroes[i].getAnimationQueue().element().next();
         }
@@ -49,7 +49,7 @@ public class FightView extends View {
         //Score
         if(Enterprise.getGame().getDataManager().contains("game.defense.scores")) {
             scores = new ArrayList<>();
-            this.inorder(Enterprise.getGame().getDataManager().<BinarySearchTree>getOne("game.defense.scores"), scores);
+            this.inorder(Enterprise.getGame().getDataManager().<BinarySearchTree>get("game.defense.scores"), scores);
         }
 
     }
@@ -70,7 +70,7 @@ public class FightView extends View {
         //Draw Heroes
         DataManager dataManager = Enterprise.getGame().getDataManager();
 
-        LivingEntity[] heroes = dataManager.getOne("game.heroes");
+        LivingEntity[] heroes = dataManager.get("game.heroes");
 
         for(int i = 0; i < heroes.length; i++) {
             LivingEntity hero = heroes[i];
@@ -82,7 +82,7 @@ public class FightView extends View {
         }
 
         //Get Enemy
-        LivingEntity enemy = dataManager.getOne("game.enemy");
+        LivingEntity enemy = dataManager.get("game.enemy");
         Animator animation = enemy.getAnimationQueue().element();
 
         //flip animation
@@ -100,6 +100,8 @@ public class FightView extends View {
 
         // @Cleanup: Sollte hier nur zu Testzwecken sein und in den nächsten Tagen entfernt werden, sobald es eine bessere
         // Alternative zur Darstellung gibt.
+        // @Bug: Hier darf eigentlich kein for-loop genutzt werden, sondern am besten einfach einen Iterator der die Scores
+        // durchgeht.
         if (scores != null) {
             int y = 0;
             for (Score score : scores) {

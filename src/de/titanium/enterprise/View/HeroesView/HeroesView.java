@@ -21,7 +21,7 @@ import java.util.Comparator;
  */
 public class HeroesView extends View {
 
-    private LivingEntity[] types = Enterprise.getGame().getDataManager().<LivingEntity[]>getOne("game.heroes.types");
+    private LivingEntity[] types = Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes.types");
 
     private int currentRow = 0;
     private final int maxRows = 13;
@@ -81,7 +81,7 @@ public class HeroesView extends View {
         g.setStroke(new BasicStroke(3));
 
         int y = 82;
-        LivingEntity[] currentHeroes = Enterprise.getGame().getDataManager().getOne("game.heroes");
+        LivingEntity[] currentHeroes = Enterprise.getGame().getDataManager().get("game.heroes");
         for(int i = this.currentRow; i < this.types.length; i++) {
 
             // Hier werden alle Werte Zeile für Zeile dargestellt.
@@ -132,7 +132,7 @@ public class HeroesView extends View {
                 this.resetSortValues();
                 this.sortNameValue = true;
 
-                this.types = Enterprise.getGame().getDataManager().getOne("game.heroes.types");
+                this.types = Enterprise.getGame().getDataManager().get("game.heroes.types");
                 this.sort(this.types, 0, this.types.length - 1, new Comparator<LivingEntity>() {
 
                     @Override
@@ -160,7 +160,7 @@ public class HeroesView extends View {
                 this.resetSortValues();
                 this.sortHealthValue = true;
 
-                this.types = Enterprise.getGame().getDataManager().getOne("game.heroes.types");
+                this.types = Enterprise.getGame().getDataManager().get("game.heroes.types");
                 this.sort(this.types, 0, this.types.length - 1, new Comparator<LivingEntity>() {
 
                     @Override
@@ -187,7 +187,7 @@ public class HeroesView extends View {
                 this.resetSortValues();
                 this.sortDexterity = true;
 
-                this.types = Enterprise.getGame().getDataManager().getOne("game.heroes.types");
+                this.types = Enterprise.getGame().getDataManager().get("game.heroes.types");
                 this.sort(this.types, 0, this.types.length - 1, new Comparator<LivingEntity>() {
 
                     @Override
@@ -214,7 +214,7 @@ public class HeroesView extends View {
                 this.resetSortValues();
                 this.sortAttackValue = true;
 
-                this.types = Enterprise.getGame().getDataManager().getOne("game.heroes.types");
+                this.types = Enterprise.getGame().getDataManager().get("game.heroes.types");
                 this.sort(this.types, 0, this.types.length - 1, new Comparator<LivingEntity>() {
 
                     @Override
@@ -241,7 +241,7 @@ public class HeroesView extends View {
                 this.resetSortValues();
                 this.sortSkillPoints = true;
 
-                this.types = Enterprise.getGame().getDataManager().getOne("game.heroes.types");
+                this.types = Enterprise.getGame().getDataManager().get("game.heroes.types");
                 this.sort(this.types, 0, this.types.length - 1, new Comparator<LivingEntity>() {
 
                     @Override
@@ -266,7 +266,7 @@ public class HeroesView extends View {
                 // Sortierung dargestellt.
 
                 this.resetSortValues();
-                this.types = Enterprise.getGame().getDataManager().getOne("game.heroes.types");
+                this.types = Enterprise.getGame().getDataManager().get("game.heroes.types");
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_UP)) {
 
@@ -307,11 +307,11 @@ public class HeroesView extends View {
                 LivingEntity hero = this.types[this.selectedHero];
 
                 if(hero instanceof Archer) {
-                    Enterprise.getGame().getDataManager().<LivingEntity[]>getOne("game.heroes")[0] = hero;
+                    Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes")[0] = hero;
                 } else if(hero instanceof Warrior) {
-                    Enterprise.getGame().getDataManager().<LivingEntity[]>getOne("game.heroes")[1] = hero;
+                    Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes")[1] = hero;
                 } else if(hero instanceof Rogue) {
-                    Enterprise.getGame().getDataManager().<LivingEntity[]>getOne("game.heroes")[2] = hero;
+                    Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes")[2] = hero;
                 }
 
                 Enterprise.getGame().getLogger().info("Hero Selected: " + hero.getName());
@@ -320,7 +320,7 @@ public class HeroesView extends View {
                 // Wenn die S-Taste gedrückt wird, dann soll der Hero in die Skill-View gebracht werden, wo man
                 // dann seine Skill-Werte setzen kann.
 
-                Enterprise.getGame().getDataManager().add("game.heroes.skilling", this.types[this.selectedHero]);
+                Enterprise.getGame().getDataManager().set("game.heroes.skilling", this.types[this.selectedHero]);
                 Enterprise.getGame().getViewManager().switchTo(SkillView.class);
 
             }

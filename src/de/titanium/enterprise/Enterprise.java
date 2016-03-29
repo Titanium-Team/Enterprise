@@ -63,20 +63,20 @@ public class Enterprise {
         Enterprise.game = this;
 
         //Game State
-        this.dataManager.add("game.state", GameState.POSTING);
+        this.dataManager.set("game.state", GameState.POSTING);
 
         //Adding loading screen
         this.viewManager.register(new LoadingView());
         this.viewManager.switchTo(LoadingView.class);
 
         //managing loading
-        this.dataManager.add("game.state", GameState.LOADING);
+        this.dataManager.set("game.state", GameState.LOADING);
         this.loadingManager.add(Textures.values());
         this.loadingManager.add(Animations.values());
         this.loadingManager.load();
 
         //set default hero types
-        this.getDataManager().add("game.heroes.types", new LivingEntity[] {
+        this.getDataManager().set("game.heroes.types", new LivingEntity[]{
 
                 new Archer(UUID.randomUUID(), "Robin Trump", 40, 40, 6, 8, 0),
                 new Archer(UUID.randomUUID(), "Georg von Wald", 60, 60, 3, 3, 0),
@@ -99,16 +99,16 @@ public class Enterprise {
         });
 
         //set default heroes
-        this.getDataManager().add("game.heroes", new LivingEntity[] {
+        this.getDataManager().set("game.heroes", new LivingEntity[]{
 
-                this.getDataManager().<LivingEntity[]>getOne("game.heroes.types")[0],
-                this.getDataManager().<LivingEntity[]>getOne("game.heroes.types")[5],
-                this.getDataManager().<LivingEntity[]>getOne("game.heroes.types")[10]
+                this.getDataManager().<LivingEntity[]>get("game.heroes.types")[0],
+                this.getDataManager().<LivingEntity[]>get("game.heroes.types")[5],
+                this.getDataManager().<LivingEntity[]>get("game.heroes.types")[10]
 
         });
 
         //set default enemy
-        this.getDataManager().add("game.enemy", new Archer(UUID.randomUUID(), "Enemy", 10, 100, 5, 5, 12));
+        this.getDataManager().set("game.enemy", new Archer(UUID.randomUUID(), "Enemy", 10, 100, 5, 5, 12));
 
         //default menu
         DefaultMenu defaultMenu = new DefaultMenu();
@@ -170,7 +170,7 @@ public class Enterprise {
     public void start() {
 
         int CURRENT_TICK = 1;
-        this.dataManager.add("game.state", GameState.WAITING);
+        this.dataManager.set("game.state", GameState.WAITING);
 
         while (true) {
 
@@ -180,7 +180,7 @@ public class Enterprise {
 
             while (updateComponents.hasNext()) {
 
-                this.dataManager.add("game.state", GameState.UPDATE);
+                this.dataManager.set("game.state", GameState.UPDATE);
                 GameComponent component = updateComponents.next();
 
                 if (component.isActive()) {
@@ -199,7 +199,7 @@ public class Enterprise {
 
             while(renderComponents.hasNext()) {
 
-                this.dataManager.add("game.state", GameState.RENDER);
+                this.dataManager.set("game.state", GameState.RENDER);
                 GameComponent component = renderComponents.next();
 
                 if(component.isActive()) {
@@ -208,7 +208,7 @@ public class Enterprise {
 
             }
 
-            this.dataManager.add("game.state", GameState.WAITING);
+            this.dataManager.set("game.state", GameState.WAITING);
             try {
                 long sleep = (long) (1000 / MAX_TICKS - (currentTime - System.currentTimeMillis()));
 

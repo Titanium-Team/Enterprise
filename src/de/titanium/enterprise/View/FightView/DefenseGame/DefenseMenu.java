@@ -124,13 +124,13 @@ public class DefenseMenu extends MenuView implements GameComponent {
                         // sich aus entscheiden sollte, bei der Ausgabe, was dargestellt werden soll?
                         Score score = new Score(this.tick, "Score:");
                         if(!Enterprise.getGame().getDataManager().contains("game.defense.scores")) {
-                            Enterprise.getGame().getDataManager().add("game.defense.scores", new BinarySearchTree<Score>());
+                            Enterprise.getGame().getDataManager().set("game.defense.scores", new BinarySearchTree<Score>());
                         }
 
                         // @Improve: Das hier ist erstmal eine erste Idee wie das ganze Aussehen könnte.
                         // Damit wird wenigstens schonmal etwas hier haben.
-                        LivingEntity enemy = Enterprise.getGame().getDataManager().getOne("game.enemy");
-                        LivingEntity hero = Enterprise.getGame().getDataManager().getOne("game.fight.maxDamage");
+                        LivingEntity enemy = Enterprise.getGame().getDataManager().get("game.enemy");
+                        LivingEntity hero = Enterprise.getGame().getDataManager().get("game.fight.maxDamage");
 
                         double damage = enemy.calculateDamage(hero, this.random.nextInt(5) + 10);
                         double defense = hero.calculateDefense(enemy, this.tick);
@@ -141,7 +141,11 @@ public class DefenseMenu extends MenuView implements GameComponent {
                                 hero.getHealth() - (damage - defense)
                         );
 
-                        Enterprise.getGame().getDataManager().<BinarySearchTree>getOne("game.defense.scores").insert(score);
+                        if(!(hero.isAlive())) {
+                            Enterprise.getGame().getLogger().info("THE HERO DIED");
+                        }
+
+                        Enterprise.getGame().getDataManager().<BinarySearchTree>get("game.defense.scores").insert(score);
                         Enterprise.getGame().getViewManager().changeMenu(FightView.class, new FightMenu());
                         break;
                     }

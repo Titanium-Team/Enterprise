@@ -116,7 +116,7 @@ public class StoryView extends View {
 
         this.story.put("Einleitung", new ArrayList<String>() {{
 
-            //this.add("BlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBla");
+            //this.set("BlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBla");
             this.add("In medieval times, there was a ring. It was silver and plain. The ring");
             this.add("did not look like much, but it was forged by one of the most skilled");
             this.add("blacksmiths in the world, who also happend to be a magican. Magicans were");

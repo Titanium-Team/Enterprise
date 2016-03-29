@@ -1,15 +1,13 @@
 package de.titanium.enterprise.Data;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by Yonas on 16.03.2016.
  */
 public class DataManager {
 
-    private HashMap<String, List> dataEntries = new HashMap<>();
+    private HashMap<String, Object> dataEntries = new HashMap<>();
 
     public DataManager() {}
 
@@ -20,54 +18,25 @@ public class DataManager {
      * @param dataEntry
      * @param <T>
      */
-    public <T> void add(String name, final T dataEntry) {
+    public <T> void set(String name, final T dataEntry) {
 
         // @Improve: Anstelle eines Strings sollte man eher Enums benutzen die einen Pfad angeben. Sollte unnötige
         // Fehler vermeiden.
-        if(this.dataEntries.containsKey(name)) {
-            this.dataEntries.get(name).add(dataEntry);
-        } else {
-            this.dataEntries.put(name, new ArrayList<T>() {{
-
-                this.add(dataEntry);
-
-            }});
-        }
+        this.dataEntries.put(name, dataEntry);
 
     }
 
     /**
-     * Diese Methode gibt nur den ersten aller Einträge zurück.
+     * Diese Methode gibt den passenden Eintrag zurück.
      * @param name
      * @param <T>
      * @return
      */
-    public <T> T getOne(String name) {
+    public <T> T get(String name) {
 
-        if(this.dataEntries.containsKey(name) && this.dataEntries.get(name).size() > 0) {
-            return (T) this.dataEntries.get(name).get(0);
-        }
-
-        return null;
+        return (T) this.dataEntries.get(name);
 
     }
-
-    /**
-     * Diese Methode gibt eine Liste aller Einträge zurück.
-     * @param name
-     * @param <T>
-     * @return
-     */
-    public <T> List<T> get(String name) {
-
-        if(this.dataEntries.containsKey(name)) {
-            return (List<T>) this.dataEntries.get(name);
-        }
-
-        return null;
-
-    }
-
     /**
      * Diese Methode prüft, ob ein bestimmer Pfad vorhanden ist.
      * @param name
@@ -75,7 +44,7 @@ public class DataManager {
      */
     public boolean contains(String name) {
 
-        return (this.dataEntries.containsKey(name) && !(this.dataEntries.get(name).isEmpty()));
+        return (this.dataEntries.containsKey(name));
 
     }
 
