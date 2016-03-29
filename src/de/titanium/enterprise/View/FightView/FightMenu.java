@@ -1,5 +1,6 @@
 package de.titanium.enterprise.View.FightView;
 
+import de.titanium.enterprise.Achievment.Achievements;
 import de.titanium.enterprise.Data.DataManager;
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Entity.LivingEntity;
@@ -352,19 +353,20 @@ public class FightMenu extends MenuView implements GameComponent {
                 // da sonst der gegener, bei einem negativen Wert, Leben hinzubekommen würde.
                 totalDamage = Math.max(totalDamage, 0);
 
-                Enterprise.getGame().getLogger().info("Total Damage: " + totalDamage);
-                Enterprise.getGame().getLogger().info("0 Damage: " + damageOne);
-                Enterprise.getGame().getLogger().info("1 Damage: " + damageTwo);
-                Enterprise.getGame().getLogger().info("1 Damage: " + damageThree);
-
                 enemy.setHealth(
                         enemy.getHealth() - totalDamage
                 );
+
+                // @Achievement
+                if(totalDamage >= 5) {
+                    Enterprise.getGame().getAchievementManager().add(Achievements.DAMAGE_5);
+                }
 
                 if(!(enemy.isAlive())) { //swich to main menu
                     // TODO Game End screen
                     // @Idea: Wenn das Spiel bzw. die aktuelle Runde vorbei ist, sollte der Spieler eine Übersicht über seine
                     // Helden bekommen. Mit einigen Statistiken zum Kampf.
+                    // TODO Sobald er getötet wurde, wird der nächste generiert.
                     enemy.getAnimationQueue().add(Animations.RANGER_DIE);
                     Enterprise.getGame().getLogger().info("You killed the enemy.");
                     Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);

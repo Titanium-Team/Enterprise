@@ -126,7 +126,8 @@ public class Enterprise {
 
         this.viewManager.switchTo(GameMenuView.class);
 
-        this.achievementManager.add(Achievements.TEST);
+        // @Achievement
+        this.achievementManager.add(Achievements.WELCOME);
 
         //start game
         this.start();

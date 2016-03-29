@@ -63,6 +63,9 @@ public class StoryView extends View {
             i++;
         }
 
+        // Hier werden die Achievements gezeichnet, falls welche freigeschaltet wurden.
+        Enterprise.getGame().getAchievementManager().handle(g);
+
     }
 
     @Override

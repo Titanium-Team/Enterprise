@@ -110,6 +110,9 @@ public class FightView extends View {
             }
         }
 
+        // Hier werden die Achievements gezeichnet, falls welche freigeschaltet wurden.
+        Enterprise.getGame().getAchievementManager().handle(g);
+
     }
 
 

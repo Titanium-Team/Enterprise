@@ -94,6 +94,9 @@ public class SkillView extends View {
         // Hier wird die Methode aufgerufen die den Skill-Tree zeichnet.
         this.drawTree(g, this.skillBinarySearchTree, BinaryTreeMath.maxDepth(this.skillBinarySearchTree), 0, 1);
 
+        // Hier werden die Achievements gezeichnet, falls welche freigeschaltet wurden.
+        Enterprise.getGame().getAchievementManager().handle(g);
+
     }
 
 

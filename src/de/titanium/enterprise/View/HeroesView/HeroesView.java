@@ -133,6 +133,9 @@ public class HeroesView extends View {
         //border
         g.drawImage(Textures.BORDER_UP.getImage(), 0, 0, null, null);
 
+        // Hier werden die Achievements gezeichnet, falls welche freigeschaltet wurden.
+        Enterprise.getGame().getAchievementManager().handle(g);
+
     }
 
     @Override

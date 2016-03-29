@@ -14,6 +14,12 @@ public interface Achievement {
     String getName();
 
     /**
+     * Gibt die Beschreibung des Achievements zurück.
+     * @return
+     */
+    String getDescription();
+
+    /**
      * Gibt die Texture zurück die eingeblendet werden soll, wenn das Achievement freigeschaltet wird.
      * @return
      */

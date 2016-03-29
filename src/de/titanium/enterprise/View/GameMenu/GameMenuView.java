@@ -127,7 +127,7 @@ public class GameMenuView extends View {
             x++;
         }
 
-        //draw ac
+        // Hier werden die Achievements gezeichnet, falls welche freigeschaltet wurden.
         Enterprise.getGame().getAchievementManager().handle(g);
 
     }

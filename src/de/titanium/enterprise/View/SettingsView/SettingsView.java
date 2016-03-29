@@ -74,6 +74,9 @@ public class SettingsView extends View {
         //ESC zum Speichern
         g.drawImage(Enterprise.getGame().getTextBuilder().toImage("ESC druecken um zu speichern", 10), 233, 380, null);
 
+        // Hier werden die Achievements gezeichnet, falls welche freigeschaltet wurden.
+        Enterprise.getGame().getAchievementManager().handle(g);
+
     }
 
 

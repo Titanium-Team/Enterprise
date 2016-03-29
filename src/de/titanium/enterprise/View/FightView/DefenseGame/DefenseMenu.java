@@ -1,5 +1,6 @@
 package de.titanium.enterprise.View.FightView.DefenseGame;
 
+import de.titanium.enterprise.Achievment.Achievements;
 import de.titanium.enterprise.Data.BinarySearchTree;
 import de.titanium.enterprise.Data.Datas.Score;
 import de.titanium.enterprise.Enterprise;
@@ -111,7 +112,6 @@ public class DefenseMenu extends MenuView implements GameComponent {
             this.space--;
         }
 
-
         //Einen neuen Spieler erstellen, falls es ihn noch nicht gibt
         if(this.player == null) {
             this.player = new Rectangle(this.getWidth() / 2, this.height + this.space / 2, 5, 5);
@@ -136,8 +136,6 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
                         double damage = enemy.calculateDamage(hero, this.random.nextInt(5) + 10);
                         double defense = hero.calculateDefense(enemy, this.tick);
-
-                        Enterprise.getGame().getLogger().info(String.format("Enemy deal damage: %.2f-%.2f gegen %s.", hero.getHealth(), (damage - defense), hero.getName()));
 
                         hero.setHealth(
                                 hero.getHealth() - (damage - defense)
@@ -174,6 +172,11 @@ public class DefenseMenu extends MenuView implements GameComponent {
                         break;
                     }
                 }
+            }
+
+            // @Achievement
+            if(this.tick >= 2000) {
+                Enterprise.getGame().getAchievementManager().add(Achievements.DEFENSESCORE_2000);
             }
 
         }
