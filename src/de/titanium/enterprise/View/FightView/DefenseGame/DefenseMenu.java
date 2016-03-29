@@ -175,8 +175,14 @@ public class DefenseMenu extends MenuView implements GameComponent {
             }
 
             // @Achievement
+            if(this.tick >= 1000) {
+                Enterprise.getGame().getAchievementManager().add(Achievements.DEFENSESCORE_1000);
+            }
             if(this.tick >= 2000) {
                 Enterprise.getGame().getAchievementManager().add(Achievements.DEFENSESCORE_2000);
+            }
+            if(this.tick >= 5000) {
+                Enterprise.getGame().getAchievementManager().add(Achievements.DEFENSESCORE_5000);
             }
 
         }

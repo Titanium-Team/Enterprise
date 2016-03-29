@@ -361,8 +361,14 @@ public class FightMenu extends MenuView implements GameComponent {
                 if(totalDamage >= 5) {
                     Enterprise.getGame().getAchievementManager().add(Achievements.DAMAGE_5);
                 }
+                if(totalDamage >= 10) {
+                    Enterprise.getGame().getAchievementManager().add(Achievements.DAMAGE_10);
+                }
+                if(totalDamage >= 20) {
+                    Enterprise.getGame().getAchievementManager().add(Achievements.DAMAGE_20);
+                }
 
-                if(!(enemy.isAlive())) { //swich to main menu
+                if(!(enemy.isAlive())) {
                     // TODO Game End screen
                     // @Idea: Wenn das Spiel bzw. die aktuelle Runde vorbei ist, sollte der Spieler eine Übersicht über seine
                     // Helden bekommen. Mit einigen Statistiken zum Kampf.

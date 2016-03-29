@@ -7,7 +7,6 @@ import de.titanium.enterprise.Entity.Entities.Archer;
 import de.titanium.enterprise.Entity.Entities.Rogue;
 import de.titanium.enterprise.Entity.Entities.Warrior;
 import de.titanium.enterprise.Entity.LivingEntity;
-import de.titanium.enterprise.KeyManager.KeyManager;
 import de.titanium.enterprise.Loading.LoadingManager;
 import de.titanium.enterprise.Sprite.Animation.Animations;
 import de.titanium.enterprise.Sprite.Textures;

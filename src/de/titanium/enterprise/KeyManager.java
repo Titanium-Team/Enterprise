@@ -1,4 +1,4 @@
-package de.titanium.enterprise.KeyManager;
+package de.titanium.enterprise;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;

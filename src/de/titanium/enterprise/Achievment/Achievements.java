@@ -30,16 +30,76 @@ public enum Achievements implements Achievement {
     },
     DAMAGE_5 {
 
-        // Wird freigeschaltet, wenn der Spieler 5+ Damage aufeinmal macht.
+        // Wird freigeschaltet, wenn der Spieler 10+ Damage auf einmal macht.
 
         @Override
         public String getName() {
-            return "kleiner mann";
+            return "kleiner Mann";
         }
 
         @Override
         public String getDescription() {
-            return "5+ Schaden";
+            return "10+ Schaden";
+        }
+
+        @Override
+        public Texture getTexture() {
+            return Textures.TEST;
+        }
+
+    },
+    DAMAGE_10 {
+
+        // Wird freigeschaltet, wenn der Spieler 5+ Damage auf einmal macht.
+
+        @Override
+        public String getName() {
+            return "Aua.";
+        }
+
+        @Override
+        public String getDescription() {
+            return "10+ Schaden";
+        }
+
+        @Override
+        public Texture getTexture() {
+            return Textures.TEST;
+        }
+
+    },
+    DAMAGE_20 {
+
+        // Wird freigeschaltet, wenn der Spieler 15+ Damage auf einmal macht.
+
+        @Override
+        public String getName() {
+            return "Ich dachte wir sind Freunde.";
+        }
+
+        @Override
+        public String getDescription() {
+            return "20+ Schaden";
+        }
+
+        @Override
+        public Texture getTexture() {
+            return Textures.TEST;
+        }
+
+    },
+    DEFENSESCORE_1000 {
+
+        // Wird freigeschaltet, wenn der Spieler einen Defense-Score von 1000 oder mehr erreicht.
+
+        @Override
+        public String getName() {
+            return "Baby";
+        }
+
+        @Override
+        public String getDescription() {
+            return "1000 oder mehr";
         }
 
         @Override
@@ -60,6 +120,26 @@ public enum Achievements implements Achievement {
         @Override
         public String getDescription() {
             return "2000 oder mehr";
+        }
+
+        @Override
+        public Texture getTexture() {
+            return Textures.TEST;
+        }
+
+    },
+    DEFENSESCORE_5000 {
+
+        // Wird freigeschaltet, wenn der Spieler einen Defense-Score von 5000 oder mehr erreicht.
+
+        @Override
+        public String getName() {
+            return "Formel 1";
+        }
+
+        @Override
+        public String getDescription() {
+            return "5000 oder mehr";
         }
 
         @Override
