@@ -3,13 +3,13 @@ package de.titanium.enterprise.View.FightView;
 import de.titanium.enterprise.Achievment.Achievements;
 import de.titanium.enterprise.Data.DataManager;
 import de.titanium.enterprise.Enterprise;
+import de.titanium.enterprise.Entity.Entities.Archer;
 import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.Entity.Statistic.Statistics;
 import de.titanium.enterprise.GameComponent;
 import de.titanium.enterprise.Sprite.Animation.Animations;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.FightView.DefenseGame.DefenseMenu;
-import de.titanium.enterprise.View.GameMenu.GameMenuView;
 import de.titanium.enterprise.View.MenuView;
 
 import java.awt.*;
@@ -17,6 +17,7 @@ import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 /**
  * Created by Yonas on 11.03.2016.
@@ -315,22 +316,9 @@ public class FightMenu extends MenuView implements GameComponent {
             this.currentTime = System.currentTimeMillis();
 
             if(!(this.pressedOne && heroes[0].isAlive()) && !(this.pressedTwo && heroes[1].isAlive()) && !(this.pressedThree && heroes[2].isAlive())) {
+
                 DataManager dataManager = Enterprise.getGame().getDataManager();
-
-                //queue animations
-                if(heroes[0].isAlive()) {
-                    heroes[0].getAnimationQueue().add(Animations.RANGER_ATTACK);
-                }
-                if(heroes[1].isAlive()) {
-                    heroes[1].getAnimationQueue().add(Animations.RANGER_ATTACK);
-                }
-                if(heroes[2].isAlive()) {
-                    heroes[2].getAnimationQueue().add(Animations.RANGER_ATTACK);
-                }
-
                 LivingEntity enemy = dataManager.get("game.enemy");
-                enemy.getAnimationQueue().add(Animations.RANGER_IDLE);
-                enemy.getAnimationQueue().add(Animations.RANGER_BLOCK);
 
                 //Calculate Damage
                 double damageOne = heroes[0].calculateDamage(enemy, this.comboOne);
@@ -357,6 +345,23 @@ public class FightMenu extends MenuView implements GameComponent {
                         enemy.getHealth() - totalDamage
                 );
 
+                // Hier werden die passenden Animationen in die Queue gepackt. Diese werden allerdings nur abgespielt,
+                // bzw. überhaupt erst gequeued, wenn wirklich schaden gemacht wurde.
+                if(heroes[0].isAlive() && damageOne > 0) {
+                    heroes[0].getAnimationQueue().add(Animations.RANGER_ATTACK);
+                }
+                if(heroes[1].isAlive() && damageTwo > 0) {
+                    heroes[1].getAnimationQueue().add(Animations.RANGER_ATTACK);
+                }
+                if(heroes[2].isAlive() && damageThree > 0) {
+                    heroes[2].getAnimationQueue().add(Animations.RANGER_ATTACK);
+                }
+
+                if(totalDamage > 0) {
+                    enemy.getAnimationQueue().add(Animations.RANGER_IDLE);
+                    enemy.getAnimationQueue().add(Animations.RANGER_BLOCK);
+                }
+
                 // @Achievement
                 if(totalDamage >= 5) {
                     Enterprise.getGame().getAchievementManager().add(Achievements.DAMAGE_5);
@@ -369,13 +374,14 @@ public class FightMenu extends MenuView implements GameComponent {
                 }
 
                 if(!(enemy.isAlive())) {
-                    // TODO Game End screen
-                    // @Idea: Wenn das Spiel bzw. die aktuelle Runde vorbei ist, sollte der Spieler eine Übersicht über seine
-                    // Helden bekommen. Mit einigen Statistiken zum Kampf.
-                    // TODO Sobald er getötet wurde, wird der nächste generiert.
+                    // @Bug: Diese Animation wird nicht mehr abgespielt, da gleich die Instanz für den Enemy ersetzt wird
+                    // und deshalb die neue AnimationQueue genommen wird und die alte nicht mehr abgespielt wird.
                     enemy.getAnimationQueue().add(Animations.RANGER_DIE);
-                    Enterprise.getGame().getLogger().info("You killed the enemy.");
-                    Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
+
+                    // @Improvement: Das hier ist erstmal provisorisch. Dies muss natürlich durch einen automatisch
+                    // generierten Gegner ersetzt werden.
+                    dataManager.set("game.enemy", new Archer(UUID.randomUUID(), "Enemy", 10, 100, 5, 5, 12));
+
                 } else {
 
                     // Falls es ins DefenseGame geht gibt es, falls nicht auch der letzte Held stirbt,

@@ -121,6 +121,11 @@ public class DefenseMenu extends MenuView implements GameComponent {
                 for(Rectangle r : rectangles) {
                     if(this.player.intersects(r)) {
 
+                        // @Achievement
+                        if(this.tick == 197) {
+                            Enterprise.getGame().getAchievementManager().add(Achievements.DEFENSESCORE_197);
+                        }
+
                         // Hier wird der Score dem BinaryTree hinzugefügt.
                         // @Cleanup: Eventuell muss Score diesen "Score:" String garnicht besitzen, da man eventuell von
                         // sich aus entscheiden sollte, bei der Ausgabe, was dargestellt werden soll?

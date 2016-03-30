@@ -108,6 +108,25 @@ public enum Achievements implements Achievement {
         }
 
     },
+    DEFENSESCORE_197 {
+
+        // Wird freigeschaltet, wenn der Spieler direkt gegen die Rampe "fährt".
+
+        @Override
+        public String getName() {
+            return "197.";
+        }
+
+        @Override
+        public String getDescription() {
+            return "197.";
+        }
+
+        @Override
+        public Texture getTexture() {
+            return Textures.TEST;
+        }
+    },
     DEFENSESCORE_2000 {
 
         // Wird freigeschaltet, wenn der Spieler einen Defense-Score von 2000 oder mehr erreicht.
