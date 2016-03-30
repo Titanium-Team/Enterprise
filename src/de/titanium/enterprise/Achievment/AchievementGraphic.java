@@ -14,21 +14,12 @@ public class AchievementGraphic implements GameComponent {
     private float alpha = 0.0F;
     private boolean done = false;
 
-    private Image icon;
-
-    private BufferedImage text;
-    private int textWidth;
-
+    private BufferedImage achievementImage;
 
     public AchievementGraphic(Achievement achievement) {
 
         Enterprise.getGame().addComponent(this);
-
-        this.icon = achievement.getTexture().getImage().getScaledInstance(28, 28, 0);
-
-        this.text = (BufferedImage) Enterprise.getGame().getTextBuilder().toImage(achievement.getName(), 10);
-        this.textWidth = this.text.getWidth();
-
+        this.createAchievementImage(achievement);
 
     }
 
@@ -41,11 +32,12 @@ public class AchievementGraphic implements GameComponent {
         // Den Alpha-Wert setzen
         g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, Math.min(1, this.alpha)));
 
-        // Das Icon zeichnen
-        g.drawImage(this.icon, 50, 50, null);
-
-        // Hier wird der Name des Achievements gezeichnet
-        g.drawImage(this.text.getSubimage(0, 0, (int) Math.max(1, (this.textWidth * Math.min(this.alpha, 1))), text.getHeight()), 85, 50, null);
+        g.drawImage(this.achievementImage.getSubimage(
+                (int) (this.achievementImage.getWidth() / 2 - Math.min((this.achievementImage.getWidth() / 2 * this.alpha), (this.achievementImage.getWidth() / 2))),
+                 0,
+                (int) Math.max((this.achievementImage.getWidth(null) * Math.min(this.alpha, 1)), 1),
+                this.achievementImage.getHeight()
+        ), 50, 50, null);
 
         // Hier wird der Alpha-Wert wieder auf 1 gesetzt, damit alle anderen "Zeichnungen" wieder normal dargestellt
         // werden.
@@ -89,4 +81,35 @@ public class AchievementGraphic implements GameComponent {
     public boolean isActive() {
         return Enterprise.getGame().getAchievementManager().getCurrent() == this;
     }
+
+    /**
+     * Diese Methode erstellt das Image das dem Spieler angezeigt wird. Dabei wurde dies in diese Methode ausgelagert,
+     * damit der Constructor "sauberer" bleibt.
+     * @param achievement
+     */
+    private void createAchievementImage(Achievement achievement) {
+        Image icon = achievement.getTexture().getImage().getScaledInstance(28, 28, 0);
+
+        BufferedImage text = (BufferedImage) Enterprise.getGame().getTextBuilder().toImage(achievement.getName(), 10);
+
+        this.achievementImage = new BufferedImage((text.getWidth() + 48), 44, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = this.achievementImage.createGraphics();
+
+        g.setRenderingHints(Enterprise.getGame().getRenderingHints());
+
+        // Rahmen
+        g.setColor(new Color(26, 49, 64));
+        g.fillRoundRect(0, 0, this.achievementImage.getWidth(), this.achievementImage.getHeight(), 20, 20);
+
+        // Das Icon zeichnen
+        g.drawImage(icon, 10, 8, null);
+
+        // Hier wird der Name des Achievements gezeichnet
+        g.drawImage(text, 48, 10, null);
+
+        // Den Speicher wieder befreien
+        g.dispose();
+
+    }
+
 }
