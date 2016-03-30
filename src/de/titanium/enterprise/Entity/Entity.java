@@ -23,4 +23,9 @@ public abstract class Entity implements GameComponent {
         return identifier;
     }
 
+    @Override
+    public String toString() {
+        return String.format("{identifier: %s}", this.identifier);
+    }
+
 }

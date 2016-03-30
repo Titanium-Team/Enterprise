@@ -55,4 +55,10 @@ public class AchievementManager {
     public AchievementGraphic getCurrent() {
         return this.queue.peek();
     }
+
+    @Override
+    public String toString() {
+        return String.format("{unlocked: %s, queue: %s}", this.unlocked, this.queue);
+    }
+
 }

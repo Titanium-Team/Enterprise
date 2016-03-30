@@ -78,7 +78,7 @@ public class FightView extends View {
             g.drawImage(animation.getFrame(), this.xPos[i], this.yPos[i], animation.getType().getWidth(), animation.getType().getHeight(), null);
 
             Image text = Enterprise.getGame().getTextBuilder().toImage(hero.getName(), 10);
-            g.drawImage(text, this.xPos[i] - ((text.getWidth(null) - animation.getType().getWidth()) / 2), this.yPos[i] - 25, null);
+            g.drawImage(text, Math.max(this.xPos[i] - ((text.getWidth(null) - animation.getType().getWidth()) / 2), 50), this.yPos[i] - 25, null);
         }
 
         //Get Enemy

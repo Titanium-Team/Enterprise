@@ -62,5 +62,9 @@ public class AnimationQueue {
 
     }
 
+    @Override
+    public String toString() {
+        return String.format("{animators: %s, current: %s, defaultAnimation: %s}", this.animators, this.current, this.defaultAnimation);
+    }
 
 }

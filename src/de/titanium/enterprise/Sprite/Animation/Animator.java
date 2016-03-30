@@ -73,4 +73,16 @@ public class Animator {
         return this.textures[this.currentFrame];
     }
 
+    @Override
+    public String toString() {
+        return String.format(
+                "{type: %s, textures: %s, skippedFrames: %d, skipFrames: %d, currentFrame: %d}",
+                this.type,
+                this.textures,
+                this.skipFrames,
+                this.skippedFrames,
+                this.currentFrame
+                );
+    }
+
 }

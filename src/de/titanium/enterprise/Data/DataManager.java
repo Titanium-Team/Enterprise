@@ -48,4 +48,9 @@ public class DataManager {
 
     }
 
+    @Override
+    public String toString() {
+        return String.format("dataEntries: %s", this.dataEntries);
+    }
+
 }

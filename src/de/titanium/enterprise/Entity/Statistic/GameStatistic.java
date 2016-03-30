@@ -37,4 +37,9 @@ public class GameStatistic {
         this.values.clear();
     }
 
+    @Override
+    public String toString() {
+        return String.format("{values: %s}", this.values.toString());
+    }
+
 }

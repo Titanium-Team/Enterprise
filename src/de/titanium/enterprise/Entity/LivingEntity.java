@@ -177,4 +177,21 @@ public abstract class LivingEntity extends Entity {
     public void setSkillPoints(int skillPoints) {
         this.skillPoints = skillPoints;
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "{identifier: %s, health: %.2f, maxHealth: %.2f, dexterity: %.2f, attackValue: %.2f, skills: %s, animationQueue: %s, skillPoints: %d, gameStatistic: %s}",
+                this.getIdentifier(),
+                this.health,
+                this.maxHealth,
+                this.dexterity,
+                this.attackValue,
+                this.skills,
+                this.animationQueue,
+                this.skillPoints,
+                this.gameStatistic
+        );
+    }
+
 }

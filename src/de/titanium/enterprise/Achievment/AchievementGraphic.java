@@ -124,4 +124,9 @@ public class AchievementGraphic implements GameComponent {
 
     }
 
+    @Override
+    public String toString() {
+        return String.format("{alpha: %.2f, done: %b, achievementImage: %s}", this.alpha, this.done, this.achievementImage);
+    }
+
 }
