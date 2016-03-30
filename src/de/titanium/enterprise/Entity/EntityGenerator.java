@@ -5,6 +5,7 @@ import de.titanium.enterprise.Data.BinaryTreeMath;
 import de.titanium.enterprise.Data.Datas.SkillEntry;
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Entity.Entities.Archer;
+import de.titanium.enterprise.Entity.Entities.Rogue;
 import de.titanium.enterprise.Skill.Skill;
 import de.titanium.enterprise.Skill.Skills;
 
@@ -16,18 +17,6 @@ import java.util.UUID;
  */
 public class EntityGenerator {
 
-    private final int[][] factor = new int[][] {
-
-            // Die Struktur des Arrays ist wie folgt:
-            // { baseLevel, commonLevel, rareLevel, extinctLevel }
-            // baseLevel   -> Das Level ab dem dieser Wert auftauchen kann, aber eher unwahrscheinlich.
-            // commonLevel -> Das Level auf dem es normal ist, dass diese Entitys auftauchen.
-            // rareLevel   -> Das Level ab dem es wieder unwahrscheinlich wird.
-            // extictLevel -> Das Level ab dem die Gegner nicht mehr auftauchen.
-            { 0, 0, 1, 2 }
-
-    };
-
     private final SecureRandom random = new SecureRandom();
 
     public EntityGenerator() {}
@@ -37,31 +26,53 @@ public class EntityGenerator {
         LivingEntity entity = null;
 
         // An dieser Stelle wird bestimmt welchen Typ von Entity das Entity wird.
-        int entityType = this.random.nextInt(3);
+        int entityType = this.random.nextInt(2);
+
+        // Der aktuelle SkillTree
+        BinarySearchTree<SkillEntry> skills = Skills.defaultTree();
 
         // Wenn der Wert 0 ist, dann wird es ein Archer
-        //if(entityType == 0) {
+        if(entityType == 0) { // Archer
 
             double health = (this.random.nextInt(60) + 120 * level);
 
             entity = new Archer(
                     UUID.randomUUID(),
-                    "Generated",
+                    "Archer",
                     health,
                     health,
                     this.random.nextInt(20 / level),
                     this.random.nextInt(15 * level),
-                    10
+                    this.random.nextInt(5 * level)
             );
-
-            BinarySearchTree<SkillEntry> skills = Skills.defaultTree();
 
             // Nun "skilled" er automatisch
             this.skill(entity, skills, null, skills, new int[] { 0, 2 }, new int[] { 3, 10 } );
 
-            Enterprise.getGame().getLogger().info(entity.toString());
+        } else if(entityType == 1) { // Rogue
 
-        //}
+            double health = (this.random.nextInt(10) + level * 5);
+
+            entity = new Rogue(
+                    UUID.randomUUID(),
+                    "Rogue",
+                    health,
+                    health,
+                    this.random.nextInt(level * 3) + 10,
+                    this.random.nextInt(level) + 5,
+                    this.random.nextInt(level * 3)
+            );
+
+            this.skill(entity, skills, null, skills, new int[] { 0, 7 }, new int[] { 8, 10 } );
+
+        } else if(entityType == 2) {
+
+
+
+
+        }
+
+        Enterprise.getGame().getLogger().info(entity.toString());
 
         return entity;
 

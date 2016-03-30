@@ -181,8 +181,9 @@ public abstract class LivingEntity extends Entity {
     @Override
     public String toString() {
         return String.format(
-                "{identifier: %s, health: %.2f, maxHealth: %.2f, dexterity: %.2f, attackValue: %.2f, skills: %s, animationQueue: %s, skillPoints: %d, gameStatistic: %s}",
+                "{identifier: %s, name: %s, health: %.2f, maxHealth: %.2f, dexterity: %.2f, attackValue: %.2f, skills: %s, animationQueue: %s, skillPoints: %d, gameStatistic: %s}",
                 this.getIdentifier(),
+                this.name,
                 this.health,
                 this.maxHealth,
                 this.dexterity,
