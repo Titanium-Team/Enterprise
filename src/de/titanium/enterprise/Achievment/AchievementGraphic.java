@@ -32,12 +32,24 @@ public class AchievementGraphic implements GameComponent {
         // Den Alpha-Wert setzen
         g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, Math.min(1, this.alpha)));
 
+        // Der Alpha-Wert der hier überall berücksichtigt wird, bei der Breite, Höhe und den Koordinaten sollte immer
+        // zwischen 0 und 1 liegen.
+        double optimizedAlpha = Math.min(this.alpha, 1);
+
+        // Ist ein Wert der die X-Koordinate einmal für das Sub-Image angibt, sowie auch Position im globalen System
+        // mit zu determinieren
+        double minusX = (this.achievementImage.getWidth() / 2) - (this.achievementImage.getWidth() / 2 * optimizedAlpha);
+
         g.drawImage(this.achievementImage.getSubimage(
-                (int) (this.achievementImage.getWidth() / 2 - Math.min((this.achievementImage.getWidth() / 2 * this.alpha), (this.achievementImage.getWidth() / 2))),
-                 0,
-                (int) Math.max((this.achievementImage.getWidth(null) * Math.min(this.alpha, 1)), 1),
-                this.achievementImage.getHeight()
-        ), 50, 50, null);
+                        (int) minusX,
+                        (int) (this.achievementImage.getHeight() / 2 - (this.achievementImage.getHeight() / 2 * optimizedAlpha)),
+                        (int) Math.max((this.achievementImage.getWidth() * optimizedAlpha), 1),
+                        (int) Math.max((this.achievementImage.getHeight() * optimizedAlpha), 1)
+        ),
+                (int) (50 + minusX),
+                (int) (90 - (45 * optimizedAlpha)),
+                null
+        );
 
         // Hier wird der Alpha-Wert wieder auf 1 gesetzt, damit alle anderen "Zeichnungen" wieder normal dargestellt
         // werden.
