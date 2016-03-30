@@ -380,7 +380,7 @@ public class FightMenu extends MenuView implements GameComponent {
 
                     // @Improvement: Das hier ist erstmal provisorisch. Dies muss natürlich durch einen automatisch
                     // generierten Gegner ersetzt werden.
-                    dataManager.set("game.enemy", new Archer(UUID.randomUUID(), "Enemy", 10, 100, 5, 5, 12));
+                    dataManager.set("game.enemy", new Archer(UUID.randomUUID(), "Enemy1", 10, 100, 5, 5, 12));
 
                 } else {
 

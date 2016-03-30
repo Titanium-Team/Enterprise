@@ -6,6 +6,7 @@ import de.titanium.enterprise.Data.DataManager;
 import de.titanium.enterprise.Entity.Entities.Archer;
 import de.titanium.enterprise.Entity.Entities.Rogue;
 import de.titanium.enterprise.Entity.Entities.Warrior;
+import de.titanium.enterprise.Entity.EntityGenerator;
 import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.Loading.LoadingManager;
 import de.titanium.enterprise.Sprite.Animation.Animations;
@@ -111,6 +112,9 @@ public class Enterprise {
 
         //set default enemy
         this.getDataManager().set("game.enemy", new Archer(UUID.randomUUID(), "Enemy", 10, 100, 5, 5, 12));
+
+        EntityGenerator entityGenerator = new EntityGenerator();
+        entityGenerator.generate(1);
 
         //default menu
         DefaultMenu defaultMenu = new DefaultMenu();
