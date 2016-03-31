@@ -192,6 +192,18 @@ public enum Skills implements Skill {
 
     }
 
+    public static Skill byName(String value) {
+
+        for(Skill skill : Skills.values()) {
+            if(skill.getName().equals(value)) {
+                return skill;
+            }
+        }
+
+        return null;
+
+    }
+
     public static List<Skill> all(SkillTypes skillType, LivingEntity entity) {
 
         List<Skill> skills = new ArrayList<>();

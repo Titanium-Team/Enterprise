@@ -26,7 +26,7 @@ public class EntityGenerator {
         LivingEntity entity = null;
 
         // An dieser Stelle wird bestimmt welchen Typ von Entity das Entity wird.
-        int entityType = this.random.nextInt(2);
+        int entityType = 1 /*this.random.nextInt(2)*/;
 
         // Der aktuelle SkillTree
         BinarySearchTree<SkillEntry> skills = Skills.defaultTree();

@@ -98,18 +98,6 @@ public class FightView extends View {
         Image text = Enterprise.getGame().getTextBuilder().toImage(enemy.getName(), 10);
         g.drawImage(text, this.xPos[3] - ((text.getWidth(null) - animation.getType().getWidth()) / 2), this.yPos[3] - 25, null);
 
-        // @Cleanup: Sollte hier nur zu Testzwecken sein und in den nächsten Tagen entfernt werden, sobald es eine bessere
-        // Alternative zur Darstellung gibt.
-        // @Bug: Hier darf eigentlich kein for-loop genutzt werden, sondern am besten einfach einen Iterator der die Scores
-        // durchgeht.
-        if (scores != null) {
-            int y = 0;
-            for (Score score : scores) {
-                g.drawString(score.getName() + " | " + score.getScore(), 1000, 100 + y);
-                y += 10;
-            }
-        }
-
         // Hier werden die Achievements gezeichnet, falls welche freigeschaltet wurden.
         Enterprise.getGame().getAchievementManager().handle(g);
 

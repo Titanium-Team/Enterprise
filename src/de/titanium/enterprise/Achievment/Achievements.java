@@ -1,5 +1,6 @@
 package de.titanium.enterprise.Achievment;
 
+import de.titanium.enterprise.Skill.Skill;
 import de.titanium.enterprise.Sprite.Texture;
 import de.titanium.enterprise.Sprite.Textures;
 
@@ -110,7 +111,7 @@ public enum Achievements implements Achievement {
     },
     DEFENSESCORE_197 {
 
-        // Wird freigeschaltet, wenn der Spieler direkt gegen die Rampe "fährt".
+        // Wird freigeschaltet, wenn der Spieler direkt gegen die Rampe "fï¿½hrt".
 
         @Override
         public String getName() {
@@ -166,6 +167,19 @@ public enum Achievements implements Achievement {
             return Textures.TEST;
         }
 
-    }
+    };
 
+    public static Achievement byName(String name) {
+
+        for(Achievement entry : Achievements.values()) {
+
+            if(entry.getName().equals(name)) {
+                return entry;
+            }
+
+        }
+
+        return null;
+
+    }
 }

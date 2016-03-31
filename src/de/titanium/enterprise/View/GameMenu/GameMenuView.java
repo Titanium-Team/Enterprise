@@ -111,8 +111,8 @@ public class GameMenuView extends View {
                 Image image = Enterprise.getGame().getTextBuilder().toImage(entry.getKey(), 15);
                 g.drawImage(image, 480 - image.getWidth(null) / 2, 150 + x * 35, null);
 
-                // @Cleanup: Es wäre besser, wenn der Code selbststendig die Zeilenumbrüche einbaut. Dies sollte entweder hier
-                // oder allgemein in der TextBuilder#toImage Methode gelöst werden. Dazu kann man dann z.B. eine maximale
+                // @Cleanup: Es waere besser, wenn der Code selbststendig die Zeilenumbrueche einbaut. Dies sollte entweder hier
+                // oder allgemein in der TextBuilder#toImage Methode geloest werden. Dazu kann man dann z.B. eine maximale
                 // Breite angeben.
                 int i = 0;
                 for(String value : this.descriptions.get(this.selectedOption)) {
@@ -155,11 +155,13 @@ public class GameMenuView extends View {
 
                 Class goTo = this.options.values().toArray(new Class[this.options.size()])[this.selectedOption];
 
-                //Wenn die Class nicht null ist hält es sich um eine normale View und es kann gewechselt werden.
+                //Wenn die Class nicht null ist hï¿½lt es sich um eine normale View und es kann gewechselt werden.
                 if(!(goTo == null)) {
                     Enterprise.getGame().getViewManager().switchTo(goTo);
                 } else {
                     //Falls goTo null ist handelt es sich um den "Exit"-Button
+                    Enterprise.getGame().getDataContainers().store();
+                    Enterprise.getGame().getDatabase().store();
                     System.exit(0);
                 }
             }

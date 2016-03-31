@@ -3,7 +3,6 @@ package de.titanium.enterprise.View.FightView;
 import de.titanium.enterprise.Achievment.Achievements;
 import de.titanium.enterprise.Data.DataManager;
 import de.titanium.enterprise.Enterprise;
-import de.titanium.enterprise.Entity.Entities.Archer;
 import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.Entity.Statistic.Statistics;
 import de.titanium.enterprise.GameComponent;
@@ -17,7 +16,6 @@ import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 /**
  * Created by Yonas on 11.03.2016.
@@ -344,16 +342,17 @@ public class FightMenu extends MenuView implements GameComponent {
                 enemy.setHealth(
                         enemy.getHealth() - totalDamage
                 );
+                Enterprise.getGame().getLogger().info(enemy.toString());
 
                 // Hier werden die passenden Animationen in die Queue gepackt. Diese werden allerdings nur abgespielt,
                 // bzw. überhaupt erst gequeued, wenn wirklich schaden gemacht wurde.
-                if(heroes[0].isAlive() && damageOne > 0) {
+                if(heroes[0].isAlive() && damageOne > 0 && totalDamage > 0) {
                     heroes[0].getAnimationQueue().add(Animations.RANGER_ATTACK);
                 }
-                if(heroes[1].isAlive() && damageTwo > 0) {
+                if(heroes[1].isAlive() && damageTwo > 0 && totalDamage > 0) {
                     heroes[1].getAnimationQueue().add(Animations.RANGER_ATTACK);
                 }
-                if(heroes[2].isAlive() && damageThree > 0) {
+                if(heroes[2].isAlive() && damageThree > 0 && totalDamage > 0) {
                     heroes[2].getAnimationQueue().add(Animations.RANGER_ATTACK);
                 }
 
@@ -378,9 +377,9 @@ public class FightMenu extends MenuView implements GameComponent {
                     // und deshalb die neue AnimationQueue genommen wird und die alte nicht mehr abgespielt wird.
                     enemy.getAnimationQueue().add(Animations.RANGER_DIE);
 
-                    // @Improvement: Das hier ist erstmal provisorisch. Dies muss natürlich durch einen automatisch
-                    // generierten Gegner ersetzt werden.
-                    dataManager.set("game.enemy", new Archer(UUID.randomUUID(), "Enemy1", 10, 100, 5, 5, 12));
+                    // @Improvement: Das hier ist erstmal provisorisch. Das Level das dem Generator übergen wird, muss
+                    // noch angepasst werden.
+                    dataManager.set("game.enemy", Enterprise.getGame().getEntityGenerator().generate(1));
 
                 } else {
 

@@ -17,14 +17,27 @@ public class AchievementManager {
     public AchievementManager() {}
 
     /**
-     * Diese Methode fügt ein Achievement der Queue hinzu, damit dies dann angezeigt werden kann.
+     * Diese Methode fuegt ein Achievement der Liste hinzu.
      *
-     * Es wird allerdings nur hinzugefügt, wenn dieses Achievement noch nicht freigeschaltet wurde
+     * Es wird allerdings nur hinzugefuegt, wenn dieses Achievement noch nicht freigeschaltet wurde und fÃ¼gt sie
+     * auch der Queue hinzu.
      * @param achievement
      */
     public void add(Achievement achievement) {
+        this.add(achievement, true);
+    }
+
+    /**
+     * Diese Methode fÃ¼gt das Achievement der Liste hinzu.
+     *
+     * @param achievement
+     * @param display Wenn dieser Wert true ist, dann wird das Achievement auch im Spiel als freigeschaltet dargestellt.
+     */
+    public void add(Achievement achievement, boolean display) {
         if(!(this.unlocked.contains(achievement))) {
-            this.queue.add(new AchievementGraphic(achievement));
+            if(display) {
+                this.queue.add(new AchievementGraphic(achievement));
+            }
             this.unlocked.add(achievement);
         }
     }
@@ -48,8 +61,8 @@ public class AchievementManager {
     }
 
     /**
-     * Diese Methode gibt die AchievementGraphic zurück, die aktuell gezeichnet wird, falls keine gezeichnet wird,
-     * wird null zurückgegeben.
+     * Diese Methode gibt die AchievementGraphic zurï¿½ck, die aktuell gezeichnet wird, falls keine gezeichnet wird,
+     * wird null zurueckgegeben.
      * @return
      */
     public AchievementGraphic getCurrent() {
@@ -61,4 +74,7 @@ public class AchievementManager {
         return String.format("{unlocked: %s, queue: %s}", this.unlocked, this.queue);
     }
 
+    public List<Achievement> getUnlocked() {
+        return this.unlocked;
+    }
 }
