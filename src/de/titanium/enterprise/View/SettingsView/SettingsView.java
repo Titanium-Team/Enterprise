@@ -107,7 +107,7 @@ public class SettingsView extends View {
                 }
             }
 
-            //Im Menu einen neuen Wert für eine Einstellung auswählen
+            //Im Menu einen neuen Wert fuer eine Einstellung auswï¿½hlen
             String[] keys = this.options.keySet().toArray(new String[this.options.size()]);
             int current = this.selectedValue.get(keys[this.selectedOption]).intValue();
             if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_RIGHT)) {

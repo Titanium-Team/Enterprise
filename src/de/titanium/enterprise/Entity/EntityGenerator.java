@@ -8,6 +8,7 @@ import de.titanium.enterprise.Entity.Entities.Archer;
 import de.titanium.enterprise.Entity.Entities.Rogue;
 import de.titanium.enterprise.Skill.Skill;
 import de.titanium.enterprise.Skill.Skills;
+import de.titanium.enterprise.Sprite.Animation.Animations;
 
 import java.security.SecureRandom;
 import java.util.UUID;
@@ -72,8 +73,6 @@ public class EntityGenerator {
 
         }
 
-        Enterprise.getGame().getLogger().info(entity.toString());
-
         return entity;
 
     }
@@ -84,20 +83,20 @@ public class EntityGenerator {
      * @param current Die aktuelle Node im Baum.
      * @param parent Der parent der aktuellen Node, falls keiner vorhanden, dann null:
      * @param defaultTree Der komplette Baum der aktuell durchgegangen wird.
-     * @param def Ist ein int[] array. Der Array hat zwei Einträge, der erste mit dem Index 0 ist die untere Grenze und
+     * @param def Ist ein int[] array. Der Array hat zwei Eintraege, der erste mit dem Index 0 ist die untere Grenze und
      *            der Eintrag mit dem Index 1 die obere Grenze. In der Methode wird eine Zahl zwischen 1 und 10 generiert,
-     *            falls diese Zahl in dem angegebenen Bereich liegt, dann wird diese Pfad als nächstes genommen. In diesem
-     *            Fall beeinflusst das die Wahrscheinlichkeit dafür das eher Defense geskilled wird.
-     * @param att Ist ein int[] array. Der Array hat zwei Einträge, der erste mit dem Index 0 ist die untere Grenze und
+     *            falls diese Zahl in dem angegebenen Bereich liegt, dann wird diese Pfad als naechstes genommen. In diesem
+     *            Fall beeinflusst das die Wahrscheinlichkeit dafuer das eher Defense geskilled wird.
+     * @param att Ist ein int[] array. Der Array hat zwei Eintraege, der erste mit dem Index 0 ist die untere Grenze und
      *            der Eintrag mit dem Index 1 die obere Grenze. In der Methode wird eine Zahl zwischen 1 und 10 generiert,
-     *            falls diese Zahl in dem angegebenen Bereich liegt, dann wird diese Pfad als nächstes genommen. In diesem
-     *            Fall beeinflusst das die Wahrscheinlichkeit dafür das eher Attack geskilled wird.
+     *            falls diese Zahl in dem angegebenen Bereich liegt, dann wird diese Pfad als naechstes genommen. In diesem
+     *            Fall beeinflusst das die Wahrscheinlichkeit dafuer das eher Attack geskilled wird.
      */
     private void skill(LivingEntity entity, BinarySearchTree<SkillEntry> current, BinarySearchTree<SkillEntry> parent, BinarySearchTree<SkillEntry> defaultTree, int[] def , int[] att) {
 
         Skill skill = current.getContent().getSkill();
 
-        // Wenn all diese Bedingungen erfüllt sind, dann könnte er diesen Skill freischalten.
+        // Wenn all diese Bedingungen erfaellt sind, dann koennte er diesen Skill freischalten.
         if(!(skill.hasSkill(entity)) && skill.isUnlockable(entity) && skill.getPrice() <= entity.getSkillPoints()) {
             skill.apply(entity);
             entity.setSkillPoints(
@@ -110,8 +109,8 @@ public class EntityGenerator {
 
         if(!(current.getLeftTree().isEmpty()) && (decision >= def[0] && decision <= def[1])) {
 
-            // Falls links noch etwas im Baum ist und der Zufall es zulässt, dann wird noch geprüft ob man den nächsten
-            // überhaupt freischalten kann und falls alles zutrifft, dann geht man in den linken Teilbaum.
+            // Falls links noch etwas im Baum ist und der Zufall es zulaesst, dann wird noch geprueft ob man den naechsten
+            // ueberhaupt freischalten kann und falls alles zutrifft, dann geht man in den linken Teilbaum.
 
             skill = current.getLeftTree().getContent().getSkill();
             if(!(skill.hasSkill(entity)) && skill.isUnlockable(entity) && skill.getPrice() <= entity.getSkillPoints()) {
@@ -120,8 +119,8 @@ public class EntityGenerator {
 
         } else if(!(current.getRightTree().isEmpty()) && (decision >= att[0] && decision <= att[1])) {
 
-            // Falls rechts noch etwas im Baum ist und der Zufall es zulässt, dann wird noch geprüft ob man den nächsten
-            // überhaupt freischalten kann und falls alles zutrifft, dann geht man in den rechten Teilbaum.
+            // Falls rechts noch etwas im Baum ist und der Zufall es zulaesst, dann wird noch geprueft ob man den naechsten
+            // ueberhaupt freischalten kann und falls alles zutrifft, dann geht man in den rechten Teilbaum.
 
             skill = current.getRightTree().getContent().getSkill();
             if(!(skill.hasSkill(entity)) && skill.isUnlockable(entity) && skill.getPrice() <= entity.getSkillPoints()) {

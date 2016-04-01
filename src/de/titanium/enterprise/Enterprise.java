@@ -6,6 +6,7 @@ import de.titanium.enterprise.Achievment.Achievements;
 import de.titanium.enterprise.Data.DataContainer.AchievementContainer;
 import de.titanium.enterprise.Data.DataContainer.DataContainers;
 import de.titanium.enterprise.Data.DataContainer.EnemyTypesContainer;
+import de.titanium.enterprise.Data.DataContainer.SettingsContainer;
 import de.titanium.enterprise.Data.DataManager;
 import de.titanium.enterprise.Entity.EntityGenerator;
 import de.titanium.enterprise.Loading.LoadingManager;
@@ -78,7 +79,7 @@ public class Enterprise {
             path.mkdirs();
         }
 
-        this.database = new SweetDB(path.getAbsolutePath(), "entityTypes", "achievements");
+        this.database = new SweetDB(path.getAbsolutePath(), "entityTypes", "achievements", "settings");
         try {
             this.database.load();
         } catch (IOException e) {
@@ -95,6 +96,7 @@ public class Enterprise {
         // DataContainer
         this.dataContainers.add(new EnemyTypesContainer());
         this.dataContainers.add(new AchievementContainer());
+        this.dataContainers.add(new SettingsContainer());
 
         //managing loading
         this.dataManager.set("game.state", GameState.LOADING);
@@ -127,7 +129,7 @@ public class Enterprise {
     }
 
     /**
-     * Gibt das aktulle Spiel zur�ck.
+     * Gibt das aktulle Spiel zurueck.
      * @return
      */
     public static Enterprise getGame() {
@@ -139,7 +141,7 @@ public class Enterprise {
     }
 
     /**
-     * Diese Methode gibt alle RenderingHints zur�ck, die global beim Rendern genutzt werden sollen.
+     * Diese Methode gibt alle RenderingHints zurueck, die global beim Rendern genutzt werden sollen.
      * @return
      */
     public Map<RenderingHints.Key, Object> getRenderingHints() {
@@ -153,7 +155,7 @@ public class Enterprise {
     }
 
     /**
-     * Diese Methode f�gt dem Update-'n-Render-Loop ein neue Komponente hinzu, diese wird im n�chsten durchlauf des Loops ber�cksichtigt.
+     * Diese Methode fuegt dem Update-'n-Render-Loop ein neue Komponente hinzu, diese wird im naechsten durchlauf des Loops beruecksichtigt.
      * @param gameComponent
      */
     public void addComponent(GameComponent gameComponent) {
@@ -163,7 +165,7 @@ public class Enterprise {
     /**
      * Diese Methode startet den Game-Loop.
      *
-     * Der Loop ist aktuell auf 50 Ticks/Sekunde festgesetzt, es sollten also immer 50 Ticks ausgef�hrt werden.
+     * Der Loop ist aktuell auf 50 Ticks/Sekunde festgesetzt, es sollten also immer 50 Ticks ausgefuehrt werden.
      *
      */
     public void start() {

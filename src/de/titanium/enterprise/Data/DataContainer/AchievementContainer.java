@@ -5,7 +5,6 @@ import de.SweetCode.SweetDB.DataType.DataTypes;
 import de.SweetCode.SweetDB.Table.Syntax.SyntaxRuleBuilder;
 import de.SweetCode.SweetDB.Table.Table;
 import de.titanium.enterprise.Achievment.Achievement;
-import de.titanium.enterprise.Achievment.AchievementManager;
 import de.titanium.enterprise.Achievment.Achievements;
 import de.titanium.enterprise.Enterprise;
 
@@ -54,14 +53,14 @@ public class AchievementContainer implements DataContainer {
         } else {
 
             Enterprise.getGame().getDatabase().createTable()
-                    .name("achievements")
-                    .add(
-                        SyntaxRuleBuilder.create()
-                            .fieldName("name")
-                            .dataType(DataTypes.STRING)
-                        .build()
-                    )
-                .build();
+                .name("achievements")
+                .add(
+                    SyntaxRuleBuilder.create()
+                        .fieldName("name")
+                        .dataType(DataTypes.STRING)
+                    .build()
+                )
+            .build();
 
         }
 
