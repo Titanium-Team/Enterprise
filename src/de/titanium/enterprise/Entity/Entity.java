@@ -16,7 +16,7 @@ public abstract class Entity implements GameComponent {
     }
 
     /**
-     * Gibt die eindeutige ID des Entitys zurück.
+     * Gibt die eindeutige ID des Entitys zurueck.
      * @return
      */
     public UUID getIdentifier() {

@@ -30,7 +30,7 @@ public class Rogue extends LivingEntity {
 
         value *= attackEfficiency;
 
-        // Hier wird sichergestellt das es keinen ungültigen Wert gibt!
+        // Hier wird sichergestellt das es keinen ungueltigen Wert gibt!
         if(Double.isNaN(value)) {
             value = 0;
         }

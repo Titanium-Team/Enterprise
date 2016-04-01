@@ -38,7 +38,7 @@ public class KeyManager extends KeyAdapter {
 
 
     /**
-     * Diese Methode prüft, ob der Key, der angegeben wurde, gedrückt wurde.
+     * Diese Methode prueft, ob der Key, der angegeben wurde, gedrueckt wurde.
      * @param keyCode
      * @return
      */

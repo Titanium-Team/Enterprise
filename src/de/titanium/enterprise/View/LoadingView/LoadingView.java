@@ -38,16 +38,16 @@ public class LoadingView extends View {
 
                 repaint();
 
-                // Der TimeTask wird beendet, sobald dieser nicht mehr benötigt wird.
+                // Der TimeTask wird beendet, sobald dieser nicht mehr benoetigt wird.
                 if(Enterprise.getGame().getLoadingManager().getCurrent() == null && !(firstOne)) {
                     if(!(this.cancel())) {
                         // @Watch: Das sollte eigentlich nie passieren, falls doch muss man schauen wie
-                        // man das löst.
+                        // man das loest.
                         throw new RuntimeException("Loading Task didn't stop running.");
                     }
                 }
 
-                // @Cleanup: Das sollte eigentlich nicht nötig sein, allerdings ist getCurrent() schon beim ersten Aufruf
+                // @Cleanup: Das sollte eigentlich nicht noetig sein, allerdings ist getCurrent() schon beim ersten Aufruf
                 // null und muss deshalb einmal "ignoriert" werden, allerdings ist aus einem mir unbekannt Grund auch
                 // der GameState nicht auf LOADING steht. - Ich denke es liegt daran das dies ein neuer Thread ist und der
                 // alte Thread einfach schon weiter geht, im Code, und der GameState sich dann bereits im GameLoop befindet.

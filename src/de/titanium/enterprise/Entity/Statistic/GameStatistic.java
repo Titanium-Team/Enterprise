@@ -31,7 +31,7 @@ public class GameStatistic {
     }
 
     /**
-     * Setzt alle Werte auf -1 zurück.
+     * Setzt alle Werte auf -1 zurueck.
      */
     public void reset() {
         this.values.clear();

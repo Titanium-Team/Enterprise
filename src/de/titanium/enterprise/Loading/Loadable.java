@@ -6,7 +6,7 @@ package de.titanium.enterprise.Loading;
 public interface Loadable {
 
     /**
-     * Gibt den Namen des Objektes zurück das aktuell geladen wird.
+     * Gibt den Namen des Objektes zurueck das aktuell geladen wird.
      * @return
      */
     String getName();

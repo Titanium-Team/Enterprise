@@ -25,7 +25,7 @@ public class ViewManager {
     }
 
     /**
-     * Gibt die aktuell zu zeichnende View zurück.
+     * Gibt die aktuell zu zeichnende View zurueck.
      * @return
      */
     public View getCurrent() {
@@ -52,7 +52,7 @@ public class ViewManager {
     }
 
     /**
-     * Diese Methode ändert von einer View das Menu.
+     * Diese Methode aendert von einer View das Menu.
      * @param view
      * @param menuView
      * @return

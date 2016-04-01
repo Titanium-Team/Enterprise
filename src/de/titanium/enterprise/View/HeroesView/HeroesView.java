@@ -54,7 +54,7 @@ public class HeroesView extends View {
         //Draw Table
         TextBuilder textBuilder = Enterprise.getGame().getTextBuilder();
 
-        //In diesem Abschnitt werden alle Bezeichner für die Spalten gezeichnet.
+        //In diesem Abschnitt werden alle Bezeichner fuer die Spalten gezeichnet.
         g.setStroke(new BasicStroke(5));
 
         g.drawImage(textBuilder.toImage("Type", 12), 50, 40, null);
@@ -76,7 +76,7 @@ public class HeroesView extends View {
         g.drawLine(915, 0, 915, 600);
 
 
-        //die Linie die die Werte von den Überschriften trennt 27|32
+        //die Linie die die Werte von den Ueberschriften trennt
         g.drawLine(0, 77, 960, 77);
 
         //Ab hier werden alle Zeilen gezeichnet
@@ -86,7 +86,7 @@ public class HeroesView extends View {
         LivingEntity[] currentHeroes = Enterprise.getGame().getDataManager().get("game.heroes");
         for(int i = this.currentRow; i < this.types.length; i++) {
 
-            // Hier werden alle Werte Zeile für Zeile dargestellt.
+            // Hier werden alle Werte Zeile fuer Zeile dargestellt.
             LivingEntity entity = this.types[i];
 
             g.drawImage(textBuilder.toImage(entity.getClass().getSimpleName(), (this.selectedHero == i ? 11 : 9)), 50, y, null);
@@ -96,13 +96,13 @@ public class HeroesView extends View {
             g.drawImage(textBuilder.toImage(String.format("%.0f", entity.getAttackValue()), (this.selectedHero == i ? 11 : 9)), 704, y, null);
             g.drawImage(textBuilder.toImage(String.format("%d", entity.getSkillPoints()), (this.selectedHero == i ? 11 : 9)), 770, y, null);
 
-            // Hier wird geprüft, ob das aktuelle Entity was geprüft wird eines ist das auch im "Fight" verwendet wird,
-            // falls ja dann wird ganz am Ende der Zeile ein "grünes X" gezeichnet, um das zu kennzeichnen.
+            // Hier wird geprueft, ob das aktuelle Entity was geprueft wird eines ist das auch im "Fight" verwendet wird,
+            // falls ja dann wird ganz am Ende der Zeile ein "gruenes X" gezeichnet, um das zu kennzeichnen.
             if(entity == currentHeroes[0] || entity == currentHeroes[1] || entity == currentHeroes[2]) {
                 g.drawImage(Textures.CHECKED_BUTTON.getImage().getScaledInstance(20, 20, 0), 920, y, null);
             }
 
-            //y erhöhen
+            //y erhoehen
             y += 27;
 
             g.drawLine(0, y, 980, y);
@@ -111,7 +111,7 @@ public class HeroesView extends View {
 
         }
 
-        // Die Überschrift für die Hilfe-Sektion
+        // Die Ueberschrift fuer die Hilfe-Sektion
         g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Steuerung", 10), 1030, 50, null);
 
         // Hier wird die Steuerungshilfe in gerendert
@@ -143,14 +143,14 @@ public class HeroesView extends View {
 
         if(tick % 4 == 0) {
 
-            if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ESCAPE)) { //zurück zum hauptmenü
+            if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ESCAPE)) { //zurueck zum hauptmenue
 
-                // Wenn "ESC" gedrückt wird, dann wird man wieder ins Hauptmenü gebracht.
+                // Wenn "ESC" gedrueckt wird, dann wird man wieder ins Hauptmenue gebracht.
                 Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_1)) {
 
-                // Wenn "1" gedrückt wird, dann wird die Tabelle nach dem Namen
+                // Wenn "1" gedrueckt wird, dann wird die Tabelle nach dem Namen
                 // aufsteigend sortiert.
 
                 this.resetSortValues();
@@ -178,7 +178,7 @@ public class HeroesView extends View {
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_2)) {
 
-                // Wenn "2" gedrückt wird, dann wird die Tabelle nach dem Lebens-Value
+                // Wenn "2" gedrueckt wird, dann wird die Tabelle nach dem Lebens-Value
                 // absteigend sortiert.
 
                 this.resetSortValues();
@@ -205,7 +205,7 @@ public class HeroesView extends View {
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_3)) {
 
-                // Wenn "3" gedrückt wird, dann wird die Tabelle nach dem Dexterity-Value
+                // Wenn "3" gedrueckt wird, dann wird die Tabelle nach dem Dexterity-Value
                 // absteigend sortiert.
 
                 this.resetSortValues();
@@ -232,7 +232,7 @@ public class HeroesView extends View {
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_4)) {
 
-                // Wenn "4" gedrückt wird, dann wird die Tabelle nach dem Attack-Value
+                // Wenn "4" gedrueckt wird, dann wird die Tabelle nach dem Attack-Value
                 // absteigend sortiert.
 
                 this.resetSortValues();
@@ -259,7 +259,7 @@ public class HeroesView extends View {
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_5)) {
 
-                // Wenn "5" gedrückt wird, dann wird die Tabelle nach der Anzahl der Skill-Points
+                // Wenn "5" gedrueckt wird, dann wird die Tabelle nach der Anzahl der Skill-Points
                 // absteigend sortiert.
 
                 this.resetSortValues();
@@ -286,7 +286,7 @@ public class HeroesView extends View {
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_0)) {
 
-                // Wenn "0" gedrückt wird, dann wird nach Type sortiert, dies wird allerdings nicht besonders markiert.
+                // Wenn "0" gedrueckt wird, dann wird nach Type sortiert, dies wird allerdings nicht besonders markiert.
 
                 this.resetSortValues();
                 this.types = Enterprise.getGame().getDataManager().get("game.heroes.types");
@@ -311,7 +311,7 @@ public class HeroesView extends View {
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_UP)) {
 
-                // Wenn man die Pfeiltaste nach oben drückt, dann soll in der Tabelle
+                // Wenn man die Pfeiltaste nach oben drueckt, dann soll in der Tabelle
                 // nach oben gescrolled werden.
 
                 this.selectedHero--;
@@ -330,7 +330,7 @@ public class HeroesView extends View {
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_DOWN)) {
 
-                // Wenn man die Pfeiltaste nach unten drückt, dann soll in der Tabelle
+                // Wenn man die Pfeiltaste nach unten drueckt, dann soll in der Tabelle
                 // nach unten gescrolled werden.
 
                 this.selectedHero++;
@@ -347,7 +347,7 @@ public class HeroesView extends View {
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_E)) {
 
-                // Wenn die E-Taste gedrückt wird, dann soll der Hero ausgewählt werden.
+                // Wenn die E-Taste gedrueckt wird, dann soll der Hero ausgewaehlt werden.
                 // Es ist aktuell so das man von jedem Typen einen nehmen muss.
 
                 LivingEntity hero = this.types[this.selectedHero];
@@ -363,7 +363,7 @@ public class HeroesView extends View {
                 Enterprise.getGame().getLogger().info("Hero Selected: " + hero.getName());
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_S)) {
 
-                // Wenn die S-Taste gedrückt wird, dann soll der Hero in die Skill-View gebracht werden, wo man
+                // Wenn die S-Taste gedrueckt wird, dann soll der Hero in die Skill-View gebracht werden, wo man
                 // dann seine Skill-Werte setzen kann.
 
                 Enterprise.getGame().getDataManager().set("game.heroes.skilling", this.types[this.selectedHero]);
@@ -371,7 +371,7 @@ public class HeroesView extends View {
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_M)) {
 
-                // Wenn "M" gedrückt wird, dann wird zwischen "Aufsteigend" und "Absteigend" sortieren gewechselt.
+                // Wenn "M" gedrueckt wird, dann wird zwischen "Aufsteigend" und "Absteigend" sortieren gewechselt.
 
                 this.ascending = !this.ascending;
 
@@ -394,7 +394,7 @@ public class HeroesView extends View {
     }
 
     /**
-     * Diese Methode sortiert die angegebenen LivingEntities abhängig vom übergebenen Comparator.
+     * Diese Methode sortiert die angegebenen LivingEntities abhaengig vom uebergebenen Comparator.
      * @param livingEntities
      * @param start
      * @param end

@@ -111,7 +111,7 @@ public enum Achievements implements Achievement {
     },
     DEFENSESCORE_197 {
 
-        // Wird freigeschaltet, wenn der Spieler direkt gegen die Rampe "f�hrt".
+        // Wird freigeschaltet, wenn der Spieler direkt gegen die Rampe "faehrt".
 
         @Override
         public String getName() {

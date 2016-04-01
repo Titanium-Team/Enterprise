@@ -23,7 +23,7 @@ public class Animator {
     }
 
     /**
-     * Gibt den Animations-Typen zurück.
+     * Gibt den Animations-Typen zurueck.
      * @return
      */
     public Animation getType() {
@@ -31,7 +31,7 @@ public class Animator {
     }
 
     /**
-     * Diese Methode geht zum nächsten Frame.
+     * Diese Methode geht zum naechsten Frame.
      *
      * Falls man beim letzten Frame angekommen ist, startet die Animation erneut.
      */
@@ -50,7 +50,7 @@ public class Animator {
     }
 
     /**
-     * Gibt die Anzahl an Frames zurück, die diese Animation hat.
+     * Gibt die Anzahl an Frames zurueck, die diese Animation hat.
      * @return
      */
     public int getAmount() {
@@ -58,7 +58,7 @@ public class Animator {
     }
 
     /**
-     * Gibt den Index des aktullen Frames zurück.
+     * Gibt den Index des aktullen Frames zurueck.
      * @return
      */
     public int getIndex() {
@@ -66,7 +66,7 @@ public class Animator {
     }
 
     /**
-     * Gibt den aktuellen Frame zurück, der gerendert werden soll.
+     * Gibt den aktuellen Frame zurueck, der gerendert werden soll.
      * @return
      */
     public BufferedImage getFrame() {

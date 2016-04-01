@@ -29,9 +29,9 @@ public class DefenseMenu extends MenuView implements GameComponent {
     private List<Rectangle[]> rectangles = new ArrayList<>();
     private Rectangle player = null;
 
-    //Die Größe des Bewegungsbereiches
+    //Die Groesse des Bewegungsbereiches
     private int space = 40;
-    //Die Starthöhe der Module
+    //Die Starthoehe der Module
     private final int height = 50;
     //Die Breite der Module
     private final int width = 320;
@@ -126,7 +126,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
                             Enterprise.getGame().getAchievementManager().add(Achievements.DEFENSESCORE_197);
                         }
 
-                        // Hier wird der Score dem BinaryTree hinzugefügt.
+                        // Hier wird der Score dem BinaryTree hinzugefuegt.
                         // @Cleanup: Eventuell muss Score diesen "Score:" String garnicht besitzen, da man eventuell von
                         // sich aus entscheiden sollte, bei der Ausgabe, was dargestellt werden soll?
                         Score score = new Score(this.tick, "Score:");
@@ -134,7 +134,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
                             Enterprise.getGame().getDataManager().set("game.defense.scores", new BinarySearchTree<Score>());
                         }
 
-                        // @Improve: Das hier ist erstmal eine erste Idee wie das ganze Aussehen könnte.
+                        // @Improve: Das hier ist erstmal eine erste Idee wie das ganze Aussehen koennte.
                         // Damit wird wenigstens schonmal etwas hier haben.
                         LivingEntity enemy = Enterprise.getGame().getDataManager().get("game.enemy");
                         LivingEntity hero = Enterprise.getGame().getDataManager().get("game.fight.maxDamage");
@@ -151,7 +151,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
                             hero.getAnimationQueue().add(Animations.RANGER_DIE);
                         }
 
-                        // @Idea: Nun wird geprüft ob alle gestorben sind, falls ja, dann wird der End-Screen angezeigt.
+                        // @Idea: Nun wird geprueft ob alle gestorben sind, falls ja, dann wird der End-Screen angezeigt.
                         for(LivingEntity entity : Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes")) {
 
                             if(entity.isAlive()) {
@@ -166,7 +166,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
                             } else {
 
                                 // @Idea: Falls das nicht der Fall ist, dann wird der Game-End-Screen angezeigt.
-                                // Aktuell wird man einfach noch ins Hauptmenü zurückgebracht.
+                                // Aktuell wird man einfach noch ins Hauptmenue zurueckgebracht.
                                 Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
 
                             }
@@ -208,7 +208,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
             Rectangle[] rec = rectangles.next();
 
-            //Falls das letzte Elemente sich nicht mehr im Screen befindet wird es entfernt und ein neues wird hinzugefügt.
+            //Falls das letzte Elemente sich nicht mehr im Screen befindet wird es entfernt und ein neues wird hinzugefuegt.
              if(rec[rec.length-1].x + rec[rec.length-1].getWidth() < 0) {
                 rectangles.remove();
 

@@ -53,7 +53,7 @@ public abstract class LivingEntity extends Entity {
     }
 
     /**
-     * Gibt den Namen zur�ck, der dem Benutzer angezeigt werden soll.
+     * Gibt den Namen zurueck, der dem Benutzer angezeigt werden soll.
      * @return
      */
     public String getName() {
@@ -109,7 +109,7 @@ public abstract class LivingEntity extends Entity {
     }
 
     /**
-     * Gibt true zur�ck, wenn das Entity noch mehr als 0 Leben hat.
+     * Gibt true zurueck, wenn das Entity noch mehr als 0 Leben hat.
      * @return
      */
     public boolean isAlive() {
@@ -117,7 +117,7 @@ public abstract class LivingEntity extends Entity {
     }
 
     /**
-     * Gibt eine Liste mit allen Skills zur�ck die dieses Living-Entity bereits freigeschaltet hat.
+     * Gibt eine Liste mit allen Skills zurueck die dieses Living-Entity bereits freigeschaltet hat.
      * @return
      */
     public List<Skill> getSkills() {
@@ -133,7 +133,7 @@ public abstract class LivingEntity extends Entity {
     }
 
     /**
-     * Diese Methode f�gt dem Entity den �bergebenen Skill hinzu.
+     * Diese Methode fuegt dem Entity den uebergebenen Skill hinzu.
      * @param skill
      */
     public void addSkill(Skill skill) {
@@ -141,7 +141,7 @@ public abstract class LivingEntity extends Entity {
     }
 
     /**
-     * Diese Methode berechnet abh�ngig von den Typen, die sich gegenueberstehen, die jeweiligen Schadenswerte.
+     * Diese Methode berechnet abhaengig von den Typen, die sich gegenueberstehen, die jeweiligen Schadenswerte.
      * @param enemy Ist das Entity das angegriffen wird oder verteidigt.
      * @param comboResult Das Resultat der Combo fuer dieses Entity.
      * @return

@@ -20,19 +20,19 @@ public class TextBuilder {
     public TextBuilder() {}
 
     /**
-     * Diese Methode verwandelt den übergebenen String in ein Image das diesen Text enthält.
+     * Diese Methode verwandelt den uebergebenen String in ein Image das diesen Text enthaelt.
      * @param value Der Text der umgewandelt werden soll.
-     * @param font Die Größe des Textes.
+     * @param font Die Groesse des Textes.
      * @return
      */
     public Image toImage(String value, int font) {
 
 
-        // Dies ist der einhaltliche Cache-Key der aus dem Value an sich (also dem Text) und der Font-Größe besteht.
+        // Dies ist der einhaltliche Cache-Key der aus dem Value an sich (also dem Text) und der Font-Groesse besteht.
         String cacheKey = String.format("%s->%d", value, font);
 
-        // In diesem Code Teil wird nun geprüft, ob es aktuell Werte gibt, die sich im Cache befinden, deren Zeit
-        // "abgelaufen" ist und deshalb, falls sie nochmal abgefragt werden sollten, neu gerendert werden müssen.
+        // In diesem Code Teil wird nun geprueft, ob es aktuell Werte gibt, die sich im Cache befinden, deren Zeit
+        // "abgelaufen" ist und deshalb, falls sie nochmal abgefragt werden sollten, neu gerendert werden muessen.
         // Dies sollte immer wieder ein wenig RAM freischaufeln.
         for(Map.Entry<String, Long> entry : this.expires.entrySet()) {
             if(entry.getValue() <= System.currentTimeMillis()) {
@@ -40,25 +40,25 @@ public class TextBuilder {
             }
         }
 
-        // Falls sich der Value aktuell im Cache befindet, dann können wird einfach diesen Wert aus dem Cache zurück geben
+        // Falls sich der Value aktuell im Cache befindet, dann koennen wird einfach diesen Wert aus dem Cache zurueck geben
         // und sparen uns das komplette erzeugen.
-        // Hier muss nicht mehr geprüft werden, ob das Image bereits abgelaufen ist, da das ja bereits weiter oben
+        // Hier muss nicht mehr geprueft werden, ob das Image bereits abgelaufen ist, da das ja bereits weiter oben
         // gemacht wird.
         if(this.cache.containsKey(cacheKey)) {
             return this.cache.get(cacheKey);
         }
 
-        // @Improve: Man muss auf Rundungsfehlerprüfen, da es sonst dazu kommt das einige Buchstaben manchmal
+        // @Improve: Man muss auf Rundungsfehlerpruefen, da es sonst dazu kommt das einige Buchstaben manchmal
         // abgeschnitten sind, wird etwas weiter unten zwar versucht mit Konstanten auszugleichen funktioniert aber
-        // noch nicht wirklich 100%ig, könnte besser sein.
+        // noch nicht wirklich 100%ig, koennte besser sein.
         double size = (font / 30D);
         int width = 0;
         int height = 0;
 
-        // @Imrpove: Die Breite des Leerzeichen sollte auch von der allgemeinen gewählten Schriftgröße abhängig
+        // @Imrpove: Die Breite des Leerzeichen sollte auch von der allgemeinen gewaehlten Schriftgroesse abhaengig
         // gemacht werden, wirkt sonst eventuell etwas klein manchmal. Sollte aber erst gemacht werden, wenn man
-        // auch einen maximalen Wert angeben kann für die Breite des Bildes, da es sonst dazu führen kann das
-        // nochmal alle Texte angepasst werden müssen. :( Falls der Wert höher ist als 10px.
+        // auch einen maximalen Wert angeben kann fuer die Breite des Bildes, da es sonst dazu fuehren kann das
+        // nochmal alle Texte angepasst werden muessen. :( Falls der Wert hoeher ist als 10px.
         int space = 10;
 
         for(char c : value.toCharArray()) {
@@ -118,8 +118,8 @@ public class TextBuilder {
     }
 
     /**
-     * Diese Methode gibt die passende Textur abhängig vom Character zurück, sollte der Character unbekannt sein
-     * gibt die Methode null zurück.
+     * Diese Methode gibt die passende Textur abhaengig vom Character zurueck, sollte der Character unbekannt sein
+     * gibt die Methode null zurueck.
      *
      * @param c
      * @return

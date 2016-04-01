@@ -75,17 +75,17 @@ public class StoryView extends View {
 
             String[] chapters = this.story.keySet().toArray(new String[this.story.size()]);
 
-            if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ESCAPE)) { //zurück ins hauptmenü
+            if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ESCAPE)) { //zurueck ins hauptmenue
                 Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_DOWN)) { //nach unten scrollen
                 this.currentLine++;
 
-                //Nächstes Kapitel
+                //Naechstes Kapitel
                 String chapter = chapters[this.currentChapter];
-                if(((this.currentLine + this.maxLines) > this.story.get(chapter).size()) && (this.story.size()-1) > this.currentChapter) { //nächstes kapitel
+                if(((this.currentLine + this.maxLines) > this.story.get(chapter).size()) && (this.story.size()-1) > this.currentChapter) { //naechstes kapitel
                     this.currentLine = 0;
                     this.currentChapter++;
-                } else if((this.currentLine + this.maxLines) > this.story.get(chapter).size()) { //kein nächstes kapitel
+                } else if((this.currentLine + this.maxLines) > this.story.get(chapter).size()) { //kein naechstes kapitel
                     this.currentLine--;
                 }
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_UP)) { //nach oben scrollen
@@ -98,7 +98,7 @@ public class StoryView extends View {
                     this.currentLine = 0;
                 }
 
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_RIGHT) && (this.story.size()-1) > this.currentChapter) { //nächstes kapitel
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_RIGHT) && (this.story.size()-1) > this.currentChapter) { //naechstes kapitel
                 this.currentChapter++;
                 this.currentLine = 0;
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_LEFT) && this.currentChapter > 0) { //vorheriges kapitel

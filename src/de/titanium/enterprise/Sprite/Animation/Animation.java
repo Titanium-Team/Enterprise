@@ -14,13 +14,13 @@ public interface Animation extends Loadable {
     Animator createAnimator();
 
     /**
-     * Gibt die Größe des zu zeichnenden Bildes zurück.
+     * Gibt die Groesse des zu zeichnenden Bildes zurueck.
      * @return
      */
     int getHeight();
 
     /**
-     * Gibt die Breite des zu zeichnenden Bildes zurück.
+     * Gibt die Breite des zu zeichnenden Bildes zurueck.
      * @return
      */
     int getWidth();

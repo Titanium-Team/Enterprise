@@ -15,7 +15,7 @@ public class LoadingManager {
     public LoadingManager() {}
 
     /**
-     * Diese Methode fügt ein Loadable der Liste hinzu.
+     * Diese Methode fuegt ein Loadable der Liste hinzu.
      * @param loadable
      */
     public void add(Loadable loadable) {
@@ -23,7 +23,7 @@ public class LoadingManager {
     }
 
     /**
-     * Diese Methode fügt ein Array an Loadables der Liste hinzu.
+     * Diese Methode fuegt ein Array an Loadables der Liste hinzu.
      * @param loadables
      */
     public void add(Loadable[] loadables) {
@@ -43,7 +43,7 @@ public class LoadingManager {
     }
 
     /**
-     * Gibt das aktuelle Objekt zurück, dass geladen wird. Falls keins aktuell geladen wird, wird null zurückgegeben.
+     * Gibt das aktuelle Objekt zurueck, dass geladen wird. Falls keins aktuell geladen wird, wird null zurueckgegeben.
      * @return
      */
     public Loadable getCurrent() {

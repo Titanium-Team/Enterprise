@@ -61,7 +61,7 @@ public class AchievementManager {
     }
 
     /**
-     * Diese Methode gibt die AchievementGraphic zur�ck, die aktuell gezeichnet wird, falls keine gezeichnet wird,
+     * Diese Methode gibt die AchievementGraphic zurueck, die aktuell gezeichnet wird, falls keine gezeichnet wird,
      * wird null zurueckgegeben.
      * @return
      */

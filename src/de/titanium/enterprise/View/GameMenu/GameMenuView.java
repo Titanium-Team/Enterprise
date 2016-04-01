@@ -155,7 +155,7 @@ public class GameMenuView extends View {
 
                 Class goTo = this.options.values().toArray(new Class[this.options.size()])[this.selectedOption];
 
-                //Wenn die Class nicht null ist h�lt es sich um eine normale View und es kann gewechselt werden.
+                //Wenn die Class nicht null ist handelt es sich um eine normale View und es kann gewechselt werden.
                 if(!(goTo == null)) {
                     Enterprise.getGame().getViewManager().switchTo(goTo);
                 } else {
