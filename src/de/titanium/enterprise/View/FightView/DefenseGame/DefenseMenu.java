@@ -5,6 +5,7 @@ import de.titanium.enterprise.Data.BinarySearchTree;
 import de.titanium.enterprise.Data.Datas.Score;
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Entity.LivingEntity;
+import de.titanium.enterprise.Entity.Statistic.Statistics;
 import de.titanium.enterprise.GameComponent;
 import de.titanium.enterprise.Sprite.Animation.Animations;
 import de.titanium.enterprise.Sprite.Textures;
@@ -142,9 +143,16 @@ public class DefenseMenu extends MenuView implements GameComponent {
                         double damage = enemy.calculateDamage(hero, this.random.nextInt(5) + 10);
                         double defense = hero.calculateDefense(enemy, this.tick);
 
+                        // Den Score für den abgewerten Schaden updaten
+                        hero.getGameStatistic().update(Statistics.DAMAGE_BLOCKED, this.tick);
+
+                        // Das Leben von dem Helden abziehen
                         hero.setHealth(
                                 hero.getHealth() - (damage - defense)
                         );
+
+                        // Den Wert für den höchsten Defense-Score
+                        hero.getGameStatistic().update(Statistics.HIGHEST_DEFENSE_SCORE, this.tick);
 
                         // Falls der Held gestorben ist.
                         if(!(hero.isAlive())) {
@@ -164,7 +172,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
                                 break;
 
                             } else {
-
+                                
                                 // @Idea: Falls das nicht der Fall ist, dann wird der Game-End-Screen angezeigt.
                                 // Aktuell wird man einfach noch ins Hauptmenue zurueckgebracht.
                                 Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);

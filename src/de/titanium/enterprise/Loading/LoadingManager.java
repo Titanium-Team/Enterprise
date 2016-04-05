@@ -11,6 +11,9 @@ public class LoadingManager {
 
     private List<Loadable> loadables = new ArrayList<>();
     private Loadable current = null;
+    private boolean isDone = false;
+
+    private int currentIndex = 1;
 
     public LoadingManager() {}
 
@@ -34,10 +37,13 @@ public class LoadingManager {
      * Diese Methode ruft alle Loadable#load Funktionen auf, die sich aktuell in der Liste befinden.
      */
     public void load() {
+
         for(Loadable loadable : this.loadables) {
             this.current = loadable;
             loadable.load();
+            this.currentIndex++;
         }
+        this.isDone = true;
         this.loadables.clear();
         this.current = null;
     }
@@ -49,4 +55,29 @@ public class LoadingManager {
     public Loadable getCurrent() {
         return this.current;
     }
+
+    /**
+     * Gibt true zurück, wenn der LoadingManager fertig mit laden ist, ansonsten false.
+     * @return
+     */
+    public boolean isDone() {
+        return isDone;
+    }
+
+    /**
+     * Gibt den "Index" des aktuellen Elements zurück.
+     * @return
+     */
+    public int getCurrentIndex() {
+        return this.currentIndex;
+    }
+
+    /**
+     * Gibt die gesammte Größe der Liste zurück.
+     * @return
+     */
+    public int getSize() {
+        return this.loadables.size();
+    }
+
 }

@@ -360,7 +360,6 @@ public class HeroesView extends View {
                     Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes")[2] = hero;
                 }
 
-                Enterprise.getGame().getLogger().info("Hero Selected: " + hero.getName());
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_S)) {
 
                 // Wenn die S-Taste gedrueckt wird, dann soll der Hero in die Skill-View gebracht werden, wo man

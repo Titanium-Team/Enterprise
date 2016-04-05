@@ -121,6 +121,9 @@ public class SkillView extends View {
                 // Wenn "ESC" gedrueckt wird, dann soll man wieder in der HeroesView landen, um dann ggf. andere Helden
                 // zu skillen o.ae.
 
+                // Fixed den Bug das man ansonsten direkt wieder ins Hauptmenu kommt.
+                Enterprise.getGame().getKeyManager().setKeyCode(-1);
+
                 Enterprise.getGame().getViewManager().switchTo(HeroesView.class);
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_A) && !(current.getLeftTree().isEmpty())) {

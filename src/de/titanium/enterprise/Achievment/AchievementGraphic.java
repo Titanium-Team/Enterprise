@@ -40,14 +40,16 @@ public class AchievementGraphic implements GameComponent {
         // mit zu determinieren
         double minusX = (this.achievementImage.getWidth() / 2) - (this.achievementImage.getWidth() / 2 * optimizedAlpha);
 
+        // @Bug: Durch die Rundungsfehler (durch das casten zum int) "teleportiert" sich die Grafik immer leicht nach
+        // oben und unten.
         g.drawImage(this.achievementImage.getSubimage(
                         (int) minusX,
                         (int) (this.achievementImage.getHeight() / 2 - (this.achievementImage.getHeight() / 2 * optimizedAlpha)),
                         (int) Math.max((this.achievementImage.getWidth() * optimizedAlpha), 1),
                         (int) Math.max((this.achievementImage.getHeight() * optimizedAlpha), 1)
         ),
-                (int) (50 + minusX),
-                (int) (90 - (45 * optimizedAlpha)),
+                (int) Math.round(50 + minusX),
+                (int) Math.round(90 - (45 * optimizedAlpha)),
                 null
         );
 

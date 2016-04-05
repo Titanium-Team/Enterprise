@@ -36,6 +36,9 @@ public class KeyManager extends KeyAdapter {
 
     }
 
+    public void setKeyCode(int keyCode) {
+        this.keyCode = keyCode;
+    }
 
     /**
      * Diese Methode prueft, ob der Key, der angegeben wurde, gedrueckt wurde.
