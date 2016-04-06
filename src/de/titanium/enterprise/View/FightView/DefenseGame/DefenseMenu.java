@@ -79,7 +79,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
         //Den Spieler zeichnen
         g.setColor(Color.BLACK);
-        if(!(player == null)) {
+        if(!(this.player == null)) {
             g.fillRect(
                     (int) this.player.getX(),
                     (int) this.player.getY(),

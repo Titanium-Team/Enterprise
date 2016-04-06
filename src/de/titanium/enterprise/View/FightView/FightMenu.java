@@ -235,9 +235,9 @@ public class FightMenu extends MenuView implements GameComponent {
         // Es wird nach der Zeit (ohne Abstand) geprueft ob er innerhalb der Zeit gedrueckt wurde.
         // Falls die Button nicht innerhalb der Zeit gedrueckt wurden ist dieses Entity fuer diese Runde raus.
         if((this.currentTime + this.time) < System.currentTimeMillis()) {
-            setPressedOne();
-            setPressedTwo();
-            setPressedThree();
+            this.setPressedOne();
+            this.setPressedTwo();
+            this.setPressedThree();
         }
 
 
@@ -292,14 +292,14 @@ public class FightMenu extends MenuView implements GameComponent {
                 double damageThree = heroes[2].calculateDamage(enemy, this.comboThree);
 
                 //update statistics, damage dealt
-                heroes[0].getGameStatistic().update(Statistics.DAMAGE_DEALT, damageOne);
-                heroes[1].getGameStatistic().update(Statistics.DAMAGE_DEALT, damageTwo);
-                heroes[2].getGameStatistic().update(Statistics.DAMAGE_DEALT, damageThree);
+                this.heroes[0].getGameStatistic().update(Statistics.DAMAGE_DEALT, damageOne);
+                this.heroes[1].getGameStatistic().update(Statistics.DAMAGE_DEALT, damageTwo);
+                this.heroes[2].getGameStatistic().update(Statistics.DAMAGE_DEALT, damageThree);
 
                 //update statistics, longest key streak
-                heroes[0].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboOne);
-                heroes[1].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboTwo);
-                heroes[2].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboThree);
+                this.heroes[0].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboOne);
+                this.heroes[1].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboTwo);
+                this.heroes[2].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboThree);
 
                 double totalDamage = (damageOne + damageTwo + damageThree) - enemy.calculateDefense(heroes[0], this.random.nextInt(500) + 100);
 
@@ -314,14 +314,14 @@ public class FightMenu extends MenuView implements GameComponent {
 
                 // Hier werden die passenden Animationen in die Queue gepackt. Diese werden allerdings nur abgespielt,
                 // bzw. ueberhaupt erst gequeued, wenn wirklich schaden gemacht wurde.
-                if(heroes[0].isAlive() && damageOne > 0 && totalDamage > 0) {
-                    heroes[0].getAnimationQueue().add(Animations.RANGER_ATTACK);
+                if(this.heroes[0].isAlive() && damageOne > 0 && totalDamage > 0) {
+                    this.heroes[0].getAnimationQueue().add(Animations.RANGER_ATTACK);
                 }
-                if(heroes[1].isAlive() && damageTwo > 0 && totalDamage > 0) {
-                    heroes[1].getAnimationQueue().add(Animations.RANGER_ATTACK);
+                if(this.heroes[1].isAlive() && damageTwo > 0 && totalDamage > 0) {
+                    this.heroes[1].getAnimationQueue().add(Animations.RANGER_ATTACK);
                 }
-                if(heroes[2].isAlive() && damageThree > 0 && totalDamage > 0) {
-                    heroes[2].getAnimationQueue().add(Animations.RANGER_ATTACK);
+                if(this.heroes[2].isAlive() && damageThree > 0 && totalDamage > 0) {
+                    this.heroes[2].getAnimationQueue().add(Animations.RANGER_ATTACK);
                 }
 
                 if(totalDamage > 0) {
@@ -341,15 +341,6 @@ public class FightMenu extends MenuView implements GameComponent {
                 }
 
                 if(!(enemy.isAlive())) {
-                    // @Bug: Diese Animation wird nicht mehr abgespielt, da gleich die Instanz fuer den Enemy ersetzt wird
-                    // und deshalb die neue AnimationQueue genommen wird und die alte nicht mehr abgespielt wird.
-                    enemy.getAnimationQueue().add(Animations.RANGER_DIE);
-
-                    // @Improvement: Das hier ist erstmal provisorisch. Das Level das dem Generator uebergen wird, muss
-                    // noch angepasst werden.
-                    dataManager.set("game.enemy", Enterprise.getGame().getEntityGenerator().generate(1));
-
-                } else {
 
                     // Falls es ins DefenseGame geht gibt es, falls nicht auch der letzte Held stirbt,
                     // eine weitere Runde, weshalb hier die Werte zurueckgesetzt werden muessen, damit in
@@ -358,25 +349,32 @@ public class FightMenu extends MenuView implements GameComponent {
                     this.comboTwo = 0;
                     this.comboThree = 0;
 
+                    // @Improvement: Das hier ist erstmal provisorisch. Das Level das dem Generator uebergen wird, muss
+                    // noch angepasst werden.
+                    dataManager.set("game.enemy", Enterprise.getGame().getEntityGenerator().generate(1));
+                    enemy.getAnimationQueue().add(Animations.RANGER_DIE);
+
+                } else {
+
                     // Den Hero setzten der den meisten Schaden gemacht hat.
                     LivingEntity max;
 
-                    if(damageOne > damageTwo && damageOne > damageThree && heroes[0].isAlive()) {
+                    if(this.comboOne > this.comboTwo && this.comboOne > this.comboThree && this.heroes[0].isAlive()) {
                         // Falls der erste Held am meisten Schaden gemacht hat.
-                        max = heroes[0];
-                    } else if(damageTwo > damageOne && damageTwo > damageThree && heroes[1].isAlive()) {
+                        max = this.heroes[0];
+                    } else if(this.comboTwo > this.comboOne && this.comboTwo > this.comboThree && this.heroes[1].isAlive()) {
                         // Falls der zweite Held am meisten Schaden gemacht hat.
-                        max = heroes[1];
-                    } else if(damageThree > damageOne && damageThree > damageTwo && heroes[2].isAlive()) {
+                        max = this.heroes[1];
+                    } else if(this.comboThree > this.comboOne && damageThree > this.comboTwo && this.heroes[2].isAlive()) {
                         // Falls der dritte Held am meisten Schaden gemacht hat.
-                        max = heroes[2];
+                        max = this.heroes[2];
                     } else {
 
                         // Sollten alle die gleichen Werte erricht haben, wird einfach ein zufaelliger ausgewaehlt.
                         // @Idea: Eventuell ist der "Zufall" nicht balanced genug und man koennte ueberlegen, ob man eventuell
                         // den nimmt der am meisten oder am wenigsten Leben noch hat.
 
-                        while(!(max = heroes[this.random.nextInt(heroes.length)]).isAlive()) {}
+                        while(!(max = this.heroes[this.random.nextInt(this.heroes.length)]).isAlive()) {}
 
                     }
 

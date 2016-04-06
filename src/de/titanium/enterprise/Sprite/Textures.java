@@ -952,18 +952,498 @@ public enum Textures implements Texture {
         }
 
     },
-    TEST {
+    ACHIEVEMENT_ICON_AMULET {
 
         private BufferedImage image;
 
         @Override
         public String getName() {
-            return "Test Texture";
+            return "Achievement Icon - Amulet";
         }
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/test-ach.jpg").getSubimage(0, 0, 128, 128);
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(1, 1, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_ARROW {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Arrow";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(45, 1, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_AXE {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Axe";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(89, 1, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_CAMPFIRE {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Campfire";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(133, 1, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_COIN {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Coin";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(177, 1, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_EXIT {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Exit";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(1, 46, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_FLAG {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Flag";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(45, 46, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_GAME_MENU {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Game Menu";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(89, 46, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_HAMMER {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Hammer";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(133, 46, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_HEALING {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Healing";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(177, 46, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_LEVEL_UP {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Level Up";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(1, 91, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_LOCKER {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Locker";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(45, 91, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_MAGIC_HAT {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Magic Hat";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(89, 91, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_MAGIC_STONE {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Magic Stone";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(133, 91, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_MEAT {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Meat";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(177, 91, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_PAUSE {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Pause";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(1, 136, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_PLAY{
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Play";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(45, 136, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_POTION {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Potion";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(89, 136, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_REPLAY {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Replay";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(133, 136, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_RING {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Ring";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(177, 136, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_SCROLL {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Scroll";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(1, 181, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_SELL {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Sell";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(45, 181, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_SWORD {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Sword";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(89, 181, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_WINNER {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Winner";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(133, 181, 42, 43);
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    ACHIEVEMENT_ICON_WOODS {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Achievement Icon - Woods";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/achievements.png").getSubimage(177, 181, 42, 43);
         }
 
         @Override

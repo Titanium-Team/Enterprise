@@ -102,7 +102,7 @@ public class AchievementGraphic implements GameComponent {
      * @param achievement
      */
     private void createAchievementImage(Achievement achievement) {
-        Image icon = achievement.getTexture().getImage().getScaledInstance(28, 28, 0);
+        Image icon = achievement.getTexture().getImage().getScaledInstance(42, 43, 0);
 
         BufferedImage text = (BufferedImage) Enterprise.getGame().getTextBuilder().toImage(achievement.getName(), 10);
 
@@ -116,7 +116,7 @@ public class AchievementGraphic implements GameComponent {
         g.fillRoundRect(0, 0, this.achievementImage.getWidth(), this.achievementImage.getHeight(), 20, 20);
 
         // Das Icon zeichnen
-        g.drawImage(icon, 10, 8, null);
+        g.drawImage(icon, 5, 0, null);
 
         // Hier wird der Name des Achievements gezeichnet
         g.drawImage(text, 48, 10, null);

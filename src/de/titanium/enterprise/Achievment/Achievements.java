@@ -1,6 +1,5 @@
 package de.titanium.enterprise.Achievment;
 
-import de.titanium.enterprise.Skill.Skill;
 import de.titanium.enterprise.Sprite.Texture;
 import de.titanium.enterprise.Sprite.Textures;
 
@@ -25,7 +24,7 @@ public enum Achievements implements Achievement {
 
         @Override
         public Texture getTexture() {
-            return Textures.TEST;
+            return Textures.ACHIEVEMENT_ICON_HEALING;
         }
 
     },
@@ -45,7 +44,7 @@ public enum Achievements implements Achievement {
 
         @Override
         public Texture getTexture() {
-            return Textures.TEST;
+            return Textures.ACHIEVEMENT_ICON_SWORD;
         }
 
     },
@@ -65,7 +64,7 @@ public enum Achievements implements Achievement {
 
         @Override
         public Texture getTexture() {
-            return Textures.TEST;
+            return Textures.ACHIEVEMENT_ICON_SWORD;
         }
 
     },
@@ -85,7 +84,7 @@ public enum Achievements implements Achievement {
 
         @Override
         public Texture getTexture() {
-            return Textures.TEST;
+            return Textures.ACHIEVEMENT_ICON_SWORD;
         }
 
     },
@@ -105,7 +104,7 @@ public enum Achievements implements Achievement {
 
         @Override
         public Texture getTexture() {
-            return Textures.TEST;
+            return Textures.ACHIEVEMENT_ICON_WINNER;
         }
 
     },
@@ -125,7 +124,7 @@ public enum Achievements implements Achievement {
 
         @Override
         public Texture getTexture() {
-            return Textures.TEST;
+            return Textures.ACHIEVEMENT_ICON_WINNER;
         }
     },
     DEFENSESCORE_2000 {
@@ -144,7 +143,7 @@ public enum Achievements implements Achievement {
 
         @Override
         public Texture getTexture() {
-            return Textures.TEST;
+            return Textures.ACHIEVEMENT_ICON_WINNER;
         }
 
     },
@@ -164,22 +163,9 @@ public enum Achievements implements Achievement {
 
         @Override
         public Texture getTexture() {
-            return Textures.TEST;
+            return Textures.ACHIEVEMENT_ICON_WINNER;
         }
 
     };
 
-    public static Achievement byName(String name) {
-
-        for(Achievement entry : Achievements.values()) {
-
-            if(entry.getName().equals(name)) {
-                return entry;
-            }
-
-        }
-
-        return null;
-
-    }
 }
