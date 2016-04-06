@@ -23,6 +23,7 @@ import java.util.Random;
 public class FightMenu extends MenuView implements GameComponent {
 
     private final Random random = new Random();
+    private LivingEntity[] heroes = Enterprise.getGame().getDataManager().get("game.heroes");
 
     //Time
     private long currentTime = System.currentTimeMillis();
@@ -34,6 +35,7 @@ public class FightMenu extends MenuView implements GameComponent {
     private boolean pressedOne = true;
     private boolean tmpOne = false;
     private boolean drawOne = true;
+    private boolean failedOne = false;
     private int comboOne = 0;
 
     private final static List<List<Integer>> areaOne = new LinkedList<>();
@@ -44,6 +46,7 @@ public class FightMenu extends MenuView implements GameComponent {
     private boolean pressedTwo = true;
     private boolean tmpTwo = false;
     private boolean drawTwo = true;
+    private boolean failedTwo = false;
     private int comboTwo = 0;
 
     private final static List<List<Integer>> areaTwo = new LinkedList<>();
@@ -54,6 +57,7 @@ public class FightMenu extends MenuView implements GameComponent {
     private boolean pressedThree = true;
     private boolean tmpThree = false;
     private boolean drawThree = true;
+    private boolean failedThree = false;
     private int comboThree = 0;
 
     private final static List<List<Integer>> areaThree = new LinkedList<>();
@@ -161,7 +165,7 @@ public class FightMenu extends MenuView implements GameComponent {
         Image checkedImage = Textures.CHECKED_BUTTON.getImage();
 
         if(!(heroes[0].isAlive())) { //Der Held ist verstorben
-            g.drawImage(failedImage, 790, 60, (int) (failedImage.getWidth(null) * 0.3), (int) (failedImage.getHeight(null) * 0.3), null);
+            g.drawImage(failedImage, 190, 60, (int) (failedImage.getWidth(null) * 0.3), (int) (failedImage.getHeight(null) * 0.3), null);
         } else if(!(this.heroOne == null) && this.pressedOne && this.drawOne) { //die naechste Taste anzeigen
             g.drawImage(Enterprise.getGame().getTextBuilder().toImage(this.heroOne.toString(), 20), 190, 60, null);
         } else if (!(this.pressedOne)) { //der Spieler hat die Taste verpasst
@@ -171,7 +175,7 @@ public class FightMenu extends MenuView implements GameComponent {
         }
 
         if(!(heroes[1].isAlive())) { //Der Held ist verstorben
-            g.drawImage(failedImage, 790, 60, (int) (failedImage.getWidth(null) * 0.3), (int) (failedImage.getHeight(null) * 0.3), null);
+            g.drawImage(failedImage, 490, 60, (int) (failedImage.getWidth(null) * 0.3), (int) (failedImage.getHeight(null) * 0.3), null);
         } else if(!(this.heroTwo == null) && this.pressedTwo && this.drawTwo) { //die naechste Taste anzeigen
             g.drawImage(Enterprise.getGame().getTextBuilder().toImage(this.heroTwo.toString(), 20), 490, 60, null);
         } else if (!(this.pressedTwo)) { //der Spieler hat die Taste verpasst
@@ -203,25 +207,26 @@ public class FightMenu extends MenuView implements GameComponent {
     @Override
     public void update(int tick) {
 
-        LivingEntity[] heroes = Enterprise.getGame().getDataManager().get("game.heroes");
 
-        //Es wird geprueft ob der Button gedrueckt wurde, falls er noch nicht gedrueckt wurde
+        //Es wird geprueft ob der Button gedrueckt wurde, falls er noch nicht gedrueckt wurde,
         if(!(this.tmpOne) && !(this.heroOne == null) && heroes[0].isAlive()) {
-            this.tmpOne = Enterprise.getGame().getKeyManager().isPressed(this.heroOne);
+            this.tmpOne = Enterprise.getGame().getKeyManager().onlyThis(this.heroOne);
             if(this.tmpOne) {
                 this.drawOne = false;
+            } else {
+                this.failedOne = true;
             }
         }
 
         if(!(this.tmpTwo) && !(this.heroTwo == null) && heroes[1].isAlive()) {
-            this.tmpTwo = Enterprise.getGame().getKeyManager().isPressed(this.heroTwo);
+            this.tmpTwo = Enterprise.getGame().getKeyManager().onlyThis(this.heroTwo);
             if(this.tmpTwo) {
                 this.drawTwo = false;
             }
         }
 
         if(!(this.tmpThree) && !(this.heroThree == null) && heroes[2].isAlive()) {
-            this.tmpThree = Enterprise.getGame().getKeyManager().isPressed(this.heroThree);
+            this.tmpThree = Enterprise.getGame().getKeyManager().onlyThis(this.heroThree);
             if(this.tmpThree) {
                 this.drawThree = false;
             }
@@ -230,46 +235,9 @@ public class FightMenu extends MenuView implements GameComponent {
         // Es wird nach der Zeit (ohne Abstand) geprueft ob er innerhalb der Zeit gedrueckt wurde.
         // Falls die Button nicht innerhalb der Zeit gedrueckt wurden ist dieses Entity fuer diese Runde raus.
         if((this.currentTime + this.time) < System.currentTimeMillis()) {
-
-            if(!(this.heroOne == null) && heroes[0].isAlive()) {
-
-                this.pressedOne = this.tmpOne;
-                this.tmpOne = false;
-                this.heroOne = null;
-
-                if(!(this.pressedOne)) {
-                    this.chance--;
-                } else {
-                    this.comboOne++;
-                }
-            }
-
-            if(!(this.heroTwo == null) && heroes[1].isAlive()) {
-
-                this.pressedTwo = this.tmpTwo;
-                this.tmpTwo = false;
-                this.heroTwo = null;
-
-                if(!(this.pressedTwo)) {
-                    this.chance--;
-                } else {
-                    this.comboTwo++;
-                }
-            }
-
-            if(!(this.heroThree == null) && heroes[2].isAlive()) {
-
-                this.pressedThree = this.tmpThree;
-                this.tmpThree = false;
-                this.heroThree = null;
-
-                if(!(this.pressedThree)) {
-                    this.chance--;
-                } else {
-                    this.comboThree++;
-                }
-            }
-
+            setPressedOne();
+            setPressedTwo();
+            setPressedThree();
         }
 
 
@@ -458,7 +426,58 @@ public class FightMenu extends MenuView implements GameComponent {
     }
 
     /**
-     * Diese Funktion gibt einen zufuelligen Button aus allen verfuegbaren Stages zurueck.
+     * Diese Methode setzt pressedOne true oder false, je nach dem ob der Button richtig gedrueckt wurde.
+     */
+    private void setPressedOne() {
+
+        if (!(this.heroOne == null) && heroes[0].isAlive()) {
+
+            this.pressedOne = this.tmpOne;
+            this.tmpOne = false;
+            this.heroOne = null;
+
+            if (!(this.pressedOne)) {
+                this.chance--;
+            } else {
+                this.comboOne++;
+            }
+        }
+    }
+
+    private void setPressedTwo() {
+
+        if (!(this.heroTwo == null) && heroes[1].isAlive()) {
+
+            this.pressedTwo = this.tmpTwo;
+            this.tmpTwo = false;
+            this.heroTwo = null;
+
+            if (!(this.pressedTwo)) {
+                this.chance--;
+            } else {
+                this.comboTwo++;
+            }
+        }
+    }
+
+    private void setPressedThree(){
+
+        if(!(this.heroThree == null) && heroes[2].isAlive()) {
+
+            this.pressedThree = this.tmpThree;
+            this.tmpThree = false;
+            this.heroThree = null;
+
+            if(!(this.pressedThree)) {
+                this.chance--;
+            } else {
+                this.comboThree++;
+            }
+        }
+    }
+
+    /**
+     * Diese Funktion gibt einen zufaelligen Button aus allen verfuegbaren Stages zurueck.
      * @param lists
      * @param stage
      * @return

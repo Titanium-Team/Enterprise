@@ -159,29 +159,29 @@ public class DefenseMenu extends MenuView implements GameComponent {
                             hero.getAnimationQueue().add(Animations.RANGER_DIE);
                         }
 
+                        boolean allDead = true;
+
                         // @Idea: Nun wird geprueft ob alle gestorben sind, falls ja, dann wird der End-Screen angezeigt.
                         for(LivingEntity entity : Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes")) {
 
                             if(entity.isAlive()) {
-
+                                allDead = false;
                                 // Falls noch mindestens ein Hero lebt, dann geht es weiter im Spiel und es wird im
                                 // FightMenu der Angriff fortgesetzt.
-
                                 Enterprise.getGame().getViewManager().changeMenu(FightView.class, new FightMenu());
-
                                 break;
-
-                            } else {
-                                
-                                // @Idea: Falls das nicht der Fall ist, dann wird der Game-End-Screen angezeigt.
-                                // Aktuell wird man einfach noch ins Hauptmenue zurueckgebracht.
-                                Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
 
                             }
 
                         }
 
-                        Enterprise.getGame().getDataManager().<BinarySearchTree>get("game.defense.scores").insert(score);
+                        if(allDead) {
+                            // @Idea: Falls das nicht der Fall ist, dann wird der Game-End-Screen angezeigt.
+                            // Aktuell wird man einfach noch ins Hauptmenue zurueckgebracht.
+                            Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
+                        } else {
+                            Enterprise.getGame().getDataManager().<BinarySearchTree>get("game.defense.scores").insert(score);
+                        }
                         break;
                     }
                 }

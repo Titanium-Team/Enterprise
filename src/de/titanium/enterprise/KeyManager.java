@@ -40,6 +40,7 @@ public class KeyManager extends KeyAdapter {
         this.keyCode = keyCode;
     }
 
+
     /**
      * Diese Methode prueft, ob der Key, der angegeben wurde, gedrueckt wurde.
      * @param keyCode
@@ -49,6 +50,16 @@ public class KeyManager extends KeyAdapter {
 
         return (this.keyCode == keyCode);
 
+    }
+
+    /**
+     * Diese Methode prueft, ob eine Taste gedrueckt wurde und keine andere. - Falls das der Fall ist, dann wird
+     * true zurueckgegeben, ansonsten false.
+     * @param keyCode
+     * @return
+     */
+    public boolean onlyThis(int keyCode) {
+        return (this.keyCode == keyCode);
     }
 
 }
