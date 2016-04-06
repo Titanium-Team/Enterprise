@@ -34,19 +34,19 @@ public class EntityGenerator {
         // Wenn der Wert 0 ist, dann wird es ein Archer
         if(entityType == 0) { // Archer
 
-            double health = (this.random.nextInt(60) + 120 * level);
+            double health = (this.random.nextInt(40) + 5 * level);
 
             entity = new Archer(
                     UUID.randomUUID(),
                     "Archer",
                     health,
                     health,
-                    this.random.nextInt(20 / level),
+                    this.random.nextInt(20 - level),
                     this.random.nextInt(15 * level),
                     this.random.nextInt(5 * level)
             );
 
-            // Nun "skilled" er automatisch
+            // Nun werden zufällig die Skillpunkte verteilt
             this.skill(entity, skills, null, skills, new int[] { 0, 2 }, new int[] { 3, 10 } );
 
         } else if(entityType == 1) { // Rogue
@@ -67,8 +67,19 @@ public class EntityGenerator {
 
         } else if(entityType == 2) {
 
+            double health = (this.random.nextInt(70) + level * 10);
 
+            entity = new Rogue(
+                    UUID.randomUUID(),
+                    "Warrior",
+                    health,
+                    health,
+                    this.random.nextInt(0),
+                    this.random.nextInt(level) + 5,
+                    this.random.nextInt(level * 3)
+            );
 
+            this.skill(entity, skills, null, skills, new int[] { 0, 7 }, new int[] { 8, 10 } );
 
         }
 

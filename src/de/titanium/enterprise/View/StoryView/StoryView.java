@@ -117,34 +117,6 @@ public class StoryView extends View {
 
     {
 
-        this.story.put("Einleitung", new ArrayList<String>() {{
-
-            //this.set("BlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBla");
-            this.add("In medieval times, there was a ring. It was silver and plain. The ring");
-            this.add("did not look like much, but it was forged by one of the most skilled");
-            this.add("blacksmiths in the world, who also happend to be a magican. Magicans were");
-            this.add("uncommon, and the blacksmith whose name was Elric Darke, had no way to");
-            this.add("to pass on his legacy. Wanting his abilities to live on, he forged a ring");
-            this.add("that took on all the qualities of his powers.");
-
-        }});
-
-        this.story.put("Short Chapter", new ArrayList<String>() {{
-
-            this.add("BlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBla");
-            this.add("Bla1");
-            this.add("Bla2");
-            this.add("Bla3");
-            this.add("Bla4");
-            this.add("Bla5");
-            this.add("Bla6");
-            this.add("Bla7");
-            this.add("Bla8");
-            this.add("Bla9");
-            this.add("Bla10");
-
-        }});
-
         this.story.put("Spannend", new ArrayList<String>() {{
 
             this.add("BlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBla");
