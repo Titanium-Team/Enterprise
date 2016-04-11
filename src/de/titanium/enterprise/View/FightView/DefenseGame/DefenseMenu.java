@@ -128,9 +128,6 @@ public class DefenseMenu extends MenuView implements GameComponent {
                         }
 
                         // Hier wird der Score dem BinaryTree hinzugefuegt.
-                        // @Cleanup: Eventuell muss Score diesen "Score:" String garnicht besitzen, da man eventuell von
-                        // sich aus entscheiden sollte, bei der Ausgabe, was dargestellt werden soll?
-                        Score score = new Score(this.tick, "Score:");
                         if(!Enterprise.getGame().getDataManager().contains("game.defense.scores")) {
                             Enterprise.getGame().getDataManager().set("game.defense.scores", new BinarySearchTree<Score>());
                         }
@@ -175,12 +172,23 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
                         }
 
+                        if(!(Enterprise.getGame().getDataManager().contains("game.tmp.score"))) {
+                            Enterprise.getGame().getDataManager().set("game.tmp.score", Double.class);
+                        }
+
+                        Enterprise.getGame().getDataManager().set("game.tmp.score", Enterprise.getGame().getDataManager().<Double>get("game.tmp.score").doubleValue() + (this.tick / 100));
+
                         if(allDead) {
+                            if(!(Enterprise.getGame().getDataManager().contains("game.scores"))) {
+                                Enterprise.getGame().getDataManager().set("game.scores", new BinarySearchTree<Double>());
+                            }
+
+                            Enterprise.getGame().getDataManager().<BinarySearchTree<Double>>get("game.scores").insert(Enterprise.getGame().getDataManager().<Double>get("game.tmp.score"));
+                            Enterprise.getGame().getDataManager().set("game.tmp.score", 0);
+
                             // @Idea: Falls das nicht der Fall ist, dann wird der Game-End-Screen angezeigt.
                             // Aktuell wird man einfach noch ins Hauptmenue zurueckgebracht.
                             Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
-                        } else {
-                            Enterprise.getGame().getDataManager().<BinarySearchTree>get("game.defense.scores").insert(score);
                         }
                         break;
                     }
@@ -224,7 +232,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
                 tmp.add(DefenseModules.values()[this.random.nextInt(DefenseModules.values().length-1)].getRectangles((int) (last[last.length - 2].getX() + last[last.length -2].getWidth() - this.speed), this.space, this.width, (int) last[last.length - 2].getHeight()));
              } else {
                 for (Rectangle rectangle : rec) {
-                    rectangle.x -= this.speed/2;
+                    rectangle.x -= this.speed / 2;
                 }
             }
 

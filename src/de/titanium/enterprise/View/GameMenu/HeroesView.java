@@ -1,27 +1,31 @@
-package de.titanium.enterprise.View.HeroesView;
+package de.titanium.enterprise.View.GameMenu;
 
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Entity.Entities.Archer;
 import de.titanium.enterprise.Entity.Entities.Rogue;
 import de.titanium.enterprise.Entity.Entities.Warrior;
 import de.titanium.enterprise.Entity.LivingEntity;
+import de.titanium.enterprise.Sprite.Texture;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.TextBuilder;
-import de.titanium.enterprise.View.GameMenu.GameMenuView;
 import de.titanium.enterprise.View.MenuView;
 import de.titanium.enterprise.View.SkillView.SkillView;
 import de.titanium.enterprise.View.View;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by Yonas on 23.03.2016.
  */
 public class HeroesView extends View {
 
-    private LivingEntity[] types = Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes.types");
+    private LivingEntity[] types = Enterprise.getGame().getDataManager().get("game.heroes.types");
+    private LivingEntity[] sortedByName = null;
 
     private int currentRow = 0;
     private final int maxRows = 13;
@@ -36,8 +40,22 @@ public class HeroesView extends View {
     private boolean sortDexterity = false;
     private boolean sortSkillPoints = false;
 
+    private StringBuilder searchValue = new StringBuilder();
+    private boolean isSearching = false;
+
     public HeroesView(MenuView viewMenu) {
         super(viewMenu);
+
+        // Die Suche benötigt einen sortieren Array
+        this.sortedByName = this.types.clone();
+        Arrays.sort(this.sortedByName, new Comparator<LivingEntity>() {
+            @Override
+            public int compare(LivingEntity o1, LivingEntity o2) {
+                return o1.getName().compareToIgnoreCase(o2.getName());
+            }
+        });
+
+
     }
 
     @Override
@@ -66,7 +84,7 @@ public class HeroesView extends View {
         g.drawImage(textBuilder.toImage("HP", (this.sortHealthValue  ? 14 : 12)), 572, 40, null);
         g.drawLine(633, 0, 633, 600);
 
-        g.drawImage(textBuilder.toImage("DY", (this.sortDexterity  ? 14 : 12)), 638, 40, null);
+        g.drawImage(textBuilder.toImage("DX", (this.sortDexterity  ? 14 : 12)), 638, 40, null);
         g.drawLine(699, 0, 699, 600);
 
         g.drawImage(textBuilder.toImage("AT", (this.sortAttackValue  ? 14 : 12)), 704, 40, null);
@@ -86,9 +104,17 @@ public class HeroesView extends View {
         LivingEntity[] currentHeroes = Enterprise.getGame().getDataManager().get("game.heroes");
         for(int i = this.currentRow; i < this.types.length; i++) {
 
-            // Hier werden alle Werte Zeile fuer Zeile dargestellt.
             LivingEntity entity = this.types[i];
 
+            if(this.searchValue.length() > 0) {
+
+                List<LivingEntity> search = this.search(this.sortedByName, 0, this.sortedByName.length - 1, new ArrayList<LivingEntity>());
+                if(search.isEmpty() || !(search.contains(entity))) {
+                    continue;
+                }
+            }
+
+            // Hier werden alle Werte Zeile fuer Zeile dargestellt.
             g.drawImage(textBuilder.toImage(entity.getClass().getSimpleName(), (this.selectedHero == i ? 11 : 9)), 50, y, null);
             g.drawImage(textBuilder.toImage(entity.getName(), (this.selectedHero == i ? 11 : 9)), 248, y, null);
             g.drawImage(textBuilder.toImage(String.format("%.0f", entity.getHealth()), (this.selectedHero == i ? 11 : 9)), 572, y, null);
@@ -108,6 +134,7 @@ public class HeroesView extends View {
             g.drawLine(0, y, 980, y);
 
             y += 5;
+
 
         }
 
@@ -130,6 +157,9 @@ public class HeroesView extends View {
         // Ausgabe was der aktuelle Sortiermodus ist
         g.drawImage(textBuilder.toImage("M    " + (this.ascending ? "Absteigend" : "Aufsteigend"), 8), 990, 320, null);
 
+        // Ausgabe der Suche
+        g.drawImage(textBuilder.toImage("S: " + this.searchValue.toString(), 6), 990, 360, null);
+
         //border
         g.drawImage(Textures.BORDER_UP.getImage(), 0, 0, null, null);
 
@@ -143,12 +173,20 @@ public class HeroesView extends View {
 
         if(tick % 4 == 0) {
 
-            if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ESCAPE)) { //zurueck zum hauptmenue
+            if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_S) && !(this.isSearching)) {
 
-                // Wenn "ESC" gedrueckt wird, dann wird man wieder ins Hauptmenue gebracht.
-                Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
+                this.isSearching = true;
 
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_1)) {
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ESCAPE)) {
+
+                if(this.isSearching) {
+                    this.isSearching = false;
+                } else {
+                    // Wenn "ESC" gedrueckt wird, dann wird man wieder ins Hauptmenue gebracht.
+                    Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
+                }
+
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_1) && !(this.isSearching)) {
 
                 // Wenn "1" gedrueckt wird, dann wird die Tabelle nach dem Namen
                 // aufsteigend sortiert.
@@ -176,7 +214,7 @@ public class HeroesView extends View {
 
                 });
 
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_2)) {
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_2) && !(this.isSearching)) {
 
                 // Wenn "2" gedrueckt wird, dann wird die Tabelle nach dem Lebens-Value
                 // absteigend sortiert.
@@ -190,11 +228,11 @@ public class HeroesView extends View {
                     @Override
                     public int compare(LivingEntity o1, LivingEntity o2) {
 
-                        if(o1.getMaxHealth() > o2.getMaxHealth()) {
+                        if (o1.getHealth() > o2.getHealth()) {
                             return (ascending ? -1 : 1);
                         }
 
-                        if(o1.getMaxHealth() < o2.getMaxHealth()) {
+                        if (o1.getHealth() < o2.getHealth()) {
                             return (ascending ? 1 : -1);
                         }
 
@@ -203,7 +241,7 @@ public class HeroesView extends View {
 
                 });
 
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_3)) {
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_3) && !(this.isSearching)) {
 
                 // Wenn "3" gedrueckt wird, dann wird die Tabelle nach dem Dexterity-Value
                 // absteigend sortiert.
@@ -230,7 +268,7 @@ public class HeroesView extends View {
 
                 });
 
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_4)) {
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_4) && !(this.isSearching)) {
 
                 // Wenn "4" gedrueckt wird, dann wird die Tabelle nach dem Attack-Value
                 // absteigend sortiert.
@@ -257,7 +295,7 @@ public class HeroesView extends View {
 
                 });
 
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_5)) {
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_5) && !(this.isSearching)) {
 
                 // Wenn "5" gedrueckt wird, dann wird die Tabelle nach der Anzahl der Skill-Points
                 // absteigend sortiert.
@@ -284,7 +322,7 @@ public class HeroesView extends View {
 
                 });
 
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_0)) {
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_0) && !(this.isSearching)) {
 
                 // Wenn "0" gedrueckt wird, dann wird nach Type sortiert, dies wird allerdings nicht besonders markiert.
 
@@ -309,7 +347,7 @@ public class HeroesView extends View {
 
                 });
 
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_UP)) {
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_UP) && !(this.isSearching)) {
 
                 // Wenn man die Pfeiltaste nach oben drueckt, dann soll in der Tabelle
                 // nach oben gescrolled werden.
@@ -328,7 +366,7 @@ public class HeroesView extends View {
                     this.selectedHero = 0;
                 }
 
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_DOWN)) {
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_DOWN) && !(this.isSearching)) {
 
                 // Wenn man die Pfeiltaste nach unten drueckt, dann soll in der Tabelle
                 // nach unten gescrolled werden.
@@ -345,7 +383,7 @@ public class HeroesView extends View {
                     this.selectedHero--;
                 }
 
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_E)) {
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_E)  && !(this.isSearching)) {
 
                 // Wenn die E-Taste gedrueckt wird, dann soll der Hero ausgewaehlt werden.
                 // Es ist aktuell so das man von jedem Typen einen nehmen muss.
@@ -360,19 +398,30 @@ public class HeroesView extends View {
                     Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes")[2] = hero;
                 }
 
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_S)) {
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_S) && !(this.isSearching)) {
 
                 // Wenn die S-Taste gedrueckt wird, dann soll der Hero in die Skill-View gebracht werden, wo man
                 // dann seine Skill-Werte setzen kann.
-
                 Enterprise.getGame().getDataManager().set("game.heroes.skilling", this.types[this.selectedHero]);
                 Enterprise.getGame().getViewManager().switchTo(SkillView.class);
 
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_M)) {
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_M) && !(this.isSearching)) {
 
                 // Wenn "M" gedrueckt wird, dann wird zwischen "Aufsteigend" und "Absteigend" sortieren gewechselt.
-
                 this.ascending = !this.ascending;
+
+            } else if(Enterprise.getGame().getKeyManager().isPressed()  && this.isSearching) {
+
+                int keyCode = Enterprise.getGame().getKeyManager().getKeyCode();
+                Texture texture = Enterprise.getGame().getTextBuilder().byChar((char) keyCode);
+
+                if(keyCode == 8 && this.searchValue.length() > 0) {
+                    this.searchValue.setLength(this.searchValue.length() - 1);
+                } else if(keyCode == KeyEvent.VK_SPACE) {
+                    this.searchValue.append(" ");
+                } else if(!(texture == null)) {
+                    this.searchValue.append((char) keyCode);
+                }
 
             }
 
@@ -384,12 +433,31 @@ public class HeroesView extends View {
      * Diese Methode setzt alle Werte, die bestimmen ob eine bestimme Spalte "gehilighted" wird
      * auf false.
      */
-    public void resetSortValues() {
+    private void resetSortValues() {
         this.sortNameValue = false;
         this.sortHealthValue = false;
         this.sortAttackValue = false;
         this.sortDexterity = false;
         this.sortSkillPoints = false;
+    }
+
+    private List<LivingEntity> search(LivingEntity[] entities, int start, int end, List<LivingEntity> matches) {
+
+        int element = start + (end - start) / 2;
+
+        if(start > end) {
+            return matches;
+        }
+
+        int value = entities[element].getName().compareToIgnoreCase(this.searchValue.toString());
+
+        if(value == 0 || entities[element].getName().toUpperCase().startsWith(this.searchValue.toString().toUpperCase())) {
+            matches.add(entities[element]);
+        } else if(value > 0) {
+            return search(entities, start, element - 1, matches);
+        }
+
+        return search(entities, element + 1, end, matches);
     }
 
     /**

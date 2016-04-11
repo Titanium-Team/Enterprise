@@ -52,14 +52,11 @@ public class KeyManager extends KeyAdapter {
 
     }
 
-    /**
-     * Diese Methode prueft, ob eine Taste gedrueckt wurde und keine andere. - Falls das der Fall ist, dann wird
-     * true zurueckgegeben, ansonsten false.
-     * @param keyCode
-     * @return
-     */
-    public boolean onlyThis(int keyCode) {
-        return (this.keyCode == keyCode);
+    public boolean isPressed() {
+        return (this.keyCode != -1);
     }
 
+    public int getKeyCode() {
+        return keyCode;
+    }
 }

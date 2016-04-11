@@ -210,7 +210,7 @@ public class FightMenu extends MenuView implements GameComponent {
 
         //Es wird geprueft ob der Button gedrueckt wurde, falls er noch nicht gedrueckt wurde,
         if(!(this.tmpOne) && !(this.heroOne == null) && heroes[0].isAlive()) {
-            this.tmpOne = Enterprise.getGame().getKeyManager().onlyThis(this.heroOne);
+            this.tmpOne = Enterprise.getGame().getKeyManager().isPressed(this.heroOne);
             if(this.tmpOne) {
                 this.drawOne = false;
             } else {
@@ -219,14 +219,14 @@ public class FightMenu extends MenuView implements GameComponent {
         }
 
         if(!(this.tmpTwo) && !(this.heroTwo == null) && heroes[1].isAlive()) {
-            this.tmpTwo = Enterprise.getGame().getKeyManager().onlyThis(this.heroTwo);
+            this.tmpTwo = Enterprise.getGame().getKeyManager().isPressed(this.heroTwo);
             if(this.tmpTwo) {
                 this.drawTwo = false;
             }
         }
 
         if(!(this.tmpThree) && !(this.heroThree == null) && heroes[2].isAlive()) {
-            this.tmpThree = Enterprise.getGame().getKeyManager().onlyThis(this.heroThree);
+            this.tmpThree = Enterprise.getGame().getKeyManager().isPressed(this.heroThree);
             if(this.tmpThree) {
                 this.drawThree = false;
             }
@@ -243,7 +243,7 @@ public class FightMenu extends MenuView implements GameComponent {
 
         if((this.currentTime + this.time + this.timeDistance) < System.currentTimeMillis()) {
 
-            if(this.pressedOne && heroes[0].isAlive()) {
+            if(this.pressedOne && this.heroes[0].isAlive()) {
 
                 //20% Wahrscheinlichkeit das ein neuer Button auftaucht
                 boolean chance = (this.random.nextInt(this.chance) == 0);
@@ -255,7 +255,7 @@ public class FightMenu extends MenuView implements GameComponent {
 
             }
 
-            if(this.pressedTwo && heroes[1].isAlive()) {
+            if(this.pressedTwo && this.heroes[1].isAlive()) {
 
                 //20% Wahrscheinlichkeit das ein neuer Button auftaucht
                 boolean chance = (this.random.nextInt(this.chance) == 0);
@@ -267,7 +267,7 @@ public class FightMenu extends MenuView implements GameComponent {
 
             }
 
-            if(this.pressedThree && heroes[2].isAlive()) {
+            if(this.pressedThree && this.heroes[2].isAlive()) {
 
                 //20% Wahrscheinlichkeit das ein neuer Button auftaucht
                 boolean chance = (this.random.nextInt(this.chance) == 0);
@@ -339,6 +339,13 @@ public class FightMenu extends MenuView implements GameComponent {
                 if(totalDamage >= 20) {
                     Enterprise.getGame().getAchievementManager().add(Achievements.DAMAGE_20);
                 }
+
+                // Tmp Highscore
+                if(!(Enterprise.getGame().getDataManager().contains("game.tmp.score"))) {
+                    Enterprise.getGame().getDataManager().set("game.tmp.score", 0.0D);
+                }
+
+                Enterprise.getGame().getDataManager().set("game.tmp.score", Enterprise.getGame().getDataManager().<Double>get("game.tmp.score").doubleValue() + totalDamage);
 
                 if(!(enemy.isAlive())) {
 

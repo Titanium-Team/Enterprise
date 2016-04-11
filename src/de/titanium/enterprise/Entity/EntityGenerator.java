@@ -6,6 +6,7 @@ import de.titanium.enterprise.Data.Datas.SkillEntry;
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Entity.Entities.Archer;
 import de.titanium.enterprise.Entity.Entities.Rogue;
+import de.titanium.enterprise.Entity.Entities.Warrior;
 import de.titanium.enterprise.Skill.Skill;
 import de.titanium.enterprise.Skill.Skills;
 import de.titanium.enterprise.Sprite.Animation.Animations;
@@ -27,7 +28,7 @@ public class EntityGenerator {
         LivingEntity entity = null;
 
         // An dieser Stelle wird bestimmt welchen Typ von Entity das Entity wird.
-        int entityType = 1 /*this.random.nextInt(2)*/;
+        int entityType = this.random.nextInt(1);
 
         // Der aktuelle SkillTree
         BinarySearchTree<SkillEntry> skills = Skills.defaultTree();
@@ -68,8 +69,20 @@ public class EntityGenerator {
 
         } else if(entityType == 2) {
 
+            double health = (this.random.nextInt(10) + level * 5);
 
+            //TODO
+            entity = new Warrior(
+                    UUID.randomUUID(),
+                    "Warrior",
+                    health,
+                    health,
+                    this.random.nextInt(level * 3) + 10,
+                    this.random.nextInt(level) + 5,
+                    this.random.nextInt(level * 3)
+            );
 
+            this.skill(entity, skills, null, skills, new int[] { 0, 7 }, new int[] { 8, 10 } );
 
         }
 

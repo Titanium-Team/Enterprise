@@ -1,4 +1,4 @@
-package de.titanium.enterprise.View.SettingsView;
+package de.titanium.enterprise.View.GameMenu.SettingsView;
 
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Sprite.Textures;

@@ -77,16 +77,6 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     }
 
-    private void fixBalance(BinarySearchTree<T> current) {
-
-        int i = current.getHeight() - current.getHeight();
-
-        if(i == 1) {
-
-        }
-
-    }
-
     private void fixHeight(BinarySearchTree<T> current) {
 
         if(!(current.getLeftTree().isEmpty())) {

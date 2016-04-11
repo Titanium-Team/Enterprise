@@ -17,9 +17,10 @@ import de.titanium.enterprise.View.FightView.FightMenu;
 import de.titanium.enterprise.View.FightView.FightView;
 import de.titanium.enterprise.View.GameMenu.GameMenuView;
 import de.titanium.enterprise.View.GameView;
-import de.titanium.enterprise.View.HeroesView.HeroesView;
+import de.titanium.enterprise.View.GameMenu.HeroesView;
 import de.titanium.enterprise.View.LoadingView.LoadingView;
-import de.titanium.enterprise.View.SettingsView.SettingsView;
+import de.titanium.enterprise.View.GameMenu.ScoreView;
+import de.titanium.enterprise.View.GameMenu.SettingsView.SettingsView;
 import de.titanium.enterprise.View.SkillView.SkillView;
 import de.titanium.enterprise.View.StoryView.StoryView;
 import de.titanium.enterprise.View.ViewManager;
@@ -101,19 +102,19 @@ public class Enterprise {
                 //set default hero types
                 getDataManager().set("game.heroes.types", new LivingEntity[]{
 
-                        new Archer(UUID.randomUUID(), "Robin Trump", 40, 40, 6, 8, 0),
+                        new Archer(UUID.randomUUID(), "Robin Trump", 1, 40, 6, 8, 0),
                         new Archer(UUID.randomUUID(), "Georg von Wald", 60, 60, 3, 3, 0),
                         new Archer(UUID.randomUUID(), "Eddy Penny", 52, 52, 5, 6, 0),
                         new Archer(UUID.randomUUID(), "Tromo Domo", 20, 20, 4, 10, 0),
                         new Archer(UUID.randomUUID(), "Ranger Ben", 33, 33, 15, 20, 0),
 
-                        new Rogue(UUID.randomUUID(), "Sneaky Pete", 20, 20, 7, 14, 0),
+                        new Rogue(UUID.randomUUID(), "Sneaky Pete", 1, 20, 7, 14, 0),
                         new Rogue(UUID.randomUUID(), "Chacky Chan", 12, 12, 5, 14, 0),
                         new Rogue(UUID.randomUUID(), "The Knife", 10, 10, 8, 20, 0),
                         new Rogue(UUID.randomUUID(), "Robert Rice", 30, 30, 5, 8, 0),
                         new Rogue(UUID.randomUUID(), "Sam Dodge", 15, 15, 10, 22, 0),
 
-                        new Warrior(UUID.randomUUID(), "Big Meyer", 120, 120, 0, 2, 0),
+                        new Warrior(UUID.randomUUID(), "Big Meyer", 1, 120, 0, 2, 0),
                         new Warrior(UUID.randomUUID(), "Sir Isaac", 80, 80, 0, 3, 0),
                         new Warrior(UUID.randomUUID(), "Robby Flobby", 100, 100, 0, 2, 10),
                         new Warrior(UUID.randomUUID(), "Lord Washington", 60, 60, 0, 4, 0),
@@ -145,6 +146,7 @@ public class Enterprise {
         this.viewManager.register(new SkillView(defaultMenu));
         this.viewManager.register(new HeroesView(defaultMenu));
         this.viewManager.register(new FightView(new FightMenu()));
+        this.viewManager.register(new ScoreView(defaultMenu));
 
         this.viewManager.switchTo(GameMenuView.class);
 

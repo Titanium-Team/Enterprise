@@ -3,9 +3,8 @@ package de.titanium.enterprise.View.GameMenu;
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.FightView.FightView;
-import de.titanium.enterprise.View.HeroesView.HeroesView;
 import de.titanium.enterprise.View.MenuView;
-import de.titanium.enterprise.View.SettingsView.SettingsView;
+import de.titanium.enterprise.View.GameMenu.SettingsView.SettingsView;
 import de.titanium.enterprise.View.StoryView.StoryView;
 import de.titanium.enterprise.View.View;
 
@@ -64,6 +63,16 @@ public class GameMenuView extends View {
         }});
 
         this.options.put("Settings", SettingsView.class);
+        this.descriptions.add(new ArrayList<String>() {{
+
+            this.add("Veraendere einige");
+            this.add("Einstellungen, um");
+            this.add("nochmehr Spass am");
+            this.add("Spielen zu haben");
+
+        }});
+
+        this.options.put("Scores", ScoreView.class);
         this.descriptions.add(new ArrayList<String>() {{
 
             this.add("Veraendere einige");

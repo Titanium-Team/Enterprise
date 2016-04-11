@@ -62,6 +62,14 @@ public class AnimationQueue {
 
     }
 
+    /**
+     * Gibt die defaultAnimation der Queue zurück.
+     * @return
+     */
+    public Animation getDefaultAnimation() {
+        return this.defaultAnimation;
+    }
+
     @Override
     public String toString() {
         return String.format("{animators: %s, current: %s, defaultAnimation: %s}", this.animators, this.current, this.defaultAnimation);

@@ -84,5 +84,4 @@ public class Animator {
                 this.currentFrame
                 );
     }
-
 }

@@ -24,6 +24,16 @@ public abstract class Entity implements GameComponent {
     }
 
     @Override
+    public boolean equals(Object o) {
+
+        if(o == null || !(o instanceof Entity)) {
+            return false;
+        }
+
+        return this.identifier.compareTo(((Entity)o).getIdentifier()) == 0;
+    }
+
+    @Override
     public String toString() {
         return String.format("{identifier: %s}", this.identifier);
     }

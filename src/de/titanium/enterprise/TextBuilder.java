@@ -100,6 +100,10 @@ public class TextBuilder {
                 int letterWidth = (int) (i.getWidth(null) * size);
                 int y = (height - letterHeight);
 
+                if(texture.equals(Textures.ALPHABET_MINUS)) {
+                    y = (height / 2) - (letterHeight / 2);
+                }
+
                 g.drawImage(i, x, y, letterWidth, letterHeight, null);
                 x += letterWidth;
 

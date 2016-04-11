@@ -9,7 +9,7 @@ import de.titanium.enterprise.Skill.Skill;
 import de.titanium.enterprise.Skill.Skills;
 import de.titanium.enterprise.Sprite.Animation.Animator;
 import de.titanium.enterprise.Sprite.Textures;
-import de.titanium.enterprise.View.HeroesView.HeroesView;
+import de.titanium.enterprise.View.GameMenu.HeroesView;
 import de.titanium.enterprise.View.MenuView;
 import de.titanium.enterprise.View.View;
 
