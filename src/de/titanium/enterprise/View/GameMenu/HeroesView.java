@@ -180,6 +180,7 @@ public class HeroesView extends View {
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ESCAPE)) {
 
                 if(this.isSearching) {
+                    this.searchValue.setLength(0);
                     this.isSearching = false;
                 } else {
                     // Wenn "ESC" gedrueckt wird, dann wird man wieder ins Hauptmenue gebracht.
@@ -451,13 +452,16 @@ public class HeroesView extends View {
 
         int value = entities[element].getName().compareToIgnoreCase(this.searchValue.toString());
 
-        if(value == 0 || entities[element].getName().toUpperCase().startsWith(this.searchValue.toString().toUpperCase())) {
+        if((value == 0 || entities[element].getName().toUpperCase().startsWith(this.searchValue.toString().toUpperCase()))) {
             matches.add(entities[element]);
-        } else if(value > 0) {
-            return search(entities, start, element - 1, matches);
         }
 
-        return search(entities, element + 1, end, matches);
+        if(value > 0) {
+            return search(entities, start, element - 1, matches);
+        } else {
+            return search(entities, element + 1, end, matches);
+        }
+
     }
 
     /**

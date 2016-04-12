@@ -91,9 +91,9 @@ public class TextBuilder {
 
             Texture texture = this.byChar(c);
 
-            if (texture == null) {
+            if (c == ' ') {
                 x += space; //Leerzeichen
-            } else {
+            } else if(!(texture == null)) {
                 Image i = texture.getImage();
 
                 int letterHeight = (int) (i.getHeight(null) * size);
