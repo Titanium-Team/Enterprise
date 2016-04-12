@@ -77,7 +77,7 @@ public class StoryView extends View {
 
             if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ESCAPE)) { //zurueck ins hauptmenue
                 Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_DOWN)) { //nach unten scrollen
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_S)) { //nach unten scrollen
                 this.currentLine++;
 
                 //Naechstes Kapitel
@@ -88,7 +88,7 @@ public class StoryView extends View {
                 } else if((this.currentLine + this.maxLines) > this.story.get(chapter).size()) { //kein naechstes kapitel
                     this.currentLine--;
                 }
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_UP)) { //nach oben scrollen
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_W)) { //nach oben scrollen
                 this.currentLine--;
 
                 if(this.currentLine < 0 && this.currentChapter > 0) { //vorheriges Kapitel
@@ -98,10 +98,10 @@ public class StoryView extends View {
                     this.currentLine = 0;
                 }
 
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_RIGHT) && (this.story.size()-1) > this.currentChapter) { //naechstes kapitel
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_A) && (this.story.size()-1) > this.currentChapter) { //naechstes kapitel
                 this.currentChapter++;
                 this.currentLine = 0;
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_LEFT) && this.currentChapter > 0) { //vorheriges kapitel
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_D) && this.currentChapter > 0) { //vorheriges kapitel
                 this.currentChapter--;
                 this.currentLine = Math.max(this.story.get(chapters[this.currentChapter]).size() - this.maxLines, 0);
             }

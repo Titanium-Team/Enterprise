@@ -144,13 +144,13 @@ public class DefenseMenu extends MenuView implements GameComponent {
                         int keyStreak = this.random.nextInt(30) + 1;
                         double damage = enemy.calculateDamage(hero, keyStreak);
 
-                        if(hero instanceof Warrior){
+                        if(enemy instanceof Warrior){
                             keyStreak = this.random.nextInt(50) + 1;
                             damage = enemy.calculateDamage(hero, keyStreak);
-                        } else if (hero instanceof Rogue) {
-                            if((this.random.nextInt(20) + 1) > ((int) hero.getDexterity())) {
-                                damage = enemy.calculateDamage(hero, (int) hero.getDexterity());
-                                Enterprise.getGame().getLogger().info("Damage Enemy -> " + damage + " -> Keys: " + hero.getDexterity());
+                        } else if (enemy instanceof Rogue) {
+                            if((this.random.nextInt(20) + 1) > ((int) enemy.getDexterity())) {
+                                damage = enemy.calculateDamage(hero, (int) enemy.getDexterity());
+                                Enterprise.getGame().getLogger().info("Damage Enemy -> " + damage + " -> Keys: " + enemy.getDexterity());
                             }
                         } else Enterprise.getGame().getLogger().info("Damage Enemy -> " + damage + " -> Keys: " + keyStreak);
 
@@ -201,8 +201,17 @@ public class DefenseMenu extends MenuView implements GameComponent {
                                 Enterprise.getGame().getDataManager().set("game.scores", new BinarySearchTree<Double>());
                             }
 
-                            Enterprise.getGame().getDataManager().<BinarySearchTree<Double>>get("game.scores").insert(Enterprise.getGame().getDataManager().<Double>get("game.tmp.score"));
+                            double tmpScore = Enterprise.getGame().getDataManager().<Double>get("game.tmp.score");
+
+                            Enterprise.getGame().getDataManager().<BinarySearchTree<Double>>get("game.scores").insert(tmpScore);
                             Enterprise.getGame().getDataManager().set("game.tmp.score", 0);
+
+                            //Verteilung der Skillpunkte
+                            int skillPoint = (int) (tmpScore / 50) / 3;
+                            LivingEntity[] heroes = Enterprise.getGame().getDataManager().get("games.heroes");
+                            heroes[0].setSkillPoints(heroes[0].getSkillPoints() + skillPoint);
+                            heroes[1].setSkillPoints(heroes[1].getSkillPoints() + skillPoint);
+                            heroes[2].setSkillPoints(heroes[2].getSkillPoints() + skillPoint);
 
                             // @Idea: Falls das nicht der Fall ist, dann wird der Game-End-Screen angezeigt.
                             // Aktuell wird man einfach noch ins Hauptmenue zurueckgebracht.

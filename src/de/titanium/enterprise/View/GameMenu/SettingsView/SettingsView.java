@@ -93,13 +93,13 @@ public class SettingsView extends View {
                     );
                 }
                 Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_DOWN)) { ////Im Menu nach oben oder unten bewegen
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_S)) { ////Im Menu nach oben oder unten bewegen
                 this.selectedOption++;
 
                 if(this.selectedOption >= this.options.size()) {
                     this.selectedOption = 0;
                 }
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_UP)) {
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_W)) {
                 this.selectedOption--;
 
                 if(this.selectedOption < 0) {
@@ -110,13 +110,13 @@ public class SettingsView extends View {
             //Im Menu einen neuen Wert fuer eine Einstellung auswaehlen
             String[] keys = this.options.keySet().toArray(new String[this.options.size()]);
             int current = this.selectedValue.get(keys[this.selectedOption]).intValue();
-            if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_RIGHT)) {
+            if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_D)) {
                 this.selectedValue.put(keys[this.selectedOption], current+1);
 
                 if((current + 1) >= this.options.get(keys[this.selectedOption]).getOptions().length) {
                     this.selectedValue.put(keys[this.selectedOption], 0);
                 }
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_LEFT)) {
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_A)) {
                 this.selectedValue.put(keys[this.selectedOption], current-1);
 
                 if((current - 1) < 0) {
