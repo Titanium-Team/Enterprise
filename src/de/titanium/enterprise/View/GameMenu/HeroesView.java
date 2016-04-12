@@ -107,7 +107,9 @@ public class HeroesView extends View {
 
             if(this.searchValue.length() > 0) {
 
-                List<LivingEntity> search = this.search(this.sortedByName, 0, this.sortedByName.length - 1, new ArrayList<LivingEntity>());
+                List<LivingEntity> search = new ArrayList<>();
+                this.search(this.sortedByName, 0, this.sortedByName.length - 1, search);
+
                 if(search.isEmpty() || !(search.contains(entity))) {
                     continue;
                 }
@@ -441,24 +443,26 @@ public class HeroesView extends View {
         this.sortSkillPoints = false;
     }
 
-    private List<LivingEntity> search(LivingEntity[] entities, int start, int end, List<LivingEntity> matches) {
+    private void search(LivingEntity[] entities, int start, int end, List<LivingEntity> matches) {
 
         int element = start + (end - start) / 2;
 
         if(start > end) {
-            return matches;
+            return;
         }
 
         int value = entities[element].getName().compareToIgnoreCase(this.searchValue.toString());
 
         if((value == 0 || entities[element].getName().toUpperCase().startsWith(this.searchValue.toString().toUpperCase()))) {
-            matches.add(entities[element]);
-        }
 
-        if(value > 0) {
-            return search(entities, start, element - 1, matches);
+            matches.add(entities[element]);
+            search(entities, start, element - 1, matches);
+            search(entities, element + 1, end, matches);
+
+        } else if(value > 0) {
+            search(entities, start, element - 1, matches);
         } else {
-            return search(entities, element + 1, end, matches);
+            search(entities, element + 1, end, matches);
         }
 
     }

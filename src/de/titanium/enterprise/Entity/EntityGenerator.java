@@ -32,7 +32,6 @@ public class EntityGenerator {
         // Der aktuelle SkillTree
         BinarySearchTree<SkillEntry> skills = Skills.defaultTree();
 
-        // Wenn der Wert 0 ist, dann wird es ein Archer
         if(entityType == 0) { // Archer
 
             double health = (50 * level + this.random.nextInt(100));
@@ -47,7 +46,6 @@ public class EntityGenerator {
                     this.random.nextInt(5 * level) + 5
             );
 
-            // Nun "skilled" er automatisch
             this.skill(entity, skills, null, skills, new int[] { 0, 1 }, new int[] { 2, 10 } );
 
         } else if(entityType == 1) { // Rogue
