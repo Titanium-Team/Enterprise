@@ -3,6 +3,7 @@ package de.titanium.enterprise.Entity;
 import de.titanium.enterprise.Data.BinarySearchTree;
 import de.titanium.enterprise.Data.BinaryTreeMath;
 import de.titanium.enterprise.Data.Datas.SkillEntry;
+import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Entity.Entities.Archer;
 import de.titanium.enterprise.Entity.Entities.Rogue;
 import de.titanium.enterprise.Entity.Entities.Warrior;
@@ -83,6 +84,7 @@ public class EntityGenerator {
 
         }
 
+        Enterprise.getGame().getLogger().info(entity.toString());
         return entity;
 
     }

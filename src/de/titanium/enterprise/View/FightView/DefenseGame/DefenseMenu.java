@@ -146,9 +146,9 @@ public class DefenseMenu extends MenuView implements GameComponent {
                         if(hero instanceof Rogue) {
                             if((this.random.nextInt(20) + 1) > ((int) hero.getDexterity())) {
                                 damage = enemy.calculateDamage(hero, (int) hero.getDexterity());
+                                Enterprise.getGame().getLogger().info("Damage Enemy -> " + damage + " -> Keys: " + hero.getDexterity());
                             }
-                        }
-
+                        } else Enterprise.getGame().getLogger().info("Damage Enemy -> " + damage + " -> Keys: " + keyStreak);
 
                         double defense = hero.calculateDefense(enemy, this.tick);
 
