@@ -55,7 +55,6 @@ public class HeroesView extends View {
             }
         });
 
-
     }
 
     @Override

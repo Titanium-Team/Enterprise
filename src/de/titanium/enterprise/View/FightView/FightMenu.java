@@ -356,9 +356,20 @@ public class FightMenu extends MenuView implements GameComponent {
                     this.comboTwo = 0;
                     this.comboThree = 0;
 
+                    // Wenn der Held stirbt, dann wird das Level um eins erhöht.
+                    if(!(Enterprise.getGame().getDataManager().contains("game.run.level"))) {
+                        Enterprise.getGame().getDataManager().set("game.run.level", 1);
+                    }
+                    Enterprise.getGame().getDataManager().set("game.run.level", Enterprise.getGame().getDataManager().<Integer>get("game.run.level") + 1);
+
                     // @Improvement: Das hier ist erstmal provisorisch. Das Level das dem Generator uebergen wird, muss
                     // noch angepasst werden.
-                    dataManager.set("game.enemy", Enterprise.getGame().getEntityGenerator().generate(1));
+                    dataManager.set("game.enemy", Enterprise.getGame().getEntityGenerator().generate(
+                            Enterprise.getGame().getDataManager().<Integer>get("game.run.level")
+                    ));
+
+                    Enterprise.getGame().getLogger().info("Current Level: " + Enterprise.getGame().getDataManager().<Integer>get("game.run.level"));
+
                     enemy.getAnimationQueue().add(Animations.RANGER_DIE);
 
                 } else {

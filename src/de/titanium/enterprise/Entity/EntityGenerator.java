@@ -3,13 +3,11 @@ package de.titanium.enterprise.Entity;
 import de.titanium.enterprise.Data.BinarySearchTree;
 import de.titanium.enterprise.Data.BinaryTreeMath;
 import de.titanium.enterprise.Data.Datas.SkillEntry;
-import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Entity.Entities.Archer;
 import de.titanium.enterprise.Entity.Entities.Rogue;
 import de.titanium.enterprise.Entity.Entities.Warrior;
 import de.titanium.enterprise.Skill.Skill;
 import de.titanium.enterprise.Skill.Skills;
-import de.titanium.enterprise.Sprite.Animation.Animations;
 
 import java.security.SecureRandom;
 import java.util.UUID;
@@ -28,7 +26,7 @@ public class EntityGenerator {
         LivingEntity entity = null;
 
         // An dieser Stelle wird bestimmt welchen Typ von Entity das Entity wird.
-        int entityType = this.random.nextInt(1);
+        int entityType = this.random.nextInt(3);
 
         // Der aktuelle SkillTree
         BinarySearchTree<SkillEntry> skills = Skills.defaultTree();
@@ -36,53 +34,52 @@ public class EntityGenerator {
         // Wenn der Wert 0 ist, dann wird es ein Archer
         if(entityType == 0) { // Archer
 
-            double health = (this.random.nextInt(60) + 120 * level);
+            double health = (50 * level + this.random.nextInt(100));
 
             entity = new Archer(
                     UUID.randomUUID(),
                     "Archer",
                     health,
                     health,
-                    this.random.nextInt(20 / level),
-                    this.random.nextInt(15 * level),
-                    this.random.nextInt(5 * level)
+                    this.random.nextInt(12) + 1,
+                    4 * level + this.random.nextInt(10),
+                    this.random.nextInt(5 * level) + 5
             );
 
             // Nun "skilled" er automatisch
-            this.skill(entity, skills, null, skills, new int[] { 0, 2 }, new int[] { 3, 10 } );
+            this.skill(entity, skills, null, skills, new int[] { 0, 1 }, new int[] { 2, 10 } );
 
         } else if(entityType == 1) { // Rogue
 
-            double health = (this.random.nextInt(10) + level * 5);
+            double health = 20 + this.random.nextInt(7 * level);
 
             entity = new Rogue(
                     UUID.randomUUID(),
                     "Rogue",
                     health,
                     health,
-                    this.random.nextInt(level * 3) + 10,
-                    this.random.nextInt(level) + 5,
-                    this.random.nextInt(level * 3)
+                    this.random.nextInt(15) + 1,
+                    (10 + this.random.nextInt(7 * level)),
+                    this.random.nextInt(level * 5) + 5
             );
 
-            this.skill(entity, skills, null, skills, new int[] { 0, 7 }, new int[] { 8, 10 } );
+            this.skill(entity, skills, null, skills, new int[] { 0, 2 }, new int[] { 3, 10 } );
 
         } else if(entityType == 2) {
 
-            double health = (this.random.nextInt(10) + level * 5);
+            double health = (120 + this.random.nextInt(80 * level));
 
-            //TODO
             entity = new Warrior(
                     UUID.randomUUID(),
                     "Warrior",
                     health,
                     health,
-                    this.random.nextInt(level * 3) + 10,
-                    this.random.nextInt(level) + 5,
-                    this.random.nextInt(level * 3)
+                    0,
+                    this.random.nextInt(2 * level) + 1,
+                    this.random.nextInt(level * 5) + 5
             );
 
-            this.skill(entity, skills, null, skills, new int[] { 0, 7 }, new int[] { 8, 10 } );
+            this.skill(entity, skills, null, skills, new int[] { 0, 8 }, new int[] { 9, 10 } );
 
         }
 
@@ -139,7 +136,7 @@ public class EntityGenerator {
             if(!(skill.hasSkill(entity)) && skill.isUnlockable(entity) && skill.getPrice() <= entity.getSkillPoints()) {
                 this.skill(entity, current.getRightTree(), current, defaultTree, def, att);
             }
-        } else if(!(parent == null) && this.random.nextInt(10) == 1) {
+        } else if(!(parent == null)) {
 
             // Wenn weder nach rechts nocb nach links gegangen wurde und wir nicht im Root des Baumes sind, dann geht man
             // nochmal vom parent der aktuellen Node nach links, wenn man aktuell in der rechten Node des parents ist und
