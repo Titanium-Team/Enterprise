@@ -1,4 +1,4 @@
-package de.titanium.enterprise.View.SettingsView;
+package de.titanium.enterprise.View.GameMenu.SettingsView;
 
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Sprite.Textures;
@@ -107,7 +107,7 @@ public class SettingsView extends View {
                 }
             }
 
-            //Im Menu einen neuen Wert für eine Einstellung auswählen
+            //Im Menu einen neuen Wert fuer eine Einstellung auswaehlen
             String[] keys = this.options.keySet().toArray(new String[this.options.size()]);
             int current = this.selectedValue.get(keys[this.selectedOption]).intValue();
             if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_RIGHT)) {

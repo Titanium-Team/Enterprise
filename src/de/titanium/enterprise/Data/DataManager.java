@@ -12,22 +12,22 @@ public class DataManager {
     public DataManager() {}
 
     /**
-     * Diese Methode fügt dem DataManager einen neuen Eintrag hinzu, dabei funktioniert der Name als eine Art "Pfad" bzw.
-     * Key, um später das Objekt abzurufen.
+     * Diese Methode fuegt dem DataManager einen neuen Eintrag hinzu, dabei funktioniert der Name als eine Art "Pfad" bzw.
+     * Key, um spaeter das Objekt abzurufen.
      * @param name
      * @param dataEntry
      * @param <T>
      */
     public <T> void set(String name, final T dataEntry) {
 
-        // @Improve: Anstelle eines Strings sollte man eher Enums benutzen die einen Pfad angeben. Sollte unnötige
+        // @Improve: Anstelle eines Strings sollte man eher Enums benutzen die einen Pfad angeben. Sollte unnuetige
         // Fehler vermeiden.
         this.dataEntries.put(name, dataEntry);
 
     }
 
     /**
-     * Diese Methode gibt den passenden Eintrag zurück.
+     * Diese Methode gibt den passenden Eintrag zurueck.
      * @param name
      * @param <T>
      * @return
@@ -38,7 +38,7 @@ public class DataManager {
 
     }
     /**
-     * Diese Methode prüft, ob ein bestimmer Pfad vorhanden ist.
+     * Diese Methode prueft, ob ein bestimmer Pfad vorhanden ist.
      * @param name
      * @return
      */

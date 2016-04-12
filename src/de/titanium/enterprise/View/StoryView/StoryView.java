@@ -52,7 +52,7 @@ public class StoryView extends View {
         int amountOfLines = Math.min((this.currentLine + this.maxLines), lines.size());
         int x = 0;
         for(int i = this.currentLine; i < amountOfLines; i++) { //TODO
-            g.drawImage(Enterprise.getGame().getTextBuilder().toImage(lines.get(i), 7), 45, 95 + x * 20, null);
+            g.drawImage(Enterprise.getGame().getTextBuilder().toImage(lines.get(i), 6), 45, 95 + x * 20, null);
             x++;
         }
 
@@ -75,17 +75,17 @@ public class StoryView extends View {
 
             String[] chapters = this.story.keySet().toArray(new String[this.story.size()]);
 
-            if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ESCAPE)) { //zurück ins hauptmenü
+            if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ESCAPE)) { //zurueck ins hauptmenue
                 Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_DOWN)) { //nach unten scrollen
                 this.currentLine++;
 
-                //Nächstes Kapitel
+                //Naechstes Kapitel
                 String chapter = chapters[this.currentChapter];
-                if(((this.currentLine + this.maxLines) > this.story.get(chapter).size()) && (this.story.size()-1) > this.currentChapter) { //nächstes kapitel
+                if(((this.currentLine + this.maxLines) > this.story.get(chapter).size()) && (this.story.size()-1) > this.currentChapter) { //naechstes kapitel
                     this.currentLine = 0;
                     this.currentChapter++;
-                } else if((this.currentLine + this.maxLines) > this.story.get(chapter).size()) { //kein nächstes kapitel
+                } else if((this.currentLine + this.maxLines) > this.story.get(chapter).size()) { //kein naechstes kapitel
                     this.currentLine--;
                 }
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_UP)) { //nach oben scrollen
@@ -98,7 +98,7 @@ public class StoryView extends View {
                     this.currentLine = 0;
                 }
 
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_RIGHT) && (this.story.size()-1) > this.currentChapter) { //nächstes kapitel
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_RIGHT) && (this.story.size()-1) > this.currentChapter) { //naechstes kapitel
                 this.currentChapter++;
                 this.currentLine = 0;
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_LEFT) && this.currentChapter > 0) { //vorheriges kapitel
@@ -117,44 +117,74 @@ public class StoryView extends View {
 
     {
 
-        this.story.put("Spannend", new ArrayList<String>() {{
+        this.story.put("Short Chapter", new ArrayList<String>() {{
 
-            this.add("BlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBla");
-            this.add("Bla1");
-            this.add("Bla2");
-            this.add("Bla3");
-            this.add("Bla4");
-            this.add("Bla5");
-            this.add("Bla6");
-            this.add("Bla7");
-            this.add("Bla8");
-            this.add("Bla9");
-            this.add("Bla10");
-            this.add("Bla11");
-            this.add("Bla12");
-            this.add("Bla13");
-            this.add("Bla14");
-            this.add("Bla15");
-            this.add("Bla16");
-            this.add("Bla17");
-            this.add("Bla18");
-            this.add("Bla19");
-            this.add("Bla20");
-            this.add("Bla21");
-            this.add("Bla22");
-            this.add("Bla23");
-            this.add("Bla24");
-            this.add("Bla25");
-            this.add("Bla26");
-            this.add("Bla27");
-            this.add("Bla28");
-            this.add("Bla29");
-            this.add("Bla30");
-            this.add("Bla31");
-            this.add("Bla32");
-            this.add("Bla33");
-            this.add("Bla34");
-            this.add("Bla35");
+            this.add("It was a cold, stormy day when Sylva, Bran and Varlin set foot outside the large,");
+            this.add("half-timbered house - but they had a deadline, so Varlin had declared the");
+            this.add("preparations for the trip to be over. \"Preparations\", he said,");
+            this.add("\"can take forever. If you want to get something done, you can always find a reason not");
+            this.add("to do it.\"");
+            this.add("\"It makes sense you would say so\", Sylva retorted, \"little so because of your");
+            this.add("discipline, I daresay. If I had but a hammer, I wouldn't have to worry much, either. I");
+            this.add("personally prefer to not die on a trip and be a bit late.\"");
+            this.add("Nonetheless she realised the truthfulness of his words and started packing her bags.");
+            this.add("Sylva travelled lightly; she did so to be able to instantly be able to fight, any");
+            this.add("time.  Besides, her physical strength was not that of a man. She was used to funny");
+            this.add("looks when her whole body was clad in leather armor. Now, it proved to be more useful");
+            this.add("than Varlin's, though - the heavy coat of mail he was heavy, and it required special");
+            this.add("treatment in the rain.");
+            this.add("Indeed, they did not have much in common, Sylva noticed. Their ways of combat were");
+            this.add("very different, their looks showed little similarity and usually, Varlin would");
+            this.add("disagree with her. Bran liked to stay out of discussions - he preferred to observe his");
+            this.add("surroundings carefully -but when he did say something, he would usually get his way.");
+            this.add("The only thing they had in common was their ability to kill; and their goal. All three");
+            this.add("hoped they would prove worthy in front of the Centrum - the only organisation");
+            this.add("permitted to use military on the whole continent, to provide for peace and order. Here");
+            this.add("they hoped to receive training and join its forces - although this was every child's");
+            this.add("dream, few ever managed.");
+            this.add("Sylva's thoughts were abruptly ended when a bright flash blinded her momentarily.");
+            this.add("\"This storm is getting creepy!\", she shouted over the rain pouring. \"Yes\", Varlin");
+            this.add("shouted back, \"we should head for some cover.\" and pointed to a near grove. Of course");
+            this.add("Sylva knew woods should usually be avoided - it was dark and unclear and the trees");
+            this.add("made it almost impossible to keep an overview. In spite of all the stories of witches,");
+            this.add("necromancers, goblins and woses they had all heard of when they were little, Varlin");
+            this.add("headed over to the woods, Sylva and Bran following him closely.");
+            this.add("Upon entering the motte, everything became intimidatingly quiet. The leaves blocked");
+            this.add("much of the light, and it smelled of moisture, of mushrooms and also a bit rotten,");
+            this.add("Sylva noticed. The sound of the rain became faint, and the trees seemed to spread the");
+            this.add("silence. From a near trunk, a dead corpse hung on a cord. None of them paid much");
+            this.add("attention to it; self-justice was a common occurance in rural areas.");
+            this.add("Slowly sneaking past it, they started exploring the area. It was Bran who turned");
+            this.add("around in alarm first, when a loud thump scared them. Already having her dagger at");
+            this.add("hand, Sylva turned around and saw the corpse had fallen to the ground. \"Odd\", Varlin");
+            this.add("commented, his voice trembling slightly. \"No one of us touched it. The rope must've");
+            this.add("been old.\"");
+            this.add("Bran, who had taken a closer look at the pile of flesh and bones on the ground, shook");
+            this.add("his head. \"This was no coincidence\", he mumbled and started heading back towards the");
+            this.add("open light.");
+            this.add("Why did he always have to be such a coward, Sylva wondered, examining the remnants of");
+            this.add("the corpse. Then she noticed the corpse was moving! Back and forth a hand went,");
+            this.add("without any impulse to do so. She jumped back.");
+            this.add("\"Varlin\", she cried, \"that thing is alive! Quick, come!\"");
+            this.add("Varlin wasted no time and together, they hurried behind Bran. He must have set a very");
+            this.add("quick pace, Sylva thought, so she quickened hers, too. But still, he was nowhere in");
+            this.add("sight.");
+            this.add("\"I don't like this at all\", she mumbled. The trees changed, seemed even taller, even");
+            this.add("darker now. Were they heading even deeper into the forest? Did they not follow Bran's");
+            this.add("trail? No, they couldn't have. Bran didn't leave trails, Sylva knew.");
+            this.add("It assured her to know Varlin in her back; the sturdy warrior was very reliable.");
+            this.add("\"Hey, Sylva\", he grunted, gasping for air, \"Stop. It's useless, you know we're lost.\"");
+            this.add("They came to a halt.");
+            this.add("\"Well, hello\", a voice behind them said. Quickly, they turned. It was Bran!");
+            this.add("\"Bran!\", Sylva exclaimed in relief, \"I'm so glad to see you here. Where have you been?");
+            this.add("You should stop these pranks, they really freak me out.\"");
+            this.add("She wanted to rush towards him, but Varlin held her back.");
+            this.add("\"Who are you?\", he demanded. \"And why do you pretend to be Bran?\"");
+            this.add("To Sylva, he added, \"You need to act less impulsively. That was not Bran's voice. Look");
+            this.add("closely, he doesn't even carry Bran's bow.\"");
+            this.add("\"Smart\", the resemblance of Bran chuckled. \"Not many notice this quickly. But it won't");
+            this.add("help you either way. You all will join my army eventually, just like your friend Bran");
+            this.add("already has...\"");
 
         }});
 

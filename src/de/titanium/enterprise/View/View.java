@@ -24,7 +24,7 @@ public abstract class View extends JPanel implements GameComponent {
     }
 
     /**
-     * Gibt die zughörige MenuView zurück
+     * Gibt die zughoerige MenuView zurueck
      * @return
      */
     public MenuView getMenuView() {
@@ -37,7 +37,7 @@ public abstract class View extends JPanel implements GameComponent {
     }
 
     /**
-     * Verändert das aktuelle Menü der View.
+     * Veraendert das aktuelle Menue der View.
      * @param menuView
      */
     public void changeMenu(MenuView menuView) {

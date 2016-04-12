@@ -3,7 +3,6 @@ package de.titanium.enterprise.View.FightView;
 import de.titanium.enterprise.Achievment.Achievements;
 import de.titanium.enterprise.Data.DataManager;
 import de.titanium.enterprise.Enterprise;
-import de.titanium.enterprise.Entity.Entities.Archer;
 import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.Entity.Statistic.Statistics;
 import de.titanium.enterprise.GameComponent;
@@ -17,7 +16,6 @@ import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 /**
  * Created by Yonas on 11.03.2016.
@@ -25,6 +23,7 @@ import java.util.UUID;
 public class FightMenu extends MenuView implements GameComponent {
 
     private final Random random = new Random();
+    private LivingEntity[] heroes = Enterprise.getGame().getDataManager().get("game.heroes");
 
     //Time
     private long currentTime = System.currentTimeMillis();
@@ -36,6 +35,7 @@ public class FightMenu extends MenuView implements GameComponent {
     private boolean pressedOne = true;
     private boolean tmpOne = false;
     private boolean drawOne = true;
+    private boolean failedOne = false;
     private int comboOne = 0;
 
     private final static List<List<Integer>> areaOne = new LinkedList<>();
@@ -46,6 +46,7 @@ public class FightMenu extends MenuView implements GameComponent {
     private boolean pressedTwo = true;
     private boolean tmpTwo = false;
     private boolean drawTwo = true;
+    private boolean failedTwo = false;
     private int comboTwo = 0;
 
     private final static List<List<Integer>> areaTwo = new LinkedList<>();
@@ -56,6 +57,7 @@ public class FightMenu extends MenuView implements GameComponent {
     private boolean pressedThree = true;
     private boolean tmpThree = false;
     private boolean drawThree = true;
+    private boolean failedThree = false;
     private int comboThree = 0;
 
     private final static List<List<Integer>> areaThree = new LinkedList<>();
@@ -138,9 +140,9 @@ public class FightMenu extends MenuView implements GameComponent {
 
 
             // @Improve: Das hier sollte eigentlich funktionieren, allerdings wird aus irgendeinem Grund anstelle von Comma (,)
-            // und Period (.) C und P als Character ausgewählt, obwohl das eigentlich nicht passieren sollte.
+            // und Period (.) C und P als Character ausgewaehlt, obwohl das eigentlich nicht passieren sollte.
             // Die Grafiken scheinen richtig "gegrabed" zu werden, es liegt also eventuell an den Werten die VK_COMMA und
-            // VK_PERIOD zurückgeben, ist aber auch nur eine Theroie.
+            // VK_PERIOD zurueckgeben, ist aber auch nur eine Theroie.
             //this.set(KeyEvent.VK_COMMA);
             //this.set(KeyEvent.VK_PERIOD);
 
@@ -163,8 +165,8 @@ public class FightMenu extends MenuView implements GameComponent {
         Image checkedImage = Textures.CHECKED_BUTTON.getImage();
 
         if(!(heroes[0].isAlive())) { //Der Held ist verstorben
-            g.drawImage(failedImage, 790, 60, (int) (failedImage.getWidth(null) * 0.3), (int) (failedImage.getHeight(null) * 0.3), null);
-        } else if(!(this.heroOne == null) && this.pressedOne && this.drawOne) { //die nächste Taste anzeigen
+            g.drawImage(failedImage, 190, 60, (int) (failedImage.getWidth(null) * 0.3), (int) (failedImage.getHeight(null) * 0.3), null);
+        } else if(!(this.heroOne == null) && this.pressedOne && this.drawOne) { //die naechste Taste anzeigen
             g.drawImage(Enterprise.getGame().getTextBuilder().toImage(this.heroOne.toString(), 20), 190, 60, null);
         } else if (!(this.pressedOne)) { //der Spieler hat die Taste verpasst
             g.drawImage(failedImage, 190, 60, (int) (failedImage.getWidth(null) * 0.3), (int) (failedImage.getHeight(null) * 0.3), null);
@@ -173,8 +175,8 @@ public class FightMenu extends MenuView implements GameComponent {
         }
 
         if(!(heroes[1].isAlive())) { //Der Held ist verstorben
-            g.drawImage(failedImage, 790, 60, (int) (failedImage.getWidth(null) * 0.3), (int) (failedImage.getHeight(null) * 0.3), null);
-        } else if(!(this.heroTwo == null) && this.pressedTwo && this.drawTwo) { //die nächste Taste anzeigen
+            g.drawImage(failedImage, 490, 60, (int) (failedImage.getWidth(null) * 0.3), (int) (failedImage.getHeight(null) * 0.3), null);
+        } else if(!(this.heroTwo == null) && this.pressedTwo && this.drawTwo) { //die naechste Taste anzeigen
             g.drawImage(Enterprise.getGame().getTextBuilder().toImage(this.heroTwo.toString(), 20), 490, 60, null);
         } else if (!(this.pressedTwo)) { //der Spieler hat die Taste verpasst
             g.drawImage(failedImage, 490, 60, (int) (failedImage.getWidth(null) * 0.3), (int) (failedImage.getHeight(null) * 0.3), null);
@@ -184,7 +186,7 @@ public class FightMenu extends MenuView implements GameComponent {
 
         if(!(heroes[2].isAlive())) { //Der Held ist verstorben
             g.drawImage(failedImage, 790, 60, (int) (failedImage.getWidth(null) * 0.3), (int) (failedImage.getHeight(null) * 0.3), null);
-        } else if(!(this.heroThree == null) && this.pressedThree && this.drawThree) { //die nächste Taste anzeigen
+        } else if(!(this.heroThree == null) && this.pressedThree && this.drawThree) { //die naechste Taste anzeigen
             g.drawImage(Enterprise.getGame().getTextBuilder().toImage(this.heroThree.toString(), 20), 790, 60, null);
         } else if (!(this.pressedThree)) { //der Spieler hat die Taste verpasst
             g.drawImage(failedImage, 790, 60, (int) (failedImage.getWidth(null) * 0.3), (int) (failedImage.getHeight(null) * 0.3), null);
@@ -205,13 +207,14 @@ public class FightMenu extends MenuView implements GameComponent {
     @Override
     public void update(int tick) {
 
-        LivingEntity[] heroes = Enterprise.getGame().getDataManager().get("game.heroes");
 
-        //Es wird geprüft ob der Button gedrückt wurde, falls er noch nicht gedrückt wurde
+        //Es wird geprueft ob der Button gedrueckt wurde, falls er noch nicht gedrueckt wurde,
         if(!(this.tmpOne) && !(this.heroOne == null) && heroes[0].isAlive()) {
             this.tmpOne = Enterprise.getGame().getKeyManager().isPressed(this.heroOne);
             if(this.tmpOne) {
                 this.drawOne = false;
+            } else {
+                this.failedOne = true;
             }
         }
 
@@ -229,55 +232,18 @@ public class FightMenu extends MenuView implements GameComponent {
             }
         }
 
-        // Es wird nach der Zeit (ohne Abstand) geprüft ob er innerhalb der Zeit gedrückt wurde.
-        // Falls die Button nicht innerhalb der Zeit gedrückt wurden ist dieses Entity für diese Runde raus.
+        // Es wird nach der Zeit (ohne Abstand) geprueft ob er innerhalb der Zeit gedrueckt wurde.
+        // Falls die Button nicht innerhalb der Zeit gedrueckt wurden ist dieses Entity fuer diese Runde raus.
         if((this.currentTime + this.time) < System.currentTimeMillis()) {
-
-            if(!(this.heroOne == null) && heroes[0].isAlive()) {
-
-                this.pressedOne = this.tmpOne;
-                this.tmpOne = false;
-                this.heroOne = null;
-
-                if(!(this.pressedOne)) {
-                    this.chance--;
-                } else {
-                    this.comboOne++;
-                }
-            }
-
-            if(!(this.heroTwo == null) && heroes[1].isAlive()) {
-
-                this.pressedTwo = this.tmpTwo;
-                this.tmpTwo = false;
-                this.heroTwo = null;
-
-                if(!(this.pressedTwo)) {
-                    this.chance--;
-                } else {
-                    this.comboTwo++;
-                }
-            }
-
-            if(!(this.heroThree == null) && heroes[2].isAlive()) {
-
-                this.pressedThree = this.tmpThree;
-                this.tmpThree = false;
-                this.heroThree = null;
-
-                if(!(this.pressedThree)) {
-                    this.chance--;
-                } else {
-                    this.comboThree++;
-                }
-            }
-
+            this.setPressedOne();
+            this.setPressedTwo();
+            this.setPressedThree();
         }
 
 
         if((this.currentTime + this.time + this.timeDistance) < System.currentTimeMillis()) {
 
-            if(this.pressedOne && heroes[0].isAlive()) {
+            if(this.pressedOne && this.heroes[0].isAlive()) {
 
                 //20% Wahrscheinlichkeit das ein neuer Button auftaucht
                 boolean chance = (this.random.nextInt(this.chance) == 0);
@@ -289,7 +255,7 @@ public class FightMenu extends MenuView implements GameComponent {
 
             }
 
-            if(this.pressedTwo && heroes[1].isAlive()) {
+            if(this.pressedTwo && this.heroes[1].isAlive()) {
 
                 //20% Wahrscheinlichkeit das ein neuer Button auftaucht
                 boolean chance = (this.random.nextInt(this.chance) == 0);
@@ -301,7 +267,7 @@ public class FightMenu extends MenuView implements GameComponent {
 
             }
 
-            if(this.pressedThree && heroes[2].isAlive()) {
+            if(this.pressedThree && this.heroes[2].isAlive()) {
 
                 //20% Wahrscheinlichkeit das ein neuer Button auftaucht
                 boolean chance = (this.random.nextInt(this.chance) == 0);
@@ -326,35 +292,36 @@ public class FightMenu extends MenuView implements GameComponent {
                 double damageThree = heroes[2].calculateDamage(enemy, this.comboThree);
 
                 //update statistics, damage dealt
-                heroes[0].getGameStatistic().update(Statistics.DAMAGE_DEALT, damageOne);
-                heroes[1].getGameStatistic().update(Statistics.DAMAGE_DEALT, damageTwo);
-                heroes[2].getGameStatistic().update(Statistics.DAMAGE_DEALT, damageThree);
+                this.heroes[0].getGameStatistic().update(Statistics.DAMAGE_DEALT, damageOne);
+                this.heroes[1].getGameStatistic().update(Statistics.DAMAGE_DEALT, damageTwo);
+                this.heroes[2].getGameStatistic().update(Statistics.DAMAGE_DEALT, damageThree);
 
                 //update statistics, longest key streak
-                heroes[0].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboOne);
-                heroes[1].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboTwo);
-                heroes[2].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboThree);
+                this.heroes[0].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboOne);
+                this.heroes[1].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboTwo);
+                this.heroes[2].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboThree);
 
                 double totalDamage = (damageOne + damageTwo + damageThree) - enemy.calculateDefense(heroes[0], this.random.nextInt(500) + 100);
 
                 // Es muss sichergestellt werden das der Wert immer x >= 0 ist,
-                // da sonst der gegener, bei einem negativen Wert, Leben hinzubekommen würde.
+                // da sonst der gegener, bei einem negativen Wert, Leben hinzubekommen wuerde.
                 totalDamage = Math.max(totalDamage, 0);
 
                 enemy.setHealth(
                         enemy.getHealth() - totalDamage
                 );
+                Enterprise.getGame().getLogger().info(enemy.toString());
 
                 // Hier werden die passenden Animationen in die Queue gepackt. Diese werden allerdings nur abgespielt,
-                // bzw. überhaupt erst gequeued, wenn wirklich schaden gemacht wurde.
-                if(heroes[0].isAlive() && damageOne > 0) {
-                    heroes[0].getAnimationQueue().add(Animations.RANGER_ATTACK);
+                // bzw. ueberhaupt erst gequeued, wenn wirklich schaden gemacht wurde.
+                if(this.heroes[0].isAlive() && damageOne > 0 && totalDamage > 0) {
+                    this.heroes[0].getAnimationQueue().add(Animations.RANGER_ATTACK);
                 }
-                if(heroes[1].isAlive() && damageTwo > 0) {
-                    heroes[1].getAnimationQueue().add(Animations.RANGER_ATTACK);
+                if(this.heroes[1].isAlive() && damageTwo > 0 && totalDamage > 0) {
+                    this.heroes[1].getAnimationQueue().add(Animations.RANGER_ATTACK);
                 }
-                if(heroes[2].isAlive() && damageThree > 0) {
-                    heroes[2].getAnimationQueue().add(Animations.RANGER_ATTACK);
+                if(this.heroes[2].isAlive() && damageThree > 0 && totalDamage > 0) {
+                    this.heroes[2].getAnimationQueue().add(Animations.RANGER_ATTACK);
                 }
 
                 if(totalDamage > 0) {
@@ -373,43 +340,48 @@ public class FightMenu extends MenuView implements GameComponent {
                     Enterprise.getGame().getAchievementManager().add(Achievements.DAMAGE_20);
                 }
 
+                // Tmp Highscore
+                if(!(Enterprise.getGame().getDataManager().contains("game.tmp.score"))) {
+                    Enterprise.getGame().getDataManager().set("game.tmp.score", 0.0D);
+                }
+
+                Enterprise.getGame().getDataManager().set("game.tmp.score", Enterprise.getGame().getDataManager().<Double>get("game.tmp.score").doubleValue() + totalDamage);
+
                 if(!(enemy.isAlive())) {
-                    // @Bug: Diese Animation wird nicht mehr abgespielt, da gleich die Instanz für den Enemy ersetzt wird
-                    // und deshalb die neue AnimationQueue genommen wird und die alte nicht mehr abgespielt wird.
-                    enemy.getAnimationQueue().add(Animations.RANGER_DIE);
-
-                    // @Improvement: Das hier ist erstmal provisorisch. Dies muss natürlich durch einen automatisch
-                    // generierten Gegner ersetzt werden.
-                    dataManager.set("game.enemy", new Archer(UUID.randomUUID(), "Enemy1", 10, 100, 5, 5, 12));
-
-                } else {
 
                     // Falls es ins DefenseGame geht gibt es, falls nicht auch der letzte Held stirbt,
-                    // eine weitere Runde, weshalb hier die Werte zurückgesetzt werden müssen, damit in
-                    // der nächsten Runde diese nicht einfach weiter hoch gezählt werden.
+                    // eine weitere Runde, weshalb hier die Werte zurueckgesetzt werden muessen, damit in
+                    // der naechsten Runde diese nicht einfach weiter hoch gezaehlt werden.
                     this.comboOne = 0;
                     this.comboTwo = 0;
                     this.comboThree = 0;
 
+                    // @Improvement: Das hier ist erstmal provisorisch. Das Level das dem Generator uebergen wird, muss
+                    // noch angepasst werden.
+                    dataManager.set("game.enemy", Enterprise.getGame().getEntityGenerator().generate(1));
+                    enemy.getAnimationQueue().add(Animations.RANGER_DIE);
+
+                } else {
+
                     // Den Hero setzten der den meisten Schaden gemacht hat.
                     LivingEntity max;
 
-                    if(damageOne > damageTwo && damageOne > damageThree && heroes[0].isAlive()) {
+                    if(this.comboOne > this.comboTwo && this.comboOne > this.comboThree && this.heroes[0].isAlive()) {
                         // Falls der erste Held am meisten Schaden gemacht hat.
-                        max = heroes[0];
-                    } else if(damageTwo > damageOne && damageTwo > damageThree && heroes[1].isAlive()) {
+                        max = this.heroes[0];
+                    } else if(this.comboTwo > this.comboOne && this.comboTwo > this.comboThree && this.heroes[1].isAlive()) {
                         // Falls der zweite Held am meisten Schaden gemacht hat.
-                        max = heroes[1];
-                    } else if(damageThree > damageOne && damageThree > damageTwo && heroes[2].isAlive()) {
+                        max = this.heroes[1];
+                    } else if(this.comboThree > this.comboOne && damageThree > this.comboTwo && this.heroes[2].isAlive()) {
                         // Falls der dritte Held am meisten Schaden gemacht hat.
-                        max = heroes[2];
+                        max = this.heroes[2];
                     } else {
 
-                        // Sollten alle die gleichen Werte erricht haben, wird einfach ein zufälliger ausgewählt.
-                        // @Idea: Eventuell ist der "Zufall" nicht balanced genug und man könnte überlegen, ob man eventuell
+                        // Sollten alle die gleichen Werte erricht haben, wird einfach ein zufaelliger ausgewaehlt.
+                        // @Idea: Eventuell ist der "Zufall" nicht balanced genug und man koennte ueberlegen, ob man eventuell
                         // den nimmt der am meisten oder am wenigsten Leben noch hat.
 
-                        while(!(max = heroes[this.random.nextInt(heroes.length)]).isAlive()) {}
+                        while(!(max = this.heroes[this.random.nextInt(this.heroes.length)]).isAlive()) {}
 
                     }
 
@@ -424,10 +396,10 @@ public class FightMenu extends MenuView implements GameComponent {
 
         // Time und Time-Distance verringern sich
         // Jede Sekunde, also alle 50 Ticks, wird die Zeit zwischen den Tasten verringert, um 2ms, sollten mehrere Tasten
-        // nicht gedrückt worden sein, werden es maximal 2-5ms/Sekunde weniger. Ist begrenz auf eine minstend Zeit von 500ms.
-        // Sobald die Zeit zuwischen den Tasten unter 750ms rutscht, wird die Anzahl an Tasten die gedrückt werden müssen
-        // erhöht.
-        // @TODO: Falls eine Taste wegfällt, soll dieser Bereich auf eine Taste umgelagert werden. Dies kann ggf. auch in die
+        // nicht gedrueckt worden sein, werden es maximal 2-5ms/Sekunde weniger. Ist begrenz auf eine minstend Zeit von 500ms.
+        // Sobald die Zeit zuwischen den Tasten unter 750ms rutscht, wird die Anzahl an Tasten die gedrueckt werden muessen
+        // erhoeht.
+        // @TODO: Falls eine Taste wegfaellt, soll dieser Bereich auf eine Taste umgelagert werden. Dies kann ggf. auch in die
         // FightMenu#getRandomButton Methode ausgelagert werden?
         if(tick == 50) {
             int value = 0;
@@ -459,7 +431,58 @@ public class FightMenu extends MenuView implements GameComponent {
     }
 
     /**
-     * Diese Funktion gibt einen zufälligen Button aus allen verfügbaren Stages zurück.
+     * Diese Methode setzt pressedOne true oder false, je nach dem ob der Button richtig gedrueckt wurde.
+     */
+    private void setPressedOne() {
+
+        if (!(this.heroOne == null) && heroes[0].isAlive()) {
+
+            this.pressedOne = this.tmpOne;
+            this.tmpOne = false;
+            this.heroOne = null;
+
+            if (!(this.pressedOne)) {
+                this.chance--;
+            } else {
+                this.comboOne++;
+            }
+        }
+    }
+
+    private void setPressedTwo() {
+
+        if (!(this.heroTwo == null) && heroes[1].isAlive()) {
+
+            this.pressedTwo = this.tmpTwo;
+            this.tmpTwo = false;
+            this.heroTwo = null;
+
+            if (!(this.pressedTwo)) {
+                this.chance--;
+            } else {
+                this.comboTwo++;
+            }
+        }
+    }
+
+    private void setPressedThree(){
+
+        if(!(this.heroThree == null) && heroes[2].isAlive()) {
+
+            this.pressedThree = this.tmpThree;
+            this.tmpThree = false;
+            this.heroThree = null;
+
+            if(!(this.pressedThree)) {
+                this.chance--;
+            } else {
+                this.comboThree++;
+            }
+        }
+    }
+
+    /**
+     * Diese Funktion gibt einen zufaelligen Button aus allen verfuegbaren Stages zurueck.
      * @param lists
      * @param stage
      * @return

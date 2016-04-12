@@ -53,7 +53,7 @@ public abstract class LivingEntity extends Entity {
     }
 
     /**
-     * Gibt den Namen zurück, der dem Benutzer angezeigt werden soll.
+     * Gibt den Namen zurueck, der dem Benutzer angezeigt werden soll.
      * @return
      */
     public String getName() {
@@ -61,7 +61,7 @@ public abstract class LivingEntity extends Entity {
     }
 
     /**
-     * Gibt die AnimationQueue des Entitys zurück.
+     * Gibt die AnimationQueue des Entitys zurueck.
      * @return
      */
     public AnimationQueue getAnimationQueue() {
@@ -69,7 +69,7 @@ public abstract class LivingEntity extends Entity {
     }
 
     /**
-     * Gibt die aktullen GameStatistics zurück.
+     * Gibt die aktullen GameStatistics zurueck.
      * @return
      */
     public GameStatistic getGameStatistic() {
@@ -77,7 +77,7 @@ public abstract class LivingEntity extends Entity {
     }
 
     /**
-     * Gibt die aktuelle Anzahl an Leben zurück.
+     * Gibt die aktuelle Anzahl an Leben zurueck.
      * @return
      */
     public double getHealth() {
@@ -85,7 +85,7 @@ public abstract class LivingEntity extends Entity {
     }
 
     /**
-     * Gibt die maximale Anzahl an Leben zurück.
+     * Gibt die maximale Anzahl an Leben zurueck.
      * @return
      */
     public double getMaxHealth() {
@@ -93,7 +93,7 @@ public abstract class LivingEntity extends Entity {
     }
 
     /**
-     * Gibt den aktuellen Geschicklichkeitswert zurück.
+     * Gibt den aktuellen Geschicklichkeitswert zurueck.
      * @return
      */
     public double getDexterity() {
@@ -101,7 +101,7 @@ public abstract class LivingEntity extends Entity {
     }
 
     /**
-     * Gibt den Basis Wert des Schadens zurück.
+     * Gibt den Basis Wert des Schadens zurueck.
      * @return
      */
     public double getAttackValue() {
@@ -109,7 +109,7 @@ public abstract class LivingEntity extends Entity {
     }
 
     /**
-     * Gibt true zurück, wenn das Entity noch mehr als 0 Leben hat.
+     * Gibt true zurueck, wenn das Entity noch mehr als 0 Leben hat.
      * @return
      */
     public boolean isAlive() {
@@ -117,7 +117,7 @@ public abstract class LivingEntity extends Entity {
     }
 
     /**
-     * Gibt eine Liste mit allen Skills zurück die dieses Living-Entity bereits freigeschaltet hat.
+     * Gibt eine Liste mit allen Skills zurueck die dieses Living-Entity bereits freigeschaltet hat.
      * @return
      */
     public List<Skill> getSkills() {
@@ -133,7 +133,7 @@ public abstract class LivingEntity extends Entity {
     }
 
     /**
-     * Diese Methode fügt dem Entity den übergebenen Skill hinzu.
+     * Diese Methode fuegt dem Entity den uebergebenen Skill hinzu.
      * @param skill
      */
     public void addSkill(Skill skill) {
@@ -141,9 +141,9 @@ public abstract class LivingEntity extends Entity {
     }
 
     /**
-     * Diese Methode berechnet abhängig von den Typen, die sich gegenüberstehen, die jeweiligen Schadenswerte.
+     * Diese Methode berechnet abhaengig von den Typen, die sich gegenueberstehen, die jeweiligen Schadenswerte.
      * @param enemy Ist das Entity das angegriffen wird oder verteidigt.
-     * @param comboResult Das Resultat der Combo für dieses Entity.
+     * @param comboResult Das Resultat der Combo fuer dieses Entity.
      * @return
      */
     public abstract double calculateDamage(LivingEntity enemy, int comboResult);

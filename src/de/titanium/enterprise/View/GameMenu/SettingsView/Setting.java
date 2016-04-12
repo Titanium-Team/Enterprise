@@ -1,4 +1,4 @@
-package de.titanium.enterprise.View.SettingsView;
+package de.titanium.enterprise.View.GameMenu.SettingsView;
 
 /**
  * Created by Yonas on 25.03.2016.

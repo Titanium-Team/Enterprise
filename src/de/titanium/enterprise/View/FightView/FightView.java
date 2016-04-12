@@ -1,9 +1,7 @@
 package de.titanium.enterprise.View.FightView;
 
 
-import de.titanium.enterprise.Data.BinarySearchTree;
 import de.titanium.enterprise.Data.DataManager;
-import de.titanium.enterprise.Data.Datas.Score;
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.Sprite.Animation.Animator;
@@ -15,15 +13,11 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Yonas on 11.03.2016.
  */
 public class FightView extends View {
-
-    private List<Score> scores = new ArrayList<>();
 
     private final int[] xPos = new int[] { 50, 430, 740, 1050 };
     private final int[] yPos = new int[] { 270, 268, 270, 250 };
@@ -44,12 +38,6 @@ public class FightView extends View {
         LivingEntity[] heroes = dataManager.get("game.heroes");
         for(int i = 0; i < heroes.length; i++) {
             heroes[i].getAnimationQueue().element().next();
-        }
-
-        //Score
-        if(Enterprise.getGame().getDataManager().contains("game.defense.scores")) {
-            scores = new ArrayList<>();
-            this.inorder(Enterprise.getGame().getDataManager().<BinarySearchTree>get("game.defense.scores"), scores);
         }
 
     }
@@ -73,12 +61,36 @@ public class FightView extends View {
         LivingEntity[] heroes = dataManager.get("game.heroes");
 
         for(int i = 0; i < heroes.length; i++) {
+
+            // Der atkuelle Held
             LivingEntity hero = heroes[i];
+
+            // Die aktuelle Animationn
             Animator animation = hero.getAnimationQueue().element();
+
+            if(!(hero.isAlive()) && animation.getType().equals(hero.getAnimationQueue().getDefaultAnimation())) {
+                continue;
+            }
+
             g.drawImage(animation.getFrame(), this.xPos[i], this.yPos[i], animation.getType().getWidth(), animation.getType().getHeight(), null);
 
+            // sein Name
             Image text = Enterprise.getGame().getTextBuilder().toImage(hero.getName(), 10);
             g.drawImage(text, Math.max(this.xPos[i] - ((text.getWidth(null) - animation.getType().getWidth()) / 2), 50), this.yPos[i] - 25, null);
+
+            // Werte
+            Image textHP = Enterprise.getGame().getTextBuilder().toImage(String.format("HP %.2f - %.2f", hero.getHealth(), hero.getMaxHealth()), 6);
+            g.drawImage(textHP, Math.max(this.xPos[i] - ((text.getWidth(null) - animation.getType().getWidth()) / 2), 50), this.yPos[i] - 100, null);
+
+            Image textAttack = Enterprise.getGame().getTextBuilder().toImage(String.format("ATK %.2f", hero.getAttackValue()), 6);
+            g.drawImage(textAttack, Math.max(this.xPos[i] - ((text.getWidth(null) - animation.getType().getWidth()) / 2), 50), this.yPos[i] - 75, null);
+
+            Image textDexterity = Enterprise.getGame().getTextBuilder().toImage(String.format("DEX %.2f", hero.getDexterity()), 6);
+            g.drawImage(textDexterity, Math.max(this.xPos[i] - ((text.getWidth(null) - animation.getType().getWidth()) / 2), 50), this.yPos[i] - 50, null);
+
+            Image textType = Enterprise.getGame().getTextBuilder().toImage(hero.getClass().getSimpleName(), 6);
+            g.drawImage(textType, Math.max(this.xPos[i] - ((text.getWidth(null) - animation.getType().getWidth()) / 2), 50), this.yPos[i] + 200, null);
+
         }
 
         //Get Enemy
@@ -98,38 +110,23 @@ public class FightView extends View {
         Image text = Enterprise.getGame().getTextBuilder().toImage(enemy.getName(), 10);
         g.drawImage(text, this.xPos[3] - ((text.getWidth(null) - animation.getType().getWidth()) / 2), this.yPos[3] - 25, null);
 
-        // @Cleanup: Sollte hier nur zu Testzwecken sein und in den nächsten Tagen entfernt werden, sobald es eine bessere
-        // Alternative zur Darstellung gibt.
-        // @Bug: Hier darf eigentlich kein for-loop genutzt werden, sondern am besten einfach einen Iterator der die Scores
-        // durchgeht.
-        if (scores != null) {
-            int y = 0;
-            for (Score score : scores) {
-                g.drawString(score.getName() + " | " + score.getScore(), 1000, 100 + y);
-                y += 10;
-            }
-        }
+        // Werte
+        Image textHP = Enterprise.getGame().getTextBuilder().toImage(String.format("HP %.2f - %.2f", enemy.getHealth(), enemy.getMaxHealth()), 6);
+        g.drawImage(textHP, Math.max(this.xPos[3] - ((text.getWidth(null) - animation.getType().getWidth()) / 2), 50), this.yPos[3] - 100, null);
+
+        Image textAttack = Enterprise.getGame().getTextBuilder().toImage(String.format("ATK %.2f", enemy.getAttackValue()), 6);
+        g.drawImage(textAttack, Math.max(this.xPos[3] - ((text.getWidth(null) - animation.getType().getWidth()) / 2), 50), this.yPos[3] - 75, null);
+
+        Image textDexterity = Enterprise.getGame().getTextBuilder().toImage(String.format("DEX %.2f", enemy.getDexterity()), 6);
+        g.drawImage(textDexterity, Math.max(this.xPos[3] - ((text.getWidth(null) - animation.getType().getWidth()) / 2), 50), this.yPos[3] - 50, null);
+
+        Image textType = Enterprise.getGame().getTextBuilder().toImage(enemy.getClass().getSimpleName(), 6);
+        g.drawImage(textType, Math.max(this.xPos[3] - ((text.getWidth(null) - animation.getType().getWidth()) / 2), 50), this.yPos[3] + 200, null);
+
 
         // Hier werden die Achievements gezeichnet, falls welche freigeschaltet wurden.
         Enterprise.getGame().getAchievementManager().handle(g);
 
-    }
-
-
-    private void inorder(BinarySearchTree current, List<Score> scores){
-
-        if(current != null) {
-            if (!current.getRightTree().isEmpty()) {
-                this.inorder(current.getRightTree(), scores);
-            }
-
-            scores.add((Score) current.getContent());
-
-            if (!current.getLeftTree().isEmpty()) {
-                this.inorder(current.getLeftTree(), scores);
-            }
-        }
-        
     }
 
     @Override

@@ -36,9 +36,13 @@ public class KeyManager extends KeyAdapter {
 
     }
 
+    public void setKeyCode(int keyCode) {
+        this.keyCode = keyCode;
+    }
+
 
     /**
-     * Diese Methode prüft, ob der Key, der angegeben wurde, gedrückt wurde.
+     * Diese Methode prueft, ob der Key, der angegeben wurde, gedrueckt wurde.
      * @param keyCode
      * @return
      */
@@ -48,4 +52,11 @@ public class KeyManager extends KeyAdapter {
 
     }
 
+    public boolean isPressed() {
+        return (this.keyCode != -1);
+    }
+
+    public int getKeyCode() {
+        return keyCode;
+    }
 }

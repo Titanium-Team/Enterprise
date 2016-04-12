@@ -8,6 +8,7 @@ import de.titanium.enterprise.Entity.Entities.Rogue;
 import de.titanium.enterprise.Entity.Entities.Warrior;
 import de.titanium.enterprise.Entity.EntityGenerator;
 import de.titanium.enterprise.Entity.LivingEntity;
+import de.titanium.enterprise.Loading.Loadable;
 import de.titanium.enterprise.Loading.LoadingManager;
 import de.titanium.enterprise.Sprite.Animation.Animations;
 import de.titanium.enterprise.Sprite.Textures;
@@ -16,14 +17,16 @@ import de.titanium.enterprise.View.FightView.FightMenu;
 import de.titanium.enterprise.View.FightView.FightView;
 import de.titanium.enterprise.View.GameMenu.GameMenuView;
 import de.titanium.enterprise.View.GameView;
-import de.titanium.enterprise.View.HeroesView.HeroesView;
+import de.titanium.enterprise.View.GameMenu.HeroesView;
 import de.titanium.enterprise.View.LoadingView.LoadingView;
-import de.titanium.enterprise.View.SettingsView.SettingsView;
+import de.titanium.enterprise.View.GameMenu.ScoreView;
+import de.titanium.enterprise.View.GameMenu.SettingsView.SettingsView;
 import de.titanium.enterprise.View.SkillView.SkillView;
 import de.titanium.enterprise.View.StoryView.StoryView;
 import de.titanium.enterprise.View.ViewManager;
 
 import java.awt.*;
+import java.io.File;
 import java.util.*;
 import java.util.List;
 import java.util.logging.Logger;
@@ -39,6 +42,18 @@ public class Enterprise {
     private final Map<RenderingHints.Key, Object> renderingHints = new HashMap<>();
     private final int MAX_TICKS = 50;
 
+    // Manager
+    private final GameView gameView = new GameView();
+    private final ViewManager viewManager = new ViewManager();
+    private final KeyManager keyManager = new KeyManager();
+    private final DataManager dataManager = new DataManager();
+    private final LoadingManager loadingManager = new LoadingManager();
+    private final TextBuilder textBuilder = new TextBuilder();
+    private final AchievementManager achievementManager = new AchievementManager();
+    private final EntityGenerator entityGenerator = new EntityGenerator();
+
+    private static Enterprise game;
+
     {
 
         this.renderingHints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -51,19 +66,15 @@ public class Enterprise {
 
     }
 
-    private final GameView gameView = new GameView();
-    private final ViewManager viewManager = new ViewManager();
-    private final KeyManager keyManager = new KeyManager();
-    private final DataManager dataManager = new DataManager();
-    private final LoadingManager loadingManager = new LoadingManager();
-    private final TextBuilder textBuilder = new TextBuilder();
-    private final AchievementManager achievementManager = new AchievementManager();
-
-    private static Enterprise game;
-
     public Enterprise() {
 
         Enterprise.game = this;
+
+        // Datenbank
+        File path = new File(System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "Enterprise-Game");
+        if(!(path.exists())) {
+            path.mkdirs();
+        }
 
         //Game State
         this.dataManager.set("game.state", GameState.POSTING);
@@ -76,45 +87,54 @@ public class Enterprise {
         this.dataManager.set("game.state", GameState.LOADING);
         this.loadingManager.add(Textures.values());
         this.loadingManager.add(Animations.values());
+
+        // @Improvment: UUID#randomUUID benutzt internet die SecureRandom Class die auf schwächeren PCs bzw. generell
+        // extrem langsam ist. Man kann das entwender so drin lassen oder man nutzt anstelle der vorgefertigten Methode
+        // eine Methode die mit der normalen Random Class diese UUIDs erstellt.
+        this.loadingManager.add(new Loadable() {
+            @Override
+            public String getName() {
+                return "Heroes";
+            }
+
+            @Override
+            public void load() {
+                //set default hero types
+                getDataManager().set("game.heroes.types", new LivingEntity[]{
+
+                        new Archer(UUID.randomUUID(), "Robin Trump", 40, 40, 6, 8, 0),
+                        new Archer(UUID.randomUUID(), "Georg von Wald", 60, 60, 3, 3, 0),
+                        new Archer(UUID.randomUUID(), "Eddy Penny", 52, 52, 5, 6, 0),
+                        new Archer(UUID.randomUUID(), "Tromo Domo", 20, 20, 4, 10, 0),
+                        new Archer(UUID.randomUUID(), "Ranger Ben", 33, 33, 15, 20, 0),
+
+                        new Rogue(UUID.randomUUID(), "Sneaky Pete", 20, 20, 7, 14, 0),
+                        new Rogue(UUID.randomUUID(), "Chacky Chan", 12, 12, 5, 14, 0),
+                        new Rogue(UUID.randomUUID(), "The Knife", 10, 10, 8, 20, 0),
+                        new Rogue(UUID.randomUUID(), "Robert Rice", 30, 30, 5, 8, 0),
+                        new Rogue(UUID.randomUUID(), "Sam Dodge", 15, 15, 10, 22, 0),
+
+                        new Warrior(UUID.randomUUID(), "Big Meyer", 120, 120, 0, 2, 0),
+                        new Warrior(UUID.randomUUID(), "Sir Isaac", 80, 80, 0, 3, 0),
+                        new Warrior(UUID.randomUUID(), "Robby Flobby", 100, 100, 0, 2, 10),
+                        new Warrior(UUID.randomUUID(), "Lord Washington", 60, 60, 0, 4, 0),
+                        new Warrior(UUID.randomUUID(), "Ben Jerry", 70, 70, 0, 3, 5),
+
+                });
+                //set default heroes
+                getDataManager().set("game.heroes", new LivingEntity[]{
+
+                        getDataManager().<LivingEntity[]>get("game.heroes.types")[0],
+                        getDataManager().<LivingEntity[]>get("game.heroes.types")[5],
+                        getDataManager().<LivingEntity[]>get("game.heroes.types")[10]
+
+                });
+                //set default enemy
+                getDataManager().set("game.enemy", entityGenerator.generate(1));
+            }
+        });
+
         this.loadingManager.load();
-
-        //set default hero types
-        this.getDataManager().set("game.heroes.types", new LivingEntity[]{
-
-                new Archer(UUID.randomUUID(), "Robin Trump", 40, 40, 6, 8, 0),
-                new Archer(UUID.randomUUID(), "Georg von Wald", 60, 60, 3, 3, 0),
-                new Archer(UUID.randomUUID(), "Eddy Penny", 52, 52, 5, 6, 0),
-                new Archer(UUID.randomUUID(), "Tromo Domo", 20, 20, 4, 10, 0),
-                new Archer(UUID.randomUUID(), "Ranger Ben", 33, 33, 15, 20, 0),
-
-                new Rogue(UUID.randomUUID(), "Sneaky Pete", 20, 20, 7, 14, 0),
-                new Rogue(UUID.randomUUID(), "Chacky Chan", 12, 12, 5, 14, 0),
-                new Rogue(UUID.randomUUID(), "The Knife", 10, 10, 8, 20, 0),
-                new Rogue(UUID.randomUUID(), "Robert Rice", 30, 30, 5, 8, 0),
-                new Rogue(UUID.randomUUID(), "Sam Dodge", 15, 15, 10, 22, 0),
-
-                new Warrior(UUID.randomUUID(), "Big Meyer", 120, 120, 0, 2, 0),
-                new Warrior(UUID.randomUUID(), "Sir Isaac", 80, 80, 0, 3, 0),
-                new Warrior(UUID.randomUUID(), "Robby Flobby", 100, 100, 0, 2, 10),
-                new Warrior(UUID.randomUUID(), "Lord Washington", 60, 60, 0, 4, 0),
-                new Warrior(UUID.randomUUID(), "Ben Jerry", 70, 70, 0, 3, 5),
-
-        });
-
-        //set default heroes
-        this.getDataManager().set("game.heroes", new LivingEntity[]{
-
-                this.getDataManager().<LivingEntity[]>get("game.heroes.types")[0],
-                this.getDataManager().<LivingEntity[]>get("game.heroes.types")[5],
-                this.getDataManager().<LivingEntity[]>get("game.heroes.types")[10]
-
-        });
-
-        //set default enemy
-        this.getDataManager().set("game.enemy", new Archer(UUID.randomUUID(), "Enemy", 10, 100, 5, 5, 12));
-
-        EntityGenerator entityGenerator = new EntityGenerator();
-        entityGenerator.generate(1);
 
         //default menu
         DefaultMenu defaultMenu = new DefaultMenu();
@@ -126,6 +146,7 @@ public class Enterprise {
         this.viewManager.register(new SkillView(defaultMenu));
         this.viewManager.register(new HeroesView(defaultMenu));
         this.viewManager.register(new FightView(new FightMenu()));
+        this.viewManager.register(new ScoreView(defaultMenu));
 
         this.viewManager.switchTo(GameMenuView.class);
 
@@ -137,7 +158,7 @@ public class Enterprise {
     }
 
     /**
-     * Gibt das aktulle Spiel zurück.
+     * Gibt das aktulle Spiel zurueck.
      * @return
      */
     public static Enterprise getGame() {
@@ -149,7 +170,7 @@ public class Enterprise {
     }
 
     /**
-     * Diese Methode gibt alle RenderingHints zurück, die global beim Rendern genutzt werden sollen.
+     * Diese Methode gibt alle RenderingHints zurueck, die global beim Rendern genutzt werden sollen.
      * @return
      */
     public Map<RenderingHints.Key, Object> getRenderingHints() {
@@ -163,7 +184,7 @@ public class Enterprise {
     }
 
     /**
-     * Diese Methode fügt dem Update-'n-Render-Loop ein neue Komponente hinzu, diese wird im nächsten durchlauf des Loops berücksichtigt.
+     * Diese Methode fuegt dem Update-'n-Render-Loop ein neue Komponente hinzu, diese wird im naechsten durchlauf des Loops beruecksichtigt.
      * @param gameComponent
      */
     public void addComponent(GameComponent gameComponent) {
@@ -173,7 +194,7 @@ public class Enterprise {
     /**
      * Diese Methode startet den Game-Loop.
      *
-     * Der Loop ist aktuell auf 50 Ticks/Sekunde festgesetzt, es sollten also immer 50 Ticks ausgeführt werden.
+     * Der Loop ist aktuell auf 50 Ticks/Sekunde festgesetzt, es sollten also immer 50 Ticks ausgefuehrt werden.
      *
      */
     public void start() {
@@ -259,4 +280,9 @@ public class Enterprise {
     public AchievementManager getAchievementManager() {
         return this.achievementManager;
     }
+
+    public EntityGenerator getEntityGenerator() {
+        return this.entityGenerator;
+    }
+
 }

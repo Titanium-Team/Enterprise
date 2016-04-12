@@ -16,11 +16,21 @@ public abstract class Entity implements GameComponent {
     }
 
     /**
-     * Gibt die eindeutige ID des Entitys zurück.
+     * Gibt die eindeutige ID des Entitys zurueck.
      * @return
      */
     public UUID getIdentifier() {
         return identifier;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if(o == null || !(o instanceof Entity)) {
+            return false;
+        }
+
+        return this.identifier.compareTo(((Entity)o).getIdentifier()) == 0;
     }
 
     @Override

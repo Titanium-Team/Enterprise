@@ -3,9 +3,8 @@ package de.titanium.enterprise.View.GameMenu;
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.FightView.FightView;
-import de.titanium.enterprise.View.HeroesView.HeroesView;
 import de.titanium.enterprise.View.MenuView;
-import de.titanium.enterprise.View.SettingsView.SettingsView;
+import de.titanium.enterprise.View.GameMenu.SettingsView.SettingsView;
 import de.titanium.enterprise.View.StoryView.StoryView;
 import de.titanium.enterprise.View.View;
 
@@ -73,6 +72,16 @@ public class GameMenuView extends View {
 
         }});
 
+        this.options.put("Scores", ScoreView.class);
+        this.descriptions.add(new ArrayList<String>() {{
+
+            this.add("Veraendere einige");
+            this.add("Einstellungen, um");
+            this.add("nochmehr Spass am");
+            this.add("Spielen zu haben");
+
+        }});
+
         this.options.put("Exit", null);
         this.descriptions.add(new ArrayList<String>() {{
 
@@ -111,8 +120,8 @@ public class GameMenuView extends View {
                 Image image = Enterprise.getGame().getTextBuilder().toImage(entry.getKey(), 15);
                 g.drawImage(image, 480 - image.getWidth(null) / 2, 150 + x * 35, null);
 
-                // @Cleanup: Es wäre besser, wenn der Code selbststendig die Zeilenumbrüche einbaut. Dies sollte entweder hier
-                // oder allgemein in der TextBuilder#toImage Methode gelöst werden. Dazu kann man dann z.B. eine maximale
+                // @Cleanup: Es waere besser, wenn der Code selbststendig die Zeilenumbrueche einbaut. Dies sollte entweder hier
+                // oder allgemein in der TextBuilder#toImage Methode geloest werden. Dazu kann man dann z.B. eine maximale
                 // Breite angeben.
                 int i = 0;
                 for(String value : this.descriptions.get(this.selectedOption)) {
@@ -155,7 +164,7 @@ public class GameMenuView extends View {
 
                 Class goTo = this.options.values().toArray(new Class[this.options.size()])[this.selectedOption];
 
-                //Wenn die Class nicht null ist hält es sich um eine normale View und es kann gewechselt werden.
+                //Wenn die Class nicht null ist handelt es sich um eine normale View und es kann gewechselt werden.
                 if(!(goTo == null)) {
                     Enterprise.getGame().getViewManager().switchTo(goTo);
                 } else {

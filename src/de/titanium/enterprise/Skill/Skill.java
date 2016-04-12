@@ -10,7 +10,7 @@ import java.util.List;
 public interface Skill {
 
     /**
-     * Gibt den Namen des Skills zurück.
+     * Gibt den Namen des Skills zurueck.
      * @return
      */
     String getName();
@@ -22,25 +22,25 @@ public interface Skill {
     List<String> getDescription();
 
     /**
-     * Gibt die Art des Skills zurück.
+     * Gibt die Art des Skills zurueck.
      * @return
      */
     SkillTypes getSkillType();
 
     /**
-     * Gibt die Anzahl an Skill-Punkten zurück, die der Spieler ausgeben muss, um diesen Skill freizuschalten.
+     * Gibt die Anzahl an Skill-Punkten zurueck, die der Spieler ausgeben muss, um diesen Skill freizuschalten.
      * @return
      */
     int getPrice();
 
     /**
-     * Der zurückgegebene Wert determiniert die Position im Skill-Tree;
+     * Der zurueckgegebene Wert determiniert die Position im Skill-Tree;
      * @return
      */
     int getPosition();
 
     /**
-     * Gibt den Wert zurück den dieser Skill Einfluss nehmen soll.
+     * Gibt den Wert zurueck den dieser Skill Einfluss nehmen soll.
      * @param a
      * @param b
      * @return

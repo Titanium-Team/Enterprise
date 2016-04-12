@@ -35,7 +35,7 @@ public class GameView {
     }
 
     /**
-     * Ersetzt die aktuelle View. Der alte Container wird geleert und mit neuem Inhalt gefüllt.
+     * Ersetzt die aktuelle View. Der alte Container wird geleert und mit neuem Inhalt gefuellt.
      * @param currentView
      */
     public void setCurrentView(View currentView){

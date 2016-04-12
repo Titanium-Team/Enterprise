@@ -9,7 +9,7 @@ import de.titanium.enterprise.Skill.Skill;
 import de.titanium.enterprise.Skill.Skills;
 import de.titanium.enterprise.Sprite.Animation.Animator;
 import de.titanium.enterprise.Sprite.Textures;
-import de.titanium.enterprise.View.HeroesView.HeroesView;
+import de.titanium.enterprise.View.GameMenu.HeroesView;
 import de.titanium.enterprise.View.MenuView;
 import de.titanium.enterprise.View.View;
 
@@ -42,7 +42,7 @@ public class SkillView extends View {
         g.drawImage(Textures.BACKGROUND.getImage(), 0, 0, null, null);
         g.drawImage(Textures.BORDER_UP.getImage(), 0, 0, null, null);
 
-        // Hier wird die passende Beschreibung zu dem ausgewählten Skill gezeichnet.
+        // Hier wird die passende Beschreibung zu dem ausgewaehlten Skill gezeichnet.
         List<String> description = this.selectedSkill.getDescription();
         for(int i = 0; i < description.size(); i++) {
             g.drawImage(Enterprise.getGame().getTextBuilder().toImage(description.get(i), 7), 990, 50 + i * 20, null);
@@ -61,7 +61,7 @@ public class SkillView extends View {
         } else {
             if(this.selectedSkill.isUnlockable(entity)) {
 
-                // Falls der Skill noch nicht "Freigeschaltet" ist, es aber theoretisch möglich wäre (unabhängig von der
+                // Falls der Skill noch nicht "Freigeschaltet" ist, es aber theoretisch moeglich waere (unabhaengig von der
                 // aktullen Anzahl an Skill-Punkten) wird der Skill als "Freischaltbar" eingestuft und dargestellt.
 
                 g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Freischaltbar", 8), 1050, 415, null);
@@ -74,12 +74,12 @@ public class SkillView extends View {
 
             }
 
-            // Beide Zustände werden aktuell mit dem selben Symbol gekennzeichnet.
+            // Beide Zustaende werden aktuell mit dem selben Symbol gekennzeichnet.
             g.drawImage(Textures.FAILED_BUTTON.getImage().getScaledInstance(50, 50, 0), 990, 400, null);
 
         }
 
-        // Das ausgewählte Entity wird dargestellt.
+        // Das ausgewaehlte Entity wird dargestellt.
         Animator animator = entity.getAnimationQueue().element();
         g.drawImage(animator.getFrame(), 50, 270, animator.getType().getWidth(), animator.getType().getHeight(), null);
 
@@ -87,7 +87,7 @@ public class SkillView extends View {
         Image text = Enterprise.getGame().getTextBuilder().toImage(entity.getName(), 10);
         g.drawImage(text, 50 - ((text.getWidth(null) - animator.getType().getWidth()) / 2), 245, null);
 
-        // Die verfügbaren Skill-Punkte des Entitys werden oben, rechts dargestellt.
+        // Die verfuegbaren Skill-Punkte des Entitys werden oben, rechts dargestellt.
         Image points = Enterprise.getGame().getTextBuilder().toImage(String.format("SP: %d", entity.getSkillPoints()), 8);
         g.drawImage(points, 50, 40, null);
 
@@ -108,8 +108,8 @@ public class SkillView extends View {
         hero.getAnimationQueue().element().next();
 
 
-        // @Improve: Es wird nur alle paar Ticks geprüft, da es sonst vorkommt das der Button als "doppelt" Gedrückt erkannt wird
-        // dies erschwert die Navigation, ist überall im Code aktuell ein Problem. Dies muss man entwender im KeyManager lösen
+        // @Improve: Es wird nur alle paar Ticks geprueft, da es sonst vorkommt das der Button als "doppelt" gedrueckt erkannt wird
+        // dies erschwert die Navigation, ist ueberall im Code aktuell ein Problem. Dies muss man entwender im KeyManager loesen
         // oder man findet einen besseren Wert als "4", da es sonst auch vorkommen kann das der Druck der Taste nicht erkannt wird.
         if(tick % 4 == 0) {
 
@@ -118,36 +118,39 @@ public class SkillView extends View {
 
             if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ESCAPE)) {
 
-                // Wenn "ESC" gedrückt wird, dann soll man wieder in der HeroesView landen, um dann ggf. andere Helden
-                // zu skillen o.ä.
+                // Wenn "ESC" gedrueckt wird, dann soll man wieder in der HeroesView landen, um dann ggf. andere Helden
+                // zu skillen o.ae.
+
+                // Fixed den Bug das man ansonsten direkt wieder ins Hauptmenu kommt.
+                Enterprise.getGame().getKeyManager().setKeyCode(-1);
 
                 Enterprise.getGame().getViewManager().switchTo(HeroesView.class);
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_A) && !(current.getLeftTree().isEmpty())) {
 
-                // Wenn "A" gedrückt wird und es noch weiter nach links im Bau geht, dann soll man
+                // Wenn "A" gedrueckt wird und es noch weiter nach links im Bau geht, dann soll man
                 // sich im Baum in die linke Node bewegen.
 
                 this.selectedSkill = current.getLeftTree().getContent().getSkill();
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_D) && !(current.getRightTree().isEmpty())) {
 
-                // Wenn "D" gedrückt wird und es noch weiter nach rechts im Bau geht, dann soll man
+                // Wenn "D" gedrueckt wird und es noch weiter nach rechts im Bau geht, dann soll man
                 // sich im Baum in die rechte Node bewegen.
 
                 this.selectedSkill = current.getRightTree().getContent().getSkill();
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_W) && !(parent == null)) {
 
-                // Wenn "W" gedrückt wird und es noch weiter nach oben im Bau geht, dann soll man
+                // Wenn "W" gedrueckt wird und es noch weiter nach oben im Bau geht, dann soll man
                 // sich im Baum in die obere also in die Parent Node des aktuellen bewegen.
 
                 this.selectedSkill = parent.getContent().getSkill();
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ENTER)) {
 
-                // Wenn "Enter" gedrückt wird, der Held diesen Skill theoretisch freischalten kann und er auch
-                // genügend Skill-Punkte besitzt, dann wird der Skill freigeschaltet.
+                // Wenn "Enter" gedrueckt wird, der Held diesen Skill theoretisch freischalten kann und er auch
+                // genuegend Skill-Punkte besitzt, dann wird der Skill freigeschaltet.
 
                 if(this.selectedSkill.isUnlockable(hero) && hero.getSkillPoints() >= this.selectedSkill.getPrice() && !(this.selectedSkill.hasSkill(hero))) {
                     hero.setSkillPoints(hero.getSkillPoints() - this.selectedSkill.getPrice());

@@ -16,8 +16,6 @@ public class LoadingView extends View {
     private String value = ".";
     private int count = 0;
 
-    private boolean firstOne = true;
-
     private final Timer timer = new Timer();
 
     public LoadingView() {
@@ -38,20 +36,15 @@ public class LoadingView extends View {
 
                 repaint();
 
-                // Der TimeTask wird beendet, sobald dieser nicht mehr benötigt wird.
-                if(Enterprise.getGame().getLoadingManager().getCurrent() == null && !(firstOne)) {
+                // Der TimeTask wird beendet, sobald dieser nicht mehr benoetigt wird.
+                if(Enterprise.getGame().getLoadingManager().isDone()) {
                     if(!(this.cancel())) {
                         // @Watch: Das sollte eigentlich nie passieren, falls doch muss man schauen wie
-                        // man das löst.
+                        // man das loest.
                         throw new RuntimeException("Loading Task didn't stop running.");
                     }
                 }
 
-                // @Cleanup: Das sollte eigentlich nicht nötig sein, allerdings ist getCurrent() schon beim ersten Aufruf
-                // null und muss deshalb einmal "ignoriert" werden, allerdings ist aus einem mir unbekannt Grund auch
-                // der GameState nicht auf LOADING steht. - Ich denke es liegt daran das dies ein neuer Thread ist und der
-                // alte Thread einfach schon weiter geht, im Code, und der GameState sich dann bereits im GameLoop befindet.
-                firstOne = false;
             }
         }, 0, 50);
     }
@@ -67,13 +60,13 @@ public class LoadingView extends View {
         // Draw Loading Text
         g.setFont(new Font("Arial", Font.BOLD, 50));
         String text = "Loading" + this.value;
-        FontMetrics fontMetrics = g.getFontMetrics();
-        g.drawString(text, (this.getWidth() - fontMetrics.stringWidth("Loading...")) / 2,  ((this.getHeight() - fontMetrics.getHeight()) / 2) - fontMetrics.getAscent());
+
+        g.drawString(text, 515,  193);
 
         // Draw Loadable Text
         Loadable current = Enterprise.getGame().getLoadingManager().getCurrent();
         g.setFont(new Font("Arial", Font.BOLD, 25));
-        fontMetrics = g.getFontMetrics();
+        FontMetrics fontMetrics = g.getFontMetrics();
 
         if(!(current == null)) {
             g.drawString(current.getName(), (this.getWidth() - fontMetrics.stringWidth(current.getName())) / 2,  ((this.getHeight() - fontMetrics.getHeight()) / 2) - fontMetrics.getAscent());

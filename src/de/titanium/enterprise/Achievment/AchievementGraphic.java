@@ -32,22 +32,24 @@ public class AchievementGraphic implements GameComponent {
         // Den Alpha-Wert setzen
         g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, Math.min(1, this.alpha)));
 
-        // Der Alpha-Wert der hier überall berücksichtigt wird, bei der Breite, Höhe und den Koordinaten sollte immer
+        // Der Alpha-Wert der hier ueberall beruecksichtigt wird, bei der Breite, Hoehe und den Koordinaten sollte immer
         // zwischen 0 und 1 liegen.
         double optimizedAlpha = Math.min(this.alpha, 1);
 
-        // Ist ein Wert der die X-Koordinate einmal für das Sub-Image angibt, sowie auch Position im globalen System
+        // Ist ein Wert der die X-Koordinate einmal fuer das Sub-Image angibt, sowie auch Position im globalen System
         // mit zu determinieren
         double minusX = (this.achievementImage.getWidth() / 2) - (this.achievementImage.getWidth() / 2 * optimizedAlpha);
 
+        // @Bug: Durch die Rundungsfehler (durch das casten zum int) "teleportiert" sich die Grafik immer leicht nach
+        // oben und unten.
         g.drawImage(this.achievementImage.getSubimage(
                         (int) minusX,
                         (int) (this.achievementImage.getHeight() / 2 - (this.achievementImage.getHeight() / 2 * optimizedAlpha)),
                         (int) Math.max((this.achievementImage.getWidth() * optimizedAlpha), 1),
                         (int) Math.max((this.achievementImage.getHeight() * optimizedAlpha), 1)
         ),
-                (int) (50 + minusX),
-                (int) (90 - (45 * optimizedAlpha)),
+                (int) Math.round(50 + minusX),
+                (int) Math.round(90 - (45 * optimizedAlpha)),
                 null
         );
 
@@ -58,7 +60,7 @@ public class AchievementGraphic implements GameComponent {
     }
 
     /**
-     * Diese Methode prüft, ob die Einblendung fertig ist. Das bedeutet die Texture wurde eingeblendet und dann wieder
+     * Diese Methode prueft, ob die Einblendung fertig ist. Das bedeutet die Texture wurde eingeblendet und dann wieder
      * ausgeblendet.
      * @return
      */
@@ -69,9 +71,9 @@ public class AchievementGraphic implements GameComponent {
     @Override
     public void update(int tick) {
 
-        // In dieser Bereich wird der Alpha-Wert immer weiter erhöht und sobald er 2.5 erreicht hat wird er wieder verringert,
-        // so wird sichergestellt dass das Icon für das Achievement erst eingeblendet und dann wieder ausgeblendet wird,
-        // ohne das es "unnatürlich" oder "ruckartig" aussieht.
+        // In dieser Bereich wird der Alpha-Wert immer weiter erhueht und sobald er 2.5 erreicht hat wird er wieder verringert,
+        // so wird sichergestellt dass das Icon fuer das Achievement erst eingeblendet und dann wieder ausgeblendet wird,
+        // ohne das es "unnatuerlich" oder "ruckartig" aussieht.
 
         if(!(this.done)) {
             this.alpha += 0.01;
@@ -100,7 +102,7 @@ public class AchievementGraphic implements GameComponent {
      * @param achievement
      */
     private void createAchievementImage(Achievement achievement) {
-        Image icon = achievement.getTexture().getImage().getScaledInstance(28, 28, 0);
+        Image icon = achievement.getTexture().getImage().getScaledInstance(42, 43, 0);
 
         BufferedImage text = (BufferedImage) Enterprise.getGame().getTextBuilder().toImage(achievement.getName(), 10);
 
@@ -114,7 +116,7 @@ public class AchievementGraphic implements GameComponent {
         g.fillRoundRect(0, 0, this.achievementImage.getWidth(), this.achievementImage.getHeight(), 20, 20);
 
         // Das Icon zeichnen
-        g.drawImage(icon, 10, 8, null);
+        g.drawImage(icon, 5, 0, null);
 
         // Hier wird der Name des Achievements gezeichnet
         g.drawImage(text, 48, 10, null);

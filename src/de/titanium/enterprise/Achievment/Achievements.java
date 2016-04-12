@@ -24,7 +24,7 @@ public enum Achievements implements Achievement {
 
         @Override
         public Texture getTexture() {
-            return Textures.TEST;
+            return Textures.ACHIEVEMENT_ICON_HEALING;
         }
 
     },
@@ -44,7 +44,7 @@ public enum Achievements implements Achievement {
 
         @Override
         public Texture getTexture() {
-            return Textures.TEST;
+            return Textures.ACHIEVEMENT_ICON_SWORD;
         }
 
     },
@@ -64,7 +64,7 @@ public enum Achievements implements Achievement {
 
         @Override
         public Texture getTexture() {
-            return Textures.TEST;
+            return Textures.ACHIEVEMENT_ICON_SWORD;
         }
 
     },
@@ -84,7 +84,7 @@ public enum Achievements implements Achievement {
 
         @Override
         public Texture getTexture() {
-            return Textures.TEST;
+            return Textures.ACHIEVEMENT_ICON_SWORD;
         }
 
     },
@@ -104,13 +104,13 @@ public enum Achievements implements Achievement {
 
         @Override
         public Texture getTexture() {
-            return Textures.TEST;
+            return Textures.ACHIEVEMENT_ICON_WINNER;
         }
 
     },
     DEFENSESCORE_197 {
 
-        // Wird freigeschaltet, wenn der Spieler direkt gegen die Rampe "fährt".
+        // Wird freigeschaltet, wenn der Spieler direkt gegen die Rampe "faehrt".
 
         @Override
         public String getName() {
@@ -124,7 +124,7 @@ public enum Achievements implements Achievement {
 
         @Override
         public Texture getTexture() {
-            return Textures.TEST;
+            return Textures.ACHIEVEMENT_ICON_WINNER;
         }
     },
     DEFENSESCORE_2000 {
@@ -143,7 +143,7 @@ public enum Achievements implements Achievement {
 
         @Override
         public Texture getTexture() {
-            return Textures.TEST;
+            return Textures.ACHIEVEMENT_ICON_WINNER;
         }
 
     },
@@ -163,9 +163,9 @@ public enum Achievements implements Achievement {
 
         @Override
         public Texture getTexture() {
-            return Textures.TEST;
+            return Textures.ACHIEVEMENT_ICON_WINNER;
         }
 
-    }
+    };
 
 }

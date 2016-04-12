@@ -20,7 +20,7 @@ public class Rogue extends LivingEntity {
     @Override
     public double calculateDamage(LivingEntity enemy, int comboResult) {
 
-        double value = -1 * Math.pow(comboResult - this.getDexterity(), 2) * this.getAttackValue() * 1.2 + this.getAttackValue() * 1.8;
+        double value = -1 * Math.pow(comboResult - this.getDexterity(), 2) * this.getAttackValue() * 1.2 + this.getAttackValue();
 
         //Attack Efficiency
         double attackEfficiency = 1;
@@ -30,7 +30,7 @@ public class Rogue extends LivingEntity {
 
         value *= attackEfficiency;
 
-        // Hier wird sichergestellt das es keinen ungültigen Wert gibt!
+        // Hier wird sichergestellt das es keinen ungueltigen Wert gibt!
         if(Double.isNaN(value)) {
             value = 0;
         }
