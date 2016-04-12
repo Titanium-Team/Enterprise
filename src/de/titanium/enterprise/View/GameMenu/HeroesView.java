@@ -55,7 +55,6 @@ public class HeroesView extends View {
             }
         });
 
-
     }
 
     @Override
@@ -108,7 +107,9 @@ public class HeroesView extends View {
 
             if(this.searchValue.length() > 0) {
 
-                List<LivingEntity> search = this.search(this.sortedByName, 0, this.sortedByName.length - 1, new ArrayList<LivingEntity>());
+                List<LivingEntity> search = new ArrayList<>();
+                this.search(this.sortedByName, 0, this.sortedByName.length - 1, search);
+
                 if(search.isEmpty() || !(search.contains(entity))) {
                     continue;
                 }
@@ -143,13 +144,13 @@ public class HeroesView extends View {
 
         // Hier wird die Steuerungshilfe in gerendert
         g.drawImage(textBuilder.toImage("E    Equip", 8), 990, 80, null);
-        g.drawImage(textBuilder.toImage("S    Skill", 8), 990, 100, null);
+        g.drawImage(textBuilder.toImage("Q    Skill", 8), 990, 100, null);
 
         g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Sortieren", 10), 1030, 140, null);
 
         g.drawImage(textBuilder.toImage("1    Namen", 8), 990, 180, null);
         g.drawImage(textBuilder.toImage("2    HP", 8), 990, 200, null);
-        g.drawImage(textBuilder.toImage("3    DY", 8), 990, 220, null);
+        g.drawImage(textBuilder.toImage("3    DX", 8), 990, 220, null);
         g.drawImage(textBuilder.toImage("4    AT", 8), 990, 240, null);
         g.drawImage(textBuilder.toImage("5    SP", 8), 990, 260, null);
         g.drawImage(textBuilder.toImage("0    Default", 8), 990, 280, null);
@@ -158,7 +159,7 @@ public class HeroesView extends View {
         g.drawImage(textBuilder.toImage("M    " + (this.ascending ? "Absteigend" : "Aufsteigend"), 8), 990, 320, null);
 
         // Ausgabe der Suche
-        g.drawImage(textBuilder.toImage("S: " + this.searchValue.toString(), 6), 990, 360, null);
+        g.drawImage(textBuilder.toImage("S: " + this.searchValue.toString(), this.isSearching ? 9 : 8), 990, 360, null);
 
         //border
         g.drawImage(Textures.BORDER_UP.getImage(), 0, 0, null, null);
@@ -399,7 +400,7 @@ public class HeroesView extends View {
                     Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes")[2] = hero;
                 }
 
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_S) && !(this.isSearching)) {
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_Q) && !(this.isSearching)) {
 
                 // Wenn die S-Taste gedrueckt wird, dann soll der Hero in die Skill-View gebracht werden, wo man
                 // dann seine Skill-Werte setzen kann.
@@ -442,24 +443,26 @@ public class HeroesView extends View {
         this.sortSkillPoints = false;
     }
 
-    private List<LivingEntity> search(LivingEntity[] entities, int start, int end, List<LivingEntity> matches) {
+    private void search(LivingEntity[] entities, int start, int end, List<LivingEntity> matches) {
 
         int element = start + (end - start) / 2;
 
         if(start > end) {
-            return matches;
+            return;
         }
 
         int value = entities[element].getName().compareToIgnoreCase(this.searchValue.toString());
 
         if((value == 0 || entities[element].getName().toUpperCase().startsWith(this.searchValue.toString().toUpperCase()))) {
-            matches.add(entities[element]);
-        }
 
-        if(value > 0) {
-            return search(entities, start, element - 1, matches);
+            matches.add(entities[element]);
+            search(entities, start, element - 1, matches);
+            search(entities, element + 1, end, matches);
+
+        } else if(value > 0) {
+            search(entities, start, element - 1, matches);
         } else {
-            return search(entities, element + 1, end, matches);
+            search(entities, element + 1, end, matches);
         }
 
     }

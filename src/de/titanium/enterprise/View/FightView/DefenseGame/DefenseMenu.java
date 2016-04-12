@@ -4,6 +4,8 @@ import de.titanium.enterprise.Achievment.Achievements;
 import de.titanium.enterprise.Data.BinarySearchTree;
 import de.titanium.enterprise.Data.Datas.Score;
 import de.titanium.enterprise.Enterprise;
+import de.titanium.enterprise.Entity.Entities.Rogue;
+import de.titanium.enterprise.Entity.Entities.Warrior;
 import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.Entity.Statistic.Statistics;
 import de.titanium.enterprise.GameComponent;
@@ -137,8 +139,24 @@ public class DefenseMenu extends MenuView implements GameComponent {
                         LivingEntity enemy = Enterprise.getGame().getDataManager().get("game.enemy");
                         LivingEntity hero = Enterprise.getGame().getDataManager().get("game.fight.maxDamage");
 
-                        double damage = enemy.calculateDamage(hero, this.random.nextInt(5) + 10);
+                        // Hier wird festgelegt wie hoch die KeyStreak ist und für den Rogue gelten besondere
+                        // Regeln.
+                        int keyStreak = this.random.nextInt(30) + 1;
+                        double damage = enemy.calculateDamage(hero, keyStreak);
+
+                        if(hero instanceof Warrior){
+                            keyStreak = this.random.nextInt(50) + 1;
+                            damage = enemy.calculateDamage(hero, keyStreak);
+                        } else if (hero instanceof Rogue) {
+                            if((this.random.nextInt(20) + 1) > ((int) hero.getDexterity())) {
+                                damage = enemy.calculateDamage(hero, (int) hero.getDexterity());
+                                Enterprise.getGame().getLogger().info("Damage Enemy -> " + damage + " -> Keys: " + hero.getDexterity());
+                            }
+                        } else Enterprise.getGame().getLogger().info("Damage Enemy -> " + damage + " -> Keys: " + keyStreak);
+
                         double defense = hero.calculateDefense(enemy, this.tick);
+
+                        Enterprise.getGame().getLogger().info("Defense Value Player -> " + defense);
 
                         // Den Score für den abgewerten Schaden updaten
                         hero.getGameStatistic().update(Statistics.DAMAGE_BLOCKED, this.tick);

@@ -287,9 +287,9 @@ public class FightMenu extends MenuView implements GameComponent {
                 LivingEntity enemy = dataManager.get("game.enemy");
 
                 //Calculate Damage
-                double damageOne = heroes[0].calculateDamage(enemy, this.comboOne);
-                double damageTwo = heroes[1].calculateDamage(enemy, this.comboTwo);
-                double damageThree = heroes[2].calculateDamage(enemy, this.comboThree);
+                double damageOne = this.heroes[0].calculateDamage(enemy, this.comboOne);
+                double damageTwo = this.heroes[1].calculateDamage(enemy, this.comboTwo);
+                double damageThree = this.heroes[2].calculateDamage(enemy, this.comboThree);
 
                 //update statistics, damage dealt
                 this.heroes[0].getGameStatistic().update(Statistics.DAMAGE_DEALT, damageOne);
@@ -303,6 +303,11 @@ public class FightMenu extends MenuView implements GameComponent {
 
                 double totalDamage = (damageOne + damageTwo + damageThree) - enemy.calculateDefense(heroes[0], this.random.nextInt(500) + 100);
 
+                Enterprise.getGame().getLogger().info(this.heroes[0].getName() + " -> " + damageOne + " -> Keys: " + this.comboOne);
+                Enterprise.getGame().getLogger().info(this.heroes[1].getName() + " -> " + damageTwo + " -> Keys: " + this.comboTwo);
+                Enterprise.getGame().getLogger().info(this.heroes[2].getName() + " -> " + damageThree + " -> Keys: " + this.comboThree);
+                Enterprise.getGame().getLogger().info("-> " + totalDamage);
+
                 // Es muss sichergestellt werden das der Wert immer x >= 0 ist,
                 // da sonst der gegener, bei einem negativen Wert, Leben hinzubekommen wuerde.
                 totalDamage = Math.max(totalDamage, 0);
@@ -310,7 +315,6 @@ public class FightMenu extends MenuView implements GameComponent {
                 enemy.setHealth(
                         enemy.getHealth() - totalDamage
                 );
-                Enterprise.getGame().getLogger().info(enemy.toString());
 
                 // Hier werden die passenden Animationen in die Queue gepackt. Diese werden allerdings nur abgespielt,
                 // bzw. ueberhaupt erst gequeued, wenn wirklich schaden gemacht wurde.
@@ -356,9 +360,20 @@ public class FightMenu extends MenuView implements GameComponent {
                     this.comboTwo = 0;
                     this.comboThree = 0;
 
+                    // Wenn der Held stirbt, dann wird das Level um eins erhöht.
+                    if(!(Enterprise.getGame().getDataManager().contains("game.run.level"))) {
+                        Enterprise.getGame().getDataManager().set("game.run.level", 1);
+                    }
+                    Enterprise.getGame().getDataManager().set("game.run.level", Enterprise.getGame().getDataManager().<Integer>get("game.run.level") + 1);
+
                     // @Improvement: Das hier ist erstmal provisorisch. Das Level das dem Generator uebergen wird, muss
                     // noch angepasst werden.
-                    dataManager.set("game.enemy", Enterprise.getGame().getEntityGenerator().generate(1));
+                    dataManager.set("game.enemy", Enterprise.getGame().getEntityGenerator().generate(
+                            Enterprise.getGame().getDataManager().<Integer>get("game.run.level")
+                    ));
+
+                    Enterprise.getGame().getLogger().info("Current Level: " + Enterprise.getGame().getDataManager().<Integer>get("game.run.level"));
+
                     enemy.getAnimationQueue().add(Animations.RANGER_DIE);
 
                 } else {

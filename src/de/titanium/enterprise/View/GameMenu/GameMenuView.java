@@ -146,14 +146,14 @@ public class GameMenuView extends View {
     public void update(int tick) {
 
         if(tick % 4 == 0) {
-            if (Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_DOWN)) {
+            if (Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_S)) {
                 this.selectedOption++;
 
                 if(this.selectedOption >= this.options.size()) {
                     this.selectedOption = 0;
                 }
             }
-            if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_UP)) {
+            if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_W)) {
                 this.selectedOption--;
 
                 if(this.selectedOption < 0) {

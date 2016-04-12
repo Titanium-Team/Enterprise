@@ -1,18 +1,16 @@
 package de.titanium.enterprise.View.GameMenu;
 
 import de.titanium.enterprise.Data.BinarySearchTree;
-import de.titanium.enterprise.Data.Datas.Score;
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.TextBuilder;
 import de.titanium.enterprise.View.MenuView;
 import de.titanium.enterprise.View.View;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-
-import java.awt.*;
 
 /**
  * Created by 204g02 on 08.04.2016.

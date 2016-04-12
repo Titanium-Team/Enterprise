@@ -30,7 +30,7 @@ public enum Achievements implements Achievement {
     },
     DAMAGE_5 {
 
-        // Wird freigeschaltet, wenn der Spieler 10+ Damage auf einmal macht.
+        // Wird freigeschaltet, wenn der Spieler 5+ Damage auf einmal macht.
 
         @Override
         public String getName() {
@@ -39,7 +39,7 @@ public enum Achievements implements Achievement {
 
         @Override
         public String getDescription() {
-            return "10+ Schaden";
+            return "5+ Schaden";
         }
 
         @Override
@@ -50,7 +50,7 @@ public enum Achievements implements Achievement {
     },
     DAMAGE_10 {
 
-        // Wird freigeschaltet, wenn der Spieler 5+ Damage auf einmal macht.
+        // Wird freigeschaltet, wenn der Spieler 10+ Damage auf einmal macht.
 
         @Override
         public String getName() {
@@ -70,7 +70,7 @@ public enum Achievements implements Achievement {
     },
     DAMAGE_20 {
 
-        // Wird freigeschaltet, wenn der Spieler 15+ Damage auf einmal macht.
+        // Wird freigeschaltet, wenn der Spieler 20+ Damage auf einmal macht.
 
         @Override
         public String getName() {
