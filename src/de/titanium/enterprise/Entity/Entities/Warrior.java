@@ -41,9 +41,9 @@ public class Warrior extends LivingEntity {
     }
 
     @Override
-    public double calculateDefense(LivingEntity enemy, int defenseScore) {
+    public double calculateDefense(LivingEntity enemy, double defenseScore) {
 
-        double value = (defenseScore / 1000);
+        double value = (defenseScore / 300);
 
         int efficiency = 1;
         for(Skill skill : Skills.all(SkillTypes.DEFENSE_EFFICIENCY, this)) {

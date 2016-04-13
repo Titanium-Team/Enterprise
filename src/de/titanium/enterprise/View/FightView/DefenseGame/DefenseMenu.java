@@ -156,7 +156,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
                         double defense = hero.calculateDefense(enemy, this.tick);
 
-                        Enterprise.getGame().getLogger().info("Defense Value Player -> " + defense);
+                        Enterprise.getGame().getLogger().info("Defense Value Player -> " + defense + " Final Damage -> " + (damage - defense));
 
                         // Den Score für den abgewerten Schaden updaten
                         hero.getGameStatistic().update(Statistics.DAMAGE_BLOCKED, this.tick);
