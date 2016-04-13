@@ -575,34 +575,29 @@ public class SettingsView extends View {
 
         {
 
+            String[] volumeOptions = new String[101];
+            final String[][] volumeOptionsDesc = new String[volumeOptions.length][];
+
+            for(int i = 0; i < volumeOptions.length; i++) volumeOptions[i] = String.valueOf(i);
+            for(int i = 0; i < volumeOptionsDesc.length; i++) volumeOptionsDesc[i] = new String[] { ("Volume: " + String.valueOf(i)) };
 
             // Music Volume
-            Setting<String> setting = new Setting<String>("Music", new String[] { "On", "Off" }) {
+            Setting<String> setting = new Setting<String>("Music", volumeOptions) {
 
                 @Override
                 public String[][] getDescription() {
-                    return new String[][] {
-                            { "Music is enabled." },
-                            { "Music is disabled." },
-                    };
+                    return volumeOptionsDesc;
                 }
 
                 @Override
                 public int getDefaultSelected() {
-                    //@Improvment:  wenn einstellungen etc. wirklich gespeichert werden, dann muss
-                    // das hier angepasst werden
-                    return 0;
+                    return (int) (Enterprise.getGame().getSoundPlayer().getVolume());
                 }
 
                 @Override
                 public void change(String input) {
 
-                    switch (input) {
-
-                        case "On": Enterprise.getGame().getSoundPlayer().setPlaying(true); break;
-                        case "Off": Enterprise.getGame().getSoundPlayer().setPlaying(false); break;
-
-                    }
+                    Enterprise.getGame().getSoundPlayer().updateVolume(Double.valueOf(input));
 
                 }
 
