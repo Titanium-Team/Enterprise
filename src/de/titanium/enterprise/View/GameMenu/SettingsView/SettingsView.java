@@ -573,6 +573,44 @@ public class SettingsView extends View {
             this.selectedValue.put(setting.getName(), setting.getDefaultSelected());
         }
 
+        {
+
+
+            // Music Volume
+            Setting<String> setting = new Setting<String>("Music", new String[] { "On", "Off" }) {
+
+                @Override
+                public String[][] getDescription() {
+                    return new String[][] {
+                            { "Music is enabled." },
+                            { "Music is disabled." },
+                    };
+                }
+
+                @Override
+                public int getDefaultSelected() {
+                    //@Improvment:  wenn einstellungen etc. wirklich gespeichert werden, dann muss
+                    // das hier angepasst werden
+                    return 0;
+                }
+
+                @Override
+                public void change(String input) {
+
+                    switch (input) {
+
+                        case "On": Enterprise.getGame().getSoundPlayer().setPlaying(true); break;
+                        case "Off": Enterprise.getGame().getSoundPlayer().setPlaying(false); break;
+
+                    }
+
+                }
+
+            };
+            this.options.put(setting.getName(), setting);
+            this.selectedValue.put(setting.getName(), setting.getDefaultSelected());
+        }
+
     }
 
 }
