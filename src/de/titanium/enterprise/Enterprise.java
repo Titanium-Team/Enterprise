@@ -10,6 +10,8 @@ import de.titanium.enterprise.Entity.EntityGenerator;
 import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.Loading.Loadable;
 import de.titanium.enterprise.Loading.LoadingManager;
+import de.titanium.enterprise.Sound.SoundPlayer;
+import de.titanium.enterprise.Sound.Sounds;
 import de.titanium.enterprise.Sprite.Animation.Animations;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.DefaultMenu;
@@ -52,6 +54,9 @@ public class Enterprise {
     private final AchievementManager achievementManager = new AchievementManager();
     private final EntityGenerator entityGenerator = new EntityGenerator();
 
+    // Music
+    private final SoundPlayer soundPlayer = new SoundPlayer();
+
     private static Enterprise game;
 
     {
@@ -87,6 +92,7 @@ public class Enterprise {
         this.dataManager.set("game.state", GameState.LOADING);
         this.loadingManager.add(Textures.values());
         this.loadingManager.add(Animations.values());
+        this.loadingManager.add(Sounds.values());
 
         // @Improvment: UUID#randomUUID benutzt internet die SecureRandom Class die auf schwächeren PCs bzw. generell
         // extrem langsam ist. Man kann das entwender so drin lassen oder man nutzt anstelle der vorgefertigten Methode
@@ -135,6 +141,10 @@ public class Enterprise {
         });
 
         this.loadingManager.load();
+
+        // Den Music Thread starten
+        this.soundPlayer.add(Sounds.MUSIC_ONE);
+        this.soundPlayer.start();
 
         //default menu
         DefaultMenu defaultMenu = new DefaultMenu();
@@ -199,6 +209,7 @@ public class Enterprise {
      */
     public void start() {
 
+        // Den Game-Loop starten
         int CURRENT_TICK = 1;
         this.dataManager.set("game.state", GameState.WAITING);
 
@@ -285,4 +296,7 @@ public class Enterprise {
         return this.entityGenerator;
     }
 
+    public SoundPlayer getSoundPlayer() {
+        return this.soundPlayer;
+    }
 }

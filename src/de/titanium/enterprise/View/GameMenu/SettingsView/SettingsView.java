@@ -573,6 +573,39 @@ public class SettingsView extends View {
             this.selectedValue.put(setting.getName(), setting.getDefaultSelected());
         }
 
+        {
+
+            String[] volumeOptions = new String[101];
+            final String[][] volumeOptionsDesc = new String[volumeOptions.length][];
+
+            for(int i = 0; i < volumeOptions.length; i++) volumeOptions[i] = String.valueOf(i);
+            for(int i = 0; i < volumeOptionsDesc.length; i++) volumeOptionsDesc[i] = new String[] { ("Volume: " + String.valueOf(i)) };
+
+            // Music Volume
+            Setting<String> setting = new Setting<String>("Music", volumeOptions) {
+
+                @Override
+                public String[][] getDescription() {
+                    return volumeOptionsDesc;
+                }
+
+                @Override
+                public int getDefaultSelected() {
+                    return (int) (Enterprise.getGame().getSoundPlayer().getVolume());
+                }
+
+                @Override
+                public void change(String input) {
+
+                    Enterprise.getGame().getSoundPlayer().updateVolume(Double.valueOf(input));
+
+                }
+
+            };
+            this.options.put(setting.getName(), setting);
+            this.selectedValue.put(setting.getName(), setting.getDefaultSelected());
+        }
+
     }
 
 }
