@@ -156,14 +156,16 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
                         double defense = hero.calculateDefense(enemy, this.tick);
 
-                        Enterprise.getGame().getLogger().info("Defense Value Player -> " + defense);
+                        damage = Math.max(damage - defense,0);
+
+                        Enterprise.getGame().getLogger().info("Defense Value Player -> " + defense + " Final Damage -> " + damage);
 
                         // Den Score für den abgewerten Schaden updaten
                         hero.getGameStatistic().update(Statistics.DAMAGE_BLOCKED, this.tick);
 
                         // Das Leben von dem Helden abziehen
                         hero.setHealth(
-                                hero.getHealth() - (damage - defense)
+                                hero.getHealth() - damage
                         );
 
                         // Den Wert für den höchsten Defense-Score
@@ -208,6 +210,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
                             //Verteilung der Skillpunkte
                             int skillPoint = (int) (tmpScore / 50) / 3;
+
                             LivingEntity[] heroes = Enterprise.getGame().getDataManager().get("game.heroes");
                             heroes[0].setSkillPoints(heroes[0].getSkillPoints() + skillPoint);
                             heroes[1].setSkillPoints(heroes[1].getSkillPoints() + skillPoint);

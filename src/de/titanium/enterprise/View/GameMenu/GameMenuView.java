@@ -75,10 +75,11 @@ public class GameMenuView extends View {
         this.options.put("Scores", ScoreView.class);
         this.descriptions.add(new ArrayList<String>() {{
 
-            this.add("Veraendere einige");
-            this.add("Einstellungen, um");
-            this.add("nochmehr Spass am");
-            this.add("Spielen zu haben");
+            this.add("Schaue dir deine");
+            this.add("besten Scores an,");
+            this.add("um deinen Freunden");
+            this.add("zu zeigen,");
+            this.add("wie gut du bist.");
 
         }});
 
