@@ -149,7 +149,18 @@ public class FightMenu extends MenuView implements GameComponent {
         }});
     }
 
-    public FightMenu() {}
+    public FightMenu() {
+
+        if(!this.heroes[0].isAlive()){
+            this.chance--;
+        }
+        if(!this.heroes[1].isAlive()){
+            this.chance--;
+        }
+        if(!this.heroes[2].isAlive()){
+            this.chance--;
+        }
+    }
 
     @Override
     public void paintComponent(Graphics graphic) {
@@ -423,13 +434,13 @@ public class FightMenu extends MenuView implements GameComponent {
         // FightMenu#getRandomButton Methode ausgelagert werden?
         if(tick == 50) {
             int value = 0;
-            if(!(this.pressedOne)) {
+            if(!(this.pressedOne) || !this.heroes[0].isAlive()) {
                 value++;
             }
-            if(!(this.pressedTwo)) {
+            if(!(this.pressedTwo) || !this.heroes[1].isAlive()) {
                 value++;
             }
-            if(!(this.pressedThree)) {
+            if(!(this.pressedThree) || !this.heroes[2].isAlive()) {
                 value++;
             }
 

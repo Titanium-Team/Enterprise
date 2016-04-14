@@ -209,12 +209,18 @@ public class DefenseMenu extends MenuView implements GameComponent {
                             Enterprise.getGame().getDataManager().set("game.tmp.score", 0);
 
                             //Verteilung der Skillpunkte
-                            int skillPoint = (int) (tmpScore / 50) / 3;
+                            //90 = 30 * 3 ( 3 Helden)
+                            int skillPoint = (int) (tmpScore / 90);
 
                             LivingEntity[] heroes = Enterprise.getGame().getDataManager().get("game.heroes");
                             heroes[0].setSkillPoints(heroes[0].getSkillPoints() + skillPoint);
                             heroes[1].setSkillPoints(heroes[1].getSkillPoints() + skillPoint);
                             heroes[2].setSkillPoints(heroes[2].getSkillPoints() + skillPoint);
+
+                            //Heilen der Helden fuer den naechsten Kampf
+                            heroes[0].setHealth(heroes[0].getMaxHealth());
+                            heroes[1].setHealth(heroes[1].getMaxHealth());
+                            heroes[2].setHealth(heroes[2].getMaxHealth());
 
                             // @Idea: Falls das nicht der Fall ist, dann wird der Game-End-Screen angezeigt.
                             // Aktuell wird man einfach noch ins Hauptmenue zurueckgebracht.

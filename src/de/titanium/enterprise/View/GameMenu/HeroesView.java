@@ -159,7 +159,7 @@ public class HeroesView extends View {
         g.drawImage(textBuilder.toImage("M    " + (this.ascending ? "Absteigend" : "Aufsteigend"), 8), 990, 320, null);
 
         // Ausgabe der Suche
-        g.drawImage(textBuilder.toImage("S: " + this.searchValue.toString(), this.isSearching ? 9 : 8), 990, 360, null);
+        g.drawImage(textBuilder.toImage("L: " + this.searchValue.toString(), this.isSearching ? 9 : 8), 990, 360, null);
 
         //border
         g.drawImage(Textures.BORDER_UP.getImage(), 0, 0, null, null);
@@ -174,7 +174,7 @@ public class HeroesView extends View {
 
         if(tick % 4 == 0) {
 
-            if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_S) && !(this.isSearching)) {
+            if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_L) && !(this.isSearching)) {
 
                 this.isSearching = true;
 
@@ -349,7 +349,7 @@ public class HeroesView extends View {
 
                 });
 
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_UP) && !(this.isSearching)) {
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_W) && !(this.isSearching)) {
 
                 // Wenn man die Pfeiltaste nach oben drueckt, dann soll in der Tabelle
                 // nach oben gescrolled werden.
@@ -368,7 +368,7 @@ public class HeroesView extends View {
                     this.selectedHero = 0;
                 }
 
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_DOWN) && !(this.isSearching)) {
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_S) && !(this.isSearching)) {
 
                 // Wenn man die Pfeiltaste nach unten drueckt, dann soll in der Tabelle
                 // nach unten gescrolled werden.
