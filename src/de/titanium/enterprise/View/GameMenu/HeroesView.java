@@ -493,13 +493,10 @@ public class HeroesView extends View {
                 }
 
                 if(i <= j) {
-                    if(!(comparator.compare(livingEntities[i], livingEntities[j]) == 0)) {
 
-                        LivingEntity tmp = livingEntities[i];
-                        livingEntities[i] = livingEntities[j];
-                        livingEntities[j] = tmp;
-
-                    }
+                    LivingEntity tmp = livingEntities[i];
+                    livingEntities[i] = livingEntities[j];
+                    livingEntities[j] = tmp;
 
                     i++;
                     j--;

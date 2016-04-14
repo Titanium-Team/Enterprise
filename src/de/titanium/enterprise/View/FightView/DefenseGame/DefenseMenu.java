@@ -156,7 +156,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
                         double defense = hero.calculateDefense(enemy, this.tick);
 
-                        damage = Math.max(damage - defense,0);
+                        damage = Math.max(damage - defense, 0);
 
                         Enterprise.getGame().getLogger().info("Defense Value Player -> " + defense + " Final Damage -> " + damage);
 

@@ -56,6 +56,7 @@ public class SoundPlayer extends Thread {
         FloatControl gainControl = (FloatControl) this.playList.get(this.current).getControl(FloatControl.Type.MASTER_GAIN);
         float dB = (float) (Math.log(this.volume / 100) / Math.log(10.0) * 20.0);
         gainControl.setValue(dB);
+
     }
 
     /**
