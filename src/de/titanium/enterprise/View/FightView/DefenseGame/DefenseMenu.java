@@ -208,7 +208,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
                             //Verteilung der Skillpunkte
                             int skillPoint = (int) (tmpScore / 50) / 3;
-                            LivingEntity[] heroes = Enterprise.getGame().getDataManager().get("games.heroes");
+                            LivingEntity[] heroes = Enterprise.getGame().getDataManager().get("game.heroes");
                             heroes[0].setSkillPoints(heroes[0].getSkillPoints() + skillPoint);
                             heroes[1].setSkillPoints(heroes[1].getSkillPoints() + skillPoint);
                             heroes[2].setSkillPoints(heroes[2].getSkillPoints() + skillPoint);
