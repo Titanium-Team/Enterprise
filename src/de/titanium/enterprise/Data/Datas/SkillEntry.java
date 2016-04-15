@@ -33,7 +33,7 @@ public class SkillEntry implements Comparable<SkillEntry> {
 
     @Override
     public String toString() {
-        return String.format("%s (%d)", this.skill.getName(), this.skill.getPrice());
+        return String.format("%s", this.skill.getName());
     }
 
 }

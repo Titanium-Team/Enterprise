@@ -27,7 +27,9 @@ public class Warrior extends LivingEntity {
         for(Skill skill : Skills.all(SkillTypes.ATTACK_EFFICIENCY, this)) {
             attackEfficiency += skill.getValue(this, enemy);
         }
-
+        for(Skill skill : Skills.all(SkillTypes.DEFENSE_EFFICIENCY_ACTIVE, enemy)) {
+            attackEfficiency -= skill.getValue(enemy, this);
+        }
         value *= attackEfficiency;
 
         // Hier wird sichergestellt das es keinen ungueltigen Wert gibt!
@@ -46,7 +48,7 @@ public class Warrior extends LivingEntity {
         double value = (defenseScore / 300);
 
         int efficiency = 1;
-        for(Skill skill : Skills.all(SkillTypes.DEFENSE_EFFICIENCY, this)) {
+        for(Skill skill : Skills.all(SkillTypes.DEFENSE_EFFICIENCY_PASSIVE, this)) {
             efficiency += skill.getValue(this, enemy);
         }
 

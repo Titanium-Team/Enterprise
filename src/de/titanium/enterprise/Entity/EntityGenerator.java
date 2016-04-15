@@ -109,10 +109,10 @@ public class EntityGenerator {
         Skill skill = current.getContent().getSkill();
 
         // Wenn all diese Bedingungen erfaellt sind, dann koennte er diesen Skill freischalten.
-        if(!(skill.hasSkill(entity)) && skill.isUnlockable(entity) && skill.getPrice() <= entity.getSkillPoints()) {
+        if(!(skill.hasSkill(entity)) && skill.isUnlockable(entity) && skill.getPrice(entity) <= entity.getSkillPoints()) {
             skill.apply(entity);
             entity.setSkillPoints(
-                    entity.getSkillPoints() - skill.getPrice()
+                    entity.getSkillPoints() - skill.getPrice(entity)
             );
             entity.getSkills().add(skill);
         }
@@ -125,7 +125,7 @@ public class EntityGenerator {
             // ueberhaupt freischalten kann und falls alles zutrifft, dann geht man in den linken Teilbaum.
 
             skill = current.getLeftTree().getContent().getSkill();
-            if(!(skill.hasSkill(entity)) && skill.isUnlockable(entity) && skill.getPrice() <= entity.getSkillPoints()) {
+            if(!(skill.hasSkill(entity)) && skill.isUnlockable(entity) && skill.getPrice(entity) <= entity.getSkillPoints()) {
                 this.skill(entity, current.getLeftTree(), current, defaultTree, def, att);
             }
 
@@ -135,7 +135,7 @@ public class EntityGenerator {
             // ueberhaupt freischalten kann und falls alles zutrifft, dann geht man in den rechten Teilbaum.
 
             skill = current.getRightTree().getContent().getSkill();
-            if(!(skill.hasSkill(entity)) && skill.isUnlockable(entity) && skill.getPrice() <= entity.getSkillPoints()) {
+            if(!(skill.hasSkill(entity)) && skill.isUnlockable(entity) && skill.getPrice(entity) <= entity.getSkillPoints()) {
                 this.skill(entity, current.getRightTree(), current, defaultTree, def, att);
             }
         } else if(!(parent == null)) {

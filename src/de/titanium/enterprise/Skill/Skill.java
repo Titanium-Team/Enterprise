@@ -18,8 +18,9 @@ public interface Skill {
     /**
      * Gibt die Beschreibung des Skills an.
      * @return
+     * @param entity
      */
-    List<String> getDescription();
+    List<String> getDescription(LivingEntity entity);
 
     /**
      * Gibt die Art des Skills zurueck.
@@ -30,8 +31,9 @@ public interface Skill {
     /**
      * Gibt die Anzahl an Skill-Punkten zurueck, die der Spieler ausgeben muss, um diesen Skill freizuschalten.
      * @return
+     * @param entity
      */
-    int getPrice();
+    int getPrice(LivingEntity entity);
 
     /**
      * Der zurueckgegebene Wert determiniert die Position im Skill-Tree;
@@ -41,11 +43,11 @@ public interface Skill {
 
     /**
      * Gibt den Wert zurueck den dieser Skill Einfluss nehmen soll.
-     * @param a
-     * @param b
+     * @param entity
+     * @param enemy
      * @return
      */
-    double getValue(LivingEntity a, LivingEntity b);
+    double getValue(LivingEntity entity, LivingEntity enemy);
 
     /**
      * Gibt dem LivingEntity diesen Skill.

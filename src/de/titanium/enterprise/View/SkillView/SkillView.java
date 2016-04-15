@@ -7,7 +7,6 @@ import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.Skill.Skill;
 import de.titanium.enterprise.Skill.Skills;
-import de.titanium.enterprise.Sprite.Animation.Animator;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.GameMenu.HeroesView;
 import de.titanium.enterprise.View.MenuView;
@@ -43,12 +42,12 @@ public class SkillView extends View {
         g.drawImage(Textures.BORDER_UP.getImage(), 0, 0, null, null);
 
         // Hier wird die passende Beschreibung zu dem ausgewaehlten Skill gezeichnet.
-        List<String> description = this.selectedSkill.getDescription();
+        LivingEntity entity = Enterprise.getGame().getDataManager().get("game.heroes.skilling");
+
+        List<String> description = this.selectedSkill.getDescription(entity);
         for(int i = 0; i < description.size(); i++) {
             g.drawImage(Enterprise.getGame().getTextBuilder().toImage(description.get(i), 7), 990, 50 + i * 20, null);
         }
-
-        LivingEntity entity = Enterprise.getGame().getDataManager().get("game.heroes.skilling");
 
         if(this.selectedSkill.hasSkill(entity)) {
 
@@ -79,16 +78,8 @@ public class SkillView extends View {
 
         }
 
-        // Das ausgewaehlte Entity wird dargestellt.
-        Animator animator = entity.getAnimationQueue().element();
-        g.drawImage(animator.getFrame(), 50, 270, animator.getType().getWidth(), animator.getType().getHeight(), null);
-
-        // Der Name des Entitys wird dargestellt.
-        Image text = Enterprise.getGame().getTextBuilder().toImage(entity.getName(), 10);
-        g.drawImage(text, 50 - ((text.getWidth(null) - animator.getType().getWidth()) / 2), 245, null);
-
         // Die verfuegbaren Skill-Punkte des Entitys werden oben, rechts dargestellt.
-        Image points = Enterprise.getGame().getTextBuilder().toImage(String.format("SP: %d", entity.getSkillPoints()), 8);
+        Image points = Enterprise.getGame().getTextBuilder().toImage(String.format("%s - SP: %d", entity.getName(), entity.getSkillPoints()), 8);
         g.drawImage(points, 50, 40, null);
 
         // Hier wird die Methode aufgerufen die den Skill-Tree zeichnet.
@@ -104,8 +95,8 @@ public class SkillView extends View {
     public void update(int tick) {
 
         //update animation
-        LivingEntity hero = Enterprise.getGame().getDataManager().get("game.heroes.skilling");
-        hero.getAnimationQueue().element().next();
+        LivingEntity entity = Enterprise.getGame().getDataManager().get("game.heroes.skilling");
+        entity.getAnimationQueue().element().next();
 
 
         // @Improve: Es wird nur alle paar Ticks geprueft, da es sonst vorkommt das der Button als "doppelt" gedrueckt erkannt wird
@@ -152,10 +143,10 @@ public class SkillView extends View {
                 // Wenn "Enter" gedrueckt wird, der Held diesen Skill theoretisch freischalten kann und er auch
                 // genuegend Skill-Punkte besitzt, dann wird der Skill freigeschaltet.
 
-                if(this.selectedSkill.isUnlockable(hero) && hero.getSkillPoints() >= this.selectedSkill.getPrice() && !(this.selectedSkill.hasSkill(hero))) {
-                    hero.setSkillPoints(hero.getSkillPoints() - this.selectedSkill.getPrice());
-                    hero.addSkill(this.selectedSkill);
-                    this.selectedSkill.apply(hero);
+                if(this.selectedSkill.isUnlockable(entity) && entity.getSkillPoints() >= this.selectedSkill.getPrice(entity) && !(this.selectedSkill.hasSkill(entity))) {
+                    entity.setSkillPoints(entity.getSkillPoints() - this.selectedSkill.getPrice(entity));
+                    entity.addSkill(this.selectedSkill);
+                    this.selectedSkill.apply(entity);
                 }
 
             }
@@ -173,8 +164,14 @@ public class SkillView extends View {
 
         //draw box w/ value
         int yOffset = 50;
-        String text = binaryTree.getContent().getSkill().getName() + " (" + binaryTree.getContent().getSkill().getPrice() + ")";
-        Image image = Enterprise.getGame().getTextBuilder().toImage(text, (this.selectedSkill == binaryTree.getContent().getSkill() ? 10 : 8));
+        LivingEntity entity = Enterprise.getGame().getDataManager().get("game.heroes.skilling");
+
+        String text = binaryTree.getContent().getSkill().getName() + " -" + binaryTree.getContent().getSkill().getPrice(entity) + "-";
+
+        if(binaryTree.getContent().getSkill().getPrice(entity) == -1 || binaryTree.getContent().getSkill().hasSkill(entity)){
+            text = binaryTree.getContent().getSkill().getName();
+        }
+        Image image = Enterprise.getGame().getTextBuilder().toImage(text, (this.selectedSkill == binaryTree.getContent().getSkill() ? 8 : 6));
 
         Point2D position = BinaryTreeMath.calculate(960, this.getHeight() / 2, index, treeDepth, currentDepth);
 
