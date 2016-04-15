@@ -151,7 +151,7 @@ public class FightMenu extends MenuView implements GameComponent {
 
     public FightMenu() {
 
-/*        if(!this.heroes[0].isAlive()){
+        if(!this.heroes[0].isAlive()){
             this.chance--;
         }
         if(!this.heroes[1].isAlive()){
@@ -159,7 +159,7 @@ public class FightMenu extends MenuView implements GameComponent {
         }
         if(!this.heroes[2].isAlive()){
             this.chance--;
-        }*/
+        }
     }
 
     @Override
