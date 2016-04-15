@@ -199,9 +199,6 @@ public class DefenseMenu extends MenuView implements GameComponent {
                         Enterprise.getGame().getDataManager().set("game.tmp.score", Enterprise.getGame().getDataManager().<Double>get("game.tmp.score").doubleValue() + (this.tick / 100));
 
                         if(allDead) {
-                            if(!(Enterprise.getGame().getDataManager().contains("game.scores"))) {
-                                Enterprise.getGame().getDataManager().set("game.scores", new BinarySearchTree<Double>());
-                            }
 
                             double tmpScore = Enterprise.getGame().getDataManager().<Double>get("game.tmp.score");
 
@@ -209,7 +206,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
                             Enterprise.getGame().getDataManager().set("game.tmp.score", 0);
 
                             //Verteilung der Skillpunkte
-                            //90 = 30 * 3 ( 3 Helden)
+                            //90 = 30 * 3 (3 Helden)
                             int skillPoint = (int) (tmpScore / 90);
 
                             LivingEntity[] heroes = Enterprise.getGame().getDataManager().get("game.heroes");

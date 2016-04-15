@@ -18,13 +18,13 @@ import java.util.UUID;
 /**
  * Created by Yonas on 31.03.2016.
  */
-public class EnemyTypesContainer implements DataContainer {
+public class EntitiesContainer implements DataContainer {
 
-    public EnemyTypesContainer() {}
+    public EntitiesContainer() {}
 
     @Override
     public String getName() {
-        return "EnemyTypes - DataContainer";
+        return "Entities - DataContainer";
     }
 
     @Override
@@ -85,6 +85,8 @@ public class EnemyTypesContainer implements DataContainer {
     public void load() {
 
         Optional<Table> tableOptional = Enterprise.getGame().getDatabase().table("entityTypes");
+        // generate the first enemy
+        Enterprise.getGame().getDataManager().set("game.enemy", Enterprise.getGame().getEntityGenerator().generate(1));
 
         // Falls die Tabelle existiert, dann können die Entities geladen werden.
         if(tableOptional.isPresent()) {
@@ -262,9 +264,6 @@ public class EnemyTypesContainer implements DataContainer {
                     Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes.types")[10]
 
             });
-
-            // generate the first enemy
-            Enterprise.getGame().getDataManager().set("game.enemy", Enterprise.getGame().getEntityGenerator().generate(1));
 
         }
 
