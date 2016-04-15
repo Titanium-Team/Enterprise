@@ -3,10 +3,7 @@ package de.titanium.enterprise;
 import de.SweetCode.SweetDB.SweetDB;
 import de.titanium.enterprise.Achievment.AchievementManager;
 import de.titanium.enterprise.Achievment.Achievements;
-import de.titanium.enterprise.Data.DataContainer.AchievementContainer;
-import de.titanium.enterprise.Data.DataContainer.DataContainers;
-import de.titanium.enterprise.Data.DataContainer.EnemyTypesContainer;
-import de.titanium.enterprise.Data.DataContainer.SettingsContainer;
+import de.titanium.enterprise.Data.DataContainer.*;
 import de.titanium.enterprise.Data.DataManager;
 import de.titanium.enterprise.Entity.EntityGenerator;
 import de.titanium.enterprise.Loading.LoadingManager;
@@ -87,12 +84,14 @@ public class Enterprise {
             path.mkdirs();
         }
 
-        this.database = new SweetDB(path.getAbsolutePath(), "entityTypes", "achievements", "settings");
+        this.database = new SweetDB(path.getAbsolutePath(), "entityTypes", "achievements", "settings", "highscores");
+        this.database.debugging(true);
         try {
             this.database.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         //Game State
         this.dataManager.set("game.state", GameState.POSTING);
 
@@ -101,16 +100,17 @@ public class Enterprise {
         this.viewManager.switchTo(LoadingView.class);
 
         // DataContainer
-        this.dataContainers.add(new EnemyTypesContainer());
+        this.dataContainers.add(new EntitiesContainer());
         this.dataContainers.add(new AchievementContainer());
         this.dataContainers.add(new SettingsContainer());
+        this.dataContainers.add(new HighscoreContainer());
 
         //managing loading
         this.dataManager.set("game.state", GameState.LOADING);
+        this.loadingManager.add(this.dataContainers.values());
         this.loadingManager.add(Textures.values());
         this.loadingManager.add(Animations.values());
         this.loadingManager.add(Sounds.values());
-        this.loadingManager.add(this.dataContainers.values());
 
         this.loadingManager.load();
 
