@@ -23,6 +23,12 @@ public class TextBuilder {
 
     public TextBuilder() {}
 
+    /**
+     * Diese Methode verwandelt den uebergebenen String in ein Image das diesen Text enthaelt.
+     * @param value Der Text der umgewandelt werden soll.
+     * @param font Die Groesse des Textes.
+     * @return
+     */
     public Image toImage(String value, int font) {
 
         return this.toImage(value, font, false);
@@ -33,6 +39,7 @@ public class TextBuilder {
      * Diese Methode verwandelt den uebergebenen String in ein Image das diesen Text enthaelt.
      * @param value Der Text der umgewandelt werden soll.
      * @param font Die Groesse des Textes.
+     * @param gray Wenn der Wert true ist, dann wird eine schwarz-weiße Version des Bildes zurückgegeben.
      * @return
      */
     public Image toImage(String value, int font, boolean gray) {

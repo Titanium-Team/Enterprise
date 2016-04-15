@@ -469,10 +469,6 @@ public class HeroesView extends View {
 
                 LivingEntity hero = this.types[this.selectedHero];
 
-                if(!(hero.isUnlocked())) {
-                    return;
-                }
-
                 if(hero instanceof Archer) {
                     Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes")[0] = hero;
                 } else if(hero instanceof Rogue) {
