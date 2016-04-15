@@ -116,12 +116,58 @@ public class HeroesView extends View {
             }
 
             // Hier werden alle Werte Zeile fuer Zeile dargestellt.
-            g.drawImage(textBuilder.toImage(entity.getClass().getSimpleName(), (this.selectedHero == i ? 11 : 9)), 50, y, null);
-            g.drawImage(textBuilder.toImage(entity.getName(), (this.selectedHero == i ? 11 : 9)), 248, y, null);
-            g.drawImage(textBuilder.toImage(String.format("%.0f", entity.getHealth()), (this.selectedHero == i ? 11 : 9)), 572, y, null);
-            g.drawImage(textBuilder.toImage(String.format("%.0f", entity.getDexterity()), (this.selectedHero == i ? 11 : 9)), 638, y, null);
-            g.drawImage(textBuilder.toImage(String.format("%.0f", entity.getAttackValue()), (this.selectedHero == i ? 11 : 9)), 704, y, null);
-            g.drawImage(textBuilder.toImage(String.format("%d", entity.getSkillPoints()), (this.selectedHero == i ? 11 : 9)), 770, y, null);
+            g.drawImage(
+                    textBuilder.toImage(
+                            entity.getClass().getSimpleName(),
+                            (this.selectedHero == i ? 11 : 9),
+                            !entity.isUnlocked()
+                    ),
+                    50, y, null
+            );
+            g.drawImage(
+                    textBuilder.toImage(
+                            entity.getName(),
+                            (this.selectedHero == i ? 11 : 9),
+                            !entity.isUnlocked()
+                    ),
+                    248, y, null
+            );
+            g.drawImage(
+                    textBuilder.toImage(
+                        String.format((entity.isUnlocked() ? "%.0f" : "??"), entity.getHealth()),
+                        (this.selectedHero == i ? 11 : 9),
+                        !entity.isUnlocked()
+                    ),
+                    572, y, null
+            );
+            g.drawImage(
+                    textBuilder.toImage(
+                            String.format((entity.isUnlocked() ? "%.0f" : "??"),
+                            entity.getDexterity()),
+                            (this.selectedHero == i ? 11 : 9),
+                            !entity.isUnlocked()
+                    ),
+                    638, y, null
+            );
+            g.drawImage(
+                    textBuilder.toImage(
+                            String.format((entity.isUnlocked() ? "%.0f" : "??"),
+                            entity.getAttackValue()),
+                            (this.selectedHero == i ? 11 : 9),
+                            !entity.isUnlocked()
+                    ),
+                    704, y, null
+            );
+            g.drawImage(
+                    textBuilder.toImage(
+                            String.format(
+                                    (entity.isUnlocked() ? "%d" : "??"),
+                                    entity.getSkillPoints()),
+                            (this.selectedHero == i ? 11 : 9),
+                            !entity.isUnlocked()
+                    ),
+                    770, y, null
+            );
 
             // Hier wird geprueft, ob das aktuelle Entity was geprueft wird eines ist das auch im "Fight" verwendet wird,
             // falls ja dann wird ganz am Ende der Zeile ein "gruenes X" gezeichnet, um das zu kennzeichnen.
@@ -356,6 +402,18 @@ public class HeroesView extends View {
 
                 this.selectedHero--;
 
+                this.selectedHero = Math.max(0, this.selectedHero);
+
+                if(!(this.types[this.selectedHero].isUnlocked())) {
+
+                    int skip = 0;
+                    for(int i = this.selectedHero; (!this.types[i].isUnlocked() && i > 0); i--) {
+                        skip++;
+                    }
+
+                    this.selectedHero -= skip;
+                }
+
                 if(this.selectedHero < this.currentRow) {
                     this.currentRow--;
                 }
@@ -374,6 +432,25 @@ public class HeroesView extends View {
                 // nach unten gescrolled werden.
 
                 this.selectedHero++;
+
+                this.selectedHero = Math.min((this.types.length - 1), this.selectedHero);
+                int tmp = this.selectedHero;
+
+                if(!(this.types[this.selectedHero].isUnlocked())) {
+
+                    int skip = 0;
+                    for(int i = this.selectedHero; (!this.types[i].isUnlocked() && i < this.maxRows - 1); i++) {
+                        skip++;
+                    }
+
+                    this.selectedHero += skip;
+                }
+
+                if(!(this.types[this.selectedHero].isUnlocked())) {
+                    this.selectedHero = tmp-1;
+                    this.currentRow++;
+                }
+
                 if(this.selectedHero >= this.maxRows) {
                     this.currentRow++;
                 }
@@ -391,6 +468,10 @@ public class HeroesView extends View {
                 // Es ist aktuell so das man von jedem Typen einen nehmen muss.
 
                 LivingEntity hero = this.types[this.selectedHero];
+
+                if(!(hero.isUnlocked())) {
+                    return;
+                }
 
                 if(hero instanceof Archer) {
                     Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes")[0] = hero;

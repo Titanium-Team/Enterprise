@@ -81,7 +81,7 @@ public class SettingsContainer implements DataContainer {
                                 renderingValue = RenderingHints.VALUE_RENDER_SPEED;
                                 break;
                             default:
-                                throw new IllegalArgumentException(String.format("%s is a invalid RenderingValue.", String.valueOf(renderingValue)));
+                                throw new IllegalArgumentException(String.format("%s is an invalid RenderingValue.", String.valueOf(renderingValue)));
                         }
                         Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_RENDERING, renderingValue);
                     }
@@ -100,7 +100,7 @@ public class SettingsContainer implements DataContainer {
                                 renderingValue = RenderingHints.VALUE_ANTIALIAS_ON;
                                 break;
                             default:
-                                throw new IllegalArgumentException(String.format("%s is a invalid RenderingValue.", String.valueOf(renderingValue)));
+                                throw new IllegalArgumentException(String.format("%s is an invalid RenderingValue.", String.valueOf(renderingValue)));
                         }
                         Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_ANTIALIASING, renderingValue);
                     }
@@ -119,7 +119,7 @@ public class SettingsContainer implements DataContainer {
                                 renderingValue = RenderingHints.VALUE_DITHER_ENABLE;
                                 break;
                             default:
-                                throw new IllegalArgumentException(String.format("%s is a invalid RenderingValue.", String.valueOf(renderingValue)));
+                                throw new IllegalArgumentException(String.format("%s is an invalid RenderingValue.", String.valueOf(renderingValue)));
                         }
                         Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_DITHERING, renderingValue);
                     }
@@ -138,7 +138,7 @@ public class SettingsContainer implements DataContainer {
                                 renderingValue = RenderingHints.VALUE_STROKE_PURE;
                                 break;
                             default:
-                                throw new IllegalArgumentException(String.format("%s is a invalid RenderingValue.", String.valueOf(renderingValue)));
+                                throw new IllegalArgumentException(String.format("%s is an invalid RenderingValue.", String.valueOf(renderingValue)));
                         }
                         Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_STROKE_CONTROL, renderingValue);
                     }
@@ -157,28 +157,9 @@ public class SettingsContainer implements DataContainer {
                                 renderingValue = RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR;
                                 break;
                             default:
-                                throw new IllegalArgumentException(String.format("%s is a invalid RenderingValue.", String.valueOf(renderingValue)));
+                                throw new IllegalArgumentException(String.format("%s is an invalid RenderingValue.", String.valueOf(renderingValue)));
                         }
                         Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_INTERPOLATION, renderingValue);
-                    }
-                    break;
-
-                    case "text-specific antialiasing enable key": {
-                        Object renderingValue = null;
-                        switch (value.toLowerCase()) {
-                            case "gasp antialiasing text mode":
-                                renderingValue = RenderingHints.VALUE_TEXT_ANTIALIAS_GASP;
-                                break;
-                            case "antialiased text mode":
-                                renderingValue = RenderingHints.VALUE_TEXT_ANTIALIAS_ON;
-                                break;
-                            case "default antialiasing text mode":
-                                renderingValue = RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(String.format("%s is a invalid RenderingValue.", String.valueOf(renderingValue)));
-                        }
-                        Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_TEXT_ANTIALIASING, renderingValue);
                     }
                     break;
 
@@ -195,7 +176,7 @@ public class SettingsContainer implements DataContainer {
                                 renderingValue = RenderingHints.VALUE_FRACTIONALMETRICS_OFF;
                                 break;
                             default:
-                                throw new IllegalArgumentException(String.format("%s is a invalid RenderingValue.", String.valueOf(renderingValue)));
+                                throw new IllegalArgumentException(String.format("%s is an invalid RenderingValue.", String.valueOf(renderingValue)));
                         }
                         Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_FRACTIONALMETRICS, renderingValue);
                     }

@@ -4,7 +4,9 @@ import de.titanium.enterprise.Sprite.Texture;
 import de.titanium.enterprise.Sprite.Textures;
 
 import java.awt.*;
+import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorConvertOp;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -17,7 +19,15 @@ public class TextBuilder {
     private final Map<String, Image> cache = new HashMap<>();
     private final Map<String, Long> expires = new HashMap<>();
 
+    private final ColorConvertOp colorConvertOp = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null);;
+
     public TextBuilder() {}
+
+    public Image toImage(String value, int font) {
+
+        return this.toImage(value, font, false);
+
+    }
 
     /**
      * Diese Methode verwandelt den uebergebenen String in ein Image das diesen Text enthaelt.
@@ -25,11 +35,11 @@ public class TextBuilder {
      * @param font Die Groesse des Textes.
      * @return
      */
-    public Image toImage(String value, int font) {
+    public Image toImage(String value, int font, boolean gray) {
 
 
         // Dies ist der einhaltliche Cache-Key der aus dem Value an sich (also dem Text) und der Font-Groesse besteht.
-        String cacheKey = String.format("%s->%d", value, font);
+        String cacheKey = String.format("%s->%d->%b", value, font, gray);
 
         // In diesem Code Teil wird nun geprueft, ob es aktuell Werte gibt, die sich im Cache befinden, deren Zeit
         // "abgelaufen" ist und deshalb, falls sie nochmal abgefragt werden sollten, neu gerendert werden muessen.
@@ -112,6 +122,12 @@ public class TextBuilder {
         }
 
         g.dispose();
+
+        // Wenn es grau gemalt werden soll, dann soll der Filter angewendet werden.
+        // @see: http://stackoverflow.com/a/14513703
+        if(gray) {
+            this.colorConvertOp.filter(image, image);
+        }
 
         // Sobald alles fertig gerendert wurde, wird das Image plus passenden Key in den Cache gepackt und fertig.
         this.cache.put(cacheKey, image);

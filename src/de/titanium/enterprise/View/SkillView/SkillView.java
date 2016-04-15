@@ -69,7 +69,7 @@ public class SkillView extends View {
 
                 // Falls der Skill noch nicht "Freigeschaltet" ist und auch aktuell noch nicht freischaltbar ist,
                 // wird dieser als "Locked" dargestellt.
-                g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Locked", 8), 1050, 415, null);
+                g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Gesperrt", 8), 1050, 415, null);
 
             }
 

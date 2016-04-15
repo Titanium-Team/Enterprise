@@ -191,61 +191,6 @@ public class SettingsView extends View {
         }
 
         {
-            //Text-Antialiasing
-            Setting<String> setting = new Setting<String>("Text-Antialiasing", new String[]{"On", "Default", "Gasp"}) {
-
-                @Override
-                public String[][] getDescription() {
-                    String[][] description = new String[][]{
-                            {"text rendering is", "done with some", "form of antialiasing"},
-                            {"text rendering is", "done with a default", "antialiasing mode", "chosen by the", "implementation"},
-                            {"text rendering is", "is requested to use", "information in the", "font resource which", "specifies for each", "point size"}
-                    };
-
-                    return description;
-                }
-
-                @Override
-                public int getDefaultSelected() {
-
-                    Object value = Enterprise.getGame().getRenderingHints().get(RenderingHints.KEY_TEXT_ANTIALIASING);
-                    if (value == RenderingHints.VALUE_TEXT_ANTIALIAS_ON) {
-                        return 0;
-                    }
-                    if (value == RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT) {
-                        return 1;
-                    }
-
-                    return 2;
-                }
-
-                @Override
-                public void change(String input) {
-
-                    switch (input) {
-
-                        case "On":
-                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-                            break;
-
-                        case "Default":
-                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT);
-                            break;
-
-                        case "Gasp":
-                            Enterprise.getGame().getRenderingHints().put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
-                            break;
-
-                    }
-
-                }
-
-            };
-            this.options.put(setting.getName(), setting);
-            this.selectedValue.put(setting.getName(), setting.getDefaultSelected());
-        }
-
-        {
             //Dithering
             Setting<String> setting = new Setting<String>("Dithering", new String[]{"Enable", "Default", "Disable"}) {
 

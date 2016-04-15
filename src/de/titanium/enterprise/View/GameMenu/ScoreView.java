@@ -59,12 +59,15 @@ public class ScoreView extends View {
     }
 
     private void inorder(BinarySearchTree<Double> current, List<Double> scores){
-        if(current != null) {
-            if (!current.getRightTree().isEmpty()) {
+        if(current != null && !(current.isEmpty())) {
+            if(!(current.getRightTree() == null) && !(current.getRightTree().isEmpty())) {
                 this.inorder(current.getRightTree(), scores);
             }
+
+
             scores.add(current.getContent().doubleValue());
-            if (!current.getLeftTree().isEmpty()) {
+
+            if(!(current.getLeftTree() == null) && !(current.getLeftTree().isEmpty())) {
                 this.inorder(current.getLeftTree(), scores);
             }
         }

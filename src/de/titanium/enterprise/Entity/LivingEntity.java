@@ -27,20 +27,22 @@ public abstract class LivingEntity extends Entity {
 
     private int skillPoints;
 
+    private boolean isUnlocked = false;
+
     private final GameStatistic gameStatistic = new GameStatistic();
 
     /**
-     *
-     * @param identifier Die eindeutige ID des Entitys.
+     * @param identifier       Die eindeutige ID des Entitys.
      * @param defaultAnimation Die standart Animation die abgespielt werden soll.
-     * @param name Der "Display-Name" des Entitys.
-     * @param health Die aktuelle Anzahl an Leben des Entitys.
-     * @param maxHealth Die maximale Anzahl an Leben des Entitys.
-     * @param dexterity Der Geschicklichkeitswert des Entitys.
-     * @param attackValue Der Basis Wert des Schadens.
-     * @param skillPoints Die Punkte die der Held zum Skillen hat.
+     * @param name             Der "Display-Name" des Entitys.
+     * @param health           Die aktuelle Anzahl an Leben des Entitys.
+     * @param maxHealth        Die maximale Anzahl an Leben des Entitys.
+     * @param dexterity        Der Geschicklichkeitswert des Entitys.
+     * @param attackValue      Der Basis Wert des Schadens.
+     * @param skillPoints      Die Punkte die der Held zum Skillen hat.
+     * @param isUnlocked       Ob der Held dem Spieler bereits zur verfuegung steht.
      */
-    public LivingEntity(UUID identifier, Animation defaultAnimation, String name, double health, double maxHealth, double dexterity, double attackValue, int skillPoints) {
+    public LivingEntity(UUID identifier, Animation defaultAnimation, String name, double health, double maxHealth, double dexterity, double attackValue, int skillPoints, boolean isUnlocked) {
         super(identifier);
 
         this.animationQueue = new AnimationQueue(defaultAnimation);
@@ -50,10 +52,13 @@ public abstract class LivingEntity extends Entity {
         this.dexterity = dexterity;
         this.attackValue = attackValue;
         this.skillPoints = skillPoints;
+        this.isUnlocked = isUnlocked;
+
     }
 
     /**
      * Gibt den Namen zurueck, der dem Benutzer angezeigt werden soll.
+     *
      * @return
      */
     public String getName() {
@@ -62,6 +67,7 @@ public abstract class LivingEntity extends Entity {
 
     /**
      * Gibt die AnimationQueue des Entitys zurueck.
+     *
      * @return
      */
     public AnimationQueue getAnimationQueue() {
@@ -70,6 +76,7 @@ public abstract class LivingEntity extends Entity {
 
     /**
      * Gibt die aktullen GameStatistics zurueck.
+     *
      * @return
      */
     public GameStatistic getGameStatistic() {
@@ -78,6 +85,7 @@ public abstract class LivingEntity extends Entity {
 
     /**
      * Gibt die aktuelle Anzahl an Leben zurueck.
+     *
      * @return
      */
     public double getHealth() {
@@ -86,14 +94,16 @@ public abstract class LivingEntity extends Entity {
 
     /**
      * Gibt die maximale Anzahl an Leben zurueck.
+     *
      * @return
      */
     public double getMaxHealth() {
-        return  this.maxHealth;
+        return this.maxHealth;
     }
 
     /**
      * Gibt den aktuellen Geschicklichkeitswert zurueck.
+     *
      * @return
      */
     public double getDexterity() {
@@ -102,6 +112,7 @@ public abstract class LivingEntity extends Entity {
 
     /**
      * Gibt den Basis Wert des Schadens zurueck.
+     *
      * @return
      */
     public double getAttackValue() {
@@ -110,6 +121,7 @@ public abstract class LivingEntity extends Entity {
 
     /**
      * Gibt true zurueck, wenn das Entity noch mehr als 0 Leben hat.
+     *
      * @return
      */
     public boolean isAlive() {
@@ -118,6 +130,7 @@ public abstract class LivingEntity extends Entity {
 
     /**
      * Gibt eine Liste mit allen Skills zurueck die dieses Living-Entity bereits freigeschaltet hat.
+     *
      * @return
      */
     public List<Skill> getSkills() {
@@ -126,6 +139,7 @@ public abstract class LivingEntity extends Entity {
 
     /**
      * Die Punkte die der Held hat, um seinen Helden zu skillen.
+     *
      * @return
      */
     public int getSkillPoints() {
@@ -134,6 +148,7 @@ public abstract class LivingEntity extends Entity {
 
     /**
      * Diese Methode fuegt dem Entity den uebergebenen Skill hinzu.
+     *
      * @param skill
      */
     public void addSkill(Skill skill) {
@@ -142,7 +157,8 @@ public abstract class LivingEntity extends Entity {
 
     /**
      * Diese Methode berechnet abhaengig von den Typen, die sich gegenueberstehen, die jeweiligen Schadenswerte.
-     * @param enemy Ist das Entity das angegriffen wird oder verteidigt.
+     *
+     * @param enemy       Ist das Entity das angegriffen wird oder verteidigt.
      * @param comboResult Das Resultat der Combo fuer dieses Entity.
      * @return
      */
@@ -152,6 +168,7 @@ public abstract class LivingEntity extends Entity {
 
     /**
      * Setzt das maximale Leben des Entitys.
+     *
      * @param maxHealth
      */
     public void setMaxHealth(double maxHealth) {
@@ -160,6 +177,7 @@ public abstract class LivingEntity extends Entity {
 
     /**
      * Setzt den Angriffswert.
+     *
      * @param attackValue
      */
     public void setAttackValue(double attackValue) {
@@ -172,10 +190,20 @@ public abstract class LivingEntity extends Entity {
 
     /**
      * Setzt die Sillpunkte.
+     *
      * @param skillPoints
      */
     public void setSkillPoints(int skillPoints) {
         this.skillPoints = skillPoints;
+    }
+
+    /**
+     * Gibt true zurück, wenn der Spieler diesen Helden bereits freigeschaltet hat.
+     *
+     * @return
+     */
+    public boolean isUnlocked() {
+        return this.isUnlocked;
     }
 
     @Override
@@ -196,3 +224,4 @@ public abstract class LivingEntity extends Entity {
     }
 
 }
+
