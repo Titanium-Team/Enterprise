@@ -19,7 +19,7 @@ public class TextBuilder {
     private final Map<String, Image> cache = new HashMap<>();
     private final Map<String, Long> expires = new HashMap<>();
 
-    private final ColorConvertOp colorConvertOp = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null);;
+    private final ColorConvertOp colorConvertOp = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null);
 
     public TextBuilder() {}
 
@@ -44,15 +44,14 @@ public class TextBuilder {
      */
     public Image toImage(String value, int font, boolean gray) {
 
-
         // Dies ist der einhaltliche Cache-Key der aus dem Value an sich (also dem Text) und der Font-Groesse besteht.
         String cacheKey = String.format("%s->%d->%b", value, font, gray);
 
         // In diesem Code Teil wird nun geprueft, ob es aktuell Werte gibt, die sich im Cache befinden, deren Zeit
         // "abgelaufen" ist und deshalb, falls sie nochmal abgefragt werden sollten, neu gerendert werden muessen.
         // Dies sollte immer wieder ein wenig RAM freischaufeln.
-        for(Map.Entry<String, Long> entry : this.expires.entrySet()) {
-            if(entry.getValue() <= System.currentTimeMillis()) {
+        for (Map.Entry<String, Long> entry : this.expires.entrySet()) {
+            if (entry.getValue() <= System.currentTimeMillis()) {
                 this.cache.remove(entry.getKey());
             }
         }

@@ -250,17 +250,17 @@ public class EntitiesContainer implements DataContainer {
                     new Archer(UUID.randomUUID(), "Trevor Denver", 50, 50, 8, 10, 0, false),
                     new Archer(UUID.randomUUID(), "Ranger Ben", 30, 30, 4, 8, 0, false),
 
-                    new Warrior(UUID.randomUUID(), "Big Meyer", 160, 160, 0, 3, 0, true),
-                    new Warrior(UUID.randomUUID(), "Sir Isaac", 130, 130, 0, 4, 0, true),
-                    new Warrior(UUID.randomUUID(), "Robby Rock", 100, 100, 0, 5, 0, false),
-                    new Warrior(UUID.randomUUID(), "Lord Washington", 200, 200, 0, 2, 0, false),
-                    new Warrior(UUID.randomUUID(), "Ben Jerry", 80, 80, 0, 6, 0, false),
-
                     new Rogue(UUID.randomUUID(), "Sneaky Pete", 25, 25, 6, 14, 0, true),
                     new Rogue(UUID.randomUUID(), "Chacky Chan", 13, 13, 5, 15, 0, true),
                     new Rogue(UUID.randomUUID(), "The Knife", 20, 20, 10, 22, 0, false),
                     new Rogue(UUID.randomUUID(), "Robert Rice", 14, 14, 12, 30, 0, false),
                     new Rogue(UUID.randomUUID(), "Sam Dodge", 6, 6, 8, 25, 0, false),
+
+                    new Warrior(UUID.randomUUID(), "Big Meyer", 160, 160, 0, 3, 0, true),
+                    new Warrior(UUID.randomUUID(), "Sir Isaac", 130, 130, 0, 4, 0, true),
+                    new Warrior(UUID.randomUUID(), "Robby Rock", 100, 100, 0, 5, 0, false),
+                    new Warrior(UUID.randomUUID(), "Lord Washington", 200, 200, 0, 2, 0, false),
+                    new Warrior(UUID.randomUUID(), "Ben Jerry", 80, 80, 0, 6, 0, false),
 
             });
 

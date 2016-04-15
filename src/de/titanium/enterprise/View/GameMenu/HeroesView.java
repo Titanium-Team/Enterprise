@@ -205,7 +205,7 @@ public class HeroesView extends View {
         g.drawImage(textBuilder.toImage("M    " + (this.ascending ? "Absteigend" : "Aufsteigend"), 8), 990, 320, null);
 
         // Ausgabe der Suche
-        g.drawImage(textBuilder.toImage("L: " + this.searchValue.toString(), this.isSearching ? 9 : 8), 990, 360, null);
+        g.drawImage(textBuilder.toImage("L    " + (this.isSearching ? this.searchValue.toString() : "Suchen..."), this.isSearching ? 9 : 8), 990, 360, null);
 
         //border
         g.drawImage(Textures.BORDER_UP.getImage(), 0, 0, null, null);
@@ -403,6 +403,7 @@ public class HeroesView extends View {
                 this.selectedHero--;
 
                 this.selectedHero = Math.max(0, this.selectedHero);
+                int tmp = this.selectedHero;
 
                 if(!(this.types[this.selectedHero].isUnlocked())) {
 
@@ -412,6 +413,11 @@ public class HeroesView extends View {
                     }
 
                     this.selectedHero -= skip;
+                }
+
+                if(!(this.types[this.selectedHero].isUnlocked())) {
+                    this.selectedHero = tmp+1;
+                    this.currentRow--;
                 }
 
                 if(this.selectedHero < this.currentRow) {
@@ -471,15 +477,15 @@ public class HeroesView extends View {
 
                 if(hero instanceof Archer) {
                     Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes")[0] = hero;
-                } else if(hero instanceof Warrior) {
-                    Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes")[1] = hero;
                 } else if(hero instanceof Rogue) {
+                    Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes")[1] = hero;
+                } else if(hero instanceof Warrior) {
                     Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes")[2] = hero;
                 }
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_Q) && !(this.isSearching)) {
 
-                // Wenn die S-Taste gedrueckt wird, dann soll der Hero in die Skill-View gebracht werden, wo man
+                // Wenn die Q-Taste gedrueckt wird, dann soll der Hero in die Skill-View gebracht werden, wo man
                 // dann seine Skill-Werte setzen kann.
                 Enterprise.getGame().getDataManager().set("game.heroes.skilling", this.types[this.selectedHero]);
                 Enterprise.getGame().getViewManager().switchTo(SkillView.class);
@@ -496,9 +502,9 @@ public class HeroesView extends View {
 
                 if(keyCode == 8 && this.searchValue.length() > 0) {
                     this.searchValue.setLength(this.searchValue.length() - 1);
-                } else if(keyCode == KeyEvent.VK_SPACE) {
+                } else if(keyCode == KeyEvent.VK_SPACE && this.searchValue.length() < 12) {
                     this.searchValue.append(" ");
-                } else if(!(texture == null)) {
+                } else if(!(texture == null) && this.searchValue.length() < 12) {
                     this.searchValue.append((char) keyCode);
                 }
 

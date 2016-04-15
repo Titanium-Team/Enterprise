@@ -90,7 +90,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
             );
         }
         //Die Punkteanzahl zeichnen
-        g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Punkte: " + this.tick, 6), 1000, 10, null);
+        g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Punkte: " + this.tick, 6, false, true), 1100, 10, null);
 
         //Border
         g.drawImage(Textures.BORDER_DOWN.getImage(), 0, 0, null, null);
