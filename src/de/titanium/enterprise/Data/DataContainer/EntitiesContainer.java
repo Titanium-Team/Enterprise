@@ -161,10 +161,10 @@ public class EntitiesContainer implements DataContainer {
             Enterprise.getGame().getDatabase().createTable()
                     .name("entityTypes")
                     .add(
-                        SyntaxRuleBuilder.create()
-                                .fieldName("type")
-                                .dataType(DataTypes.STRING)
-                                .build()
+                            SyntaxRuleBuilder.create()
+                                    .fieldName("type")
+                                    .dataType(DataTypes.STRING)
+                                    .build()
                     )
                     .add(
                         SyntaxRuleBuilder.create()
@@ -244,23 +244,23 @@ public class EntitiesContainer implements DataContainer {
             //set default hero types
             Enterprise.getGame().getDataManager().set("game.heroes.types", new LivingEntity[]{
 
-                    new Archer(UUID.randomUUID(), "Robin Trump", 40, 40, 6, 8, 0, true),
-                    new Archer(UUID.randomUUID(), "Georg von Wald", 60, 60, 3, 3, 0, true),
-                    new Archer(UUID.randomUUID(), "Eddy Penny", 52, 52, 5, 6, 0, false),
-                    new Archer(UUID.randomUUID(), "Tromo Domo", 20, 20, 4, 10, 0, false),
-                    new Archer(UUID.randomUUID(), "Ranger Ben", 33, 33, 15, 20, 0, false),
+                    new Archer(UUID.randomUUID(), "Robin Trump", 55, 55, 5, 5, 0, true),
+                    new Archer(UUID.randomUUID(), "Georg van Waald", 40, 40, 6, 9, 0, true),
+                    new Archer(UUID.randomUUID(), "Eddy Penny", 60, 60, 5, 4, 0, false),
+                    new Archer(UUID.randomUUID(), "Trevor Denver", 50, 50, 8, 10, 0, false),
+                    new Archer(UUID.randomUUID(), "Ranger Ben", 30, 30, 4, 8, 0, false),
 
-                    new Rogue(UUID.randomUUID(), "Sneaky Pete", 20, 20, 7, 14, 0, true),
-                    new Rogue(UUID.randomUUID(), "Chacky Chan", 12, 12, 5, 14, 0, true),
-                    new Rogue(UUID.randomUUID(), "The Knife", 10, 10, 8, 20, 0, false),
-                    new Rogue(UUID.randomUUID(), "Robert Rice", 30, 30, 5, 8, 0, false),
-                    new Rogue(UUID.randomUUID(), "Sam Dodge", 15, 15, 10, 22, 0, false),
+                    new Warrior(UUID.randomUUID(), "Big Meyer", 160, 160, 0, 3, 0, true),
+                    new Warrior(UUID.randomUUID(), "Sir Isaac", 130, 130, 0, 4, 0, true),
+                    new Warrior(UUID.randomUUID(), "Robby Rock", 100, 100, 0, 5, 0, false),
+                    new Warrior(UUID.randomUUID(), "Lord Washington", 200, 200, 0, 2, 0, false),
+                    new Warrior(UUID.randomUUID(), "Ben Jerry", 80, 80, 0, 6, 0, false),
 
-                    new Warrior(UUID.randomUUID(), "Big Meyer", 120, 120, 0, 2, 0, true),
-                    new Warrior(UUID.randomUUID(), "Sir Isaac", 80, 80, 0, 3, 0, true),
-                    new Warrior(UUID.randomUUID(), "Robby Flobby", 100, 100, 0, 2, 10, false),
-                    new Warrior(UUID.randomUUID(), "Lord Washington", 60, 60, 0, 4, 0, false),
-                    new Warrior(UUID.randomUUID(), "Ben Jerry", 70, 70, 0, 3, 5, false),
+                    new Rogue(UUID.randomUUID(), "Sneaky Pete", 25, 25, 6, 14, 0, true),
+                    new Rogue(UUID.randomUUID(), "Chacky Chan", 13, 13, 5, 15, 0, true),
+                    new Rogue(UUID.randomUUID(), "The Knife", 20, 20, 10, 22, 0, false),
+                    new Rogue(UUID.randomUUID(), "Robert Rice", 14, 14, 12, 30, 0, false),
+                    new Rogue(UUID.randomUUID(), "Sam Dodge", 6, 6, 8, 25, 0, false),
 
             });
 
