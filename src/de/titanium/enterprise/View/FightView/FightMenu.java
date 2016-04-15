@@ -312,7 +312,7 @@ public class FightMenu extends MenuView implements GameComponent {
                 this.heroes[1].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboTwo);
                 this.heroes[2].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboThree);
 
-                double enemyDefense = enemy.calculateDefense(heroes[0], this.random.nextInt(1000) + 197);
+                double enemyDefense = enemy.calculateDefense(heroes[0], this.random.nextInt(900) + 197);
                 double totalDamage = (damageOne + damageTwo + damageThree);
 
                 Enterprise.getGame().getLogger().info(this.heroes[0].getName() + " -> " + damageOne + " -> Keys: " + this.comboOne);

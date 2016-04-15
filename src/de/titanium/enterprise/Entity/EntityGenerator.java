@@ -34,16 +34,16 @@ public class EntityGenerator {
 
         if(entityType == 0) { // Archer
 
-            double health = (40 + this.random.nextInt(50 * level));
+            double health = (30 + this.random.nextInt(40 * level));
 
             entity = new Archer(
                     UUID.randomUUID(),
                     "Archer",
                     health,
                     health,
-                    this.random.nextInt(12) + 1,
-                    4 * level + this.random.nextInt(10),
-                    this.random.nextInt(5 * level) + 5,
+                    this.random.nextInt(10) + 2,
+                    this.random.nextInt(5 * level) + 6,
+                    this.random.nextInt(level * 7) + 3,
                     true
             );
 
@@ -51,16 +51,16 @@ public class EntityGenerator {
 
         } else if(entityType == 1) { // Rogue
 
-            double health = (20 + this.random.nextInt(10 * level));
+            double health = (10 + this.random.nextInt(15 * level));
 
             entity = new Rogue(
                     UUID.randomUUID(),
                     "Rogue",
                     health,
                     health,
-                    this.random.nextInt(15) + 1,
-                    (12 + this.random.nextInt(7 * level)),
-                    this.random.nextInt(level * 5) + 5,
+                    this.random.nextInt(10) + 5,
+                    (10 + this.random.nextInt(7 * level)),
+                    this.random.nextInt(level * 7) + 3,
                     true
             );
 
@@ -70,7 +70,7 @@ public class EntityGenerator {
 
 
 
-            double health = (120 + this.random.nextInt(80 * level));
+            double health = (70 + this.random.nextInt(100 * level));
 
             entity = new Warrior(
                     UUID.randomUUID(),
@@ -79,7 +79,7 @@ public class EntityGenerator {
                     health,
                     0,
                     this.random.nextInt(2 * level) + 1,
-                    this.random.nextInt(level * 5) + 5,
+                    this.random.nextInt(level * 7) + 3,
                     true
             );
 
