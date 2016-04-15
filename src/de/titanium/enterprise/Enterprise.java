@@ -1,14 +1,14 @@
 package de.titanium.enterprise;
 
+import de.SweetCode.SweetDB.SweetDB;
 import de.titanium.enterprise.Achievment.AchievementManager;
 import de.titanium.enterprise.Achievment.Achievements;
+import de.titanium.enterprise.Data.DataContainer.AchievementContainer;
+import de.titanium.enterprise.Data.DataContainer.DataContainers;
+import de.titanium.enterprise.Data.DataContainer.EnemyTypesContainer;
+import de.titanium.enterprise.Data.DataContainer.SettingsContainer;
 import de.titanium.enterprise.Data.DataManager;
-import de.titanium.enterprise.Entity.Entities.Archer;
-import de.titanium.enterprise.Entity.Entities.Rogue;
-import de.titanium.enterprise.Entity.Entities.Warrior;
 import de.titanium.enterprise.Entity.EntityGenerator;
-import de.titanium.enterprise.Entity.LivingEntity;
-import de.titanium.enterprise.Loading.Loadable;
 import de.titanium.enterprise.Loading.LoadingManager;
 import de.titanium.enterprise.Sound.SoundPlayer;
 import de.titanium.enterprise.Sound.Sounds;
@@ -18,17 +18,18 @@ import de.titanium.enterprise.View.DefaultMenu;
 import de.titanium.enterprise.View.FightView.FightMenu;
 import de.titanium.enterprise.View.FightView.FightView;
 import de.titanium.enterprise.View.GameMenu.GameMenuView;
-import de.titanium.enterprise.View.GameView;
 import de.titanium.enterprise.View.GameMenu.HeroesView;
-import de.titanium.enterprise.View.LoadingView.LoadingView;
 import de.titanium.enterprise.View.GameMenu.ScoreView;
 import de.titanium.enterprise.View.GameMenu.SettingsView.SettingsView;
+import de.titanium.enterprise.View.GameView;
+import de.titanium.enterprise.View.LoadingView.LoadingView;
 import de.titanium.enterprise.View.SkillView.SkillView;
 import de.titanium.enterprise.View.StoryView.StoryView;
 import de.titanium.enterprise.View.ViewManager;
 
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 import java.util.logging.Logger;
@@ -57,6 +58,11 @@ public class Enterprise {
     // Music
     private final SoundPlayer soundPlayer = new SoundPlayer();
 
+    // Database
+    private final DataContainers dataContainers = new DataContainers();
+
+    private final SweetDB database;
+
     private static Enterprise game;
 
     {
@@ -81,6 +87,12 @@ public class Enterprise {
             path.mkdirs();
         }
 
+        this.database = new SweetDB(path.getAbsolutePath(), "entityTypes", "achievements", "settings");
+        try {
+            this.database.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //Game State
         this.dataManager.set("game.state", GameState.POSTING);
 
@@ -88,57 +100,17 @@ public class Enterprise {
         this.viewManager.register(new LoadingView());
         this.viewManager.switchTo(LoadingView.class);
 
+        // DataContainer
+        this.dataContainers.add(new EnemyTypesContainer());
+        this.dataContainers.add(new AchievementContainer());
+        this.dataContainers.add(new SettingsContainer());
+
         //managing loading
         this.dataManager.set("game.state", GameState.LOADING);
         this.loadingManager.add(Textures.values());
         this.loadingManager.add(Animations.values());
         this.loadingManager.add(Sounds.values());
-
-        // @Improvment: UUID#randomUUID benutzt internet die SecureRandom Class die auf schwächeren PCs bzw. generell
-        // extrem langsam ist. Man kann das entwender so drin lassen oder man nutzt anstelle der vorgefertigten Methode
-        // eine Methode die mit der normalen Random Class diese UUIDs erstellt.
-        this.loadingManager.add(new Loadable() {
-            @Override
-            public String getName() {
-                return "Heroes";
-            }
-
-            @Override
-            public void load() {
-                //set default hero types
-                getDataManager().set("game.heroes.types", new LivingEntity[]{
-
-                        new Archer(UUID.randomUUID(), "Robin Trump", 40, 40, 6, 8, 0),
-                        new Archer(UUID.randomUUID(), "Georg von Wald", 60, 60, 3, 3, 0),
-                        new Archer(UUID.randomUUID(), "Eddy Penny", 52, 52, 5, 6, 0),
-                        new Archer(UUID.randomUUID(), "Tromo Domo", 20, 20, 4, 10, 0),
-                        new Archer(UUID.randomUUID(), "Ranger Ben", 33, 33, 15, 20, 0),
-
-                        new Rogue(UUID.randomUUID(), "Sneaky Pete", 20, 20, 7, 14, 0),
-                        new Rogue(UUID.randomUUID(), "Chacky Chan", 12, 12, 5, 14, 0),
-                        new Rogue(UUID.randomUUID(), "The Knife", 10, 10, 8, 20, 0),
-                        new Rogue(UUID.randomUUID(), "Robert Rice", 30, 30, 5, 8, 0),
-                        new Rogue(UUID.randomUUID(), "Sam Dodge", 15, 15, 10, 22, 0),
-
-                        new Warrior(UUID.randomUUID(), "Big Meyer", 120, 120, 0, 2, 0),
-                        new Warrior(UUID.randomUUID(), "Sir Isaac", 80, 80, 0, 3, 0),
-                        new Warrior(UUID.randomUUID(), "Robby Flobby", 100, 100, 0, 2, 10),
-                        new Warrior(UUID.randomUUID(), "Lord Washington", 60, 60, 0, 4, 0),
-                        new Warrior(UUID.randomUUID(), "Ben Jerry", 70, 70, 0, 3, 5),
-
-                });
-                //set default heroes
-                getDataManager().set("game.heroes", new LivingEntity[]{
-
-                        getDataManager().<LivingEntity[]>get("game.heroes.types")[0],
-                        getDataManager().<LivingEntity[]>get("game.heroes.types")[5],
-                        getDataManager().<LivingEntity[]>get("game.heroes.types")[10]
-
-                });
-                //set default enemy
-                getDataManager().set("game.enemy", entityGenerator.generate(1));
-            }
-        });
+        this.loadingManager.add(this.dataContainers.values());
 
         this.loadingManager.load();
 
@@ -298,5 +270,13 @@ public class Enterprise {
 
     public SoundPlayer getSoundPlayer() {
         return this.soundPlayer;
+    }
+
+    public SweetDB getDatabase() {
+        return this.database;
+    }
+
+    public DataContainers getDataContainers() {
+        return this.dataContainers;
     }
 }

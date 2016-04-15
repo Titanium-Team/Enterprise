@@ -168,4 +168,15 @@ public enum Achievements implements Achievement {
 
     };
 
+    public static Achievement byName(String name) {
+
+        for(Achievement entry : Achievements.values()) {
+            if(entry.getName().equals(name)) {
+                return entry;
+            }
+        }
+
+        return null;
+
+    }
 }

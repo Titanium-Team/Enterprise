@@ -170,6 +170,7 @@ public class GameMenuView extends View {
                     Enterprise.getGame().getViewManager().switchTo(goTo);
                 } else {
                     //Falls goTo null ist handelt es sich um den "Exit"-Button
+                    Enterprise.getGame().getDataContainers().store();
                     System.exit(0);
                 }
             }
