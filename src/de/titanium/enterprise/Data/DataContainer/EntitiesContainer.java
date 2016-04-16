@@ -54,6 +54,7 @@ public class EntitiesContainer implements DataContainer {
                     .add("selectedIndex", this.selectedIndex(entity))
                     .add("index", i)
                     .add("isUnlocked", entity.isUnlocked())
+                    .add("scoreToUnlock", entity.getScoreToUnlock())
                     .build();
 
         }
@@ -235,6 +236,12 @@ public class EntitiesContainer implements DataContainer {
                         SyntaxRuleBuilder.create()
                                 .fieldName("isUnlocked")
                                 .dataType(DataTypes.BOOLEAN)
+                                .build()
+                    )
+                    .add(
+                        SyntaxRuleBuilder.create()
+                                .fieldName("scoreToUnlock")
+                                .dataType(DataTypes.DOUBLE)
                                 .build()
                     )
                     .build();

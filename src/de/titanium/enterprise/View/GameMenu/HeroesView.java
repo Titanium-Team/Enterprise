@@ -459,7 +459,7 @@ public class HeroesView extends View {
                 }
 
                 if((this.currentRow + this.maxRows) > this.types.length) {
-                    this.currentRow--;
+                    this.currentRow = this.types.length - this.maxRows;
                 }
                 if(this.selectedHero >= this.types.length) {
                     this.selectedHero--;
@@ -469,6 +469,10 @@ public class HeroesView extends View {
 
                 // Wenn die E-Taste gedrueckt wird, dann soll der Hero ausgewaehlt werden.
                 // Es ist aktuell so das man von jedem Typen einen nehmen muss.
+
+                if(!(this.types[this.selectedHero].isUnlocked())) {
+                    return;
+                }
 
                 LivingEntity hero = this.types[this.selectedHero];
 
@@ -484,6 +488,10 @@ public class HeroesView extends View {
 
                 // Wenn die Q-Taste gedrueckt wird, dann soll der Hero in die Skill-View gebracht werden, wo man
                 // dann seine Skill-Werte setzen kann.
+                if(!(this.types[this.selectedHero].isUnlocked())) {
+                    return;
+                }
+
                 Enterprise.getGame().getDataManager().set("game.heroes.skilling", this.types[this.selectedHero]);
                 Enterprise.getGame().getViewManager().switchView(SkillView.class);
 
