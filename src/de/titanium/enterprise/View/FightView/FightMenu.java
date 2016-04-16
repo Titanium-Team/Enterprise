@@ -167,6 +167,8 @@ public class FightMenu extends MenuView implements GameComponent {
 
         g.setRenderingHints(Enterprise.getGame().getRenderingHints());
 
+        g.drawImage(Textures.DEFENSEGAME_BACKGROUND.getImage(), 0, 0, null, null);
+
         //Button rendering
         LivingEntity[] heroes = Enterprise.getGame().getDataManager().get("game.heroes");
         Image failedImage = Textures.FAILED_BUTTON.getImage();
@@ -409,14 +411,14 @@ public class FightMenu extends MenuView implements GameComponent {
 
                     enemy.getAnimationQueue().add(Animations.RANGER_DIE);
 
-                } else {
-
-                    // Nun den max-Damage-Hero noch global in den DataManager packe.
-                    Enterprise.getGame().getDataManager().set("game.fight.maxDamage", max);
-
-                    // Switch to Defense Game
-                    Enterprise.getGame().getViewManager().switchMenu(FightView.class, new DefenseMenu());
                 }
+
+                // Nun den max-Damage-Hero noch global in den DataManager packe.
+                Enterprise.getGame().getDataManager().set("game.fight.maxDamage", max);
+
+                // Switch to Defense Game
+                Enterprise.getGame().getViewManager().switchMenu(FightView.class, new DefenseMenu());
+
             }
         }
 

@@ -61,7 +61,6 @@ public class EntityGenerator {
                     this.random.nextInt(level * 7) + 3,
                     true,
                     -1
-
             );
 
             this.skill(entity, skills, null, skills, new int[] { 0, 2 }, new int[] { 3, 10 } );

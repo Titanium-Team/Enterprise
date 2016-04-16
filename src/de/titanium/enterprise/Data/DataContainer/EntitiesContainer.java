@@ -84,6 +84,7 @@ public class EntitiesContainer implements DataContainer {
     public void load() {
 
         Optional<Table> tableOptional = Enterprise.getGame().getDatabase().table("entityTypes");
+        
         // generate the first enemy
         Enterprise.getGame().getDataManager().set("game.run.level", 1);
         Enterprise.getGame().getDataManager().set("game.enemy", Enterprise.getGame().getEntityGenerator().generate(1));
