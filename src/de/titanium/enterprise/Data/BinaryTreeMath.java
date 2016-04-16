@@ -4,9 +4,6 @@ import de.titanium.enterprise.Data.Datas.SkillEntry;
 
 import java.awt.geom.Point2D;
 
-/**
- * Created by Yonas on 23.03.2016.
- */
 public class BinaryTreeMath {
 
 

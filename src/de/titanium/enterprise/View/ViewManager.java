@@ -4,9 +4,6 @@ import de.titanium.enterprise.Enterprise;
 
 import java.util.HashMap;
 
-/**
- * Created by Yonas on 08.03.2016.
- */
 public class ViewManager {
 
     private HashMap<Class<? extends View>, View> views = new HashMap<>();
@@ -37,7 +34,7 @@ public class ViewManager {
      * @param view
      * @return
      */
-    public boolean switchTo(Class<? extends View> view) {
+    public boolean switchView(Class<? extends View> view) {
 
         if(this.views.containsKey(view)) {
 
@@ -57,7 +54,7 @@ public class ViewManager {
      * @param menuView
      * @return
      */
-    public boolean changeMenu(Class<? extends View> view, MenuView menuView) {
+    public boolean switchMenu(Class<? extends View> view, MenuView menuView) {
 
         if(this.views.containsKey(view)) {
             this.views.get(view).changeMenu(menuView);

@@ -3,20 +3,11 @@ package de.titanium.enterprise.Entity.Statistic;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Created by Yonas on 25.03.2016.
- */
 public class GameStatistic {
 
     private final Map<Statistic, Double> values = new LinkedHashMap<>();
 
-    public GameStatistic() {
-
-    }
-
-    public Map<Statistic, Double> getValues() {
-        return this.values;
-    }
+    public GameStatistic() {}
 
     public void update(Statistic key, double value) {
         if(this.values.containsKey(key)) {
@@ -28,13 +19,6 @@ public class GameStatistic {
         } else {
             this.values.put(key, value);
         }
-    }
-
-    /**
-     * Setzt alle Werte auf -1 zurueck.
-     */
-    public void reset() {
-        this.values.clear();
     }
 
     @Override

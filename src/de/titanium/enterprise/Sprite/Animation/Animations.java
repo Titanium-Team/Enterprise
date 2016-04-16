@@ -5,10 +5,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-
-/**
- * Created by Yonas on 16.03.2016.
- */
 public enum Animations implements Animation {
 
     RANGER_ATTACK {

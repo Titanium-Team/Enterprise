@@ -3,9 +3,6 @@ package de.titanium.enterprise.Achievment;
 import de.titanium.enterprise.Sprite.Texture;
 import de.titanium.enterprise.Sprite.Textures;
 
-/**
- * Created by Yonas on 29.03.2016.
- */
 public enum Achievements implements Achievement {
 
     WELCOME {
@@ -164,6 +161,27 @@ public enum Achievements implements Achievement {
         @Override
         public Texture getTexture() {
             return Textures.ACHIEVEMENT_ICON_WINNER;
+        }
+
+    },
+    UNLOCKED_HERO {
+
+        // Ist kein echtes Achievement. Es wird nur dazu genutzt, um zu zeigen das es einen neuen
+        // Helden gibt.
+
+        @Override
+        public String getName() {
+            return "Hero!";
+        }
+
+        @Override
+        public String getDescription() {
+            return "Du hast einen neuen Helden freigeschaltet.";
+        }
+
+        @Override
+        public Texture getTexture() {
+            return Textures.ACHIEVEMENT_ICON_LOCKER;
         }
 
     };

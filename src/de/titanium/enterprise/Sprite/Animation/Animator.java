@@ -2,9 +2,6 @@ package de.titanium.enterprise.Sprite.Animation;
 
 import java.awt.image.BufferedImage;
 
-/**
- * Created by Yonas on 16.03.2016.
- */
 public class Animator {
 
     private Animation type;

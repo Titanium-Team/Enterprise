@@ -17,9 +17,6 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
 import java.util.List;
 
-/**
- * Created by Yonas on 23.03.2016.
- */
 public class SkillView extends View {
 
     private BinarySearchTree<SkillEntry> skillBinarySearchTree = Skills.defaultTree();
@@ -115,7 +112,7 @@ public class SkillView extends View {
                 // Fixed den Bug das man ansonsten direkt wieder ins Hauptmenu kommt.
                 Enterprise.getGame().getKeyManager().setKeyCode(-1);
 
-                Enterprise.getGame().getViewManager().switchTo(HeroesView.class);
+                Enterprise.getGame().getViewManager().switchView(HeroesView.class);
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_A) && !(current.getLeftTree().isEmpty())) {
 

@@ -1,9 +1,5 @@
 package de.titanium.enterprise.Data;
 
-
-/**
- * Created by 204g01 on 16.03.2016.
- */
 public class BinarySearchTree<T extends Comparable<T>> {
 
     private Node<T> node;

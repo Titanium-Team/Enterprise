@@ -12,9 +12,6 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by 204g02 on 08.04.2016.
- */
 public class ScoreView extends View {
 
     public ScoreView(MenuView menuView) {
@@ -81,7 +78,7 @@ public class ScoreView extends View {
             if (Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ESCAPE)) { //zurueck zum hauptmenue
 
                 // Wenn "ESC" gedrueckt wird, dann wird man wieder ins Hauptmenue gebracht.
-                Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
+                Enterprise.getGame().getViewManager().switchView(GameMenuView.class);
 
             }
         }

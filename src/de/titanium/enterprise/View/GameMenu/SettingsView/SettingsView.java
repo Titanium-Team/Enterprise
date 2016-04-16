@@ -12,9 +12,6 @@ import java.awt.event.KeyEvent;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Created by Yonas on 22.03.2016.
- */
 public class SettingsView extends View {
 
     private int selectedOption = 0;
@@ -92,7 +89,7 @@ public class SettingsView extends View {
                             entry.getValue().getOptions()[this.selectedValue.get(entry.getKey()).intValue()]
                     );
                 }
-                Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
+                Enterprise.getGame().getViewManager().switchView(GameMenuView.class);
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_S)) { ////Im Menu nach oben oder unten bewegen
                 this.selectedOption++;
 

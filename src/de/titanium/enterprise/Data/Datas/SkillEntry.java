@@ -2,9 +2,6 @@ package de.titanium.enterprise.Data.Datas;
 
 import de.titanium.enterprise.Skill.Skill;
 
-/**
- * Created by Yonas on 23.03.2016.
- */
 public class SkillEntry implements Comparable<SkillEntry> {
 
     private final Skill skill;

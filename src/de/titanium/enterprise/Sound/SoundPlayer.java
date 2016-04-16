@@ -5,9 +5,6 @@ import javax.sound.sampled.FloatControl;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by Yonas on 13.04.2016.
- */
 public class SoundPlayer extends Thread {
 
     private List<Clip> playList = new LinkedList<>();
@@ -16,10 +13,18 @@ public class SoundPlayer extends Thread {
 
     public SoundPlayer() {}
 
+    /**
+     * Fügt der List einen neuen Sound hinzu.
+     * @param sound
+     */
     public void add(Sound sound) {
         this.playList.add(sound.getSound());
     }
 
+    /**
+     * Gibt den Sound, der aktuell gespielt wird, zurück.
+     * @return
+     */
     public Clip getCurrent() {
         return this.playList.get(this.current);
     }

@@ -6,9 +6,6 @@ import de.titanium.enterprise.GameComponent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-/**
- * Created by Yonas on 29.03.2016.
- */
 public class AchievementGraphic implements GameComponent {
 
     private float alpha = 0.0F;

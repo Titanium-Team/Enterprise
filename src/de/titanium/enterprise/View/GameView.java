@@ -3,9 +3,6 @@ package de.titanium.enterprise.View;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by Yonas on 08.03.2016.
- */
 public class GameView {
 
     private JFrame frame = new JFrame();

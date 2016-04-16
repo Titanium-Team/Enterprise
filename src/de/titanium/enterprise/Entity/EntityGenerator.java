@@ -13,9 +13,6 @@ import de.titanium.enterprise.Skill.Skills;
 import java.security.SecureRandom;
 import java.util.UUID;
 
-/**
- * Created by Yonas on 30.03.2016.
- */
 public class EntityGenerator {
 
     private final SecureRandom random = new SecureRandom();

@@ -8,9 +8,6 @@ import de.titanium.enterprise.Sprite.Animation.Animations;
 
 import java.util.UUID;
 
-/**
- * Created by Yonas on 09.03.2016.
- */
 public class Warrior extends LivingEntity {
 
     public Warrior(UUID identifier, String name, double health, double maxHealth, double dexterity, double attackValue, int skillPoints, boolean isUnlocked) {

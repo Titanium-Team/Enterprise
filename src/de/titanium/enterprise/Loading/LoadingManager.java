@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by Yonas on 17.03.2016.
- */
 public class LoadingManager {
 
     private List<Loadable> loadables = new ArrayList<>();

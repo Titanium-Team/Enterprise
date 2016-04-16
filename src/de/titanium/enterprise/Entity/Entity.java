@@ -4,9 +4,6 @@ import de.titanium.enterprise.GameComponent;
 
 import java.util.UUID;
 
-/**
- * Created by Yonas on 08.03.2016.
- */
 public abstract class Entity implements GameComponent {
 
     private final UUID identifier;

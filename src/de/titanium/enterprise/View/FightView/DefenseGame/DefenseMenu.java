@@ -23,9 +23,6 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.LinkedTransferQueue;
 
-/**
- * Created by Yonas on 12.03.2016.
- */
 public class DefenseMenu extends MenuView implements GameComponent {
 
     private final Random random = new Random();
@@ -90,7 +87,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
             );
         }
         //Die Punkteanzahl zeichnen
-        g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Punkte: " + this.tick, 6, false, true), 1100, 10, null);
+        g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Punkte: " + this.tick, 6), 1100, 10, null);
 
         //Border
         g.drawImage(Textures.BORDER_DOWN.getImage(), 0, 0, null, null);
@@ -185,7 +182,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
                                 allDead = false;
                                 // Falls noch mindestens ein Hero lebt, dann geht es weiter im Spiel und es wird im
                                 // FightMenu der Angriff fortgesetzt.
-                                Enterprise.getGame().getViewManager().changeMenu(FightView.class, new FightMenu());
+                                Enterprise.getGame().getViewManager().switchMenu(FightView.class, new FightMenu());
                                 break;
 
                             }
@@ -221,7 +218,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
                             // @Idea: Falls das nicht der Fall ist, dann wird der Game-End-Screen angezeigt.
                             // Aktuell wird man einfach noch ins Hauptmenue zurueckgebracht.
-                            Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
+                            Enterprise.getGame().getViewManager().switchView(GameMenuView.class);
                         }
                         break;
                     }

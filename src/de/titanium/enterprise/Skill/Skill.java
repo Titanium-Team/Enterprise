@@ -4,9 +4,6 @@ import de.titanium.enterprise.Entity.LivingEntity;
 
 import java.util.List;
 
-/**
- * Created by Yonas on 11.03.2016.
- */
 public interface Skill {
 
     /**

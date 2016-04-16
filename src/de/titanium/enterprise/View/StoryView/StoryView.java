@@ -13,9 +13,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Yonas on 22.03.2016.
- */
 public class StoryView extends View {
 
     private final Map<String, List<String>> story = new LinkedHashMap<>();
@@ -76,7 +73,7 @@ public class StoryView extends View {
             String[] chapters = this.story.keySet().toArray(new String[this.story.size()]);
 
             if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_ESCAPE)) { //zurueck ins hauptmenue
-                Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
+                Enterprise.getGame().getViewManager().switchView(GameMenuView.class);
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_S)) { //nach unten scrollen
                 this.currentLine++;
 

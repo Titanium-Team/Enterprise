@@ -19,9 +19,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * Created by Yonas on 23.03.2016.
- */
 public class HeroesView extends View {
 
     private LivingEntity[] types = Enterprise.getGame().getDataManager().get("game.heroes.types");
@@ -231,7 +228,7 @@ public class HeroesView extends View {
                     this.isSearching = false;
                 } else {
                     // Wenn "ESC" gedrueckt wird, dann wird man wieder ins Hauptmenue gebracht.
-                    Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
+                    Enterprise.getGame().getViewManager().switchView(GameMenuView.class);
                 }
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_1) && !(this.isSearching)) {
@@ -488,7 +485,7 @@ public class HeroesView extends View {
                 // Wenn die Q-Taste gedrueckt wird, dann soll der Hero in die Skill-View gebracht werden, wo man
                 // dann seine Skill-Werte setzen kann.
                 Enterprise.getGame().getDataManager().set("game.heroes.skilling", this.types[this.selectedHero]);
-                Enterprise.getGame().getViewManager().switchTo(SkillView.class);
+                Enterprise.getGame().getViewManager().switchView(SkillView.class);
 
             } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_M) && !(this.isSearching)) {
 

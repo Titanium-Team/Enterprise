@@ -15,9 +15,6 @@ import de.titanium.enterprise.Skill.Skills;
 
 import java.util.UUID;
 
-/**
- * Created by Yonas on 31.03.2016.
- */
 public class EntitiesContainer implements DataContainer {
 
     public EntitiesContainer() {}

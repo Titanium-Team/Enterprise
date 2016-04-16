@@ -1,9 +1,6 @@
 package de.titanium.enterprise.Data.Datas;
 
 
-/**
- * Created by 204g01 on 16.03.2016.
- */
 public class Score implements Comparable<Score> {
 
     private final int score;

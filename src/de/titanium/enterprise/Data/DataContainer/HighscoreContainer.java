@@ -8,9 +8,6 @@ import de.SweetCode.SweetDB.Table.Table;
 import de.titanium.enterprise.Data.BinarySearchTree;
 import de.titanium.enterprise.Enterprise;
 
-/**
- * Created by Yonas on 15.04.2016.
- */
 public class HighscoreContainer implements DataContainer {
 
     @Override

@@ -8,9 +8,6 @@ import de.titanium.enterprise.Sprite.Animation.Animations;
 
 import java.util.UUID;
 
-/**
- * Created by Yonas on 09.03.2016.
- */
 public class Archer extends LivingEntity {
 
     public Archer(UUID identifier, String name, double health, double maxHealth, double dexterity, double attackValue, int skillPoints, boolean isUnlocked) {

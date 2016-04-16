@@ -1,8 +1,5 @@
 package de.titanium.enterprise.Entity.Statistic;
 
-/**
- * Created by Yonas on 25.03.2016.
- */
 public enum Statistics implements Statistic {
 
     HIGHEST_DEFENSE_SCORE {

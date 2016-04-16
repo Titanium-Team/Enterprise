@@ -11,9 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by Yonas on 20.03.2016.
- */
 public class TextBuilder {
 
     private final Map<String, Image> cache = new HashMap<>();

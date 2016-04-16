@@ -5,9 +5,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Created by Yonas on 12.03.2016.
- */
 public enum Textures implements Texture {
 
     BACKGROUND {
