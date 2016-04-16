@@ -167,6 +167,8 @@ public class FightMenu extends MenuView implements GameComponent {
 
         g.setRenderingHints(Enterprise.getGame().getRenderingHints());
 
+        g.drawImage(Textures.DEFENSEGAME_BACKGROUND.getImage(), 0, 0, null, null);
+
         //Button rendering
         LivingEntity[] heroes = Enterprise.getGame().getDataManager().get("game.heroes");
         Image failedImage = Textures.FAILED_BUTTON.getImage();

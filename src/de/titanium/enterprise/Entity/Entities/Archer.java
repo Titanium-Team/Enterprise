@@ -17,7 +17,7 @@ public class Archer extends LivingEntity {
     @Override
     public double calculateDamage(LivingEntity enemy, int comboResult) {
 
-        double value = Math.log(comboResult - this.getDexterity()) + this.getAttackValue();
+        double value = Math.log(comboResult - this.getDexterity() + 1) + this.getAttackValue();
 
         //Attack Efficiency
         double attackEfficiency = 1;

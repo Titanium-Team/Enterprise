@@ -58,6 +58,8 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
         g.setRenderingHints(Enterprise.getGame().getRenderingHints());
 
+        g.drawImage(Textures.DEFENSEGAME_BACKGROUND.getImage(), 0, 0, null, null);
+
         //g.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
         g.setColor(new Color(130,(this.tick/40 >= 170 ? 0 : 180 - this.tick/40), 30));
 
@@ -77,7 +79,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
         }
 
         //Den Spieler zeichnen
-        g.setColor(Color.BLACK);
+        g.setColor(Color.WHITE);
         if(!(this.player == null)) {
             g.fillRect(
                     (int) this.player.getX(),

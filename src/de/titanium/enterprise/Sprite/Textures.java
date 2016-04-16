@@ -27,6 +27,46 @@ public enum Textures implements Texture {
         }
 
     },
+    DEFENSEGAME_BACKGROUND {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Defense-Game Background Texture";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/defensegame-background.jpg");
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
+    DEFAULT_BACKGROUND {
+
+        private BufferedImage image;
+
+        @Override
+        public String getName() {
+            return "Default Background Texture";
+        }
+
+        @Override
+        public void load() {
+            this.image = Textures.loadImage("./assets/default-background.jpg");
+        }
+
+        @Override
+        public BufferedImage getImage() {
+            return this.image;
+        }
+
+    },
     BORDER_UP {
 
         private BufferedImage image;
