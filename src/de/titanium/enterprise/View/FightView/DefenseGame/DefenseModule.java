@@ -2,11 +2,16 @@ package de.titanium.enterprise.View.FightView.DefenseGame;
 
 import java.awt.*;
 
-/**
- * Created by Yonas on 13.03.2016.
- */
 public interface DefenseModule {
 
+    /**
+     * Gibt ein Array mit mehreren Rectangles zurück, die dann gezeichnet werden können.
+     * @param x
+     * @param space
+     * @param width
+     * @param height
+     * @return
+     */
     Rectangle[] getRectangles(int x, int space, int width, int height);
 
 }

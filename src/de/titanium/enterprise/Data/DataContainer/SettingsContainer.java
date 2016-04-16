@@ -11,9 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
 
-/**
- * Created by Yonas on 01.04.2016.
- */
 public class SettingsContainer implements DataContainer {
 
     @Override

@@ -3,9 +3,6 @@ package de.titanium.enterprise.View.FightView.DefenseGame;
 import java.awt.*;
 import java.util.Random;
 
-/**
- * Created by Yonas on 13.03.2016.
- */
 public enum DefenseModules implements DefenseModule {
 
     LINE {

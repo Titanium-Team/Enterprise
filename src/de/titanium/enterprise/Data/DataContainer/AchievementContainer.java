@@ -9,9 +9,6 @@ import de.titanium.enterprise.Achievment.Achievement;
 import de.titanium.enterprise.Achievment.Achievements;
 import de.titanium.enterprise.Enterprise;
 
-/**
- * Created by Yonas on 31.03.2016.
- */
 public class AchievementContainer implements DataContainer {
 
     @Override
@@ -46,7 +43,7 @@ public class AchievementContainer implements DataContainer {
             Table table = tableOptional.get();
 
             for(DataSet dataSet : table.all()) {
-                Enterprise.getGame().getAchievementManager().add(Achievements.byName((String) dataSet.get("name").get().as(DataTypes.STRING)), false);
+                Enterprise.getGame().getAchievementManager().add(Achievements.byName((String) dataSet.get("name").get().as(DataTypes.STRING)), false, false);
             }
 
         } else {

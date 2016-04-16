@@ -11,18 +11,21 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by Yonas on 20.03.2016.
- */
 public class TextBuilder {
 
     private final Map<String, Image> cache = new HashMap<>();
     private final Map<String, Long> expires = new HashMap<>();
 
-    private final ColorConvertOp colorConvertOp = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null);;
+    private final ColorConvertOp colorConvertOp = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null);
 
     public TextBuilder() {}
 
+    /**
+     * Diese Methode verwandelt den uebergebenen String in ein Image das diesen Text enthaelt.
+     * @param value Der Text der umgewandelt werden soll.
+     * @param font Die Groesse des Textes.
+     * @return
+     */
     public Image toImage(String value, int font) {
 
         return this.toImage(value, font, false);
@@ -33,10 +36,10 @@ public class TextBuilder {
      * Diese Methode verwandelt den uebergebenen String in ein Image das diesen Text enthaelt.
      * @param value Der Text der umgewandelt werden soll.
      * @param font Die Groesse des Textes.
+     * @param gray Wenn der Wert true ist, dann wird eine schwarz-weiße Version des Bildes zurückgegeben.
      * @return
      */
     public Image toImage(String value, int font, boolean gray) {
-
 
         // Dies ist der einhaltliche Cache-Key der aus dem Value an sich (also dem Text) und der Font-Groesse besteht.
         String cacheKey = String.format("%s->%d->%b", value, font, gray);
@@ -44,8 +47,8 @@ public class TextBuilder {
         // In diesem Code Teil wird nun geprueft, ob es aktuell Werte gibt, die sich im Cache befinden, deren Zeit
         // "abgelaufen" ist und deshalb, falls sie nochmal abgefragt werden sollten, neu gerendert werden muessen.
         // Dies sollte immer wieder ein wenig RAM freischaufeln.
-        for(Map.Entry<String, Long> entry : this.expires.entrySet()) {
-            if(entry.getValue() <= System.currentTimeMillis()) {
+        for (Map.Entry<String, Long> entry : this.expires.entrySet()) {
+            if (entry.getValue() <= System.currentTimeMillis()) {
                 this.cache.remove(entry.getKey());
             }
         }

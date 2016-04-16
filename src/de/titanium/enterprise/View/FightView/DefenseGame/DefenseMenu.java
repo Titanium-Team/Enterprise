@@ -23,9 +23,6 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.LinkedTransferQueue;
 
-/**
- * Created by Yonas on 12.03.2016.
- */
 public class DefenseMenu extends MenuView implements GameComponent {
 
     private final Random random = new Random();
@@ -90,7 +87,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
             );
         }
         //Die Punkteanzahl zeichnen
-        g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Punkte: " + this.tick, 6), 1000, 10, null);
+        g.drawImage(Enterprise.getGame().getTextBuilder().toImage("Punkte: " + this.tick, 6), 1100, 10, null);
 
         //Border
         g.drawImage(Textures.BORDER_DOWN.getImage(), 0, 0, null, null);
@@ -163,9 +160,17 @@ public class DefenseMenu extends MenuView implements GameComponent {
                         // Den Score für den abgewerten Schaden updaten
                         hero.getGameStatistic().update(Statistics.DAMAGE_BLOCKED, this.tick);
 
+                        // Die Animation queuen
+                        if(damage > 0) {
+                            enemy.getAnimationQueue().add(Animations.RANGER_ATTACK);
+
+                            hero.getAnimationQueue().add(Animations.RANGER_IDLE);
+                            hero.getAnimationQueue().add(Animations.RANGER_BLOCK);
+                        }
+
                         // Das Leben von dem Helden abziehen
                         hero.setHealth(
-                                hero.getHealth() - damage
+                                Math.max(hero.getHealth() - damage, 0)
                         );
 
                         // Den Wert für den höchsten Defense-Score
@@ -185,7 +190,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
                                 allDead = false;
                                 // Falls noch mindestens ein Hero lebt, dann geht es weiter im Spiel und es wird im
                                 // FightMenu der Angriff fortgesetzt.
-                                Enterprise.getGame().getViewManager().changeMenu(FightView.class, new FightMenu());
+                                Enterprise.getGame().getViewManager().switchMenu(FightView.class, new FightMenu());
                                 break;
 
                             }
@@ -219,9 +224,20 @@ public class DefenseMenu extends MenuView implements GameComponent {
                             heroes[1].setHealth(heroes[1].getMaxHealth());
                             heroes[2].setHealth(heroes[2].getMaxHealth());
 
+                            // Ab hier wird geprüft, ob neue Helden freigeschaltet wurden.
+                            LivingEntity[] types = Enterprise.getGame().getDataManager().get("game.heroes.types");
+                            for(LivingEntity entity : types) {
+
+                                if(!(entity.isUnlocked()) && tmpScore >= entity.getScoreToUnlock()) {
+                                    entity.setUnlocked(true);
+                                    Enterprise.getGame().getAchievementManager().add(Achievements.UNLOCKED_HERO, true, true);
+                                }
+
+                            }
+
                             // @Idea: Falls das nicht der Fall ist, dann wird der Game-End-Screen angezeigt.
                             // Aktuell wird man einfach noch ins Hauptmenue zurueckgebracht.
-                            Enterprise.getGame().getViewManager().switchTo(GameMenuView.class);
+                            Enterprise.getGame().getViewManager().switchView(GameMenuView.class);
                         }
                         break;
                     }

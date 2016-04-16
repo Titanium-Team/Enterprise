@@ -3,9 +3,6 @@ package de.titanium.enterprise.Sprite.Animation;
 import java.util.Queue;
 import java.util.concurrent.LinkedTransferQueue;
 
-/**
- * Created by Yonas on 17.03.2016.
- */
 public class AnimationQueue {
 
     private final Queue<Animator> animators = new LinkedTransferQueue<>();

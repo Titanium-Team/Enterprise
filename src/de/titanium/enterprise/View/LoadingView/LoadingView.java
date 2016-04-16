@@ -8,9 +8,6 @@ import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/**
- * Created by Yonas on 17.03.2016.
- */
 public class LoadingView extends View {
 
     private String value = ".";
@@ -78,6 +75,8 @@ public class LoadingView extends View {
     public void update(int tick) {}
 
     @Override
-    public void render() {}
+    public void render() {
+        this.repaint();
+    }
 
 }

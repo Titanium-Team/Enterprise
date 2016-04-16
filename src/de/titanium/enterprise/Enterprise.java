@@ -31,9 +31,6 @@ import java.util.*;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * Created by 204g01 on 07.03.2016.
- */
 public class Enterprise {
 
     private final Logger logger = Logger.getLogger("Enterprise");
@@ -97,7 +94,7 @@ public class Enterprise {
 
         //Adding loading screen
         this.viewManager.register(new LoadingView());
-        this.viewManager.switchTo(LoadingView.class);
+        this.viewManager.switchView(LoadingView.class);
 
         // DataContainer
         this.dataContainers.add(new EntitiesContainer());
@@ -130,7 +127,7 @@ public class Enterprise {
         this.viewManager.register(new FightView(new FightMenu()));
         this.viewManager.register(new ScoreView(defaultMenu));
 
-        this.viewManager.switchTo(GameMenuView.class);
+        this.viewManager.switchView(GameMenuView.class);
 
         // @Achievement
         this.achievementManager.add(Achievements.WELCOME);
@@ -236,47 +233,93 @@ public class Enterprise {
 
     }
 
+    /**
+     * Gibt den ViewManager der aktuellen Instanz zurück.
+     * @return
+     */
     public ViewManager getViewManager() {
         return this.viewManager;
     }
 
+    /**
+     * Gibt die aktuelle GameView zurück.
+     * @return
+     */
     public GameView getGameView() {
         return this.gameView;
     }
 
+    /**
+     * Gibt den atkuellen KeyManager zurück.
+     * @return
+     */
     public KeyManager getKeyManager() {
         return this.keyManager;
     }
 
+    /**
+     * Gibt den aktuellen DataManager zurück.
+     * @return
+     */
     public DataManager getDataManager() {
         return this.dataManager;
     }
 
+    /**
+     * Gibt den aktuellen LoadingManager zurück.
+     * @return
+     */
     public LoadingManager getLoadingManager() {
         return this.loadingManager;
     }
 
+    /**
+     * Gibt den aktuellen TextBuilder zurück.
+     * @return
+     */
     public TextBuilder getTextBuilder() {
         return this.textBuilder;
     }
 
+    /**
+     * Gibt den aktuellen AchievementManager zurück.
+     * @return
+     */
     public AchievementManager getAchievementManager() {
         return this.achievementManager;
     }
 
+    /**
+     * Gibt den aktuellen EntityGenerator zurück.
+     * @return
+     */
     public EntityGenerator getEntityGenerator() {
         return this.entityGenerator;
     }
 
+
+    /**
+     * Gibt den aktuellen SoundPlayer zurück.
+     * @return
+     */
     public SoundPlayer getSoundPlayer() {
         return this.soundPlayer;
     }
 
+    /**
+     * Gibt die aktuelle Datenbank zurück.
+     * @return
+     */
     public SweetDB getDatabase() {
         return this.database;
     }
 
+    /**
+     * Gibt die aktullen DataContainers zurück.
+     * @return
+     */
     public DataContainers getDataContainers() {
         return this.dataContainers;
     }
+
 }

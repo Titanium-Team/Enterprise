@@ -7,9 +7,6 @@ import de.titanium.enterprise.Sprite.Textures;
 
 import java.awt.*;
 
-/**
- * Created by Yonas on 22.03.2016.
- */
 public class DefaultMenu extends MenuView {
 
     private Animator animator = Animations.RANGER_WALK.createAnimator();

@@ -29,6 +29,8 @@ public abstract class LivingEntity extends Entity {
 
     private boolean isUnlocked = false;
 
+    private double scoreToUnlock;
+
     private final GameStatistic gameStatistic = new GameStatistic();
 
     /**
@@ -41,8 +43,9 @@ public abstract class LivingEntity extends Entity {
      * @param attackValue      Der Basis Wert des Schadens.
      * @param skillPoints      Die Punkte die der Held zum Skillen hat.
      * @param isUnlocked       Ob der Held dem Spieler bereits zur verfuegung steht.
+     * @param scoreToUnlock    Anzahl der Punkte die erreicht werden müssen, damit dieser Held freigeschaltet wird.
      */
-    public LivingEntity(UUID identifier, Animation defaultAnimation, String name, double health, double maxHealth, double dexterity, double attackValue, int skillPoints, boolean isUnlocked) {
+    public LivingEntity(UUID identifier, Animation defaultAnimation, String name, double health, double maxHealth, double dexterity, double attackValue, int skillPoints, boolean isUnlocked, double scoreToUnlock) {
         super(identifier);
 
         this.animationQueue = new AnimationQueue(defaultAnimation);
@@ -53,6 +56,7 @@ public abstract class LivingEntity extends Entity {
         this.attackValue = attackValue;
         this.skillPoints = skillPoints;
         this.isUnlocked = isUnlocked;
+        this.scoreToUnlock = scoreToUnlock;
 
     }
 
@@ -204,6 +208,23 @@ public abstract class LivingEntity extends Entity {
      */
     public boolean isUnlocked() {
         return this.isUnlocked;
+    }
+
+    /**
+     * Gibt den Wert an Punkten zurück, die erreicht werden müssen, damit dieser Held freigeschaltet wird.
+     *
+     * @return
+     */
+    public double getScoreToUnlock() {
+        return this.scoreToUnlock;
+    }
+
+    /**
+     * Setzt den Wert, ob der Held freigeschaltet ist oder nicht.
+     * @param unlocked
+     */
+    public void setUnlocked(boolean unlocked) {
+        this.isUnlocked = unlocked;
     }
 
     @Override

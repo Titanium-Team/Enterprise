@@ -2,9 +2,6 @@ package de.titanium.enterprise.Data;
 
 import java.util.HashMap;
 
-/**
- * Created by Yonas on 16.03.2016.
- */
 public class DataManager {
 
     private HashMap<String, Object> dataEntries = new HashMap<>();

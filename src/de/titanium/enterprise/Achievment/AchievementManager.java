@@ -6,9 +6,6 @@ import java.util.Queue;
 import java.util.concurrent.LinkedTransferQueue;
 import java.util.List;
 
-/**
- * Created by Yonas on 29.03.2016.
- */
 public class AchievementManager {
 
     private final List<Achievement> unlocked = new ArrayList<>();
@@ -24,7 +21,7 @@ public class AchievementManager {
      * @param achievement
      */
     public void add(Achievement achievement) {
-        this.add(achievement, true);
+        this.add(achievement, true, false);
     }
 
     /**
@@ -33,12 +30,14 @@ public class AchievementManager {
      * @param achievement
      * @param display Wenn dieser Wert true ist, dann wird das Achievement auch im Spiel als freigeschaltet dargestellt.
      */
-    public void add(Achievement achievement, boolean display) {
+    public void add(Achievement achievement, boolean display, boolean ignore) {
         if(!(this.unlocked.contains(achievement))) {
             if(display) {
                 this.queue.add(new AchievementGraphic(achievement));
             }
-            this.unlocked.add(achievement);
+            if(!(ignore)) {
+                this.unlocked.add(achievement);
+            }
         }
     }
 
@@ -69,12 +68,17 @@ public class AchievementManager {
         return this.queue.peek();
     }
 
+    /**
+     * Gibt alle freigeschalteten Achievements zurück.
+     * @return
+     */
+    public List<Achievement> getUnlocked() {
+        return this.unlocked;
+    }
+
     @Override
     public String toString() {
         return String.format("{unlocked: %s, queue: %s}", this.unlocked, this.queue);
     }
 
-    public List<Achievement> getUnlocked() {
-        return this.unlocked;
-    }
 }

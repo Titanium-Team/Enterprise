@@ -15,9 +15,6 @@ import de.titanium.enterprise.Skill.Skills;
 
 import java.util.UUID;
 
-/**
- * Created by Yonas on 31.03.2016.
- */
 public class EntitiesContainer implements DataContainer {
 
     public EntitiesContainer() {}
@@ -57,6 +54,7 @@ public class EntitiesContainer implements DataContainer {
                     .add("selectedIndex", this.selectedIndex(entity))
                     .add("index", i)
                     .add("isUnlocked", entity.isUnlocked())
+                    .add("scoreToUnlock", entity.getScoreToUnlock())
                     .build();
 
         }
@@ -112,19 +110,20 @@ public class EntitiesContainer implements DataContainer {
                 int skillPoints = dataSet.get("skillPoints").get().as(DataTypes.INTEGER);
                 String unlockedSkills = dataSet.get("unlockedSkills").get().as(DataTypes.STRING);
                 boolean isUnlocked = dataSet.get("isUnlocked").get().as(DataTypes.BOOLEAN);
+                double scoreToUnlock = dataSet.get("scoreToUnlock").get().as(DataTypes.DOUBLE);
 
                 switch (type) {
 
                     case "Archer":
-                        entity = new Archer(identifier, name, health, maxHealth, dexterity,  attackValue, skillPoints, isUnlocked);
+                        entity = new Archer(identifier, name, health, maxHealth, dexterity,  attackValue, skillPoints, isUnlocked, scoreToUnlock);
                         break;
 
                     case "Rogue":
-                        entity = new Rogue(identifier, name, health, maxHealth, dexterity,  attackValue, skillPoints, isUnlocked);
+                        entity = new Rogue(identifier, name, health, maxHealth, dexterity,  attackValue, skillPoints, isUnlocked, scoreToUnlock);
                         break;
 
                     case "Warrior":
-                        entity = new Warrior(identifier, name, health, maxHealth, dexterity,  attackValue, skillPoints, isUnlocked);
+                        entity = new Warrior(identifier, name, health, maxHealth, dexterity,  attackValue, skillPoints, isUnlocked, scoreToUnlock);
                         break;
 
                     default: throw new IllegalArgumentException(String.format("[DataContainer] EntityType %s is unknown.", type));
@@ -239,28 +238,34 @@ public class EntitiesContainer implements DataContainer {
                                 .dataType(DataTypes.BOOLEAN)
                                 .build()
                     )
+                    .add(
+                        SyntaxRuleBuilder.create()
+                                .fieldName("scoreToUnlock")
+                                .dataType(DataTypes.DOUBLE)
+                                .build()
+                    )
                     .build();
 
             //set default hero types
             Enterprise.getGame().getDataManager().set("game.heroes.types", new LivingEntity[]{
 
-                    new Archer(UUID.randomUUID(), "Robin Trump", 55, 55, 5, 5, 0, true),
-                    new Archer(UUID.randomUUID(), "Georg van Waald", 40, 40, 6, 9, 0, true),
-                    new Archer(UUID.randomUUID(), "Eddy Penny", 60, 60, 5, 4, 0, false),
-                    new Archer(UUID.randomUUID(), "Trevor Denver", 50, 50, 8, 10, 0, false),
-                    new Archer(UUID.randomUUID(), "Ranger Ben", 30, 30, 4, 8, 0, false),
+                    new Archer(UUID.randomUUID(), "Robin Trump", 55, 55, 5, 5, 0, true, -1),
+                    new Archer(UUID.randomUUID(), "Georg van Waald", 40, 40, 6, 9, 0, true, -1),
+                    new Archer(UUID.randomUUID(), "Eddy Penny", 60, 60, 5, 4, 0, false, 500),
+                    new Archer(UUID.randomUUID(), "Trevor Denver", 50, 50, 8, 10, 0, false, 1000),
+                    new Archer(UUID.randomUUID(), "Ranger Ben", 30, 30, 4, 8, 0, false, 1500),
 
-                    new Warrior(UUID.randomUUID(), "Big Meyer", 160, 160, 0, 3, 0, true),
-                    new Warrior(UUID.randomUUID(), "Sir Isaac", 130, 130, 0, 4, 0, true),
-                    new Warrior(UUID.randomUUID(), "Robby Rock", 100, 100, 0, 5, 0, false),
-                    new Warrior(UUID.randomUUID(), "Lord Washington", 200, 200, 0, 2, 0, false),
-                    new Warrior(UUID.randomUUID(), "Ben Jerry", 80, 80, 0, 6, 0, false),
+                    new Rogue(UUID.randomUUID(), "Sneaky Pete", 25, 25, 6, 14, 0, true, -1),
+                    new Rogue(UUID.randomUUID(), "Chacky Chan", 13, 13, 5, 15, 0, true, -1),
+                    new Rogue(UUID.randomUUID(), "The Knife", 20, 20, 10, 22, 0, false, 500),
+                    new Rogue(UUID.randomUUID(), "Robert Rice", 14, 14, 12, 30, 0, false, 1000),
+                    new Rogue(UUID.randomUUID(), "Sam Dodge", 6, 6, 8, 25, 0, false, 1500),
 
-                    new Rogue(UUID.randomUUID(), "Sneaky Pete", 25, 25, 6, 14, 0, true),
-                    new Rogue(UUID.randomUUID(), "Chacky Chan", 13, 13, 5, 15, 0, true),
-                    new Rogue(UUID.randomUUID(), "The Knife", 20, 20, 10, 22, 0, false),
-                    new Rogue(UUID.randomUUID(), "Robert Rice", 14, 14, 12, 30, 0, false),
-                    new Rogue(UUID.randomUUID(), "Sam Dodge", 6, 6, 8, 25, 0, false),
+                    new Warrior(UUID.randomUUID(), "Big Meyer", 160, 160, 0, 3, 0, true, -1),
+                    new Warrior(UUID.randomUUID(), "Sir Isaac", 130, 130, 0, 4, 0, true, -1),
+                    new Warrior(UUID.randomUUID(), "Robby Rock", 100, 100, 0, 5, 0, false, 500),
+                    new Warrior(UUID.randomUUID(), "Lord Washington", 200, 200, 0, 2, 0, false, 1000),
+                    new Warrior(UUID.randomUUID(), "Ben Jerry", 80, 80, 0, 6, 0, false, 1500),
 
             });
 

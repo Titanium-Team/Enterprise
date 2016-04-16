@@ -1,6 +1,5 @@
 package de.titanium.enterprise.View.FightView;
 
-
 import de.titanium.enterprise.Data.DataManager;
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Entity.LivingEntity;
@@ -14,9 +13,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
-/**
- * Created by Yonas on 11.03.2016.
- */
 public class FightView extends View {
 
     private final int[] xPos = new int[] { 50, 430, 740, 1050 };

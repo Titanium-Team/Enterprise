@@ -5,9 +5,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Created by Yonas on 12.03.2016.
- */
 public enum Textures implements Texture {
 
     BACKGROUND {
@@ -643,7 +640,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1481, 1, 51, 67);
+            this.image = Textures.loadImage("./assets/alphabet.png").getSubimage(1481, 1, 69, 67);
         }
 
         @Override

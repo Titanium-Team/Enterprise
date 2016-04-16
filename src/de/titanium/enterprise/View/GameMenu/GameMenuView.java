@@ -15,9 +15,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Yonas on 21.03.2016.
- */
 public class GameMenuView extends View {
 
     private int selectedOption = 0;
@@ -167,7 +164,7 @@ public class GameMenuView extends View {
 
                 //Wenn die Class nicht null ist handelt es sich um eine normale View und es kann gewechselt werden.
                 if(!(goTo == null)) {
-                    Enterprise.getGame().getViewManager().switchTo(goTo);
+                    Enterprise.getGame().getViewManager().switchView(goTo);
                 } else {
                     //Falls goTo null ist handelt es sich um den "Exit"-Button
                     Enterprise.getGame().getDataContainers().store();

@@ -17,9 +17,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by Yonas on 11.03.2016.
- */
 public class FightMenu extends MenuView implements GameComponent {
 
     private final Random random = new Random();
@@ -420,7 +417,7 @@ public class FightMenu extends MenuView implements GameComponent {
                     Enterprise.getGame().getDataManager().set("game.fight.maxDamage", max);
 
                     // Switch to Defense Game
-                    Enterprise.getGame().getViewManager().changeMenu(FightView.class, new DefenseMenu());
+                    Enterprise.getGame().getViewManager().switchMenu(FightView.class, new DefenseMenu());
                 }
             }
         }

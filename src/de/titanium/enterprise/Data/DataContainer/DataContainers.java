@@ -5,9 +5,6 @@ import de.titanium.enterprise.Enterprise;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Yonas on 31.03.2016.
- */
 public class DataContainers {
 
     private List<DataContainer> dataContainers = new ArrayList<>();

@@ -4,9 +4,6 @@ import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Created by Yonas on 13.04.2016.
- */
 public enum Sounds implements Sound {
 
     MUSIC_ONE {

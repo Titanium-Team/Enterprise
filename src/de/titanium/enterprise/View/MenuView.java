@@ -6,9 +6,6 @@ import de.titanium.enterprise.GameComponent;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by Yonas on 08.03.2016.
- */
 public abstract class MenuView extends JPanel implements GameComponent {
 
     public MenuView() {
