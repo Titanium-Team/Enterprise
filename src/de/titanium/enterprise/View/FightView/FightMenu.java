@@ -311,7 +311,30 @@ public class FightMenu extends MenuView implements GameComponent {
                 this.heroes[1].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboTwo);
                 this.heroes[2].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboThree);
 
-                double enemyDefense = enemy.calculateDefense(heroes[0], this.random.nextInt(900) + 197);
+                // Den Hero finden, der die höchste Combo hat.
+                LivingEntity max;
+
+                if(this.comboOne > this.comboTwo && this.comboOne > this.comboThree && this.heroes[0].isAlive()) {
+                    // Falls der erste Held am meisten Schaden gemacht hat.
+                    max = this.heroes[0];
+                } else if(this.comboTwo > this.comboOne && this.comboTwo > this.comboThree && this.heroes[1].isAlive()) {
+                    // Falls der zweite Held am meisten Schaden gemacht hat.
+                    max = this.heroes[1];
+                } else if(this.comboThree > this.comboOne && damageThree > this.comboTwo && this.heroes[2].isAlive()) {
+                    // Falls der dritte Held am meisten Schaden gemacht hat.
+                    max = this.heroes[2];
+                } else {
+
+                    // Sollten alle die gleichen Werte erricht haben, wird einfach ein zufaelliger ausgewaehlt.
+                    // @Idea: Eventuell ist der "Zufall" nicht balanced genug und man koennte ueberlegen, ob man eventuell
+                    // den nimmt der am meisten oder am wenigsten Leben noch hat.
+
+                    while(!(max = this.heroes[this.random.nextInt(this.heroes.length)]).isAlive()) {}
+
+                }
+
+                int level = Enterprise.getGame().getDataManager().get("game.run.level");
+                double enemyDefense = enemy.calculateDefense(max, this.random.nextInt(900 + 300 * level) + 197);
                 double totalDamage = (damageOne + damageTwo + damageThree);
 
                 Enterprise.getGame().getLogger().info(this.heroes[0].getName() + " -> " + damageOne + " -> Keys: " + this.comboOne);
@@ -375,10 +398,7 @@ public class FightMenu extends MenuView implements GameComponent {
                     this.comboTwo = 0;
                     this.comboThree = 0;
 
-                    // Wenn der Held stirbt, dann wird das Level um eins erhöht.
-                    if(!(Enterprise.getGame().getDataManager().contains("game.run.level"))) {
-                        Enterprise.getGame().getDataManager().set("game.run.level", 1);
-                    }
+                    // Wenn der Gegner stirbt, dann wird das Level um eins erhöht.
                     Enterprise.getGame().getDataManager().set("game.run.level", Enterprise.getGame().getDataManager().<Integer>get("game.run.level") + 1);
 
                     // @Improvement: Das hier ist erstmal provisorisch. Das Level das dem Generator uebergen wird, muss
@@ -391,36 +411,14 @@ public class FightMenu extends MenuView implements GameComponent {
 
                     enemy.getAnimationQueue().add(Animations.RANGER_DIE);
 
-                } else {
-
-                    // Den Hero setzten der den meisten Schaden gemacht hat.
-                    LivingEntity max;
-
-                    if(this.comboOne > this.comboTwo && this.comboOne > this.comboThree && this.heroes[0].isAlive()) {
-                        // Falls der erste Held am meisten Schaden gemacht hat.
-                        max = this.heroes[0];
-                    } else if(this.comboTwo > this.comboOne && this.comboTwo > this.comboThree && this.heroes[1].isAlive()) {
-                        // Falls der zweite Held am meisten Schaden gemacht hat.
-                        max = this.heroes[1];
-                    } else if(this.comboThree > this.comboOne && damageThree > this.comboTwo && this.heroes[2].isAlive()) {
-                        // Falls der dritte Held am meisten Schaden gemacht hat.
-                        max = this.heroes[2];
-                    } else {
-
-                        // Sollten alle die gleichen Werte erricht haben, wird einfach ein zufaelliger ausgewaehlt.
-                        // @Idea: Eventuell ist der "Zufall" nicht balanced genug und man koennte ueberlegen, ob man eventuell
-                        // den nimmt der am meisten oder am wenigsten Leben noch hat.
-
-                        while(!(max = this.heroes[this.random.nextInt(this.heroes.length)]).isAlive()) {}
-
-                    }
-
-                    // Nun den max-Damage-Hero noch global in den DataManager packe.
-                    Enterprise.getGame().getDataManager().set("game.fight.maxDamage", max);
-
-                    // Switch to Defense Game
-                    Enterprise.getGame().getViewManager().switchMenu(FightView.class, new DefenseMenu());
                 }
+
+                // Nun den max-Damage-Hero noch global in den DataManager packe.
+                Enterprise.getGame().getDataManager().set("game.fight.maxDamage", max);
+
+                // Switch to Defense Game
+                Enterprise.getGame().getViewManager().switchMenu(FightView.class, new DefenseMenu());
+
             }
         }
 
