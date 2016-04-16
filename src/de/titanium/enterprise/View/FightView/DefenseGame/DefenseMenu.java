@@ -160,9 +160,17 @@ public class DefenseMenu extends MenuView implements GameComponent {
                         // Den Score für den abgewerten Schaden updaten
                         hero.getGameStatistic().update(Statistics.DAMAGE_BLOCKED, this.tick);
 
+                        // Die Animation queuen
+                        if(damage > 0) {
+                            enemy.getAnimationQueue().add(Animations.RANGER_ATTACK);
+
+                            hero.getAnimationQueue().add(Animations.RANGER_IDLE);
+                            hero.getAnimationQueue().add(Animations.RANGER_BLOCK);
+                        }
+
                         // Das Leben von dem Helden abziehen
                         hero.setHealth(
-                                hero.getHealth() - damage
+                                Math.max(hero.getHealth() - damage, 0)
                         );
 
                         // Den Wert für den höchsten Defense-Score
@@ -215,6 +223,17 @@ public class DefenseMenu extends MenuView implements GameComponent {
                             heroes[0].setHealth(heroes[0].getMaxHealth());
                             heroes[1].setHealth(heroes[1].getMaxHealth());
                             heroes[2].setHealth(heroes[2].getMaxHealth());
+
+                            // Ab hier wird geprüft, ob neue Helden freigeschaltet wurden.
+                            LivingEntity[] types = Enterprise.getGame().getDataManager().get("game.heroes.types");
+                            for(LivingEntity entity : types) {
+
+                                if(!(entity.isUnlocked()) && tmpScore >= entity.getScoreToUnlock()) {
+                                    entity.setUnlocked(true);
+                                    Enterprise.getGame().getAchievementManager().add(Achievements.UNLOCKED_HERO, true, true);
+                                }
+
+                            }
 
                             // @Idea: Falls das nicht der Fall ist, dann wird der Game-End-Screen angezeigt.
                             // Aktuell wird man einfach noch ins Hauptmenue zurueckgebracht.

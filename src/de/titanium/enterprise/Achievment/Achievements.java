@@ -171,7 +171,7 @@ public enum Achievements implements Achievement {
 
         @Override
         public String getName() {
-            return "Hero!";
+            return "HERO FREIGESCHALTET";
         }
 
         @Override

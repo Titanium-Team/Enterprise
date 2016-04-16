@@ -10,8 +10,8 @@ import java.util.UUID;
 
 public class Warrior extends LivingEntity {
 
-    public Warrior(UUID identifier, String name, double health, double maxHealth, double dexterity, double attackValue, int skillPoints, boolean isUnlocked) {
-        super(identifier, Animations.RANGER_IDLE, name, health, maxHealth, dexterity, attackValue, skillPoints, isUnlocked);
+    public Warrior(UUID identifier, String name, double health, double maxHealth, double dexterity, double attackValue, int skillPoints, boolean isUnlocked, double scoreToUnlock) {
+        super(identifier, Animations.RANGER_IDLE, name, health, maxHealth, dexterity, attackValue, skillPoints, isUnlocked, scoreToUnlock);
     }
 
     @Override
