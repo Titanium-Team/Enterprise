@@ -84,7 +84,7 @@ public enum Skills implements Skill {
 
             if(entity instanceof Warrior) {
                 description.add("Maximales Leben wird");
-                description.add("um 8 erhoeht.");
+                description.add("um 10 erhoeht.");
             }
             if(entity instanceof Archer) {
                 description.add("Maximales Leben wird");
@@ -116,7 +116,7 @@ public enum Skills implements Skill {
         @Override
         public double getValue(LivingEntity entity, LivingEntity enemy) {
             if(entity instanceof Warrior){
-                return 8;
+                return 10;
             } else if (entity instanceof Archer) {
                 return 5;
             } else if (entity instanceof Rogue) {
@@ -438,7 +438,7 @@ public enum Skills implements Skill {
 
             description.add("");
             description.add("Besonders effektiv");
-            description.add("bei Archern.");
+            description.add("fuer Archer.");
 
             return description;
         }

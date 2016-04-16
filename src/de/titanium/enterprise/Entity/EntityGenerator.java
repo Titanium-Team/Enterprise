@@ -41,7 +41,8 @@ public class EntityGenerator {
                     this.random.nextInt(10) + 2,
                     this.random.nextInt(5 * level) + 6,
                     this.random.nextInt(level * 7) + 3,
-                    true
+                    true,
+                    -1
             );
 
             this.skill(entity, skills, null, skills, new int[] { 0, 1 }, new int[] { 2, 10 } );
@@ -58,7 +59,8 @@ public class EntityGenerator {
                     this.random.nextInt(10) + 5,
                     (10 + this.random.nextInt(7 * level)),
                     this.random.nextInt(level * 7) + 3,
-                    true
+                    true,
+                    -1
 
             );
 
@@ -78,7 +80,8 @@ public class EntityGenerator {
                     0,
                     this.random.nextInt(2 * level) + 1,
                     this.random.nextInt(level * 7) + 3,
-                    true
+                    true,
+                    -1
             );
 
             this.skill(entity, skills, null, skills, new int[] { 0, 8 }, new int[] { 9, 10 } );

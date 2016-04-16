@@ -478,9 +478,9 @@ public class HeroesView extends View {
 
                 if(hero instanceof Archer) {
                     Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes")[0] = hero;
-                } else if(hero instanceof Rogue) {
-                    Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes")[1] = hero;
                 } else if(hero instanceof Warrior) {
+                    Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes")[1] = hero;
+                } else if(hero instanceof Rogue) {
                     Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes")[2] = hero;
                 }
 
