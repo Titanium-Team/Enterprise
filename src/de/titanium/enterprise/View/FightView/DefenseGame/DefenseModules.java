@@ -68,9 +68,9 @@ public enum DefenseModules implements DefenseModule {
     },
     //Dies muss am Ende des Enums sein, weil es nur am Start aufgerufen werden soll und nicht zufaellig.
     START {
+
         @Override
         public Rectangle[] getRectangles(int x, int space, int width, int height) {
-
 
             Rectangle[] rectangles = new Rectangle[22];
 
@@ -90,6 +90,7 @@ public enum DefenseModules implements DefenseModule {
             rectangles[21] = new Rectangle(x + 200, height + space, width - 200, 140 - (space + height));
 
             return rectangles;
+
         }
     }
 

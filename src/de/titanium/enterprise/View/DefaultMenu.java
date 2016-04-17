@@ -24,8 +24,8 @@ public class DefaultMenu extends MenuView {
 
         g.drawImage(Textures.DEFAULT_BACKGROUND.getImage(), 0, 0, null, null);
 
-        //draw him walking
-        g.drawImage(this.animator.getFrame(), this.x, 3, (int) (this.animator.getType().getWidth() * 0.85), (int) (this.animator.getType().getHeight() * 0.85), null);
+        // draw hero
+        g.drawImage(this.animator.getFrame().getScaledInstance((int) (this.animator.getType().getWidth() * 0.5), (int) (this.animator.getType().getHeight() * 0.5), 0), this.x, 30, null);
 
         //Border
         g.drawImage(Textures.BORDER_DOWN.getImage(), 0, 0, null, null);
