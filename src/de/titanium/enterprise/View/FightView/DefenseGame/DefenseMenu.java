@@ -203,7 +203,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
                             Enterprise.getGame().getDataManager().set("game.tmp.score", Double.class);
                         }
 
-                        Enterprise.getGame().getDataManager().set("game.tmp.score", Enterprise.getGame().getDataManager().<Double>get("game.tmp.score").doubleValue() + (this.tick / 100));
+                        Enterprise.getGame().getDataManager().set("game.tmp.score", Enterprise.getGame().getDataManager().<Double>get("game.tmp.score").doubleValue() + (this.tick / 300));
 
                         if(allDead) {
 

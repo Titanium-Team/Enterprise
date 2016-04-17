@@ -387,7 +387,7 @@ public class FightMenu extends MenuView implements GameComponent {
                     Enterprise.getGame().getDataManager().set("game.tmp.score", 0.0D);
                 }
 
-                Enterprise.getGame().getDataManager().set("game.tmp.score", Enterprise.getGame().getDataManager().<Double>get("game.tmp.score").doubleValue() + totalDamage);
+                Enterprise.getGame().getDataManager().set("game.tmp.score", Enterprise.getGame().getDataManager().<Double>get("game.tmp.score").doubleValue() + totalDamage * Enterprise.getGame().getDataManager().<Integer>get("game.run.level"));
 
                 if(!(enemy.isAlive())) {
 
