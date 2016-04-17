@@ -45,3 +45,7 @@ crashlytics-build.properties
 fabric.properties
 
 .class
+
+out/
+
+Enterprise.iml

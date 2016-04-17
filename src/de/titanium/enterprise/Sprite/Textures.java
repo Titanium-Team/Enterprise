@@ -59,7 +59,7 @@ public enum Textures implements Texture {
 
         @Override
         public void load() {
-            this.image = Textures.loadImage("/assets/default-background.jpg");
+            this.image = Textures.loadImage("/assets/default-background.png");
         }
 
         @Override
