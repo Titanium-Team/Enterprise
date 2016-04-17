@@ -82,7 +82,7 @@ public class Enterprise {
         this.viewManager.switchView(LoadingView.class);
 
         // DataContainer
-        this.dataContainers.add(new EntitiesContainer());
+        this.dataContainers.add(new EntityContainer());
         this.dataContainers.add(new AchievementContainer());
         this.dataContainers.add(new SettingsContainer());
         this.dataContainers.add(new HighscoreContainer());

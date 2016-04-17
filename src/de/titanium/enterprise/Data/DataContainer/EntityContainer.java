@@ -15,9 +15,9 @@ import de.titanium.enterprise.Skill.Skills;
 
 import java.util.UUID;
 
-public class EntitiesContainer implements DataContainer {
+public class EntityContainer implements DataContainer {
 
-    public EntitiesContainer() {}
+    public EntityContainer() {}
 
     @Override
     public String getName() {
