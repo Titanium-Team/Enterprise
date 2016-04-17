@@ -1,8 +1,9 @@
 package de.titanium.enterprise.Sprite.Animation;
 
+import de.titanium.enterprise.Enterprise;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 public enum Animations implements Animation {
@@ -20,7 +21,7 @@ public enum Animations implements Animation {
         @Override
         public void load() {
 
-            BufferedImage image = Animations.loadImage("./assets/animations/ranger_attack_animation.png");
+            BufferedImage image = Animations.loadImage("/assets/animations/ranger_attack_animation.png");
 
             int x = 0;
             for (int i = 0; i < 26; i++) {
@@ -66,7 +67,7 @@ public enum Animations implements Animation {
         @Override
         public void load() {
 
-            BufferedImage image = Animations.loadImage("./assets/animations/ranger_idle_animation.png");
+            BufferedImage image = Animations.loadImage("/assets/animations/ranger_idle_animation.png");
 
             int x = 0;
             for (int i = 0; i < 30; i++) {
@@ -113,7 +114,7 @@ public enum Animations implements Animation {
         @Override
         public void load() {
 
-            BufferedImage image = Animations.loadImage("./assets/animations/ranger_die_animation.png");
+            BufferedImage image = Animations.loadImage("/assets/animations/ranger_die_animation.png");
 
             for (int i = 0; i < 22; i++) {
                 this.frames[i] = image.getSubimage(i * 652, 1, 650, 568);
@@ -149,7 +150,7 @@ public enum Animations implements Animation {
         @Override
         public void load() {
 
-            BufferedImage image = Animations.loadImage("./assets/animations/ranger_block_animation.png");
+            BufferedImage image = Animations.loadImage("/assets/animations/ranger_block_animation.png");
 
             for (int i = 0; i < 25; i++) {
                 this.frames[i] = image.getSubimage(i * 449, 1, 447, 456);
@@ -184,7 +185,7 @@ public enum Animations implements Animation {
         @Override
         public void load() {
 
-            BufferedImage image = Animations.loadImage("./assets/animations/ranger_walk_animation.png");
+            BufferedImage image = Animations.loadImage("/assets/animations/ranger_walk_animation.png");
 
             int x = 0;
             for (int i = 0; i < 25; i++) {
@@ -228,7 +229,7 @@ public enum Animations implements Animation {
         @Override
         public void load() {
 
-            BufferedImage image = Animations.loadImage("./assets/animations/archer_idle_animation.png");
+            BufferedImage image = Animations.loadImage("/assets/animations/archer_idle_animation.png");
 
             int x = 0;
             for (int i = 0; i < 30; i++) {
@@ -264,7 +265,7 @@ public enum Animations implements Animation {
 
     private static BufferedImage loadImage(String path) {
         try {
-            return ImageIO.read(new File(path));
+            return ImageIO.read(Enterprise.class.getResource(path));
         } catch (IOException e) {
             e.printStackTrace();
         }

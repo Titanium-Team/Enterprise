@@ -1,7 +1,8 @@
 package de.titanium.enterprise.Sound;
 
+import de.titanium.enterprise.Enterprise;
+
 import javax.sound.sampled.*;
-import java.io.File;
 import java.io.IOException;
 
 public enum Sounds implements Sound {
@@ -22,7 +23,7 @@ public enum Sounds implements Sound {
 
         @Override
         public void load() {
-            this.clip = Sounds.loadSound("./assets/sounds/track 2.wav");
+            this.clip = Sounds.loadSound("/assets/sounds/track 2.wav");
         }
 
     };
@@ -31,7 +32,7 @@ public enum Sounds implements Sound {
 
         try {
 
-            AudioInputStream stream = AudioSystem.getAudioInputStream(new File(path));
+            AudioInputStream stream = AudioSystem.getAudioInputStream(Enterprise.class.getResource(path));
 
             Clip clip = AudioSystem.getClip();
             clip.open(stream);
