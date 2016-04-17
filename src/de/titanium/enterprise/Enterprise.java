@@ -77,9 +77,6 @@ public class Enterprise {
 
         // Datenbank
         File path = new File(System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "Enterprise-Game");
-        if(!(path.exists())) {
-            path.mkdirs();
-        }
 
         this.database = new SweetDB(path.getAbsolutePath(), "entityTypes", "achievements", "settings", "highscores");
         this.database.debugging(true);
@@ -154,12 +151,6 @@ public class Enterprise {
      */
     public Map<RenderingHints.Key, Object> getRenderingHints() {
         return this.renderingHints;
-    }
-
-    public static void main(String[] args) {
-
-        new Enterprise();
-
     }
 
     /**
