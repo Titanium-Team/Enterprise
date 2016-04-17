@@ -21,10 +21,6 @@ public class AnimationQueue {
     public void add(Animation animation) {
 
         Animator animator = animation.createAnimator();
-        if(this.current == null) {
-            this.current = animator;
-        }
-
         this.animators.offer(animator);
 
     }
@@ -39,23 +35,18 @@ public class AnimationQueue {
      */
     public Animator element() {
 
-        // @Watch: Es gab eine NoSuchElementException bei this.animations.element(), obwohl vorher geprueft
-        // wurde, ob die Queue leer ist. Sollte druch das "synchronized" geloest werden, ist aber nicht 100%ig sicher.
-        synchronized (this.animators) {
-
-            if (this.current == null) {
+        if (this.current == null) {
+            this.current = this.defaultAnimation.createAnimator();
+        } else if (this.current.getIndex() + 1 == this.current.getAmount()) {
+            if (this.animators.isEmpty()) {
                 this.current = this.defaultAnimation.createAnimator();
-            } else if (this.current.getIndex() + 1 == this.current.getAmount()) {
-                if (this.animators.isEmpty()) {
-                    this.current = this.defaultAnimation.createAnimator();
-                } else {
-                    this.current = this.animators.element();
-                }
-                this.animators.poll();
+            } else {
+                this.current = this.animators.element();
             }
-
-            return this.current;
+            this.animators.poll();
         }
+
+        return this.current;
 
     }
 

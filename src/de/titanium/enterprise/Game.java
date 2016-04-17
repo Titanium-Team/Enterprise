@@ -56,7 +56,7 @@ public class Game {
                 System.out.println("");
                 System.out.println("1. Ersetze die aktuelle \"Enterprise.jar\" mit der neusten \"Enterprise.jar\".");
                 System.out.println("2. Entferne die \"version.json\" Datei.");
-                System.out.println("3. Bei Fehlern muss ggf. der komplette Enterpirse-Game Ordner auf deinem Desktop geloescht werden.");
+                System.out.println("3. Bei Fehlern muss ggf. der komplette Enterprise-Game Ordner auf deinem Desktop geloescht werden.");
                 System.out.println("------------------------------------------------------");
 
             }
