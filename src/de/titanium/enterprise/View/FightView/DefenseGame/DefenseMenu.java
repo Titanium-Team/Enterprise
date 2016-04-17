@@ -1,5 +1,6 @@
 package de.titanium.enterprise.View.FightView.DefenseGame;
 
+import de.titanium.enterprise.Achievment.Achievement;
 import de.titanium.enterprise.Achievment.Achievements;
 import de.titanium.enterprise.Data.BinarySearchTree;
 import de.titanium.enterprise.Data.Datas.Score;
@@ -10,6 +11,7 @@ import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.Entity.Statistic.Statistics;
 import de.titanium.enterprise.GameComponent;
 import de.titanium.enterprise.Sprite.Animation.Animations;
+import de.titanium.enterprise.Sprite.Texture;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.FightView.FightMenu;
 import de.titanium.enterprise.View.FightView.FightView;
@@ -228,11 +230,28 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
                             // Ab hier wird geprüft, ob neue Helden freigeschaltet wurden.
                             LivingEntity[] types = Enterprise.getGame().getDataManager().get("game.heroes.types");
-                            for(LivingEntity entity : types) {
+                            for(final LivingEntity entity : types) {
 
                                 if(!(entity.isUnlocked()) && tmpScore >= entity.getScoreToUnlock()) {
                                     entity.setUnlocked(true);
-                                    Enterprise.getGame().getAchievementManager().add(Achievements.UNLOCKED_HERO, true, true);
+                                    Enterprise.getGame().getAchievementManager().add(new Achievement() {
+
+                                        @Override
+                                        public String getName() {
+                                            return String.format("%s freigeschaltet.", entity.getName());
+                                        }
+
+                                        @Override
+                                        public String getDescription() {
+                                            return "Hero Unlocked.";
+                                        }
+
+                                        @Override
+                                        public Texture getTexture() {
+                                            return Textures.ACHIEVEMENT_ICON_LOCKER;
+                                        }
+
+                                    }, true, true);
                                 }
 
                             }

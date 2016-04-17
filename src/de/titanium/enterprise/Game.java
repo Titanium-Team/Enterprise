@@ -32,6 +32,8 @@ public class Game {
         // Die aktuelle Version auslesen
         String readableVersion = Game.getCurrentVersion();
 
+        boolean updateAvailable = false;
+
         if(readableVersion.equalsIgnoreCase("vunknown")) {
 
             Game.writeVersionToFile(latestVersion);
@@ -44,6 +46,9 @@ public class Game {
             if(latest == installed) {
                 System.out.println("[Enterprise] Du hast bereits die neuste Version.");
             } else {
+
+                updateAvailable = true;
+
                 System.out.println("-------------------[Enterprise]-----------------------");
                 System.out.println("Du hast aktuelle die Version " + readableVersion + " installiert, es steht aber bereits Version " + latestVersion + " bereit.");
                 System.out.println("Die neue Version kannst du hier downloaden.");
@@ -57,7 +62,7 @@ public class Game {
         }
 
         // Das Spiel an sich starten
-        new Enterprise();
+        new Enterprise(latestVersion, updateAvailable);
 
     }
 

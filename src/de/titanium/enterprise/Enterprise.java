@@ -1,6 +1,7 @@
 package de.titanium.enterprise;
 
 import de.SweetCode.SweetDB.SweetDB;
+import de.titanium.enterprise.Achievment.Achievement;
 import de.titanium.enterprise.Achievment.AchievementManager;
 import de.titanium.enterprise.Achievment.Achievements;
 import de.titanium.enterprise.Data.DataContainer.*;
@@ -10,6 +11,7 @@ import de.titanium.enterprise.Loading.LoadingManager;
 import de.titanium.enterprise.Sound.SoundPlayer;
 import de.titanium.enterprise.Sound.Sounds;
 import de.titanium.enterprise.Sprite.Animation.Animations;
+import de.titanium.enterprise.Sprite.Texture;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.DefaultMenu;
 import de.titanium.enterprise.View.FightView.FightMenu;
@@ -59,9 +61,10 @@ public class Enterprise {
 
     private static Enterprise game;
 
-    public Enterprise() {
+    public Enterprise(final String latestVersion, boolean updateAvailable) {
 
         Enterprise.game = this;
+
 
         // Datenbank
         File path = new File(System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "Enterprise-Game");
@@ -116,6 +119,25 @@ public class Enterprise {
 
         // @Achievement
         this.achievementManager.add(Achievements.WELCOME);
+
+        if(updateAvailable) {
+            this.achievementManager.add(new Achievement() {
+                @Override
+                public String getName() {
+                    return String.format("Version %s ist da.", latestVersion);
+                }
+
+                @Override
+                public String getDescription() {
+                    return "Update available.";
+                }
+
+                @Override
+                public Texture getTexture() {
+                    return Textures.ACHIEVEMENT_ICON_WOODS;
+                }
+            }, true, true);
+        }
 
         //start game
         this.start();

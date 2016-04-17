@@ -163,27 +163,6 @@ public enum Achievements implements Achievement {
             return Textures.ACHIEVEMENT_ICON_WINNER;
         }
 
-    },
-    UNLOCKED_HERO {
-
-        // Ist kein echtes Achievement. Es wird nur dazu genutzt, um zu zeigen das es einen neuen
-        // Helden gibt.
-
-        @Override
-        public String getName() {
-            return "HERO FREIGESCHALTET";
-        }
-
-        @Override
-        public String getDescription() {
-            return "Du hast einen neuen Helden freigeschaltet.";
-        }
-
-        @Override
-        public Texture getTexture() {
-            return Textures.ACHIEVEMENT_ICON_LOCKER;
-        }
-
     };
 
     public static Achievement byName(String name) {
