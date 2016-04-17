@@ -50,7 +50,7 @@ public class Game {
                 updateAvailable = true;
 
                 System.out.println("-------------------[Enterprise]-----------------------");
-                System.out.println("Du hast aktuelle die Version " + readableVersion + " installiert, es steht aber bereits Version " + latestVersion + " bereit.");
+                System.out.println("Du hast aktuell die Version " + readableVersion + " installiert, es steht aber bereits Version " + latestVersion + " bereit.");
                 System.out.println("Die neue Version kannst du hier downloaden.");
                 System.out.println(githubData.get("assets").getAsJsonArray().get(0).getAsJsonObject().get("browser_download_url").getAsString());
                 System.out.println("");
