@@ -70,6 +70,18 @@ public class Animator {
         return this.textures[this.currentFrame];
     }
 
+    /**
+     * Setzt den Index des aktuellen Frames.
+     * @param index
+     */
+    public void setIndex(int index) {
+        if(index < 0 || index >= this.textures.length) {
+            throw new IndexOutOfBoundsException(String.format("Index out of bounds (%d >= 0 || %d < %d).", index, index, this.textures.length));
+        }
+
+        this.currentFrame = index;
+    }
+
     @Override
     public String toString() {
         return String.format(

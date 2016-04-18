@@ -10,7 +10,7 @@ public enum Animations implements Animation {
 
     RANGER_ATTACK {
 
-        private final BufferedImage[] frames = new BufferedImage[52];
+        private BufferedImage[] frames = new BufferedImage[52];
 
 
         @Override
@@ -57,7 +57,7 @@ public enum Animations implements Animation {
     },
     RANGER_IDLE {
 
-        private final BufferedImage[] frames = new BufferedImage[60];
+        private BufferedImage[] frames = new BufferedImage[60];
 
         @Override
         public String getName() {
@@ -104,7 +104,7 @@ public enum Animations implements Animation {
     },
     RANGER_DIE {
 
-        private final BufferedImage[] frames = new BufferedImage[22];
+        private BufferedImage[] frames = new BufferedImage[22];
 
         @Override
         public String getName() {
@@ -140,7 +140,7 @@ public enum Animations implements Animation {
     },
     RANGER_BLOCK {
 
-        private final BufferedImage[] frames = new BufferedImage[25];
+        private BufferedImage[] frames = new BufferedImage[25];
 
         @Override
         public String getName() {
@@ -175,7 +175,7 @@ public enum Animations implements Animation {
     },
     RANGER_WALK {
 
-        private final BufferedImage[] frames = new BufferedImage[50];
+        private BufferedImage[] frames = new BufferedImage[50];
 
         @Override
         public String getName() {
@@ -219,7 +219,7 @@ public enum Animations implements Animation {
     },
     ARCHER_IDLE {
 
-        private final BufferedImage[] frames = new BufferedImage[60];
+        private BufferedImage[] frames = new BufferedImage[60];
 
         @Override
         public String getName() {
@@ -264,7 +264,7 @@ public enum Animations implements Animation {
     },
     TORCH {
 
-        private final BufferedImage[] frames = new BufferedImage[9];
+        private BufferedImage[] frames = new BufferedImage[9];
 
         @Override
         public String getName() {
