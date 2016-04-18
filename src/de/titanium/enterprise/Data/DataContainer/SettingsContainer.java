@@ -40,12 +40,6 @@ public class SettingsContainer implements DataContainer {
                 .add("value", Enterprise.getGame().getGameView().getFrame().getGraphicsConfiguration().getDevice().getIDstring())
                 .build();
 
-        // Hier wird der Wert für die Lautstärke gespeichert.
-        table.insert()
-                .add("name", "musicVolume")
-                .add("value", String.valueOf(Enterprise.getGame().getSoundPlayer().getVolume()))
-                .build();
-
     }
 
     @Override
@@ -191,13 +185,6 @@ public class SettingsContainer implements DataContainer {
                         }
 
 
-
-                    }
-                    break;
-
-                    case "musicvolume": {
-
-                        Enterprise.getGame().getSoundPlayer().updateVolume(Double.valueOf(value));
 
                     }
                     break;

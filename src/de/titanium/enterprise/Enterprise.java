@@ -8,8 +8,6 @@ import de.titanium.enterprise.Data.DataContainer.*;
 import de.titanium.enterprise.Data.DataManager;
 import de.titanium.enterprise.Entity.EntityGenerator;
 import de.titanium.enterprise.Loading.LoadingManager;
-import de.titanium.enterprise.Sound.SoundPlayer;
-import de.titanium.enterprise.Sound.Sounds;
 import de.titanium.enterprise.Sprite.Animation.Animations;
 import de.titanium.enterprise.Sprite.Texture;
 import de.titanium.enterprise.Sprite.Textures;
@@ -50,9 +48,6 @@ public class Enterprise {
     private final TextBuilder textBuilder = new TextBuilder();
     private final AchievementManager achievementManager = new AchievementManager();
     private final EntityGenerator entityGenerator = new EntityGenerator();
-
-    // Music
-    private final SoundPlayer soundPlayer = new SoundPlayer();
 
     // Database
     private final DataContainers dataContainers = new DataContainers();
@@ -95,13 +90,8 @@ public class Enterprise {
         this.loadingManager.add(this.dataContainers.values());
         this.loadingManager.add(Textures.values());
         this.loadingManager.add(Animations.values());
-        this.loadingManager.add(Sounds.values());
 
         this.loadingManager.load();
-
-        // Den Music Thread starten
-        this.soundPlayer.add(Sounds.MUSIC_ONE);
-        this.soundPlayer.start();
 
         //default menu
         DefaultMenu defaultMenu = new DefaultMenu();
@@ -296,15 +286,6 @@ public class Enterprise {
      */
     public EntityGenerator getEntityGenerator() {
         return this.entityGenerator;
-    }
-
-
-    /**
-     * Gibt den aktuellen SoundPlayer zurück.
-     * @return
-     */
-    public SoundPlayer getSoundPlayer() {
-        return this.soundPlayer;
     }
 
     /**

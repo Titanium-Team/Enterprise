@@ -16,7 +16,7 @@ public class Game {
     private static final Gson gson = new Gson();
     private static final File path = new File(System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "Enterprise-Game");
 
-    private static final String currentVersion = "v0.7";
+    private static final String currentVersion = "v0.8";
 
     public static void main(String[] args) throws IOException {
 
@@ -49,13 +49,19 @@ public class Game {
                     JsonObject asset = assets.get(0).getAsJsonObject();
 
                     if(asset.get("content_type").getAsString().equalsIgnoreCase("application/java-archive")) {
+
+                        String body = githubData.get("body").getAsString();
+
                         Game.log(
                                 String.format("Du hast aktuell die Version %s installiert, es steht aber bereits Version %s bereit.", Game.currentVersion, latestVersion),
                                 "",
                                 "Die neue Version kannst du hier downloaden.",
                                 String.format("Link: %s", asset.get("browser_download_url").getAsString()),
                                 String.format("File-Size: %s", FileUtils.byteCountToDisplaySize(asset.get("size").getAsInt())),
-                                String.format("Downloads: %d", asset.get("download_count").getAsInt())
+                                String.format("Downloads: %d", asset.get("download_count").getAsInt()),
+                                "",
+                                "Change-Log: ",
+                                body
                         );
                     } else {
                         Game.log(
@@ -93,7 +99,6 @@ public class Game {
         }
 
     }
-
     private static void log(String... lines) {
         System.out.println("-------------------[Enterprise]-----------------------");
         for(String line : lines) System.out.println(line);
