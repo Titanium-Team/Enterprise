@@ -24,29 +24,39 @@ public class Game {
         }
 
         // Die Daten von GitHub laden
-        JsonObject githubData = Game.gson.fromJson(new String(IOUtils.toString(new URL("https://api.github.com/repos/Titanium-Team/Enterprise/releases/latest"), StandardCharsets.UTF_8)), JsonObject.class);
-        String latestVersion = githubData.get("tag_name").getAsString();
+        try {
+            JsonObject githubData = Game.gson.fromJson(new String(IOUtils.toString(new URL("https://api.github.com/repos/Titanium-Team/Enterprise/releases/latest"), StandardCharsets.UTF_8)), JsonObject.class);
+            String latestVersion = githubData.get("tag_name").getAsString();
 
-        boolean updateAvailable = false;
-        double installed = Double.valueOf(Game.currentVersion.substring(1, Game.currentVersion.length()));
-        double latest = Double.valueOf(latestVersion.substring(1, latestVersion.length()));
+            boolean updateAvailable = false;
+            double installed = Double.valueOf(Game.currentVersion.substring(1, Game.currentVersion.length()));
+            double latest = Double.valueOf(latestVersion.substring(1, latestVersion.length()));
 
-        if(latest == installed) {
-            System.out.println("[Enterprise] Du hast bereits die neuste Version.");
-        } else {
+            if (latest == installed) {
+                System.out.println("[Enterprise] Du hast bereits die neuste Version " + Game.currentVersion + ".");
+            } else {
 
-            updateAvailable = true;
+                updateAvailable = true;
+
+                System.out.println("-------------------[Enterprise]-----------------------");
+                System.out.println("Du hast aktuell die Version " + Game.currentVersion + " installiert, es steht aber bereits Version " + latestVersion + " bereit.");
+                System.out.println("Die neue Version kannst du hier downloaden.");
+                System.out.println(githubData.get("assets").getAsJsonArray().get(0).getAsJsonObject().get("browser_download_url").getAsString());
+                System.out.println("------------------------------------------------------");
+
+            }
+
+            // Das Spiel an sich starten
+            new Enterprise(latestVersion, updateAvailable);
+        } catch (IOException exception) {
 
             System.out.println("-------------------[Enterprise]-----------------------");
-            System.out.println("Du hast aktuell die Version " + Game.currentVersion + " installiert, es steht aber bereits Version " + latestVersion + " bereit.");
-            System.out.println("Die neue Version kannst du hier downloaden.");
-            System.out.println(githubData.get("assets").getAsJsonArray().get(0).getAsJsonObject().get("browser_download_url").getAsString());
+            System.out.println("Bei der Abfrage nach einer neuen Version ist ein Fehler aufgetreten.");
+            System.out.println("Sie verwenden aktuell die Version: " + Game.currentVersion);
             System.out.println("------------------------------------------------------");
+            new Enterprise(Game.currentVersion, false);
 
         }
-
-        // Das Spiel an sich starten
-        new Enterprise(latestVersion, updateAvailable);
 
     }
 

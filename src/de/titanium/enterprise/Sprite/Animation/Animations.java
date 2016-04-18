@@ -261,6 +261,43 @@ public enum Animations implements Animation {
             return 126;
         }
 
+    },
+    TORCH {
+
+        private final BufferedImage[] frames = new BufferedImage[9];
+
+        @Override
+        public String getName() {
+            return "Torch Animation";
+        }
+
+        @Override
+        public void load() {
+
+            BufferedImage image = Animations.loadImage("/assets/animations/animated_torch.png");
+
+            for(int i = 0; i < 9; i++) {
+                this.frames[i] = image.getSubimage(i * 32, 0, 32, 64);
+            }
+
+        }
+
+        @Override
+        public Animator createAnimator() {
+            return new Animator(this, this.frames, 4);
+        }
+
+        @Override
+        public int getHeight() {
+            return 32;
+        }
+
+
+        @Override
+        public int getWidth() {
+            return 288;
+        }
+
     };
 
     private static BufferedImage loadImage(String path) {
