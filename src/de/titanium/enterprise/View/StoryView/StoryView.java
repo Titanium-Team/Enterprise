@@ -95,10 +95,10 @@ public class StoryView extends View {
                     this.currentLine = 0;
                 }
 
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_A) && (this.story.size()-1) > this.currentChapter) { //naechstes kapitel
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_D) && (this.story.size()-1) > this.currentChapter) { //naechstes kapitel
                 this.currentChapter++;
                 this.currentLine = 0;
-            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_D) && this.currentChapter > 0) { //vorheriges kapitel
+            } else if(Enterprise.getGame().getKeyManager().isPressed(KeyEvent.VK_A) && this.currentChapter > 0) { //vorheriges kapitel
                 this.currentChapter--;
                 this.currentLine = Math.max(this.story.get(chapters[this.currentChapter]).size() - this.maxLines, 0);
             }
