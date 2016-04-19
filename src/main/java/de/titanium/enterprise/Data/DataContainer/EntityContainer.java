@@ -89,7 +89,7 @@ public class EntityContainer implements DataContainer {
         Enterprise.getGame().getDataManager().set("game.run.level", 1);
         Enterprise.getGame().getDataManager().set("game.enemy", Enterprise.getGame().getEntityGenerator().generate(1));
 
-        // Falls die Tabelle existiert, dann können die Entities geladen werden.
+        // Falls die Tabelle existiert, dann koennen die Entities geladen werden.
         if(tableOptional.isPresent()) {
 
             Table table = tableOptional.get();
@@ -132,7 +132,7 @@ public class EntityContainer implements DataContainer {
 
                 }
 
-                // Alle Skills wieder hinzufügen, die bereits freigeschaltet wurden.
+                // Alle Skills wieder hinzufuegen, die bereits freigeschaltet wurden.
                 String[] explodedSkills = unlockedSkills.split(";");
                 for(String skillName : explodedSkills) {
 
@@ -144,11 +144,11 @@ public class EntityContainer implements DataContainer {
 
                 }
 
-                // Das Entity hinzufügen
+                // Das Entity hinzufuegen
                 int index = dataSet.get("index").get().as(DataTypes.INTEGER);
                 Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes.types")[index] = entity;
 
-                // Wenn es auch ein ausgewählter Held ist, dann wird dieser auch dem Hero Array hinzugefügt.
+                // Wenn es auch ein ausgewaehlter Held ist, dann wird dieser auch dem Hero Array hinzugefuegt.
                 if(dataSet.get("selectedValue").get().as(DataTypes.BOOLEAN)) {
                     int i = dataSet.get("selectedIndex").get().as(DataTypes.INTEGER);
                     Enterprise.getGame().getDataManager().<LivingEntity[]>get("game.heroes")[i] = entity;

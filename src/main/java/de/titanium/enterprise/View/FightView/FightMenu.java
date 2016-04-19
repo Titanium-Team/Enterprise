@@ -311,7 +311,7 @@ public class FightMenu extends MenuView implements GameComponent {
                 this.heroes[1].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboTwo);
                 this.heroes[2].getGameStatistic().update(Statistics.LONGEST_KEY_STREAK, this.comboThree);
 
-                // Den Hero finden, der die höchste Combo hat.
+                // Den Hero finden, der die hoechste Combo hat.
                 LivingEntity max;
 
                 if(this.comboOne > this.comboTwo && this.comboOne > this.comboThree && this.heroes[0].isAlive()) {
@@ -398,7 +398,7 @@ public class FightMenu extends MenuView implements GameComponent {
                     this.comboTwo = 0;
                     this.comboThree = 0;
 
-                    // Wenn der Gegner stirbt, dann wird das Level um eins erhöht.
+                    // Wenn der Gegner stirbt, dann wird das Level um eins erhoeht.
                     Enterprise.getGame().getDataManager().set("game.run.level", Enterprise.getGame().getDataManager().<Integer>get("game.run.level") + 1);
 
                     // @Improvement: Das hier ist erstmal provisorisch. Das Level das dem Generator uebergen wird, muss

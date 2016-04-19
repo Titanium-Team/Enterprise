@@ -34,7 +34,7 @@ public class SettingsContainer implements DataContainer {
 
         }
 
-        // Hier wird der ausgewählte Monitor gespeichert.
+        // Hier wird der ausgewaehlte Monitor gespeichert.
         table.insert()
                 .add("name", "display")
                 .add("value", Enterprise.getGame().getGameView().getFrame().getGraphicsConfiguration().getDevice().getIDstring())
@@ -49,7 +49,7 @@ public class SettingsContainer implements DataContainer {
 
         if (tableOptional.isPresent()) {
 
-            // Die Tabelle existiert, die Daten können geladen werden
+            // Die Tabelle existiert, die Daten koennen geladen werden
             Table table = tableOptional.get();
 
             for (DataSet dataSet : table.all()) {

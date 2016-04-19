@@ -53,7 +53,7 @@ public class Game {
             if (Game.currentVersion.equals(latestVersion)) {
                 Game.log(
                         String.format("Du hast bereits die neuste Version %s.", Game.currentVersion.toString()),
-                        "Viel Spaﬂ beim Spielen."
+                        "Viel Spass beim Spielen."
                 );
             } else if(latestVersion.greaterThan(Game.currentVersion)) {
 

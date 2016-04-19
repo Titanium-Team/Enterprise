@@ -51,7 +51,7 @@ public class AnimationQueue {
     }
 
     /**
-     * Gibt die defaultAnimation der Queue zurück.
+     * Gibt die defaultAnimation der Queue zurueck.
      * @return
      */
     public Animation getDefaultAnimation() {

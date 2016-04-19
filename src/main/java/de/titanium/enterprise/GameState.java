@@ -3,12 +3,12 @@ package de.titanium.enterprise;
 public enum GameState {
 
     /**
-     * Wenn die aktuellen Rendering-Calls ausgeführt werden, im Game-Loop.
+     * Wenn die aktuellen Rendering-Calls ausgefuehrt werden, im Game-Loop.
      */
     RENDER,
 
     /**
-     * Wenn die Update-Calls ausgeführt werden, im Game-Loop.
+     * Wenn die Update-Calls ausgefuehrt werden, im Game-Loop.
      */
     UPDATE,
 

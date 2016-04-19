@@ -50,7 +50,7 @@ public class KeyManager extends KeyAdapter {
     }
 
     /**
-     * Gibt true zurück, wenn aktuell irgendeine Taste gedrückt wird.
+     * Gibt true zurueck, wenn aktuell irgendeine Taste gedrueckt wird.
      * @return
      */
     public boolean isPressed() {
@@ -58,7 +58,7 @@ public class KeyManager extends KeyAdapter {
     }
 
     /**
-     * Gibt den aktullen Key-Code der gedrückten Taste zurück.
+     * Gibt den aktullen Key-Code der gedrueckten Taste zurueck.
      * @return
      */
     public int getKeyCode() {

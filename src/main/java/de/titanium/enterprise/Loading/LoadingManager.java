@@ -54,7 +54,7 @@ public class LoadingManager {
     }
 
     /**
-     * Gibt true zurück, wenn der LoadingManager fertig mit laden ist, ansonsten false.
+     * Gibt true zurueck, wenn der LoadingManager fertig mit laden ist, ansonsten false.
      * @return
      */
     public boolean isDone() {
@@ -62,7 +62,7 @@ public class LoadingManager {
     }
 
     /**
-     * Gibt den "Index" des aktuellen Elements zurück.
+     * Gibt den "Index" des aktuellen Elements zurueck.
      * @return
      */
     public int getCurrentIndex() {
@@ -70,7 +70,7 @@ public class LoadingManager {
     }
 
     /**
-     * Gibt die gesammte Größe der Liste zurück.
+     * Gibt die gesammte Groesse der Liste zurueck.
      * @return
      */
     public int getSize() {

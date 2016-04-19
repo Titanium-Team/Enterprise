@@ -140,7 +140,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
                         LivingEntity enemy = Enterprise.getGame().getDataManager().get("game.enemy");
                         LivingEntity hero = Enterprise.getGame().getDataManager().get("game.fight.maxDamage");
 
-                        // Hier wird festgelegt wie hoch die KeyStreak ist und für den Rogue gelten besondere
+                        // Hier wird festgelegt wie hoch die KeyStreak ist und fuer den Rogue gelten besondere
                         // Regeln.
                         int keyStreak = this.random.nextInt(30) + 1;
                         double damage = enemy.calculateDamage(hero, keyStreak);
@@ -161,7 +161,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
                         Enterprise.getGame().getLogger().info("Defense Value Player -> " + defense + " Final Damage -> " + damage);
 
-                        // Den Score für den abgewerten Schaden updaten
+                        // Den Score fuer den abgewerten Schaden updaten
                         hero.getGameStatistic().update(Statistics.DAMAGE_BLOCKED, this.tick);
 
                         // Die Animation queuen
@@ -177,7 +177,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
                                 Math.max(hero.getHealth() - damage, 0)
                         );
 
-                        // Den Wert für den höchsten Defense-Score
+                        // Den Wert fuer den hoechsten Defense-Score
                         hero.getGameStatistic().update(Statistics.HIGHEST_DEFENSE_SCORE, this.tick);
 
                         // Falls der Held gestorben ist.
@@ -228,7 +228,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
                             heroes[1].setHealth(heroes[1].getMaxHealth());
                             heroes[2].setHealth(heroes[2].getMaxHealth());
 
-                            // Ab hier wird geprüft, ob neue Helden freigeschaltet wurden.
+                            // Ab hier wird geprueft, ob neue Helden freigeschaltet wurden.
                             LivingEntity[] types = Enterprise.getGame().getDataManager().get("game.heroes.types");
                             for(final LivingEntity entity : types) {
 

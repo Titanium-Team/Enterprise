@@ -27,7 +27,7 @@ public class DataContainers {
     }
 
     /**
-     * Gibt alle DataContainer zurück.
+     * Gibt alle DataContainer zurueck.
      * @return
      */
     public DataContainer[] values() {

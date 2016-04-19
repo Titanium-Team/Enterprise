@@ -39,7 +39,7 @@ public class AchievementContainer implements DataContainer {
 
         if(tableOptional.isPresent()) {
 
-            // Die Tabelle existiert, die Daten können geladen werden
+            // Die Tabelle existiert, die Daten koennen geladen werden
             Table table = tableOptional.get();
 
             for(DataSet dataSet : table.all()) {

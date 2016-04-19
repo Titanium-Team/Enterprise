@@ -43,7 +43,7 @@ public class HeroesView extends View {
     public HeroesView(MenuView viewMenu) {
         super(viewMenu);
 
-        // Die Suche benötigt einen sortieren Array
+        // Die Suche benoetigt einen sortieren Array
         this.sortedByName = this.types.clone();
         Arrays.sort(this.sortedByName, new Comparator<LivingEntity>() {
             @Override

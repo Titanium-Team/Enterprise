@@ -228,7 +228,7 @@ public class Enterprise {
     }
 
     /**
-     * Gibt den ViewManager der aktuellen Instanz zurück.
+     * Gibt den ViewManager der aktuellen Instanz zurueck.
      * @return
      */
     public ViewManager getViewManager() {
@@ -236,7 +236,7 @@ public class Enterprise {
     }
 
     /**
-     * Gibt die aktuelle GameView zurück.
+     * Gibt die aktuelle GameView zurueck.
      * @return
      */
     public GameView getGameView() {
@@ -244,7 +244,7 @@ public class Enterprise {
     }
 
     /**
-     * Gibt den atkuellen KeyManager zurück.
+     * Gibt den atkuellen KeyManager zurueck.
      * @return
      */
     public KeyManager getKeyManager() {
@@ -252,7 +252,7 @@ public class Enterprise {
     }
 
     /**
-     * Gibt den aktuellen DataManager zurück.
+     * Gibt den aktuellen DataManager zurueck.
      * @return
      */
     public DataManager getDataManager() {
@@ -260,7 +260,7 @@ public class Enterprise {
     }
 
     /**
-     * Gibt den aktuellen LoadingManager zurück.
+     * Gibt den aktuellen LoadingManager zurueck.
      * @return
      */
     public LoadingManager getLoadingManager() {
@@ -268,7 +268,7 @@ public class Enterprise {
     }
 
     /**
-     * Gibt den aktuellen TextBuilder zurück.
+     * Gibt den aktuellen TextBuilder zurueck.
      * @return
      */
     public TextBuilder getTextBuilder() {
@@ -276,7 +276,7 @@ public class Enterprise {
     }
 
     /**
-     * Gibt den aktuellen AchievementManager zurück.
+     * Gibt den aktuellen AchievementManager zurueck.
      * @return
      */
     public AchievementManager getAchievementManager() {
@@ -284,7 +284,7 @@ public class Enterprise {
     }
 
     /**
-     * Gibt den aktuellen EntityGenerator zurück.
+     * Gibt den aktuellen EntityGenerator zurueck.
      * @return
      */
     public EntityGenerator getEntityGenerator() {
@@ -292,7 +292,7 @@ public class Enterprise {
     }
 
     /**
-     * Gibt die aktuelle Datenbank zurück.
+     * Gibt die aktuelle Datenbank zurueck.
      * @return
      */
     public SweetDB getDatabase() {
@@ -300,7 +300,7 @@ public class Enterprise {
     }
 
     /**
-     * Gibt die aktullen DataContainers zurück.
+     * Gibt die aktullen DataContainers zurueck.
      * @return
      */
     public DataContainers getDataContainers() {

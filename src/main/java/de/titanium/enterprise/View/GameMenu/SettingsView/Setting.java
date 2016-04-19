@@ -11,7 +11,7 @@ public abstract class Setting<T> {
     }
 
     /**
-     * Gibt den Namen der Option zurück.
+     * Gibt den Namen der Option zurueck.
      * @return
      */
     public String getName() {
@@ -19,7 +19,7 @@ public abstract class Setting<T> {
     }
 
     /**
-     * Gibt einen Array mit allen möglichen Optionen zurück, die ausgewählt werden können.
+     * Gibt einen Array mit allen moeglichen Optionen zurueck, die ausgewaehlt werden koennen.
      * @return
      */
     public String[] getOptions() {
@@ -27,13 +27,13 @@ public abstract class Setting<T> {
     }
 
     /**
-     * Gibt eine Beschreibung für jede mögliche Option zurück.
+     * Gibt eine Beschreibung fuer jede moegliche Option zurueck.
      * @return
      */
     public abstract String[][] getDescription();
 
     /**
-     * Gibt den Index im Array von #getOptions an, der als standart Wert ausgewählt werden soll.
+     * Gibt den Index im Array von #getOptions an, der als standart Wert ausgewaehlt werden soll.
      * @return
      */
     public abstract int getDefaultSelected();
