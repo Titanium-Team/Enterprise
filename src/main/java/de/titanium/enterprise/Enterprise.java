@@ -1,5 +1,6 @@
 package de.titanium.enterprise;
 
+import com.github.zafarkhaja.semver.Version;
 import de.SweetCode.SweetDB.SweetDB;
 import de.titanium.enterprise.Achievment.Achievement;
 import de.titanium.enterprise.Achievment.AchievementManager;
@@ -56,7 +57,7 @@ public class Enterprise {
 
     private static Enterprise game;
 
-    public Enterprise(final String latestVersion, boolean updateAvailable) {
+    public Enterprise(final Version latestVersion, boolean updateAvailable) {
 
         Enterprise.game = this;
 
@@ -112,9 +113,10 @@ public class Enterprise {
 
         if(updateAvailable) {
             this.achievementManager.add(new Achievement() {
+
                 @Override
                 public String getName() {
-                    return String.format("Version %s ist da.", latestVersion);
+                    return String.format("Version %s ist da.", latestVersion.toString());
                 }
 
                 @Override
@@ -126,6 +128,7 @@ public class Enterprise {
                 public Texture getTexture() {
                     return Textures.ACHIEVEMENT_ICON_WOODS;
                 }
+
             }, true, true);
         }
 

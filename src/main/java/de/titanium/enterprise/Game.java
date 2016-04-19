@@ -1,5 +1,6 @@
 package de.titanium.enterprise;
 
+import com.github.zafarkhaja.semver.Version;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -16,7 +17,7 @@ public class Game {
     private static final Gson gson = new Gson();
     private static final File path = new File(System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "Enterprise-Game");
 
-    private static final String currentVersion = "v0.8";
+    private final static Version currentVersion = Version.valueOf(Game.class.getPackage().getImplementationVersion());
 
     public static void main(String[] args) throws IOException {
 
@@ -27,19 +28,34 @@ public class Game {
 
         // Die Daten von GitHub laden
         try {
+
             JsonObject githubData = Game.gson.fromJson(new String(IOUtils.toString(new URL("https://api.github.com/repos/Titanium-Team/Enterprise/releases/latest"), StandardCharsets.UTF_8)), JsonObject.class);
-            String latestVersion = githubData.get("tag_name").getAsString();
+
+            // Well, to support the Version library and to satisfy the latest semantic versioning standards we're going
+            // to fix these value to fit the requirements.
+            String latestVersionValue = githubData.get("tag_name").getAsString();
+            if(latestVersionValue.startsWith("v")) {
+
+                // If its starts with an 'v', than we know it's the old versioning pattern.
+
+                // Remove the 'v' in front of
+                latestVersionValue = latestVersionValue.substring(1);
+
+                // Append the required '.0' at the end
+                latestVersionValue += ".0";
+
+            }
+
+            Version latestVersion = Version.valueOf(latestVersionValue);
 
             boolean updateAvailable = false;
-            double installed = Double.valueOf(Game.currentVersion.substring(1, Game.currentVersion.length()));
-            double latest = Double.valueOf(latestVersion.substring(1, latestVersion.length()));
 
-            if (latest == installed) {
+            if (Game.currentVersion.equals(latestVersion)) {
                 Game.log(
-                        String.format("Du hast bereits die neuste Version %s.", Game.currentVersion),
+                        String.format("Du hast bereits die neuste Version %s.", Game.currentVersion.toString()),
                         "Viel Spaß beim Spielen."
                 );
-            } else if(latest > installed) {
+            } else if(latestVersion.greaterThan(Game.currentVersion)) {
 
                 updateAvailable = true;
 
@@ -53,7 +69,7 @@ public class Game {
                         String body = githubData.get("body").getAsString();
 
                         Game.log(
-                                String.format("Du hast aktuell die Version %s installiert, es steht aber bereits Version %s bereit.", Game.currentVersion, latestVersion),
+                                String.format("Du hast aktuell die Version %s installiert, es steht aber bereits Version %s bereit.", Game.currentVersion.toString(), latestVersion),
                                 "",
                                 "Die neue Version kannst du hier downloaden.",
                                 String.format("Link: %s", asset.get("browser_download_url").getAsString()),
@@ -70,7 +86,9 @@ public class Game {
                     }
 
                 } else {
-                    Game.log("GitHub scheint aktuell nicht die neuste Datei fuer Version " + latestVersion + " bereitzustellen.");
+                    Game.log(
+                            String.format("GitHub scheint aktuell nicht die neuste Datei fuer Version %s bereitzustellen.", latestVersion.toString())
+                    );
                 }
 
             } else {
@@ -99,6 +117,7 @@ public class Game {
         }
 
     }
+
     private static void log(String... lines) {
         System.out.println("-------------------[Enterprise]-----------------------");
         for(String line : lines) System.out.println(line);
