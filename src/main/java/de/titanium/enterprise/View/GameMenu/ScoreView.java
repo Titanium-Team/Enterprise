@@ -3,7 +3,7 @@ package de.titanium.enterprise.View.GameMenu;
 import de.titanium.enterprise.Data.BinarySearchTree;
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Sprite.Textures;
-import de.titanium.enterprise.TextBuilder;
+import de.titanium.enterprise.GameUtils.TextBuilder;
 import de.titanium.enterprise.View.MenuView;
 import de.titanium.enterprise.View.View;
 

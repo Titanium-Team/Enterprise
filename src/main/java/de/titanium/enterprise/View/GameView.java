@@ -12,7 +12,7 @@ public class GameView {
     public GameView() {
 
         this.frame = new JFrame();
-        this.frame.setTitle("Enterprise - The Game");
+        this.frame.setTitle("Enterprise - The GameUtils");
         this.frame.setUndecorated(true);
         this.frame.setPreferredSize(new Dimension(1280, 720));
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

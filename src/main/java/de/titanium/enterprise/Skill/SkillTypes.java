@@ -25,7 +25,7 @@ public enum SkillTypes {
     DEFENSE_EFFICIENCY_ACTIVE,
 
     /**
-     * DEFENSE_EFFICIENCY_PASSIVE Skills sind Skills, die den Score den man im Defense-Game erreicht um einen bestimmten
+     * DEFENSE_EFFICIENCY_PASSIVE Skills sind Skills, die den Score den man im Defense-GameUtils erreicht um einen bestimmten
      * relativen Wert (0 - 1) erhoehen.
      */
     DEFENSE_EFFICIENCY_PASSIVE,

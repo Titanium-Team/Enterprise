@@ -1,9 +1,10 @@
 package de.titanium.enterprise.GameUtils;
 
 import de.titanium.enterprise.Game;
-import de.titanium.enterprise.GameUtils.GameMode;
 import de.titanium.enterprise.Loading.Loadable;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
 import java.net.URL;
 
 /**
@@ -17,9 +18,11 @@ public class GameUpdate implements Loadable {
         this.latestVersion = latestVersion;
     }
 
+    private String name;
+
     @Override
     public String getName() {
-        return "Updating";
+        return this.name;
     }
 
     @Override
@@ -40,16 +43,21 @@ public class GameUpdate implements Loadable {
             return;
         }
 
-        DownloadThread downloadThread = new DownloadThread(this.latestVersion);
+        try {
 
-        while (!(downloadThread.isDone())) {
-            downloadThread.interrupt();
+            final File currentJar = new File(Game.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
+
+            this.name = "Downloading Update";
+            FileUtils.copyURLToFile(
+                    this.latestVersion,
+                    currentJar
+            );
+
+            System.exit(0);
+
+        } catch (Exception e) {
+            this.name = String.format("Updated failed - %s", e.getClass().getSimpleName());
         }
-
-        /*FileUtils.copyURLToFile(
-            this.latestVersion,
-            new File(Game.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath())
-        );*/
 
     }
 

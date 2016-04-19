@@ -66,11 +66,11 @@ public class DefaultMenu extends MenuView {
         g.drawImage(image, 0, 0, null, null);
 
         // draw torches
-        g.drawImage(this.torchOneAnimator.getFrame(), 46, 12, null);
+        g.drawImage(this.torchOneAnimator.getFrame(), 46, 10, null);
         g.drawImage(this.torchTwoAnimator.getFrame(), 309, 10, null);
-        g.drawImage(this.torchThreeAnimator.getFrame(), 584, 11, null);
-        g.drawImage(this.torchFourAnimator.getFrame(), 876, 12, null);
-        g.drawImage(this.torchFiveAnimator.getFrame(), 1176, 12, null);
+        g.drawImage(this.torchThreeAnimator.getFrame(), 584, 10, null);
+        g.drawImage(this.torchFourAnimator.getFrame(), 876, 10, null);
+        g.drawImage(this.torchFiveAnimator.getFrame(), 1176, 10, null);
 
         // Damit der Held je nach Abstand zu den Fackeln "dunkler" bzw. "heller" wird, wird der Abstand zwischen der
         // aktuellen Position mit der Postion des Spielers verrechnet, damit man bis zur halben Strecke das Bild um

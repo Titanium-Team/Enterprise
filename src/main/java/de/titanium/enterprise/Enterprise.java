@@ -8,6 +8,7 @@ import de.titanium.enterprise.Achievment.Achievements;
 import de.titanium.enterprise.Data.DataContainer.*;
 import de.titanium.enterprise.Data.DataManager;
 import de.titanium.enterprise.Entity.EntityGenerator;
+import de.titanium.enterprise.GameUtils.*;
 import de.titanium.enterprise.Loading.LoadingManager;
 import de.titanium.enterprise.Sprite.Animation.Animations;
 import de.titanium.enterprise.Sprite.Texture;
@@ -26,8 +27,8 @@ import de.titanium.enterprise.View.StoryView.StoryView;
 import de.titanium.enterprise.View.ViewManager;
 
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 import java.util.List;
 import java.util.logging.Logger;
@@ -57,15 +58,13 @@ public class Enterprise {
 
     private static Enterprise game;
 
-    public Enterprise(final Version latestVersion, boolean updateAvailable) {
+    public Enterprise(final Version latestVersion, boolean updateAvailable, URL latestJar) {
 
         Enterprise.game = this;
 
 
         // Datenbank
-        File path = new File(System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "Enterprise-Game");
-
-        this.database = new SweetDB(path.getAbsolutePath(), "entityTypes", "achievements", "settings", "highscores");
+        this.database = new SweetDB(Game.getGameFolder().getAbsolutePath(), "entityTypes", "achievements", "settings", "highscores");
         this.database.debugging(true);
         try {
             this.database.load();
@@ -73,7 +72,7 @@ public class Enterprise {
             e.printStackTrace();
         }
 
-        //Game State
+        //GameUtils State
         this.dataManager.set("game.state", GameState.POSTING);
 
         //Adding loading screen
@@ -88,6 +87,7 @@ public class Enterprise {
 
         //managing loading
         this.dataManager.set("game.state", GameState.LOADING);
+        this.loadingManager.add(new GameUpdate(latestJar));
         this.loadingManager.add(this.dataContainers.values());
         this.loadingManager.add(Textures.values());
         this.loadingManager.add(Animations.values());
@@ -165,14 +165,14 @@ public class Enterprise {
     }
 
     /**
-     * Diese Methode startet den Game-Loop.
+     * Diese Methode startet den GameUtils-Loop.
      *
      * Der Loop ist aktuell auf 50 Ticks/Sekunde festgesetzt, es sollten also immer 50 Ticks ausgefuehrt werden.
      *
      */
     public void start() {
 
-        // Den Game-Loop starten
+        // Den GameUtils-Loop starten
         int CURRENT_TICK = 1;
         this.dataManager.set("game.state", GameState.WAITING);
 

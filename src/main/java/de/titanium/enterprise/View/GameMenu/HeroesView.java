@@ -7,7 +7,7 @@ import de.titanium.enterprise.Entity.Entities.Warrior;
 import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.Sprite.Texture;
 import de.titanium.enterprise.Sprite.Textures;
-import de.titanium.enterprise.TextBuilder;
+import de.titanium.enterprise.GameUtils.TextBuilder;
 import de.titanium.enterprise.View.MenuView;
 import de.titanium.enterprise.View.SkillView.SkillView;
 import de.titanium.enterprise.View.View;

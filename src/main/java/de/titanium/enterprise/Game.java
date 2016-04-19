@@ -4,6 +4,7 @@ import com.github.zafarkhaja.semver.Version;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import de.titanium.enterprise.GameUtils.GameMode;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -15,14 +16,15 @@ import java.nio.charset.StandardCharsets;
 public class Game {
 
     private static final Gson gson = new Gson();
-    private static final File path = new File(System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "Enterprise-Game");
+    private static final File path = new File(System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "Enterprise-GameUtils");
 
     private final static Version installedVersion = Version.valueOf(Game.class.getPackage().getImplementationVersion());
     private static Version latestVersion;
+    private static GameMode gameMode = GameMode.ONLINE;
 
     public static void main(String[] args) {
 
-        // The path to the Game-Data-Folder
+        // The path to the GameUtils-Data-Folder
         if(!(Game.path.exists())) {
             Game.path.mkdirs();
         }
@@ -50,6 +52,8 @@ public class Game {
             Game.latestVersion = Version.valueOf(latestVersionValue);
 
             boolean updateAvailable = false;
+            String latestJar = null;
+            int downloadSize = 0;
 
             if (Game.getInstalledVersion().equals(Game.getLatestVersion())) {
                 Game.log(
@@ -68,25 +72,31 @@ public class Game {
                     if(asset.get("content_type").getAsString().equalsIgnoreCase("application/java-archive")) {
 
                         String body = githubData.get("body").getAsString();
+                        latestJar = asset.get("browser_download_url").getAsString();
+                        downloadSize = asset.get("size").getAsInt();
 
                         Game.log(
                                 String.format("Your game is outdated. You're using %s please upgrade your game to %s.", Game.getInstalledVersion().toString(), Game.getLatestVersion().toString()),
                                 "",
                                 "You can download the latest version here:",
-                                String.format("Link: %s", asset.get("browser_download_url").getAsString()),
-                                String.format("File-Size: %s", FileUtils.byteCountToDisplaySize(asset.get("size").getAsInt())),
+                                String.format("Link: %s", latestJar),
+                                String.format("File-Size: %s", FileUtils.byteCountToDisplaySize(downloadSize)),
                                 String.format("Downloads: %d", asset.get("download_count").getAsInt()),
                                 "",
                                 "Change-Log: ",
                                 body
                         );
                     } else {
+                        Game.gameMode = GameMode.OFFLINE;
+
                         Game.log(
                                 "GitHub provides a file with an invalid file type. Please wait until we fixed this issue."
                         );
                     }
 
                 } else {
+                    Game.gameMode = GameMode.OFFLINE;
+
                     Game.log(
                             String.format("GitHub seems to provide no new file for the latest version %s", Game.getLatestVersion().toString())
                     );
@@ -95,22 +105,26 @@ public class Game {
             } else {
 
                 Game.log(
-                        "This is a alpha-built."
+                        "This is an alpha-built."
                 );
 
             }
 
             // Das Spiel an sich starten
-            new Enterprise(Game.getLatestVersion(), updateAvailable);
+            new Enterprise(Game.getLatestVersion(), updateAvailable, (latestJar == null ? null : new URL(latestJar)));
         } catch (IOException exception) {
 
+            Game.gameMode = GameMode.OFFLINE;
             Game.log(
                     String.format("We weren't able to check for a new version. You are using version %s.", Game.getInstalledVersion().toString()),
                     "",
                     "This error can occur when you aren't connected to the internet or the GitHub API is not available. We will start",
-                    "the game in a offline-mode."
+                    "the game in an offline-mode.",
+                    "",
+                    String.format("Exception: %s", exception.getClass().getSimpleName()),
+                    exception.getMessage()
             );
-            new Enterprise(Game.getInstalledVersion(), false);
+            new Enterprise(Game.getInstalledVersion(), false, null);
 
         }
 
@@ -122,6 +136,18 @@ public class Game {
 
     public static Version getLatestVersion() {
         return Game.latestVersion;
+    }
+
+    public static boolean isUpdateAvailable() {
+        return Game.getLatestVersion().greaterThan(Game.getInstalledVersion());
+    }
+
+    public static GameMode getGameMode() {
+        return Game.gameMode;
+    }
+
+    public static File getGameFolder() {
+        return Game.path;
     }
 
     private static void log(String... lines) {

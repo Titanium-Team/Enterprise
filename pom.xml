@@ -9,7 +9,7 @@
 
     <!--- output to jar format -->
     <packaging>jar</packaging>
-    <version>0.9.0</version>
+    <version>0.9.1</version>
     <name>Enterprise</name>
     <url>https://github.com/Titanium-Team/Enterprise</url>
 

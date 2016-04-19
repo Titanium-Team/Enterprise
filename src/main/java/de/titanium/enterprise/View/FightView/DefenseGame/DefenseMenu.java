@@ -9,7 +9,7 @@ import de.titanium.enterprise.Entity.Entities.Rogue;
 import de.titanium.enterprise.Entity.Entities.Warrior;
 import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.Entity.Statistic.Statistics;
-import de.titanium.enterprise.GameComponent;
+import de.titanium.enterprise.GameUtils.GameComponent;
 import de.titanium.enterprise.Sprite.Animation.Animations;
 import de.titanium.enterprise.Sprite.Texture;
 import de.titanium.enterprise.Sprite.Textures;
@@ -256,7 +256,7 @@ public class DefenseMenu extends MenuView implements GameComponent {
 
                             }
 
-                            // @Idea: Falls das nicht der Fall ist, dann wird der Game-End-Screen angezeigt.
+                            // @Idea: Falls das nicht der Fall ist, dann wird der GameUtils-End-Screen angezeigt.
                             // Aktuell wird man einfach noch ins Hauptmenue zurueckgebracht.
                             Enterprise.getGame().getViewManager().switchView(GameMenuView.class);
                         }

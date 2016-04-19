@@ -5,7 +5,7 @@ import de.titanium.enterprise.Data.DataManager;
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.Entity.Statistic.Statistics;
-import de.titanium.enterprise.GameComponent;
+import de.titanium.enterprise.GameUtils.GameComponent;
 import de.titanium.enterprise.Sprite.Animation.Animations;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.FightView.DefenseGame.DefenseMenu;
@@ -416,7 +416,7 @@ public class FightMenu extends MenuView implements GameComponent {
                 // Nun den max-Damage-Hero noch global in den DataManager packe.
                 Enterprise.getGame().getDataManager().set("game.fight.maxDamage", max);
 
-                // Switch to Defense Game
+                // Switch to Defense GameUtils
                 Enterprise.getGame().getViewManager().switchMenu(FightView.class, new DefenseMenu());
 
             }

@@ -5,19 +5,19 @@ import de.titanium.enterprise.Sprite.Texture;
 public interface Achievement {
 
     /**
-     * Gibt den Namen des Achievements zurueck, damit dieser dem Nutzer angezeigt werden kann.
+     * Returns the name of the achievement.
      * @return
      */
     String getName();
 
     /**
-     * Gibt die Beschreibung des Achievements zurueck.
+     * Returns the description of the achievement.
      * @return
      */
     String getDescription();
 
     /**
-     * Gibt die Texture zurueck die eingeblendet werden soll, wenn das Achievement freigeschaltet wird.
+     * Returns the related texture.
      * @return
      */
     Texture getTexture();

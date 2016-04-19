@@ -34,7 +34,7 @@ public enum Textures implements Texture {
 
         @Override
         public String getName() {
-            return "Defense-Game Background Texture";
+            return "Defense-GameUtils Background Texture";
         }
 
         @Override
@@ -1136,7 +1136,7 @@ public enum Textures implements Texture {
 
         @Override
         public String getName() {
-            return "Achievement Icon - Game Menu";
+            return "Achievement Icon - GameUtils Menu";
         }
 
         @Override

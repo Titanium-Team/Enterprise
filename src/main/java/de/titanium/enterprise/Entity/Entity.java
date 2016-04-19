@@ -1,6 +1,6 @@
 package de.titanium.enterprise.Entity;
 
-import de.titanium.enterprise.GameComponent;
+import de.titanium.enterprise.GameUtils.GameComponent;
 
 import java.util.UUID;
 

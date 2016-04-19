@@ -1,7 +1,7 @@
 package de.titanium.enterprise.Achievment;
 
 import de.titanium.enterprise.Enterprise;
-import de.titanium.enterprise.GameComponent;
+import de.titanium.enterprise.GameUtils.GameComponent;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -21,7 +21,9 @@ public class AchievementGraphic implements GameComponent {
     }
 
     /**
-     * Diese Methode zeichnet die Achievement-Notification an der richtigen Stelle.
+     * This method handles the rendering of the achievements.
+     *
+     * Add this method to all views to make sure that the Achievement will be displayed in all views.
      * @param g
      */
     public void draw(Graphics2D g) {
@@ -57,8 +59,7 @@ public class AchievementGraphic implements GameComponent {
     }
 
     /**
-     * Diese Methode prueft, ob die Einblendung fertig ist. Das bedeutet die Texture wurde eingeblendet und dann wieder
-     * ausgeblendet.
+     * This method checks if the AchievementGraphic is done. - This is the case when the texture appeared and disappeared.
      * @return
      */
     public boolean isDone() {
@@ -94,8 +95,7 @@ public class AchievementGraphic implements GameComponent {
     }
 
     /**
-     * Diese Methode erstellt das Image das dem Spieler angezeigt wird. Dabei wurde dies in diese Methode ausgelagert,
-     * damit der Constructor "sauberer" bleibt.
+     * This method creates the achievement image.
      * @param achievement
      */
     private void createAchievementImage(Achievement achievement) {
