@@ -1,5 +1,6 @@
-package de.titanium.enterprise;
+package de.titanium.enterprise.GameUtils;
 
+import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Sprite.Texture;
 import de.titanium.enterprise.Sprite.Textures;
 

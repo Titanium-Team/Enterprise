@@ -1,14 +1,14 @@
-package de.titanium.enterprise;
+package de.titanium.enterprise.GameUtils;
 
 public enum GameState {
 
     /**
-     * Wenn die aktuellen Rendering-Calls ausgefuehrt werden, im Game-Loop.
+     * Wenn die aktuellen Rendering-Calls ausgefuehrt werden, im GameUtils-Loop.
      */
     RENDER,
 
     /**
-     * Wenn die Update-Calls ausgefuehrt werden, im Game-Loop.
+     * Wenn die Update-Calls ausgefuehrt werden, im GameUtils-Loop.
      */
     UPDATE,
 
@@ -23,7 +23,7 @@ public enum GameState {
     LOADING,
 
     /**
-     * Wenn zwischen den Ticks im Game-Loop gewartet wird.
+     * Wenn zwischen den Ticks im GameUtils-Loop gewartet wird.
      */
     WAITING
 

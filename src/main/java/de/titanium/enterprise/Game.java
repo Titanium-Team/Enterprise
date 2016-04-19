@@ -17,18 +17,19 @@ public class Game {
     private static final Gson gson = new Gson();
     private static final File path = new File(System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "Enterprise-Game");
 
-    private final static Version currentVersion = Version.valueOf(Game.class.getPackage().getImplementationVersion());
+    private final static Version installedVersion = Version.valueOf(Game.class.getPackage().getImplementationVersion());
+    private static Version latestVersion;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
-        // Der allgemeine Pfad zu den Spieledatein
+        // The path to the Game-Data-Folder
         if(!(Game.path.exists())) {
             Game.path.mkdirs();
         }
 
-        // Die Daten von GitHub laden
         try {
 
+            // Load the stuff from GitHub
             JsonObject githubData = Game.gson.fromJson(new String(IOUtils.toString(new URL("https://api.github.com/repos/Titanium-Team/Enterprise/releases/latest"), StandardCharsets.UTF_8)), JsonObject.class);
 
             // Well, to support the Version library and to satisfy the latest semantic versioning standards we're going
@@ -46,16 +47,16 @@ public class Game {
 
             }
 
-            Version latestVersion = Version.valueOf(latestVersionValue);
+            Game.latestVersion = Version.valueOf(latestVersionValue);
 
             boolean updateAvailable = false;
 
-            if (Game.currentVersion.equals(latestVersion)) {
+            if (Game.getInstalledVersion().equals(Game.getLatestVersion())) {
                 Game.log(
-                        String.format("Du hast bereits die neuste Version %s.", Game.currentVersion.toString()),
-                        "Viel Spass beim Spielen."
+                        String.format("You already have the latest version %s.", Game.getInstalledVersion().toString()),
+                        "Enjoy the game."
                 );
-            } else if(latestVersion.greaterThan(Game.currentVersion)) {
+            } else if(Game.getLatestVersion().greaterThan(Game.getInstalledVersion())) {
 
                 updateAvailable = true;
 
@@ -69,9 +70,9 @@ public class Game {
                         String body = githubData.get("body").getAsString();
 
                         Game.log(
-                                String.format("Du hast aktuell die Version %s installiert, es steht aber bereits Version %s bereit.", Game.currentVersion.toString(), latestVersion),
+                                String.format("Your game is outdated. You're using %s please upgrade your game to %s.", Game.getInstalledVersion().toString(), Game.getLatestVersion().toString()),
                                 "",
-                                "Die neue Version kannst du hier downloaden.",
+                                "You can download the latest version here:",
                                 String.format("Link: %s", asset.get("browser_download_url").getAsString()),
                                 String.format("File-Size: %s", FileUtils.byteCountToDisplaySize(asset.get("size").getAsInt())),
                                 String.format("Downloads: %d", asset.get("download_count").getAsInt()),
@@ -81,41 +82,46 @@ public class Game {
                         );
                     } else {
                         Game.log(
-                                "GitHub stellt aktuell ein Update mit einem falschen Format zur verfuegung. Bitte gedulte dich. Der Fehler sollte bald verbessert werden."
+                                "GitHub provides a file with an invalid file type. Please wait until we fixed this issue."
                         );
                     }
 
                 } else {
                     Game.log(
-                            String.format("GitHub scheint aktuell nicht die neuste Datei fuer Version %s bereitzustellen.", latestVersion.toString())
+                            String.format("GitHub seems to provide no new file for the latest version %s", Game.getLatestVersion().toString())
                     );
                 }
 
             } else {
 
                 Game.log(
-                        "Du scheinst eine unveroeffentlichte Version des Spiels zu benutzen. Solltest du Fehler o.ae. im",
-                        "Spiel finden, dann wuerden wir uns ueber einen Hinweis freuen."
+                        "This is a alpha-built."
                 );
 
             }
 
             // Das Spiel an sich starten
-            new Enterprise(latestVersion, updateAvailable);
+            new Enterprise(Game.getLatestVersion(), updateAvailable);
         } catch (IOException exception) {
 
             Game.log(
-                    "Bei der Abfrage nach einer neuen Version ist ein Fehler aufgetreten.",
-                    String.format("Sie verwenden aktuell die Version: %s.", Game.currentVersion),
+                    String.format("We weren't able to check for a new version. You are using version %s.", Game.getInstalledVersion().toString()),
                     "",
-                    "Dieser Fehler kann auftreten, wenn GitHub nicht erreichbar ist oder weil du aktuell nicht mit dem",
-                    "Internet verbunden bist, sobald es wieder eine Verbindung gibt, werden wir pruefen, ob eine neue",
-                    "Version des Spiel bereit steht und dich dann benachrichtigen."
+                    "This error can occur when you aren't connected to the internet or the GitHub API is not available. We will start",
+                    "the game in a offline-mode."
             );
-            new Enterprise(Game.currentVersion, false);
+            new Enterprise(Game.getInstalledVersion(), false);
 
         }
 
+    }
+
+    public static Version getInstalledVersion() {
+        return Game.installedVersion;
+    }
+
+    public static Version getLatestVersion() {
+        return Game.latestVersion;
     }
 
     private static void log(String... lines) {
