@@ -7,6 +7,8 @@ import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Entity.Entities.Archer;
 import de.titanium.enterprise.Entity.Entities.Rogue;
 import de.titanium.enterprise.Entity.Entities.Warrior;
+import de.titanium.enterprise.Game;
+import de.titanium.enterprise.GameUtils.GameMode;
 import de.titanium.enterprise.Skill.Skill;
 import de.titanium.enterprise.Skill.Skills;
 
@@ -87,7 +89,10 @@ public class EntityGenerator {
 
         }
 
-        Enterprise.getGame().getLogger().info(entity.toString());
+        if(Game.getGameMode() == GameMode.DEVELOPMENT) {
+            Enterprise.getGame().getLogger().info(entity.toString());
+        }
+
         return entity;
 
     }

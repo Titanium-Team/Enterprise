@@ -21,6 +21,8 @@ public class LoadingView extends View {
         this.timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
+                Thread.currentThread().setName("Loading Task");
+
                 count++;
                 if(count == 10) {
                     if (value.length() > 2) {

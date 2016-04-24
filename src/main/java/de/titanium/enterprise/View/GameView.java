@@ -24,7 +24,6 @@ public class GameView {
         this.frame.pack();
         this.frame.setLocationRelativeTo(null);
         this.frame.setVisible(true);
-
     }
 
     public JFrame getFrame() {

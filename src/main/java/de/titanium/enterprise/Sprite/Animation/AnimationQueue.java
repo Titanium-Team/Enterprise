@@ -7,11 +7,12 @@ public class AnimationQueue {
 
     private final Queue<Animator> animators = new LinkedTransferQueue<>();
 
+    private Animator defaultAnimator = null;
     private Animator current = null;
-    private final Animation defaultAnimation;
 
     public AnimationQueue(Animation defaultAnimation) {
-        this.defaultAnimation = defaultAnimation;
+        this.current = defaultAnimation.createAnimator();
+        this.defaultAnimator = this.current;
     }
 
     /**
@@ -20,8 +21,7 @@ public class AnimationQueue {
      */
     public void add(Animation animation) {
 
-        Animator animator = animation.createAnimator();
-        this.animators.offer(animator);
+        this.animators.offer(animation.createAnimator());
 
     }
 
@@ -35,11 +35,10 @@ public class AnimationQueue {
      */
     public Animator element() {
 
-        if (this.current == null) {
-            this.current = this.defaultAnimation.createAnimator();
-        } else if (this.current.getIndex() + 1 == this.current.getAmount()) {
+        if (this.current.getIndex() + 1 == this.current.getAmount()) {
             if (this.animators.isEmpty()) {
-                this.current = this.defaultAnimation.createAnimator();
+                this.current = this.defaultAnimator;
+                this.current.setIndex(0);
             } else {
                 this.current = this.animators.element();
             }
@@ -55,12 +54,12 @@ public class AnimationQueue {
      * @return
      */
     public Animation getDefaultAnimation() {
-        return this.defaultAnimation;
+        return this.defaultAnimator.getType();
     }
 
     @Override
     public String toString() {
-        return String.format("{animators: %s, current: %s, defaultAnimation: %s}", this.animators, this.current, this.defaultAnimation);
+        return String.format("{animators: %s, current: %s, defaultAnimation: %s}", this.animators, this.current, this.defaultAnimator.getType());
     }
 
 }

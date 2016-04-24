@@ -18,7 +18,7 @@ public class Game {
     private static final Gson gson = new Gson();
     private static final File path = new File(System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "Enterprise-GameUtils");
 
-    private final static Version installedVersion = Version.valueOf(Game.class.getPackage().getImplementationVersion());
+    private final static Version installedVersion = Version.valueOf(Game.class.getPackage().getImplementationVersion() == null ? "4.2.0" : Game.class.getPackage().getImplementationVersion());
     private static Version latestVersion;
     private static GameMode gameMode = GameMode.ONLINE;
 
@@ -53,7 +53,6 @@ public class Game {
 
             boolean updateAvailable = false;
             String latestJar = null;
-            int downloadSize = 0;
 
             if (Game.getInstalledVersion().equals(Game.getLatestVersion())) {
                 Game.log(
@@ -73,14 +72,13 @@ public class Game {
 
                         String body = githubData.get("body").getAsString();
                         latestJar = asset.get("browser_download_url").getAsString();
-                        downloadSize = asset.get("size").getAsInt();
 
                         Game.log(
                                 String.format("Your game is outdated. You're using %s please upgrade your game to %s.", Game.getInstalledVersion().toString(), Game.getLatestVersion().toString()),
                                 "",
                                 "You can download the latest version here:",
                                 String.format("Link: %s", latestJar),
-                                String.format("File-Size: %s", FileUtils.byteCountToDisplaySize(downloadSize)),
+                                String.format("File-Size: %s", FileUtils.byteCountToDisplaySize(asset.get("size").getAsInt())),
                                 String.format("Downloads: %d", asset.get("download_count").getAsInt()),
                                 "",
                                 "Change-Log: ",
@@ -104,6 +102,7 @@ public class Game {
 
             } else {
 
+                Game.gameMode = GameMode.DEVELOPMENT;
                 Game.log(
                         "This is an alpha-built."
                 );

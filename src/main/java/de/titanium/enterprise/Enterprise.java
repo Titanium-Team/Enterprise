@@ -25,17 +25,18 @@ import de.titanium.enterprise.View.LoadingView.LoadingView;
 import de.titanium.enterprise.View.SkillView.SkillView;
 import de.titanium.enterprise.View.StoryView.StoryView;
 import de.titanium.enterprise.View.ViewManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class Enterprise {
 
-    private final Logger logger = Logger.getLogger("Enterprise");
+    private final Logger logger = LoggerFactory.getILoggerFactory().getLogger("Enterprise");
 
     private List<GameComponent> gameComponents = new ArrayList<>();
     private final Map<RenderingHints.Key, Object> renderingHints = new HashMap<>();
@@ -60,8 +61,8 @@ public class Enterprise {
 
     public Enterprise(final Version latestVersion, boolean updateAvailable, URL latestJar) {
 
+        Thread.currentThread().setName("Enterprise");
         Enterprise.game = this;
-
 
         // Datenbank
         this.database = new SweetDB(Game.getGameFolder().getAbsolutePath(), "entityTypes", "achievements", "settings", "highscores");
@@ -197,7 +198,6 @@ public class Enterprise {
             if (CURRENT_TICK > MAX_TICKS) {
                 CURRENT_TICK = 1;
             }
-
 
             Iterator<GameComponent> renderComponents = this.gameComponents.iterator();
 

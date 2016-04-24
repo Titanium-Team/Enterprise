@@ -5,7 +5,9 @@ import de.titanium.enterprise.Data.DataManager;
 import de.titanium.enterprise.Enterprise;
 import de.titanium.enterprise.Entity.LivingEntity;
 import de.titanium.enterprise.Entity.Statistic.Statistics;
+import de.titanium.enterprise.Game;
 import de.titanium.enterprise.GameUtils.GameComponent;
+import de.titanium.enterprise.GameUtils.GameMode;
 import de.titanium.enterprise.Sprite.Animation.Animations;
 import de.titanium.enterprise.Sprite.Textures;
 import de.titanium.enterprise.View.FightView.DefenseGame.DefenseMenu;
@@ -337,18 +339,23 @@ public class FightMenu extends MenuView implements GameComponent {
                 double enemyDefense = enemy.calculateDefense(max, this.random.nextInt(900 + 300 * level) + 197);
                 double totalDamage = (damageOne + damageTwo + damageThree);
 
-                Enterprise.getGame().getLogger().info(this.heroes[0].getName() + " -> " + damageOne + " -> Keys: " + this.comboOne);
-                Enterprise.getGame().getLogger().info(this.heroes[1].getName() + " -> " + damageTwo + " -> Keys: " + this.comboTwo);
-                Enterprise.getGame().getLogger().info(this.heroes[2].getName() + " -> " + damageThree + " -> Keys: " + this.comboThree);
+                if(Game.getGameMode() == GameMode.DEVELOPMENT) {
+                    Enterprise.getGame().getLogger().info(this.heroes[0].getName() + " -> " + damageOne + " -> Keys: " + this.comboOne);
+                    Enterprise.getGame().getLogger().info(this.heroes[1].getName() + " -> " + damageTwo + " -> Keys: " + this.comboTwo);
+                    Enterprise.getGame().getLogger().info(this.heroes[2].getName() + " -> " + damageThree + " -> Keys: " + this.comboThree);
 
-                Enterprise.getGame().getLogger().info("Total Damage -> " + totalDamage + " Enemy Defense Score -> " + enemyDefense);
+                    Enterprise.getGame().getLogger().info("Total Damage -> " + totalDamage + " Enemy Defense Score -> " + enemyDefense);
+                }
+
                 totalDamage -= enemyDefense;
 
                 // Es muss sichergestellt werden das der Wert immer x >= 0 ist,
                 // da sonst der gegener, bei einem negativen Wert, Leben hinzubekommen wuerde.
                 totalDamage = Math.max(totalDamage, 0);
 
-                Enterprise.getGame().getLogger().info("Final Damage -> " + totalDamage);
+                if(Game.getGameMode() == GameMode.DEVELOPMENT) {
+                    Enterprise.getGame().getLogger().info("Final Damage -> " + totalDamage);
+                }
 
                 enemy.setHealth(
                         enemy.getHealth() - totalDamage
@@ -407,7 +414,9 @@ public class FightMenu extends MenuView implements GameComponent {
                             Enterprise.getGame().getDataManager().<Integer>get("game.run.level")
                     ));
 
-                    Enterprise.getGame().getLogger().info("Current Level: " + Enterprise.getGame().getDataManager().<Integer>get("game.run.level"));
+                    if(Game.getGameMode() == GameMode.DEVELOPMENT) {
+                        Enterprise.getGame().getLogger().info("Current Level: " + Enterprise.getGame().getDataManager().<Integer>get("game.run.level"));
+                    }
 
                     enemy.getAnimationQueue().add(Animations.RANGER_DIE);
 

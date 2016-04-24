@@ -1497,6 +1497,7 @@ public enum Textures implements Texture {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
